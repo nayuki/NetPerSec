@@ -9,8 +9,7 @@
 #include "ColorDlg.h"
 
 // CDisplayDlg dialog
-class CDisplayDlg : public CPropertyPage
-{
+class CDisplayDlg : public CPropertyPage {
 	DECLARE_DYNCREATE(CDisplayDlg)
 	
 // Construction

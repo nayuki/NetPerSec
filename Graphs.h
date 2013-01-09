@@ -2,8 +2,7 @@
 #define __GRAPHS_H__
 
 // CGraphs window
-class CGraphs : public CWnd
-{
+class CGraphs : public CWnd {
 // Construction
 public:
 	CGraphs();

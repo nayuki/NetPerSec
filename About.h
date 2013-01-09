@@ -7,8 +7,7 @@
 // About.h : header file
 
 // CAboutPage dialog
-class CAboutPage : public CPropertyPage
-{
+class CAboutPage : public CPropertyPage {
 	DECLARE_DYNCREATE(CAboutPage)
 	
 // Construction

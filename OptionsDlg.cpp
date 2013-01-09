@@ -35,19 +35,16 @@ UINT SampleRates[]={
 
 IMPLEMENT_DYNCREATE(COptionsDlg, CPropertyPage)
 
-COptionsDlg::COptionsDlg() : CPropertyPage(COptionsDlg::IDD)
-{
+COptionsDlg::COptionsDlg() : CPropertyPage(COptionsDlg::IDD) {
 	//{{AFX_DATA_INIT(COptionsDlg)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
-COptionsDlg::~COptionsDlg()
-{
+COptionsDlg::~COptionsDlg() {
 }
 
-void COptionsDlg::DoDataExchange(CDataExchange* pDX)
-{
+void COptionsDlg::DoDataExchange(CDataExchange* pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(COptionsDlg)
 	DDX_Control(pDX, IDC_INTERFACES, m_Interfaces);
@@ -67,8 +64,7 @@ END_MESSAGE_MAP()
 
 // COptionsDlg message handlers
 
-BOOL COptionsDlg::OnInitDialog()
-{
+BOOL COptionsDlg::OnInitDialog() {
 	CPropertyPage::OnInitDialog();
 	
 	CSliderCtrl* pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER);
@@ -89,8 +85,7 @@ BOOL COptionsDlg::OnInitDialog()
 	pWindowSlider->SetLineSize(1);
 	
 	int nPos = 0;
-	for (int i = 0; i < ELEMENTS(SampleRates); i++)
-	{
+	for (int i = 0; i < ELEMENTS(SampleRates); i++) {
 		if ((UINT)g_nSampleRate >= SampleRates[i])
 			nPos = i;
 	}
@@ -117,8 +112,7 @@ BOOL COptionsDlg::OnInitDialog()
 
 
 
-void COptionsDlg::UpdateAveragingWindow()
-{
+void COptionsDlg::UpdateAveragingWindow() {
 	CString s;
 	CSliderCtrl* pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	
@@ -137,8 +131,7 @@ void COptionsDlg::UpdateAveragingWindow()
 
 
 
-void COptionsDlg::UpdateDlg()
-{
+void COptionsDlg::UpdateDlg() {
 	CString s;
 	
 	UpdateAveragingWindow();
@@ -163,16 +156,13 @@ void COptionsDlg::UpdateDlg()
 }
 
 
-void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
-{
+void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
 	int nControl = pScrollBar->GetDlgCtrlID();
 	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT(pCtrl != NULL);
 	
-	switch (nControl)
-	{
-		case IDC_SAMPLE_SLIDER:
-		{
+	switch (nControl) {
+		case IDC_SAMPLE_SLIDER: {
 			int nPos = pCtrl->GetPos();
 			nPos = min(nPos, ELEMENTS(SampleRates));
 			
@@ -190,15 +180,13 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 }
 
 
-void COptionsDlg::OnUseSnmp()
-{
+void COptionsDlg::OnUseSnmp() {
 	g_MonitorMode = MONITOR_ALL;
 	
 	if (IsDlgButtonChecked(IDC_USE_DUN))
 		g_MonitorMode = MONITOR_DUN;
 	
-	if (IsDlgButtonChecked(IDC_MONITOR_ADAPTER))
-	{
+	if (IsDlgButtonChecked(IDC_MONITOR_ADAPTER)) {
 		g_MonitorMode = MONITOR_ADAPTER;
 		g_dwAdapter = m_Interfaces.GetItemData(m_Interfaces.GetCurSel());
 	}
@@ -216,17 +204,14 @@ void COptionsDlg::OnUseSnmp()
 	pTheApp->m_wnd.m_dbTotalBytesSent = 0;
 }
 
-void COptionsDlg::OnUseDun()
-{
+void COptionsDlg::OnUseDun() {
 	OnUseSnmp();
 }
 
-BOOL COptionsDlg::OnSetActive()
-{
+BOOL COptionsDlg::OnSetActive() {
 	CSnmp* pSnmp = &pTheApp->m_wnd.snmp;
 	
-	if (pSnmp)
-	{
+	if (pSnmp) {
 		CStringArray s;
 		CUIntArray  nAdapterArray;
 		pSnmp->GetInterfaceDescriptions(&s, &nAdapterArray);
@@ -234,11 +219,9 @@ BOOL COptionsDlg::OnSetActive()
 		
 		int active = 0;
 		
-		for (int i = 0; i <= s.GetUpperBound(); i++)
-		{
+		for (int i = 0; i <= s.GetUpperBound(); i++) {
 			int index = m_Interfaces.AddString(s.GetAt(i));
-			if (index != CB_ERR)
-			{
+			if (index != CB_ERR) {
 				m_Interfaces.SetItemData(index, nAdapterArray.GetAt(i));
 				if (nAdapterArray.GetAt(i) == g_dwAdapter)
 					active = i;
@@ -249,12 +232,10 @@ BOOL COptionsDlg::OnSetActive()
 	return CPropertyPage::OnSetActive();
 }
 
-void COptionsDlg::OnMonitorAdapter()
-{
+void COptionsDlg::OnMonitorAdapter() {
 	OnUseSnmp();
 }
 
-void COptionsDlg::OnSelchangeInterfaces()
-{
+void COptionsDlg::OnSelchangeInterfaces() {
 	OnUseSnmp();
 }

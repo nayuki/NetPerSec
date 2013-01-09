@@ -30,8 +30,7 @@ COLORREF g_ColorIconBack;
 ICON_STYLE g_IconStyle;
 MONITOR_MODE g_MonitorMode;
 
-COLORREF IconColors[MAX_ICON_COLORS] =
-{
+COLORREF IconColors[MAX_ICON_COLORS] = {
 	RGB(0xFF, 0x00, 0x00),
 	RGB(0x00, 0xFF, 0x00),
 	RGB(0xFF, 0xFF, 0x00),
@@ -51,21 +50,18 @@ COLORREF IconColors[MAX_ICON_COLORS] =
 };
 
 
-void ShowError(UINT nID, int nType)
-{
+void ShowError(UINT nID, int nType) {
 	AfxMessageBox(nID, nType);
 }
 
 
 // GetServicePack -- returns the hex value of the current NT Service Pack
-DWORD GetServicePack()
-{
+DWORD GetServicePack() {
 	CRegKey key;
 	#define SZ_SPKEY "System\\CurrentControlSet\\Control\\Windows"
 	
 	DWORD dwVersion = 0;
-	if (key.Open(HKEY_LOCAL_MACHINE, SZ_SPKEY) == ERROR_SUCCESS)
-	{
+	if (key.Open(HKEY_LOCAL_MACHINE, SZ_SPKEY) == ERROR_SUCCESS) {
 		key.QueryValue(dwVersion, "CSDVersion");
 		key.Close();
 	}
@@ -76,8 +72,7 @@ DWORD GetServicePack()
 
 //  SetStartupOptions()
 //  creates a shortcut in the startup folder.
-void SetStartupOptions()
-{
+void SetStartupOptions() {
 	TCHAR szPath[MAX_PATH] = {0};
 	TCHAR szLinkFile[MAX_PATH] = {0};
 	WCHAR wszLinkFile[MAX_PATH] = {0};
@@ -95,8 +90,7 @@ void SetStartupOptions()
 			CLSCTX_INPROC_SERVER, IID_IShellLink,
 			reinterpret_cast<LPVOID*>(&pShellLink));
 	
-	if (FAILED(hr))
-	{
+	if (FAILED(hr)) {
 		return;
 	}
 	
@@ -112,14 +106,12 @@ void SetStartupOptions()
 	// Get the IPersistFile interface to save
 	hr = pShellLink->QueryInterface(IID_IPersistFile, reinterpret_cast<LPVOID*>(&pPF));
 	
-	if (FAILED(hr))
-	{
+	if (FAILED(hr)) {
 		pShellLink->Release();
 		return;
 	}
 	
-	if (SUCCEEDED(SHGetMalloc(&pMalloc)))
-	{
+	if (SUCCEEDED(SHGetMalloc(&pMalloc))) {
 		SHGetSpecialFolderLocation(NULL, CSIDL_STARTUP, &pidl);
 		SHGetPathFromIDList(pidl, szPath);
 		pMalloc->Free(pidl);
@@ -133,13 +125,11 @@ void SetStartupOptions()
 		lstrcat(szPath, "\\") ;
 	lstrcat(szPath, szLinkFile);
 	
-	if (g_bStartWithWindows)
-	{
+	if (g_bStartWithWindows) {
 		// Save Unicode LNK file
 		MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szPath, -1, wszLinkFile, MAX_PATH);
 		hr = pPF->Save(wszLinkFile, TRUE);
-		if (FAILED(hr))
-		{
+		if (FAILED(hr)) {
 			ShowError(IDS_STARTUP_ERR, MB_ICONHAND);
 		}
 		
@@ -155,8 +145,7 @@ void SetStartupOptions()
 }
 
 //  Format BYTES into a string,  the function will convert to bits if it is the default option
-void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond = TRUE */)
-{
+void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond = TRUE */) {
 	static char s[256];
 	char ch;
 	char* b = "Bytes";
@@ -177,8 +166,7 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 	UINT KILO = KILOBYTE;
 	
 	//convert to bits
-	if (g_DisplayBytes == 0)
-	{
+	if (g_DisplayBytes == 0) {
 		num *= 8;
 		b = "bits";
 		GIGA = GIGABITS;
@@ -186,19 +174,16 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 		KILO = KILOBITS;
 	}
 	
-	if (num >= GIGA)
-	{
+	if (num >= GIGA) {
 		sprintf(s, "%.1f", ((double)num / (double)(GIGA)));
 		*pString = s;
 		ch = 'G';
 	} else {
-		if (num >= MEGA)
-		{
+		if (num >= MEGA) {
 			sprintf(s, "%.1f", ((double)num / (double)(MEGA)));
 			ch = 'M';
 		} else {
-			if (num >= KILO)
-			{
+			if (num >= KILO) {
 				sprintf(s, "%.1f", ((double)num / (double)(KILO)));
 				*pString = s;
 				if (g_DisplayBytes)
@@ -221,8 +206,7 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 
 
 //  returns a comma formatted number
-LPSTR FormatNumber(DWORD N)
-{
+LPSTR FormatNumber(DWORD N) {
 	#define BUF_SIZE 128
 	static char buf[BUF_SIZE+1];
 	
@@ -230,14 +214,12 @@ LPSTR FormatNumber(DWORD N)
 	char *ptr = buf + BUF_SIZE - 1;
 	*ptr-- = NULL;
 	
-	for (; len <= BUF_SIZE; ++len, ++posn)
-	{
+	for (; len <= BUF_SIZE; ++len, ++posn) {
 		*ptr-- = (char)((N % 10L) + '0');
 		if (0L == (N /= 10L))
 			break;
 		
-		if (0 == (posn % 3))
-		{
+		if (0 == (posn % 3)) {
 			*ptr-- = ',';
 			++len;
 		}
@@ -246,10 +228,8 @@ LPSTR FormatNumber(DWORD N)
 			return "";
 	}
 	
-	if (0 > sign)
-	{
-		if (len >= BUF_SIZE)
-		{
+	if (0 > sign) {
+		if (len >= BUF_SIZE) {
 			return "";
 		}
 		
@@ -261,8 +241,7 @@ LPSTR FormatNumber(DWORD N)
 	return buf;
 }
 
-void QualifyPathName(CString *pFile, LPCSTR pIni)
-{
+void QualifyPathName(CString *pFile, LPCSTR pIni) {
 	char szName[MAX_PATH];
 	LPSTR p;
 	
@@ -279,22 +258,19 @@ void QualifyPathName(CString *pFile, LPCSTR pIni)
 	*pFile = szName;
 }
 
-int GetPrivateProfileInt(LPCSTR pKey, int nDefault)
-{
+int GetPrivateProfileInt(LPCSTR pKey, int nDefault) {
 	CString sFileName;
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
 	return GetPrivateProfileInt(SZ_CONFIG, pKey, nDefault, sFileName);
 }
 
-int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize)
-{
+int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize) {
 	CString sFileName;
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
 	return GetPrivateProfileString(SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName);
 }
 
-void WritePrivateProfileInt(LPCSTR pSection, int nValue)
-{
+void WritePrivateProfileInt(LPCSTR pSection, int nValue) {
 	CString sFileName;
 	char buf[256];
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
@@ -303,28 +279,24 @@ void WritePrivateProfileInt(LPCSTR pSection, int nValue)
 }
 
 
-void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue)
-{
+void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue) {
 	CString sFileName;
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
 	WritePrivateProfileString(SZ_CONFIG, pSection, pValue, sFileName);
 }
 
-void SaveWindowPosition(CRect *pRect)
-{
+void SaveWindowPosition(CRect *pRect) {
 	WritePrivateProfileInt(SZ_WINPOS_TOP, pRect->top);
 	WritePrivateProfileInt(SZ_WINPOS_LEFT, pRect->left);
 }
 
-void LoadWindowPosition(CRect *pRect)
-{
+void LoadWindowPosition(CRect *pRect) {
 	pRect->top = (int)GetPrivateProfileInt(SZ_WINPOS_TOP, -1);
 	pRect->left = (int)GetPrivateProfileInt(SZ_WINPOS_LEFT, -1);
 }
 
 
-void ReadSettings()
-{
+void ReadSettings() {
 	g_nSampleRate = GetPrivateProfileInt(SZ_SAMPLERATE, 1000);
 	g_nAveragingWindow = GetPrivateProfileInt(SZ_AVERAGEWINDOW, 30);
 	g_Range_Recv = GetPrivateProfileInt(SZ_RANGE_RECV, 1);
@@ -346,8 +318,7 @@ void ReadSettings()
 	g_dwAdapter = GetPrivateProfileInt(SZ_ADAPTER_INDEX, 0);
 }
 
-void SaveSettings()
-{
+void SaveSettings() {
 	WritePrivateProfileInt(SZ_SAMPLERATE, g_nSampleRate);
 	WritePrivateProfileInt(SZ_AVERAGEWINDOW, g_nAveragingWindow);
 	WritePrivateProfileInt(SZ_RANGE_RECV, g_Range_Recv);

@@ -14,8 +14,7 @@ typedef enum {
 
 
 // CSessionDlg dialog
-class CSessionDlg : public CPropertyPage
-{
+class CSessionDlg : public CPropertyPage {
 	DECLARE_DYNCREATE(CSessionDlg)
 	
 // Construction

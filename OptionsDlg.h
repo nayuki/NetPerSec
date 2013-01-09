@@ -7,8 +7,7 @@
 // OptionsDlg.h : header file
 
 // COptionsDlg dialog
-class COptionsDlg : public CPropertyPage
-{
+class COptionsDlg : public CPropertyPage {
 	DECLARE_DYNCREATE(COptionsDlg)
 	
 // Construction

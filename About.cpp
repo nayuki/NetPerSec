@@ -17,8 +17,7 @@ static char THIS_FILE[] = __FILE__;
 
 // CAboutPage message handlers
 
-void InitDlg(HWND hDlg)
-{
+void InitDlg(HWND hDlg) {
 	TCHAR szFullPath[256];
 	DWORD dwVerHnd;
 	DWORD dwVerInfoSize;
@@ -28,8 +27,7 @@ void InitDlg(HWND hDlg)
 	GetModuleFileName(hInst, szFullPath, sizeof(szFullPath));
 	dwVerInfoSize = GetFileVersionInfoSize(szFullPath, &dwVerHnd);
 	
-	if (dwVerInfoSize)
-	{
+	if (dwVerInfoSize) {
 		// If we were able to get the information, process it:
 		HANDLE  hMem;
 		LPVOID  lpvMem;
@@ -44,16 +42,14 @@ void InitDlg(HWND hDlg)
 		cchRoot = lstrlen(szGetName);
 		
 		// Walk through the dialog items that we want to replace:
-		for (i = 0; i < 3; i++)
-		{
+		for (i = 0; i < 3; i++) {
 			BOOL  fRet;
 			UINT  cchVer = 0;
 			LPTSTR lszVer = NULL;
 			TCHAR  szResult[256];
 			WORD  wID = 0;
 			
-			switch (i)
-			{
+			switch (i) {
 				case 0:
 					wID = IDC_COPYRIGHT;
 					break;
@@ -62,14 +58,12 @@ void InitDlg(HWND hDlg)
 					break;
 			}
 			
-			if (wID)
-			{
+			if (wID) {
 				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
 				lstrcpy(&szGetName[cchRoot], szResult);
 				fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
 				
-				if (fRet && cchVer && lszVer)
-				{
+				if (fRet && cchVer && lszVer) {
 					// Replace dialog item text with version info
 					lstrcpy(szResult, lszVer);
 					::SetDlgItemText(hDlg, wID, szResult);
@@ -87,19 +81,16 @@ void InitDlg(HWND hDlg)
 IMPLEMENT_DYNCREATE(CAboutPage, CPropertyPage)
 
 
-CAboutPage::CAboutPage() : CPropertyPage(CAboutPage::IDD)
-{
+CAboutPage::CAboutPage() : CPropertyPage(CAboutPage::IDD) {
 	//{{AFX_DATA_INIT(CAbout)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
-CAboutPage::~CAboutPage()
-{
+CAboutPage::~CAboutPage() {
 }
 
-void CAboutPage::DoDataExchange(CDataExchange* pDX)
-{
+void CAboutPage::DoDataExchange(CDataExchange* pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAboutPage)
 		// NOTE: the ClassWizard will add DDX and DDV calls here
@@ -114,8 +105,7 @@ BEGIN_MESSAGE_MAP(CAboutPage, CPropertyPage)
 END_MESSAGE_MAP()
 
 
-BOOL CAboutPage::OnInitDialog()
-{
+BOOL CAboutPage::OnInitDialog() {
 	CDialog::OnInitDialog();
 	InitDlg(GetSafeHwnd());
 	return TRUE;

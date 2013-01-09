@@ -13,8 +13,7 @@
 
 // Cwinproc window
 
-class Cwinproc : public CWnd
-{
+class Cwinproc : public CWnd {
 // Construction
 public:
 	Cwinproc();

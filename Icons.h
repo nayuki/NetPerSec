@@ -3,8 +3,7 @@
 
 #include "globals.h"
 
-class CIcons
-{
+class CIcons {
 public:
 	CIcons();
 	~CIcons();

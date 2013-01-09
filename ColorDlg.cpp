@@ -14,15 +14,13 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 // CColorCube
-CColorCube::CColorCube()
-{
+CColorCube::CColorCube() {
 	dlg.m_hParent = this;
 	m_crCurrentColor = RGB(255,255,255);
 }
 
 
-CColorCube::~CColorCube()
-{
+CColorCube::~CColorCube() {
 }
 
 
@@ -33,8 +31,7 @@ BEGIN_MESSAGE_MAP(CColorCube, CButton)
 END_MESSAGE_MAP()
 
 // CColorCube message handlers
-void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
-{
+void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd) {
 	CDC dc;
 	dc.Attach(lpd->hDC);
 	
@@ -89,17 +86,14 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 	dc.SelectObject(&br_CurrentColor);
 	dc.Rectangle(left+5,top+4,right-15,bottom-4);
 	
-	if (lpd->itemState & ODS_FOCUS)
-	{
+	if (lpd->itemState & ODS_FOCUS) {
 		int i;
-		for (i=left+3;i<right-4;i+=2)
-		{
+		for (i=left+3;i<right-4;i+=2) {
 			dc.SetPixel(i,top+3,RGB(0,0,0));
 			dc.SetPixel(i,bottom-4,RGB(0,0,0));
 		}
 		
-		for (i=top+3;i<bottom-4;i+=2)
-		{
+		for (i=top+3;i<bottom-4;i+=2) {
 			dc.SetPixel(left+3,i,RGB(0,0,0));
 			dc.SetPixel(right-4,i,RGB(0,0,0));
 		}
@@ -111,10 +105,8 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 }
 
 
-BOOL CColorCube::OnClick()
-{
-	if (dlg.DoModal() == IDOK)
-	{
+BOOL CColorCube::OnClick() {
+	if (dlg.DoModal() == IDOK) {
 		m_crCurrentColor = IconColors[dlg.m_ColorIndex];
 		InvalidateRect(NULL);
 	}
@@ -126,16 +118,14 @@ BOOL CColorCube::OnClick()
 
 
 CColorCubeDlg::CColorCubeDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CColorCubeDlg::IDD, pParent)
-{
+	: CDialog(CColorCubeDlg::IDD, pParent) {
 	//{{AFX_DATA_INIT(CColorCubeDlg)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
 }
 
 
-void CColorCubeDlg::DoDataExchange(CDataExchange* pDX)
-{
+void CColorCubeDlg::DoDataExchange(CDataExchange* pDX) {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CColorCubeDlg)
 		// NOTE: the ClassWizard will add DDX and DDV calls here
@@ -155,8 +145,7 @@ END_MESSAGE_MAP()
 
 // CColorCubeDlg message handlers
 
-BOOL CColorCubeDlg::OnInitDialog()
-{
+BOOL CColorCubeDlg::OnInitDialog() {
 	CDialog::OnInitDialog();
 	
 	RECT rc,r2;
@@ -179,15 +168,13 @@ BOOL CColorCubeDlg::OnInitDialog()
 }
 
 
-void CColorCubeDlg::EndDialog(int nResult)
-{
+void CColorCubeDlg::EndDialog(int nResult) {
 	ReleaseCapture();
 	CDialog::EndDialog(nResult);
 }
 
 
-void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
-{
+void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt) {
 	RECT rc;
 	
 	POINT p;
@@ -197,8 +184,7 @@ void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 	ClientToScreen(&p);
 	GetWindowRect(&rc);
 	
-	if (!PtInRect(&rc,p))
-	{
+	if (!PtInRect(&rc,p)) {
 		EndDialog(IDCANCEL);
 	} else {
 		CWnd *pWnd = ChildWindowFromPoint(pt);
@@ -210,8 +196,7 @@ void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 }
 
 
-void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd)
-{
+void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd) {
 	CDC dc;
 	CPen nullpen;
 	CBrush brush;
@@ -240,15 +225,13 @@ void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd)
 }
 
 
-void CColorCubeDlg::OnColorSelect(UINT id)
-{
+void CColorCubeDlg::OnColorSelect(UINT id) {
 	m_ColorIndex = id - IDC_COLOR1;
 	EndDialog(IDOK);
 }
 
 
-void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt)
-{
+void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt) {
 	CWnd *pWnd = ChildWindowFromPoint(pt, CWP_ALL);
 	
 	if (pWnd && pWnd != this)

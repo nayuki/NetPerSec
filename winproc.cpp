@@ -21,8 +21,7 @@ UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");
 
 
 // Cwinproc
-Cwinproc::Cwinproc()
-{
+Cwinproc::Cwinproc() {
 	m_dwStartTime = 0;
 	m_dbTotalBytesRecv = 0;
 	m_dbTotalBytesSent = 0;
@@ -34,14 +33,12 @@ Cwinproc::Cwinproc()
 	ResetData();
 }
 
-Cwinproc::~Cwinproc()
-{
+Cwinproc::~Cwinproc() {
 }
 
 
 // Cwinproc
-void Cwinproc::OnClose()
-{
+void Cwinproc::OnClose() {
 	KillTimer(TIMER_ID_WINPROC);
 	if (m_SystemTray.hWnd)
 		Shell_NotifyIcon(NIM_DELETE, &m_SystemTray);
@@ -63,10 +60,8 @@ END_MESSAGE_MAP()
 
 // Startup -- called when the invisible window is created in netpersec.cpp
 // initializes SNMP and the system tray icon
-void Cwinproc::StartUp()
-{
-	if (snmp.Init() == FALSE)
-	{
+void Cwinproc::StartUp() {
+	if (snmp.Init() == FALSE) {
 		PostQuitMessage(0);
 	} else {
 		SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
@@ -89,8 +84,7 @@ void Cwinproc::StartUp()
 	}
 }
 
-void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT* pStats)
-{
+void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT* pStats) {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
 	//set current bps
@@ -128,8 +122,7 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 
 
 // Calculate samples
-void Cwinproc::OnTimer(UINT /* nIDEvent */)
-{
+void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	DWORD s,r, elapsed;
 	DWORD dwRecv_bps, dwSent_bps;
 	DWORD dwTime;
@@ -138,8 +131,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */)
 	snmp.GetReceivedAndSentOctets(&r, &s);
 	
 	//init data?
-	if (!m_dbTotalBytesRecv || !m_dbTotalBytesSent)
-	{
+	if (!m_dbTotalBytesRecv || !m_dbTotalBytesSent) {
 		m_dbTotalBytesRecv = r + m_dbRecvWrap;
 		m_dbTotalBytesSent = s + m_dbSentWrap;
 		m_dwStartTime = GetTickCount();
@@ -154,14 +146,12 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */)
 	dbSent = s + m_dbSentWrap;
 	
 	//check for integer wrap
-	if (dbRecv < m_dbTotalBytesRecv)
-	{
+	if (dbRecv < m_dbTotalBytesRecv) {
 		m_dbRecvWrap += 0xffffffff;
 		dbRecv = r + m_dbRecvWrap;
 	}
 	
-	if (dbSent < m_dbTotalBytesSent)
-	{
+	if (dbSent < m_dbTotalBytesSent) {
 		m_dbSentWrap += 0xffffffff;
 		dbSent = s + m_dbSentWrap;
 	}
@@ -173,8 +163,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */)
 	dwRecv_bps = dwSent_bps = 0;
 	
 	//calc bits per second
-	if (elapsed)
-	{
+	if (elapsed) {
 		dwRecv_bps = MulDiv(total_recv, 1000, elapsed);
 		dwSent_bps = MulDiv(total_sent, 1000, elapsed);
 	}
@@ -203,10 +192,8 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */)
 
 
 
-void Cwinproc::ShowPropertiesDlg()
-{
-	if (m_pPropertiesDlg)
-	{
+void Cwinproc::ShowPropertiesDlg() {
+	if (m_pPropertiesDlg) {
 		m_pPropertiesDlg->SetForegroundWindow();
 	} else {
 		//fake out MFC in order to receive the 'minimize all windows' syscommand message
@@ -231,12 +218,10 @@ void Cwinproc::ShowPropertiesDlg()
 }
 
 
-LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam)
-{
+LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 	UNREFERENCED_PARAMETER(wParam);
 	
-	switch (lParam)
-	{
+	switch (lParam) {
 		case WM_MOUSEMOVE:
 		{
 			CString s,sRecvBPS,sRecvAVE;
@@ -278,12 +263,10 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam)
 			int cmd = pMenu->TrackPopupMenu(TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY , pt.x, pt.y,this);
 			PostMessage(WM_NULL, 0, 0);
 			
-			switch (cmd)
-			{
+			switch (cmd) {
 				case IDCLOSE:
 					//save any settings if the user closes the tray icon while the dlg is open
-					if (m_pPropertiesDlg)
-					{
+					if (m_pPropertiesDlg) {
 						SaveSettings();
 						m_pPropertiesDlg->SendMessage(WM_CLOSE);
 					}
@@ -302,19 +285,16 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam)
 }
 
 //the index to the array will always be one greater than the actual current value
-int Cwinproc::GetArrayIndex()
-{
+int Cwinproc::GetArrayIndex() {
 	int i = m_nArrayIndex - 1;
 	if (i < 0)
 		i = MAX_SAMPLES + i;
 	return i;
 }
 
-void Cwinproc::UpdateTrayIcon(HICON hIcon)
-{
+void Cwinproc::UpdateTrayIcon(HICON hIcon) {
 	ASSERT(hIcon != 0);
-	if (m_SystemTray.hWnd && hIcon)
-	{
+	if (m_SystemTray.hWnd && hIcon) {
 		m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
 		m_SystemTray.hWnd = GetSafeHwnd();
 		m_SystemTray.uID = 1;
@@ -328,20 +308,16 @@ void Cwinproc::UpdateTrayIcon(HICON hIcon)
 
 
 // init all arrays
-void Cwinproc::ResetData()
-{
+void Cwinproc::ResetData() {
 	m_nArrayIndex = 0;
 	ZeroMemory(RecvStats, sizeof(RecvStats));
 	ZeroMemory(SentStats, sizeof(SentStats));
 }
 
 
-void Cwinproc::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/)
-{
-	if (m_pPropertiesDlg)
-	{
-		switch (m_pPropertiesDlg->GetActiveIndex())
-		{
+void Cwinproc::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/) {
+	if (m_pPropertiesDlg) {
+		switch (m_pPropertiesDlg->GetActiveIndex()) {
 			case 0:
 				CWnd::WinHelp(IDH_connection_tab);
 				return;

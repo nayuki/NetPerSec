@@ -13,8 +13,7 @@
 
 
 // DlgPropSheet
-class DlgPropSheet : public CPropertySheet
-{
+class DlgPropSheet : public CPropertySheet {
 	DECLARE_DYNAMIC(DlgPropSheet)
 	
 // Construction

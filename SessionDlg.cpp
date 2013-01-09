@@ -56,8 +56,7 @@ static UINT bpsArray[] = {
 
 IMPLEMENT_DYNCREATE(CSessionDlg, CPropertyPage)
 
-CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD)
-{
+CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD) {
 	//{{AFX_DATA_INIT(CSessionDlg)
 		// NOTE: the ClassWizard will add member initialization here
 	//}}AFX_DATA_INIT
@@ -65,15 +64,13 @@ CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD)
 	m_pbrBackground = 0;
 }
 
-CSessionDlg::~CSessionDlg()
-{
+CSessionDlg::~CSessionDlg() {
 	if (m_pbrBackground)
 		delete m_pbrBackground;
 	m_pbrBackground = 0;
 }
 
-void CSessionDlg::DoDataExchange(CDataExchange* pDX)
-{
+void CSessionDlg::DoDataExchange(CDataExchange* pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CSessionDlg)
 		// NOTE: the ClassWizard will add DDX and DDV calls here
@@ -104,14 +101,11 @@ END_MESSAGE_MAP()
 
 // CSessionDlg message handlers
 
-BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
-{
+BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg) {
 	//show the color dialog if a graph is right clicked
-	if (pMsg->message == WM_RBUTTONUP)
-	{
+	if (pMsg->message == WM_RBUTTONUP) {
 		WORD wID = (WORD)GetWindowLong(pMsg->hwnd, GWL_ID);
-		if (wID == IDC_RECV_GRAPH_WINDOW || wID == IDC_SENT_GRAPH_WINDOW)
-		{
+		if (wID == IDC_RECV_GRAPH_WINDOW || wID == IDC_SENT_GRAPH_WINDOW) {
 			pTheApp->m_wnd.m_pPropertiesDlg->SetActivePage(2);
 			return TRUE;
 		}
@@ -120,8 +114,7 @@ BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 }
 
 
-BOOL CSessionDlg::OnSetActive()
-{
+BOOL CSessionDlg::OnSetActive() {
 	if (m_pbrBackground)
 		delete m_pbrBackground;
 	
@@ -138,22 +131,19 @@ BOOL CSessionDlg::OnSetActive()
 
 
 // display a formatted number
-void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes)
-{
+void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes) {
 	CString s;
 	FormatBytes(dwBytes, &s);
 	SetDlgItemText(nID, s);
 }
 
-DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index)
-{
+DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index) {
 	int total = m_SentGraph.GetTotalElements();
 	
 	//calc max
 	DWORD dwMax = 0;
 	
-	for (int i = 0; i < total; i++)
-	{
+	for (int i = 0; i < total; i++) {
 		if (index < 0)
 			index = MAX_SAMPLES-1;
 		
@@ -165,8 +155,7 @@ DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index)
 	return dwMax;
 }
 
-void CSessionDlg::UpdateDlg()
-{
+void CSessionDlg::UpdateDlg() {
 	int i = pTheApp->m_wnd.GetArrayIndex();
 	
 	DisplayNumber(IDC_RECV_CURRENT, pTheApp->m_wnd.RecvStats[i].Bps);
@@ -181,8 +170,7 @@ void CSessionDlg::UpdateDlg()
 
 
 // update the total sent and received amounts
-void CSessionDlg::OnTimer(UINT /* nIDEvent */)
-{
+void CSessionDlg::OnTimer(UINT /* nIDEvent */) {
 	UpdateDlg();
 	UpdateGraph();
 	
@@ -195,8 +183,7 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */)
 }
 
 
-BOOL CSessionDlg::OnKillActive()
-{
+BOOL CSessionDlg::OnKillActive() {
 	if (m_pbrBackground)
 		delete m_pbrBackground;
 	m_pbrBackground = 0;
@@ -206,8 +193,7 @@ BOOL CSessionDlg::OnKillActive()
 }
 
 
-BOOL CSessionDlg::OnInitDialog()
-{
+BOOL CSessionDlg::OnInitDialog() {
 	CPropertyPage::OnInitDialog();
 	
 	CRect rect;
@@ -260,10 +246,8 @@ BOOL CSessionDlg::OnInitDialog()
 
 
 // draw the graphs
-void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update)
-{
-	if (update & RECV_DATA)
-	{
+void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update) {
+	if (update & RECV_DATA) {
 		m_RecvGraph.ShiftLeft();
 		
 		if (g_GraphOptions & OPTION_AVE)
@@ -273,8 +257,7 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update)
 			m_RecvGraph.SetPos(pTheApp->m_wnd.RecvStats[nIndex].Bps, g_ColorRecv, LINEGRAPH_BPS);
 	}
 	
-	if (update & SENT_DATA)
-	{
+	if (update & SENT_DATA) {
 		m_SentGraph.ShiftLeft();
 		
 		if (g_GraphOptions & OPTION_AVE)
@@ -286,17 +269,14 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update)
 }
 
 // adjust the auto scale position
-void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue)
-{
+void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue) {
 	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(wControl);
 	
-	if (pCtrl)
-	{
+	if (pCtrl) {
 		int nStart = ELEMENTS(bpsArray) - 1;
 		int nPos = nStart;
 		
-		for (int i = nStart; i >= 0; i--)
-		{
+		for (int i = nStart; i >= 0; i--) {
 			if (bpsArray[i] >= dwValue)
 				nPos = i;
 		}
@@ -304,8 +284,7 @@ void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue)
 	}
 }
 
-void CSessionDlg::UpdateGraph()
-{
+void CSessionDlg::UpdateGraph() {
 	//check autosize
 	if (!g_bAutoScaleRecv || CalcAutoScale(&m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA) == FALSE)
 		DrawGraph(pTheApp->m_wnd.GetArrayIndex(), RECV_DATA);
@@ -317,8 +296,7 @@ void CSessionDlg::UpdateGraph()
 
 // determine the range of the graph based upon recent samples. returns TRUE if the graph should
 // be updated.
-BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update)
-{
+BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update) {
 	DWORD dwHigh = 0;
 	
 	int start = pTheApp->m_wnd.GetArrayIndex();
@@ -328,18 +306,15 @@ BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_
 	if (start < 0)
 		start += MAX_SAMPLES;
 	
-	for (int i = 0; i < total; i++)
-	{
+	for (int i = 0; i < total; i++) {
 		if (start >= MAX_SAMPLES)
 			start = 0;
-		if (g_GraphOptions & OPTION_BPS)
-		{
+		if (g_GraphOptions & OPTION_BPS) {
 			if (pStats[start].Bps > dwHigh)
 				dwHigh = pStats[start].Bps;
 		}
 		
-		if (g_GraphOptions & OPTION_AVE)
-		{
+		if (g_GraphOptions & OPTION_AVE) {
 			if (pStats[start].ave > dwHigh)
 				dwHigh = pStats[start].ave;
 		}
@@ -353,24 +328,20 @@ BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_
 	dwHigh = MulDiv(dwHigh, 100, 80);
 	
 	BOOL bUpdate = FALSE;
-	if (dwHigh > *pAutoScale)
-	{
+	if (dwHigh > *pAutoScale) {
 		bUpdate = TRUE;
 		*pAutoScale = dwHigh;
 	} else {
-		if (*pAutoScale > dwHigh && *pAutoScale > 1000)
-		{
+		if (*pAutoScale > dwHigh && *pAutoScale > 1000) {
 			*pAutoScale = dwHigh;
 			*pAutoScale = max(1000, *pAutoScale);
 			bUpdate = TRUE;
 		}
 	}
 	
-	if (bUpdate)
-	{
+	if (bUpdate) {
 		//move the sliders
-		if (update == SENT_DATA)
-		{
+		if (update == SENT_DATA) {
 			UpdateScrollPos(IDC_SCALE_SLIDER_SENT, *pAutoScale);
 			UpdateGraphTextSent(*pAutoScale);
 		} else {
@@ -385,8 +356,7 @@ BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_
 
 
 // draws the transmitted samples
-void CSessionDlg::SetGraphRangeSent()
-{
+void CSessionDlg::SetGraphRangeSent() {
 	DWORD dwNumber;
 	
 	if (!g_bAutoScaleSent)
@@ -405,8 +375,7 @@ void CSessionDlg::SetGraphRangeSent()
 	if (start < 0)
 		start += MAX_SAMPLES;
 	
-	for (int i = 0; i <= total; i++)
-	{
+	for (int i = 0; i <= total; i++) {
 		if (start >= MAX_SAMPLES)
 			start = 0;
 		DrawGraph(start++, SENT_DATA);
@@ -414,8 +383,7 @@ void CSessionDlg::SetGraphRangeSent()
 }
 
 // draws the received samples
-void CSessionDlg::SetGraphRangeRecv()
-{
+void CSessionDlg::SetGraphRangeRecv() {
 	DWORD dwNumber;
 	
 	if (!g_bAutoScaleRecv)
@@ -434,8 +402,7 @@ void CSessionDlg::SetGraphRangeRecv()
 	if (start < 0)
 		start += MAX_SAMPLES;
 	
-	for (int i = 0; i <= total; i++)
-	{
+	for (int i = 0; i <= total; i++) {
 		if (start >= MAX_SAMPLES)
 			start = 0;
 		DrawGraph(start++, RECV_DATA);
@@ -444,17 +411,14 @@ void CSessionDlg::SetGraphRangeRecv()
 
 
 // sets the colors for the graph labels
-HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
-{
+HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor) {
 	HBRUSH hbr = CPropertyPage::OnCtlColor(pDC, pWnd, nCtlColor);
 	COLORREF cr;
 	
 	//set the foreground and background colors for the text labels
-	if (nCtlColor == CTLCOLOR_STATIC)
-	{
+	if (nCtlColor == CTLCOLOR_STATIC) {
 		int iID = pWnd->GetDlgCtrlID();
-		switch (iID)
-		{
+		switch (iID) {
 			case IDC_SENT_MAXIMUM:
 			case IDC_SENT_CURRENT: cr = g_ColorSent; break;
 			
@@ -476,8 +440,7 @@ HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return hbr;
 }
 
-void CSessionDlg::SetOptions()
-{
+void CSessionDlg::SetOptions() {
 	g_GraphOptions = 0;
 	
 	if (IsDlgButtonChecked(IDC_CURRENT_RECV_OPTION))
@@ -490,39 +453,32 @@ void CSessionDlg::SetOptions()
 	SetGraphRangeSent();	//redraw the graphs
 }
 
-void CSessionDlg::OnAveRecvOption()
-{
+void CSessionDlg::OnAveRecvOption() {
 	SetOptions();
 }
 
-void CSessionDlg::OnAveSentOption()
-{
+void CSessionDlg::OnAveSentOption() {
 	SetOptions();
 }
 
-void CSessionDlg::OnCurrentRecvOption()
-{
+void CSessionDlg::OnCurrentRecvOption() {
 	SetOptions();
 }
 
-void CSessionDlg::OnCurrentSentOption()
-{
+void CSessionDlg::OnCurrentSentOption() {
 	SetOptions();
 }
 
-void CSessionDlg::OnMaxRecvOption()
-{
+void CSessionDlg::OnMaxRecvOption() {
 	SetOptions();
 }
 
-void CSessionDlg::OnMaxSentOption()
-{
+void CSessionDlg::OnMaxSentOption() {
 	SetOptions();
 }
 
 //draw the labels on the right side of the graph
-void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber)
-{
+void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber) {
 	CString s;
 	FormatBytes(dwNumber, &s);
 	
@@ -541,8 +497,7 @@ void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber)
 
 
 // draw the labels on the right side of the graph
-void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber)
-{
+void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber) {
 	CString s;
 	FormatBytes(dwNumber, &s);
 	
@@ -560,8 +515,7 @@ void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber)
 
 
 //respond to the slider commands
-void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
-{
+void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
 	int nControl = pScrollBar->GetDlgCtrlID();
 	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT(pCtrl != NULL);
@@ -572,15 +526,13 @@ void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	if (nPos >= ELEMENTS(bpsArray))
 		nPos = ELEMENTS(bpsArray)-1;
 	
-	if (nControl == IDC_SCALE_SLIDER_RECV)
-	{
+	if (nControl == IDC_SCALE_SLIDER_RECV) {
 		m_AutoScale_Recv = 0;
 		g_Range_Recv = nPos;
 		UpdateGraphTextRecv(bpsArray[nPos]);
 	}
 	
-	if (nControl == IDC_SCALE_SLIDER_SENT)
-	{
+	if (nControl == IDC_SCALE_SLIDER_SENT) {
 		m_AutoScale_Sent = 0;
 		g_Range_Sent = nPos;
 		UpdateGraphTextSent(bpsArray[nPos]);
@@ -589,18 +541,15 @@ void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CPropertyPage::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
-void CSessionDlg::OnBargraph()
-{
+void CSessionDlg::OnBargraph() {
 	SetGraphStyle();
 }
 
-void CSessionDlg::OnLinegraph()
-{
+void CSessionDlg::OnLinegraph() {
 	SetGraphStyle();
 }
 
-void CSessionDlg::SetGraphStyle()
-{
+void CSessionDlg::SetGraphStyle() {
 	g_bShowBarGraph = IsDlgButtonChecked(IDC_BARGRAPH);
 	
 	m_SentGraph.SetStyle(g_bShowBarGraph);
@@ -609,8 +558,7 @@ void CSessionDlg::SetGraphStyle()
 	SetGraphRangeSent();
 }
 
-void CSessionDlg::OnResetData()
-{
+void CSessionDlg::OnResetData() {
 	pTheApp->m_wnd.ResetData();
 	
 	m_AutoScale_Recv = 0;
@@ -625,8 +573,7 @@ void CSessionDlg::OnResetData()
 	OnTimer(0);   //update the display
 }
 
-void CSessionDlg::OnAutoscale()
-{
+void CSessionDlg::OnAutoscale() {
 	g_bAutoScaleRecv = IsDlgButtonChecked(IDC_AUTOSCALE_RECV);
 	g_bAutoScaleSent = IsDlgButtonChecked(IDC_AUTOSCALE_SENT);
 	GetDlgItem(IDC_SCALE_SLIDER_SENT)->EnableWindow(g_bAutoScaleSent == FALSE);
@@ -634,14 +581,12 @@ void CSessionDlg::OnAutoscale()
 }
 
 
-void CSessionDlg::OnBps()
-{
+void CSessionDlg::OnBps() {
 	OnBytes();
 }
 
 // sets the display type to either Bps or bps
-void CSessionDlg::OnBytes()
-{
+void CSessionDlg::OnBytes() {
 	g_DisplayBytes = IsDlgButtonChecked(IDC_BYTES);
 	if (g_bAutoScaleRecv)
 		UpdateGraphTextRecv(m_AutoScale_Recv);

@@ -40,8 +40,7 @@
 #define COLOR_ICON_BACK RGB(255,255,255)
 
 //these entries contain the current SNMP sample
-typedef struct
-{
+typedef struct {
 	DWORD Bps;          //bytes per second
 	DWORD ave;          //average throughput
 	DWORD time;         //time in milliseconds that the sample was taken

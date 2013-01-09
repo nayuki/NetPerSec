@@ -2,8 +2,7 @@
 #define _COLORCUBE_H
 
 
-class CColorCubeDlg : public CDialog
-{
+class CColorCubeDlg : public CDialog {
 // Construction
 public:
 	CColorCubeDlg(CWnd* pParent = NULL);   // standard constructor
@@ -42,8 +41,7 @@ protected:
 
 
 
-class CColorCube : public CButton
-{
+class CColorCube : public CButton {
 public:
 	CColorCube();
 	COLORREF m_crCurrentColor;

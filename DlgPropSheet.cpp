@@ -21,19 +21,16 @@ IMPLEMENT_DYNAMIC(DlgPropSheet, CPropertySheet)
 
 
 DlgPropSheet::DlgPropSheet(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)
-	:CPropertySheet(nIDCaption, pParentWnd, iSelectPage)
-{
+	:CPropertySheet(nIDCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
 
 DlgPropSheet::DlgPropSheet(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
-	:CPropertySheet(pszCaption, pParentWnd, iSelectPage)
-{
+	:CPropertySheet(pszCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
 
-DlgPropSheet::~DlgPropSheet()
-{
+DlgPropSheet::~DlgPropSheet() {
 	delete m_pSessionDlg;
 	delete m_pOptionsDlg;
 	delete m_pDisplayDlg;
@@ -51,8 +48,7 @@ END_MESSAGE_MAP()
 
 // DlgPropSheet message handlers
 
-void DlgPropSheet::AddPropPages()
-{
+void DlgPropSheet::AddPropPages() {
 	m_pSessionDlg = new CSessionDlg;
 	m_pOptionsDlg = new COptionsDlg;
 	m_pDisplayDlg = new CDisplayDlg;
@@ -67,22 +63,19 @@ void DlgPropSheet::AddPropPages()
 }
 
 
-void DlgPropSheet::OnPaint()
-{
+void DlgPropSheet::OnPaint() {
 	CPaintDC dc(this); // device context for painting
 	// Do not call CPropertySheet::OnPaint() for painting messages
 }
 
-BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult)
-{
+BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult) {
 	//save last tab
 	m_nLastTab = GetActiveIndex();
 	return CPropertySheet::OnChildNotify(message, wParam, lParam, pLResult);
 }
 
 
-BOOL DlgPropSheet::OnInitDialog()
-{
+BOOL DlgPropSheet::OnInitDialog() {
 	BOOL bResult = CPropertySheet::OnInitDialog();
 	
 	HICON m_hIcon = AfxGetApp()->LoadIcon(IDI_MAINFRAME);
@@ -100,8 +93,7 @@ BOOL DlgPropSheet::OnInitDialog()
 	if (rc.top < 0 || (rc.top + rc.bottom) >= GetSystemMetrics(SM_CYFULLSCREEN))
 		bCenter = TRUE;
 	
-	if (bCenter)
-	{
+	if (bCenter) {
 		GetWindowRect(rc);
 		rc.OffsetRect(-rc.left, -rc.top);
 		MoveWindow(((GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2 + 4) & ~7,
@@ -117,8 +109,7 @@ BOOL DlgPropSheet::OnInitDialog()
 }
 
 
-void DlgPropSheet::OnDestroy()
-{
+void DlgPropSheet::OnDestroy() {
 	CRect rc;
 	GetWindowRect(rc);
 	SaveWindowPosition(&rc);
@@ -127,18 +118,15 @@ void DlgPropSheet::OnDestroy()
 }
 
 
-void DlgPropSheet::PostNcDestroy()
-{
+void DlgPropSheet::PostNcDestroy() {
 	//restore mfc's main window handle
 	pTheApp->m_pMainWnd = &pTheApp->m_wnd;
 	CPropertySheet::PostNcDestroy();
 }
 
 
-LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
-{
-	if (message == WM_SIZE && wParam == SIZE_MINIMIZED)
-	{
+LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
+	if (message == WM_SIZE && wParam == SIZE_MINIMIZED) {
 		SaveSettings();
 		PostMessage(WM_CLOSE,0,0);
 	}
@@ -147,8 +135,7 @@ LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 
-int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
+int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	if (CPropertySheet::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	

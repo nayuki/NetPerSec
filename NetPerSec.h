@@ -17,8 +17,7 @@
 
 // CNetPerSecApp:
 // See NetPerSec.cpp for the implementation of this class
-class CNetPerSecApp : public CWinApp
-{
+class CNetPerSecApp : public CWinApp {
 public:
 	CNetPerSecApp();
 	~CNetPerSecApp();

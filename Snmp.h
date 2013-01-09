@@ -7,8 +7,7 @@
 
 #define MAX_INTERFACES 64
 	
-class CSnmp
-{
+class CSnmp {
 	typedef BOOL (WINAPI *pSnmpExtensionInit)(
 		IN  DWORD               dwTimeZeroReference,
 		OUT HANDLE              *hPollForTrapEvent,
