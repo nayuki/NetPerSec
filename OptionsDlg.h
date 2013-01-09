@@ -17,8 +17,8 @@ class COptionsDlg : public CPropertyPage
 public:
 	COptionsDlg();
 	~COptionsDlg();
-	void UpdateDlg( );
-	void UpdateAveragingWindow( );
+	void UpdateDlg();
+	void UpdateAveragingWindow();
 	
 // Dialog Data
 	//{{AFX_DATA(COptionsDlg)

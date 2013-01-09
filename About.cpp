@@ -6,7 +6,7 @@
 #include "NetPerSec.h"
 #include "About.h"
 
-#pragma comment(lib, "version.lib" )
+#pragma comment(lib, "version.lib")
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -18,16 +18,16 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CAboutPage message handlers
 
-void InitDlg( HWND hDlg )
+void InitDlg(HWND hDlg)
 {
 	TCHAR szFullPath[256];
 	DWORD dwVerHnd;
 	DWORD dwVerInfoSize;
-	HINSTANCE hInst = AfxGetInstanceHandle( );
+	HINSTANCE hInst = AfxGetInstanceHandle();
 	
 	// Get version information from the application
-	GetModuleFileName( hInst, szFullPath, sizeof(szFullPath) );
-	dwVerInfoSize = GetFileVersionInfoSize( szFullPath, &dwVerHnd );
+	GetModuleFileName(hInst, szFullPath, sizeof(szFullPath));
+	dwVerInfoSize = GetFileVersionInfoSize(szFullPath, &dwVerHnd);
 	
 	if (dwVerInfoSize)
 	{
@@ -41,8 +41,8 @@ void InitDlg( HWND hDlg )
 		hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
 		lpvMem = GlobalLock(hMem);
 		GetFileVersionInfo(szFullPath, dwVerHnd, dwVerInfoSize, lpvMem);
-		lstrcpy(szGetName, _T("\\StringFileInfo\\040904b0\\") );
-		cchRoot = lstrlen( szGetName );
+		lstrcpy(szGetName, _T("\\StringFileInfo\\040904b0\\"));
+		cchRoot = lstrlen(szGetName);
 		
 		// Walk through the dialog items that we want to replace:
 		for (i = 0; i < 3; i++)
@@ -66,19 +66,19 @@ void InitDlg( HWND hDlg )
 			if (wID)
 			{
 				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
-				lstrcpy( &szGetName[cchRoot], szResult );
-				fRet = VerQueryValue( lpvMem, szGetName, (void**)&lszVer, &cchVer );
+				lstrcpy(&szGetName[cchRoot], szResult);
+				fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
 				
 				if (fRet && cchVer && lszVer)
 				{
 					// Replace dialog item text with version info
-					lstrcpy( szResult, lszVer );
-					::SetDlgItemText(hDlg, wID, szResult );
+					lstrcpy(szResult, lszVer);
+					::SetDlgItemText(hDlg, wID, szResult);
 				}
 			}
 		}
-		GlobalUnlock( hMem );
-		GlobalFree( hMem );
+		GlobalUnlock(hMem);
+		GlobalFree(hMem);
 	}
 	return;
 }
@@ -91,7 +91,7 @@ IMPLEMENT_DYNCREATE(CAboutPage, CPropertyPage)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-CAboutPage::CAboutPage( ) : CPropertyPage(CAboutPage::IDD )
+CAboutPage::CAboutPage() : CPropertyPage(CAboutPage::IDD)
 {
 	//{{AFX_DATA_INIT(CAbout)
 		// NOTE: the ClassWizard will add member initialization here
@@ -124,9 +124,9 @@ END_MESSAGE_MAP()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL CAboutPage::OnInitDialog( )
+BOOL CAboutPage::OnInitDialog()
 {
 	CDialog::OnInitDialog();
-	InitDlg( GetSafeHwnd( ) );
+	InitDlg(GetSafeHwnd());
 	return TRUE;
 }

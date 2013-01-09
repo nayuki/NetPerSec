@@ -19,11 +19,11 @@ class Cwinproc : public CWnd
 // Construction
 public:
 	Cwinproc();
-	void StartUp( );
-	LRESULT OnTaskbarNotify( WPARAM wParam, LPARAM lParam );
-	void UpdateTrayIcon( HICON hIcon );
-	void ShowPropertiesDlg( );
-	UINT GetSNMPValue( LPCSTR pString );
+	void StartUp();
+	LRESULT OnTaskbarNotify(WPARAM wParam, LPARAM lParam);
+	void UpdateTrayIcon(HICON hIcon);
+	void ShowPropertiesDlg();
+	UINT GetSNMPValue(LPCSTR pString);
 	
 // Attributes
 public:
@@ -40,9 +40,9 @@ public:
 	STATS_STRUCT RecvStats[MAX_SAMPLES];
 	STATS_STRUCT SentStats[MAX_SAMPLES];
 	
-	int  GetArrayIndex( );
-	void ResetData( );
-	void CalcAverages( double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT* pStats );
+	int  GetArrayIndex();
+	void ResetData();
+	void CalcAverages(double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT* pStats);
 	
 private:
 	int m_nArrayIndex;

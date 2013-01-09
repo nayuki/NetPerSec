@@ -34,8 +34,8 @@ protected:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 	
-	void OnColorSelect( UINT );
-	void EndDialog( int );
+	void OnColorSelect(UINT);
+	void EndDialog(int);
 	
 	DECLARE_MESSAGE_MAP()
 };
@@ -60,7 +60,7 @@ public:
 	// Generated message map functions
 	//protected:
 	//{{AFX_MSG(CColorCube)
-		afx_msg BOOL OnClick( ) ;
+		afx_msg BOOL OnClick() ;
 	//}}AFX_MSG
 	
 	void DrawItem(LPDRAWITEMSTRUCT);

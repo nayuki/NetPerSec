@@ -11,16 +11,16 @@ public:
 	
 // Attributes
 public:
-	void SetPos(UINT nPos, COLORREF crColor, int nLineIndex = -1  /*int nLineIndex = -1 */  );
+	void SetPos(UINT nPos, COLORREF crColor, int nLineIndex = -1  /*int nLineIndex = -1 */);
 	void SetGraphRange(UINT nRange);
-	void RedrawGraph( );
-	void DrawGraph( UINT nPos, COLORREF crColor, int nLineIndex = -1  /*int nLineIndex = -1 */ );
-	void DrawGrid( CDC* pDC, CRect* pRect );
-	void SetSize( int nPoints );
-	void ShiftLeft( );
-	void SetStyle( int nStyle );
-	void ClearGraph( );
-	int GetTotalElements( );
+	void RedrawGraph();
+	void DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex = -1  /*int nLineIndex = -1 */);
+	void DrawGrid(CDC* pDC, CRect* pRect);
+	void SetSize(int nPoints);
+	void ShiftLeft();
+	void SetStyle(int nStyle);
+	void ClearGraph();
+	int GetTotalElements();
 	
 // Operations
 public:

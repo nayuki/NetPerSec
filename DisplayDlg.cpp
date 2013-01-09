@@ -68,12 +68,12 @@ END_MESSAGE_MAP()
 // CDisplayDlg message handlers
 
 
-BOOL CDisplayDlg::GetColor( COLORREF* pColorRef )
+BOOL CDisplayDlg::GetColor(COLORREF* pColorRef)
 {
 	CColorDialog dlg;
 	dlg.m_cc.Flags |= CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT;
 	dlg.m_cc.rgbResult = *pColorRef;
-	if (dlg.DoModal( ) == IDOK)
+	if (dlg.DoModal() == IDOK)
 	{
 		*pColorRef = dlg.m_cc.rgbResult;
 		return TRUE;
@@ -90,7 +90,7 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 	COLORREF cr;
 	
 	int iStyle;
-	if ((lpDrawItemStruct->itemAction & ODA_SELECT ) && (lpDrawItemStruct->itemState & ODS_SELECTED ))
+	if ((lpDrawItemStruct->itemAction & ODA_SELECT) && (lpDrawItemStruct->itemState & ODS_SELECTED))
 		iStyle = EDGE_SUNKEN;
 	else
 		iStyle = EDGE_RAISED;
@@ -101,27 +101,27 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 		case IDC_COLOR_AVE:	cr = g_ColorAve ; break;
 		default:
 		{
-			CDialog::OnDrawItem( nIDCtl, lpDrawItemStruct );
+			CDialog::OnDrawItem(nIDCtl, lpDrawItemStruct);
 			return;
 		}
 		
 		case IDC_COLOR_SENT:
-			m_SentBtn.DrawItem( lpDrawItemStruct );
+			m_SentBtn.DrawItem(lpDrawItemStruct);
 			return;
 			
 		case IDC_COLOR_RECV:
-			m_RecvBtn.DrawItem( lpDrawItemStruct );
+			m_RecvBtn.DrawItem(lpDrawItemStruct);
 			return;
 			
 		case IDC_COLOR_ICON_BACK:
-			m_IconBtn.DrawItem( lpDrawItemStruct );
+			m_IconBtn.DrawItem(lpDrawItemStruct);
 			return;
 	}
 	
-	hbr = CreateSolidBrush( cr );
-	FillRect( lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, hbr );
-	DrawEdge( lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, iStyle, BF_RECT );
-	DeleteObject( hbr );
+	hbr = CreateSolidBrush(cr);
+	FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, hbr);
+	DrawEdge(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, iStyle, BF_RECT);
+	DeleteObject(hbr);
 	return;
 }
 
@@ -129,10 +129,10 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 //
 void CDisplayDlg::OnColorAve()
 {
-	if (GetColor( &g_ColorAve ))
+	if (GetColor(&g_ColorAve))
 	{
-		GetDlgItem(IDC_COLOR_AVE)->InvalidateRect( NULL );
-		GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
+		GetDlgItem(IDC_COLOR_AVE)->InvalidateRect(NULL);
+		GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 	}
 }
 
@@ -140,10 +140,10 @@ void CDisplayDlg::OnColorAve()
 //
 void CDisplayDlg::OnColorBack()
 {
-	if (GetColor( &g_ColorBack ))
+	if (GetColor(&g_ColorBack))
 	{
-		GetDlgItem(IDC_COLOR_BACK )->InvalidateRect( NULL );
-		GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
+		GetDlgItem(IDC_COLOR_BACK)->InvalidateRect(NULL);
+		GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 	}
 }
 
@@ -160,10 +160,10 @@ BOOL CDisplayDlg::OnInitDialog()
 	m_Restore_ColorBack = g_ColorBack;
 	m_Restore_ColorIconBack = g_ColorIconBack;
 	
-	CheckDlgButton( IDC_ICON_HISTOGRAM, g_IconStyle != ICON_BARGRAPH );
-	CheckDlgButton( IDC_ICON_BARGRAPH , g_IconStyle == ICON_BARGRAPH );
-	CheckDlgButton( IDC_ONTOP, g_bOnTop );
-	CheckDlgButton( IDC_STARTWITHWINDOWS, g_bStartWithWindows );
+	CheckDlgButton(IDC_ICON_HISTOGRAM, g_IconStyle != ICON_BARGRAPH);
+	CheckDlgButton(IDC_ICON_BARGRAPH , g_IconStyle == ICON_BARGRAPH);
+	CheckDlgButton(IDC_ONTOP, g_bOnTop);
+	CheckDlgButton(IDC_STARTWITHWINDOWS, g_bStartWithWindows);
 	return TRUE;  // return TRUE unless you set the focus to a control
 }
 
@@ -174,17 +174,17 @@ BOOL CDisplayDlg::OnSetActive()
 	m_RecvBtn.m_crCurrentColor = g_ColorRecv;
 	m_SentBtn.m_crCurrentColor = g_ColorSent;
 	m_IconBtn.m_crCurrentColor = g_ColorIconBack;
-	ShowSampleIcon( );
+	ShowSampleIcon();
 	return CPropertyPage::OnSetActive();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void CDisplayDlg::OnColorRecv( )
+void CDisplayDlg::OnColorRecv()
 {
 	g_ColorRecv = m_RecvBtn.m_crCurrentColor;
-	ShowSampleIcon( );
-	GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
+	ShowSampleIcon();
+	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -192,23 +192,23 @@ void CDisplayDlg::OnColorRecv( )
 void CDisplayDlg::OnColorIconBack()
 {
 	g_ColorIconBack = m_IconBtn.m_crCurrentColor;
-	ShowSampleIcon( );
-	GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
+	ShowSampleIcon();
+	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void CDisplayDlg::OnColorSent( )
+void CDisplayDlg::OnColorSent()
 {
 	g_ColorSent = m_SentBtn.m_crCurrentColor;
-	ShowSampleIcon( );
-	GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
+	ShowSampleIcon();
+	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void CDisplayDlg::ShowSampleIcon( )
+void CDisplayDlg::ShowSampleIcon()
 {
 	STATS_STRUCT r[MAX_SAMPLES];
 	STATS_STRUCT s[MAX_SAMPLES];
@@ -231,10 +231,10 @@ void CDisplayDlg::ShowSampleIcon( )
 		}
 	}
 	
-	HICON hIcon = pTheApp->m_Icons.GetIcon( &s[0], &r[0], 14, g_IconStyle  );
-	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE,IMAGE_ICON,(LPARAM)hIcon );
+	HICON hIcon = pTheApp->m_Icons.GetIcon(&s[0], &r[0], 14, g_IconStyle);
+	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE,IMAGE_ICON,(LPARAM)hIcon);
 	if (hOld)
-		DestroyIcon( hOld );
+		DestroyIcon(hOld);
 }
 
 
@@ -242,16 +242,16 @@ void CDisplayDlg::ShowSampleIcon( )
 //
 void CDisplayDlg::OnStartwithwindows()
 {
-	g_bStartWithWindows = IsDlgButtonChecked( IDC_STARTWITHWINDOWS );
+	g_bStartWithWindows = IsDlgButtonChecked(IDC_STARTWITHWINDOWS);
 }
 
 void CDisplayDlg::OnOntop()
 {
-	g_bOnTop = IsDlgButtonChecked( IDC_ONTOP );
+	g_bOnTop = IsDlgButtonChecked(IDC_ONTOP);
 	if (g_bOnTop)
-		GetParent()->SetWindowPos( &wndTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE );
+		GetParent()->SetWindowPos(&wndTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
 	else
-		GetParent()->SetWindowPos( &wndNoTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
+		GetParent()->SetWindowPos(&wndNoTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -267,9 +267,9 @@ void CDisplayDlg::OnDefaultColors()
 	m_SentBtn.m_crCurrentColor = g_ColorSent;
 	m_IconBtn.m_crCurrentColor = g_ColorIconBack;
 	
-	ShowSampleIcon( );
-	InvalidateRect( NULL );
-	GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
+	ShowSampleIcon();
+	InvalidateRect(NULL);
+	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -286,9 +286,9 @@ void CDisplayDlg::OnUndo()
 	m_SentBtn.m_crCurrentColor = g_ColorSent;
 	m_IconBtn.m_crCurrentColor = g_ColorIconBack;
 	
-	ShowSampleIcon( );
-	InvalidateRect( NULL );
-	GetDlgItem( IDC_UNDO )->EnableWindow( FALSE );
+	ShowSampleIcon();
+	InvalidateRect(NULL);
+	GetDlgItem(IDC_UNDO)->EnableWindow(FALSE);
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -311,9 +311,9 @@ void CDisplayDlg::OnIconBargraph()
 //
 void CDisplayDlg::OnIconHistogram()
 {
-	if (IsDlgButtonChecked( IDC_ICON_BARGRAPH ))
+	if (IsDlgButtonChecked(IDC_ICON_BARGRAPH))
 		g_IconStyle = ICON_BARGRAPH;
 	else
 		g_IconStyle = ICON_HISTOGRAM;
-	ShowSampleIcon( );
+	ShowSampleIcon();
 }

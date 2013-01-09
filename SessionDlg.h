@@ -25,20 +25,20 @@ public:
 	CSessionDlg();
 	~CSessionDlg();
 	
-	void UpdateDlg( );
+	void UpdateDlg();
 	
-	void DisplayNumber( int nID, DWORD dwNumber );
-	void SetGraphRangeSent( );
-	void SetGraphRangeRecv( );
-	void DrawGraph( int nIndex, UPDATE_MODE update);
-	void SetOptions( );
-	void UpdateGraphTextSent( DWORD );
-	void UpdateGraphTextRecv( DWORD );
-	void UpdateGraph( );
-	void SetGraphStyle( );
-	BOOL CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update );
-	void UpdateScrollPos( WORD wControl, DWORD dwValue );
-	DWORD CalcMax(STATS_STRUCT* pStats, int start );
+	void DisplayNumber(int nID, DWORD dwNumber);
+	void SetGraphRangeSent();
+	void SetGraphRangeRecv();
+	void DrawGraph(int nIndex, UPDATE_MODE update);
+	void SetOptions();
+	void UpdateGraphTextSent(DWORD);
+	void UpdateGraphTextRecv(DWORD);
+	void UpdateGraph();
+	void SetGraphStyle();
+	BOOL CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update);
+	void UpdateScrollPos(WORD wControl, DWORD dwValue);
+	DWORD CalcMax(STATS_STRUCT* pStats, int start);
 	
 	CToolTipCtrl m_ToolTip;
 	CGraphs m_RecvGraph;

@@ -35,23 +35,23 @@ class CSnmp
 	typedef LPVOID (CALLBACK* SUALLOC)(UINT);
 	typedef VOID (CALLBACK* SUFREE)(LPVOID);
 	
-	typedef DWORD (WINAPI* fpGetNumberOfInterfaces)( LPDWORD );
-	typedef DWORD (WINAPI* fpGetIfEntry)( LPVOID );
-	typedef DWORD (WINAPI* fpGetInterfaceInfo)( PIP_INTERFACE_INFO, LPDWORD );
+	typedef DWORD (WINAPI* fpGetNumberOfInterfaces)(LPDWORD);
+	typedef DWORD (WINAPI* fpGetIfEntry)(LPVOID);
+	typedef DWORD (WINAPI* fpGetInterfaceInfo)(PIP_INTERFACE_INFO, LPDWORD);
 	
-	#define OID_SIZEOF( Oid )( sizeof Oid / sizeof(UINT) )
+	#define OID_SIZEOF(Oid)(sizeof Oid / sizeof(UINT))
 	
-	typedef int (WINAPI *pSnmpUtilOidFree)( AsnObjectIdentifier * pOid  );
-	typedef int (WINAPI *pSnmpUtilVarBindFree)( SnmpVarBind * pVb );
-	typedef int (WINAPI *pSnmpUtilOidNCmp)( AsnObjectIdentifier * pOid1,
+	typedef int (WINAPI *pSnmpUtilOidFree)(AsnObjectIdentifier * pOid);
+	typedef int (WINAPI *pSnmpUtilVarBindFree)(SnmpVarBind * pVb);
+	typedef int (WINAPI *pSnmpUtilOidNCmp)(AsnObjectIdentifier * pOid1,
 	                                        AsnObjectIdentifier * pOid2,
-	                                        UINT                  nSubIds );
-	typedef int (WINAPI *pSnmpUtilOidCpy)(  AsnObjectIdentifier * pOidDst,
-	                                        AsnObjectIdentifier * pOidSrc );
+	                                        UINT                  nSubIds);
+	typedef int (WINAPI *pSnmpUtilOidCpy)(AsnObjectIdentifier * pOidDst,
+	                                        AsnObjectIdentifier * pOidSrc);
 	
 public:
-	CSnmp( );
-	~CSnmp( );
+	CSnmp();
+	~CSnmp();
 	
 private:
 	HINSTANCE               m_hInst,m_hInstIpHlp;
@@ -79,20 +79,20 @@ private:
 	CPerfData perfdata;
 	
 	//overloaded functions to accommodate Win95
-	LPVOID SnmpUtilMemAlloc( UINT nSize );
-	void  SnmpUtilMemFree( LPVOID pMem );
+	LPVOID SnmpUtilMemAlloc(UINT nSize);
+	void  SnmpUtilMemFree(LPVOID pMem);
 	
 public:
-	BOOL Init( );
-	BOOL GetReceivedAndSentOctets( DWORD* pReceived, DWORD *pSent );
-	void GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter );
+	BOOL Init();
+	BOOL GetReceivedAndSentOctets(DWORD* pReceived, DWORD *pSent);
+	void GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter);
 	
 private:
-	BOOL GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent );
-	int  GetReceivedAndSentOctets_IPHelper( DWORD* pReceived, DWORD *pSent);
-	void GetInterfaces( );
-	void ShowSystemError( int nID );
-	BOOL CheckNT( );
+	BOOL GetReceivedAndSentOctets_9x(DWORD* pReceived, DWORD *pSent);
+	int  GetReceivedAndSentOctets_IPHelper(DWORD* pReceived, DWORD *pSent);
+	void GetInterfaces();
+	void ShowSystemError(int nID);
+	BOOL CheckNT();
 };
 
 #endif

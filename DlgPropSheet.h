@@ -33,7 +33,7 @@ public:
 	
 // Operations
 public:
-	void  AddPropPages( );
+	void  AddPropPages();
 	
 // Overrides
 	// ClassWizard generated virtual function overrides

@@ -49,37 +49,37 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 	CBrush br_CurrentColor;
 	CBrush br_BackColor;
 	CPen   graypen;
-	br_CurrentColor.CreateSolidBrush( m_crCurrentColor );
-	br_BackColor.CreateSolidBrush( GetSysColor(COLOR_3DFACE) );
-	graypen.CreatePen(PS_SOLID,1,GetSysColor( COLOR_3DSHADOW));
+	br_CurrentColor.CreateSolidBrush(m_crCurrentColor);
+	br_BackColor.CreateSolidBrush(GetSysColor(COLOR_3DFACE));
+	graypen.CreatePen(PS_SOLID,1,GetSysColor(COLOR_3DSHADOW));
 	
-	CBrush *oldbrush = (CBrush*)dc.SelectStockObject( NULL_BRUSH );
-	CPen   *oldpen   = (CPen*)dc.SelectStockObject( NULL_PEN );
+	CBrush *oldbrush = (CBrush*)dc.SelectStockObject(NULL_BRUSH);
+	CPen   *oldpen   = (CPen*)dc.SelectStockObject(NULL_PEN);
 	
-	dc.SelectObject( br_BackColor);
+	dc.SelectObject(br_BackColor);
 	dc.Rectangle(&lpd->rcItem);
 	
-	dc.SelectStockObject( BLACK_PEN );
+	dc.SelectStockObject(BLACK_PEN);
 	dc.MoveTo(left,bottom-1);
 	dc.LineTo(right-1,bottom-1);
 	dc.LineTo(right-1,top);
 	
-	dc.SelectObject( &graypen );
+	dc.SelectObject(&graypen);
 	dc.MoveTo(left+1,bottom-2);
 	dc.LineTo(right-2,bottom-2);
 	dc.LineTo(right-2,top+1);
 	
-	dc.SelectStockObject( WHITE_PEN );
+	dc.SelectStockObject(WHITE_PEN);
 	dc.LineTo(left+1,top+1);
 	dc.LineTo(left+1,bottom-2);
 	dc.MoveTo(right-10,top+4);
 	dc.LineTo(right-10,bottom-4);
 	
-	dc.SelectObject( &graypen );
+	dc.SelectObject(&graypen);
 	dc.MoveTo(right-11,top+4);
 	dc.LineTo(right-11,bottom-4);
 	
-	dc.SelectStockObject( BLACK_PEN );
+	dc.SelectStockObject(BLACK_PEN);
 	dc.MoveTo(right-4,(bottom/2)-1);
 	dc.LineTo(right-9,(bottom/2)-1);
 	
@@ -88,7 +88,7 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 	
 	dc.SetPixel(right-6,(bottom/2)+1,RGB(0,0,0));
 	
-	dc.SelectObject( &br_CurrentColor );
+	dc.SelectObject(&br_CurrentColor);
 	dc.Rectangle(left+5,top+4,right-15,bottom-4);
 	
 	if (lpd->itemState & ODS_FOCUS)
@@ -107,15 +107,15 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 		}
 	}
 	
-	dc.SelectObject( oldpen );
-	dc.SelectObject( oldbrush );
+	dc.SelectObject(oldpen);
+	dc.SelectObject(oldbrush);
 	dc.Detach();
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
 //
-BOOL CColorCube::OnClick( )
+BOOL CColorCube::OnClick()
 {
 	if (dlg.DoModal() == IDOK)
 	{
@@ -169,8 +169,8 @@ BOOL CColorCubeDlg::OnInitDialog()
 	
 	m_hParent->GetWindowRect(&rc);
 	
-	SetWindowPos( NULL, rc.left, rc.bottom, 0, 0, SWP_NOSIZE|SWP_NOZORDER );
-	GetWindowRect( &r2);
+	SetWindowPos(NULL, rc.left, rc.bottom, 0, 0, SWP_NOSIZE|SWP_NOZORDER);
+	GetWindowRect(&r2);
 	
 	if (r2.bottom > GetSystemMetrics(SM_CYSCREEN))
 		r2.top = rc.top-(r2.bottom-r2.top);
@@ -178,8 +178,8 @@ BOOL CColorCubeDlg::OnInitDialog()
 	if (r2.right > GetSystemMetrics(SM_CXSCREEN))
 		r2.left = GetSystemMetrics(SM_CXSCREEN) - (r2.right-r2.left);
 	
-	SetWindowPos( NULL, r2.left, r2.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER );
-	SetCapture( );
+	SetWindowPos(NULL, r2.left, r2.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER);
+	SetCapture();
 	
 	return TRUE;
 }
@@ -187,9 +187,9 @@ BOOL CColorCubeDlg::OnInitDialog()
 
 /////////////////////////////////////////////////////////////////////////////
 //
-void CColorCubeDlg::EndDialog( int nResult )
+void CColorCubeDlg::EndDialog(int nResult)
 {
-	ReleaseCapture( );
+	ReleaseCapture();
 	CDialog::EndDialog(nResult);
 }
 
@@ -204,16 +204,16 @@ void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 	p.x = pt.x;
 	p.y = pt.y;
 	
-	ClientToScreen( &p );
-	GetWindowRect( &rc );
+	ClientToScreen(&p);
+	GetWindowRect(&rc);
 	
-	if (!PtInRect( &rc,p ))
+	if (!PtInRect(&rc,p))
 	{
-		EndDialog( IDCANCEL );
+		EndDialog(IDCANCEL);
 	} else {
-		CWnd *pWnd = ChildWindowFromPoint( pt );
+		CWnd *pWnd = ChildWindowFromPoint(pt);
 		if (pWnd && pWnd != this)
-			pWnd->SendMessage(WM_LBUTTONDOWN,0,0 );
+			pWnd->SendMessage(WM_LBUTTONDOWN,0,0);
 	}
 	
 	CDialog::OnLButtonDown(nFlags, pt);
@@ -265,10 +265,10 @@ void CColorCubeDlg::OnColorSelect(UINT id)
 //
 void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt)
 {
-	CWnd *pWnd = ChildWindowFromPoint( pt, CWP_ALL );
+	CWnd *pWnd = ChildWindowFromPoint(pt, CWP_ALL);
 	
 	if (pWnd && pWnd != this)
-		pWnd->SendMessage( WM_LBUTTONDOWN, 0, 0 );
+		pWnd->SendMessage(WM_LBUTTONDOWN, 0, 0);
 	
-	CDialog::OnLButtonUp( nFlags, pt );
+	CDialog::OnLButtonUp(nFlags, pt);
 }

@@ -62,7 +62,7 @@ typedef enum {
 } MONITOR_MODE;
 
 #define MAX_SAMPLES 61
-#define ELEMENTS(x) (sizeof(x) / sizeof(int) )
+#define ELEMENTS(x) (sizeof(x) / sizeof(int))
 
 #define MAX_ICON_COLORS 16
 extern COLORREF IconColors[MAX_ICON_COLORS];
@@ -93,17 +93,17 @@ extern ICON_STYLE g_IconStyle;
 
 
 // Prototypes
-void ReadSettings( );
-void SaveSettings( );
-void ShowError( UINT nID, int nType );
-void FormatBytes( double Bytes, CString *pString, BOOL bPerSecond = TRUE /* bPerSecond = TRUE */ );
-LPSTR FormatNumber( DWORD N );
-void WritePrivateProfileInt( LPCSTR pSection, int nValue );
-int GetPrivateProfileString( LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize );
-int GetPrivateProfileInt( LPCSTR pKey, int nDefault = 0 );
-void WritePrivateProfileString( LPCSTR pSection, LPCSTR pValue );
-void LoadWindowPosition( CRect *pRect );
-void SaveWindowPosition( CRect *pRect );
-DWORD GetServicePack( );
+void ReadSettings();
+void SaveSettings();
+void ShowError(UINT nID, int nType);
+void FormatBytes(double Bytes, CString *pString, BOOL bPerSecond = TRUE /* bPerSecond = TRUE */);
+LPSTR FormatNumber(DWORD N);
+void WritePrivateProfileInt(LPCSTR pSection, int nValue);
+int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize);
+int GetPrivateProfileInt(LPCSTR pKey, int nDefault = 0);
+void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue);
+void LoadWindowPosition(CRect *pRect);
+void SaveWindowPosition(CRect *pRect);
+DWORD GetServicePack();
 
 #endif

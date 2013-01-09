@@ -24,15 +24,15 @@ CPerfData::CPerfData()
 CPerfData::~CPerfData()
 {
 	if (m_lpNameStrings)
-		free( m_lpNameStrings );
+		free(m_lpNameStrings);
 	if (m_lpNamesArray)
-		free( m_lpNamesArray );
+		free(m_lpNamesArray);
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
 //
-BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
+BOOL CPerfData::GetPerfStats9x(LPCSTR pKey, DWORD *dwValue)
 {
 	CRegKey reg;
 	LONG lErr = !ERROR_SUCCESS;
@@ -42,8 +42,8 @@ BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
 	{
 		DWORD dwType = NULL;
 		DWORD dwCount = sizeof(DWORD);
-		lErr = RegQueryValueEx( reg.m_hKey, pKey, NULL, &dwType,(LPBYTE)dwValue, &dwCount );
-		reg.Close( );
+		lErr = RegQueryValueEx(reg.m_hKey, pKey, NULL, &dwType,(LPBYTE)dwValue, &dwCount);
+		reg.Close();
 	}
 	
 	return lErr == ERROR_SUCCESS;
@@ -56,7 +56,7 @@ BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
  * global variable m_lpNamesArray.                                 *
  *                                                               *
  *****************************************************************/
-void CPerfData::GetNameStrings( )
+void CPerfData::GetNameStrings()
 {
 	HKEY hKeyPerflib;      // handle to registry key
 	HKEY hKeyPerflib009;   // handle to registry key
@@ -67,7 +67,7 @@ void CPerfData::GetNameStrings( )
 	DWORD dwCounter;       // current counter index
 	
 	// Get the number of Counter items.
-	RegOpenKeyEx( HKEY_LOCAL_MACHINE,
+	RegOpenKeyEx(HKEY_LOCAL_MACHINE,
 		"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Perflib",
 		0,
 		KEY_READ,
@@ -75,27 +75,27 @@ void CPerfData::GetNameStrings( )
 	
 	dwBufferSize = sizeof(dwBuffer);
 	
-	RegQueryValueEx( hKeyPerflib,
+	RegQueryValueEx(hKeyPerflib,
 		"Last Counter",
 		NULL,
 		NULL,
 		(LPBYTE) &dwBuffer,
-		&dwBufferSize );
+		&dwBufferSize);
 	
-	RegCloseKey( hKeyPerflib );
+	RegCloseKey(hKeyPerflib);
 	
 	// Allocate memory for the names array.
-	m_lpNamesArray = (char**)malloc( (dwBuffer+1) * sizeof(LPSTR) );
+	m_lpNamesArray = (char**)malloc((dwBuffer+1) * sizeof(LPSTR));
 	
 	// Open key containing counter and object names.
-	RegOpenKeyEx( HKEY_LOCAL_MACHINE,
+	RegOpenKeyEx(HKEY_LOCAL_MACHINE,
 		"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Perflib\\009",
 		0,
 		KEY_READ,
 		&hKeyPerflib009);
 	
 	// Get the size of the largest value in the key (Counter or Help).
-	RegQueryInfoKey( hKeyPerflib009,
+	RegQueryInfoKey(hKeyPerflib009,
 		NULL,
 		NULL,
 		NULL,
@@ -111,20 +111,20 @@ void CPerfData::GetNameStrings( )
 	// Allocate memory for the counter and object names.
 	dwBuffer = dwMaxValueLen + 1;
 	
-	m_lpNameStrings = (char*)malloc( dwBuffer * sizeof(CHAR) );
+	m_lpNameStrings = (char*)malloc(dwBuffer * sizeof(CHAR));
 	
 	// Read Counter value.
-	RegQueryValueEx( hKeyPerflib009,
+	RegQueryValueEx(hKeyPerflib009,
 		"Counter",
 		NULL,
 		NULL,
-		(BYTE*)m_lpNameStrings, &dwBuffer );
+		(BYTE*)m_lpNameStrings, &dwBuffer);
 	
 	// Load names into an array, by index.
-	for( lpCurrentString = m_lpNameStrings; *lpCurrentString;
-	     lpCurrentString += (lstrlen(lpCurrentString)+1) )
+	for(lpCurrentString = m_lpNameStrings; *lpCurrentString;
+	     lpCurrentString += (lstrlen(lpCurrentString)+1))
 	{
-		dwCounter = atol( lpCurrentString );
+		dwCounter = atol(lpCurrentString);
 		lpCurrentString += (lstrlen(lpCurrentString)+1);
 		m_lpNamesArray[dwCounter] = (LPSTR) lpCurrentString;
 	}
@@ -133,26 +133,26 @@ void CPerfData::GetNameStrings( )
 
 /////////////////////////////////////////////////////////////////////////////
 //
-void CPerfData::ReadData9x( DWORD* pReceived, DWORD* pSent )
+void CPerfData::ReadData9x(DWORD* pReceived, DWORD* pSent)
 {
 	static BOOL bErrorShown = FALSE;
 	
-	if (GetPerfStats9x( "Dial-Up Adapter\\TotalBytesXmit" , pSent ))
+	if (GetPerfStats9x("Dial-Up Adapter\\TotalBytesXmit" , pSent))
 	{
-		GetPerfStats9x( "Dial-Up Adapter\\TotalBytesRecvd", pReceived );
+		GetPerfStats9x("Dial-Up Adapter\\TotalBytesRecvd", pReceived);
 	} else {
 		if (!bErrorShown)
 		{
 			//requires the Dial-up networking update
 			bErrorShown = TRUE;
-			ShowError( IDS_DUN_ERR, MB_OK );
+			ShowError(IDS_DUN_ERR, MB_OK);
 		}
 	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //
-void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
+void CPerfData::ReadDataNT(DWORD* pReceived, DWORD* pSent)
 {
 	PPERF_DATA_BLOCK PerfData = NULL;
 	PPERF_OBJECT_TYPE PerfObj;
@@ -162,77 +162,77 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 	DWORD i, j;
 	
 	// Allocate the buffer
-	PerfData = (PPERF_DATA_BLOCK) malloc( BufferSize );
+	PerfData = (PPERF_DATA_BLOCK) malloc(BufferSize);
 	
 	if (!PerfData)
 		return;
 	
-	while( RegQueryValueEx( HKEY_PERFORMANCE_DATA,
+	while(RegQueryValueEx(HKEY_PERFORMANCE_DATA,
 			"906",
 			NULL,
 			NULL,
 			(LPBYTE) PerfData,
-			&BufferSize ) == ERROR_MORE_DATA )
+			&BufferSize) == ERROR_MORE_DATA)
 	{
 		// Get a buffer that is big enough.
 		BufferSize += BYTEINCREMENT;
-		PerfData = (PPERF_DATA_BLOCK) realloc( PerfData, BufferSize );
+		PerfData = (PPERF_DATA_BLOCK) realloc(PerfData, BufferSize);
 	}
 	
 	// Get the first object type.
-	PerfObj = FirstObject( PerfData );
+	PerfObj = FirstObject(PerfData);
 	
 	// Process all objects.
 	for (i=0; i < PerfData->NumObjectTypes; i++)
 	{
 		// Get the first counter.
-		PerfCntr = FirstCounter( PerfObj );
+		PerfCntr = FirstCounter(PerfObj);
 		
 		// don't enumerate instances
 		if (PerfObj->NumInstances < 1)
 		{
 			// Get the counter block.
-			PtrToCntr = (PPERF_COUNTER_BLOCK) ((PBYTE)PerfObj + PerfObj->DefinitionLength );
+			PtrToCntr = (PPERF_COUNTER_BLOCK) ((PBYTE)PerfObj + PerfObj->DefinitionLength);
 			
 			// Retrieve all counters.
 			for (j=0; j < PerfObj->NumCounters; j++)
 			{
-				if (!strcmp("Bytes Transmitted", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ))
+				if (!strcmp("Bytes Transmitted", m_lpNamesArray[PerfCntr->CounterNameTitleIndex]))
 				{
-					*pSent =*( (DWORD*)((BYTE*)PtrToCntr+PerfCntr->CounterOffset) );
+					*pSent =*((DWORD*)((BYTE*)PtrToCntr+PerfCntr->CounterOffset));
 				}
 				
-				if (!strcmp("Bytes Received", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ))
+				if (!strcmp("Bytes Received", m_lpNamesArray[PerfCntr->CounterNameTitleIndex]))
 				{
-					*pReceived =*( (DWORD*)((BYTE*)PtrToCntr+PerfCntr->CounterOffset) );
+					*pReceived =*((DWORD*)((BYTE*)PtrToCntr+PerfCntr->CounterOffset));
 				}
 				
 				// Get the next counter.
-				PerfCntr = NextCounter( PerfCntr );
+				PerfCntr = NextCounter(PerfCntr);
 			}
 		}
 		// Get the next object type.
-		PerfObj = NextObject( PerfObj );
+		PerfObj = NextObject(PerfObj);
 	}
-	free( PerfData );
+	free(PerfData);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 //
-BOOL CPerfData::GetReceivedAndSentOctets( DWORD* pReceived, DWORD* pSent )
+BOOL CPerfData::GetReceivedAndSentOctets(DWORD* pReceived, DWORD* pSent)
 {
 	static BOOL bInitPerfData = FALSE;
 	
 	if (!bInitPerfData)
 	{
-		Init( );
+		Init();
 		bInitPerfData = TRUE;
 	}
 	
 	if (m_bIs95)
-		ReadData9x( pReceived, pSent );
+		ReadData9x(pReceived, pSent);
 	else
-		ReadDataNT( pReceived, pSent );
+		ReadDataNT(pReceived, pSent);
 	
 	return TRUE;
 }
@@ -247,7 +247,7 @@ void CPerfData::Init(void)
 	if (dwVersion >> 31 == 0)
 	{
 		m_bIs95 = FALSE;
-		GetNameStrings( );
+		GetNameStrings();
 	} else {
 		// Windows 95 - 98
 		// requires Dial-up Networking Update v1.3 for Win95 users

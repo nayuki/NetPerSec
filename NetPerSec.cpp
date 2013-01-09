@@ -6,7 +6,7 @@
 #include "stdafx.h"
 #include "NetPerSec.h"
 #include "winsock2.h"
-#pragma comment(lib, "Ws2_32.lib" )
+#pragma comment(lib, "Ws2_32.lib")
 
 CNetPerSecApp* pTheApp;
 
@@ -60,9 +60,9 @@ BOOL CNetPerSecApp::InitInstance()
 		if (::GetLastError()==ERROR_ALREADY_EXISTS)
 		{
 			HWND hWnd = FindWindow(NULL, SZ_APPNAME);
-			if( hWnd ) {
-				PostMessage( hWnd, TaskbarCallbackMsg ,0 ,WM_LBUTTONDBLCLK );
-				SetForegroundWindow( hWnd );
+			if(hWnd) {
+				PostMessage(hWnd, TaskbarCallbackMsg ,0 ,WM_LBUTTONDBLCLK);
+				SetForegroundWindow(hWnd);
 			}
 			return FALSE;
 		}
@@ -82,27 +82,27 @@ BOOL CNetPerSecApp::InitInstance()
 	WSADATA WinsockData;
 	if (WSAStartup(MAKEWORD(1,1), &WinsockData) != 0)
 	{
-		AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
+		AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND);
 	}
 	
 	//read in saved settings from ini file
-	ReadSettings( );
+	ReadSettings();
 	
 	//create a hidden window to receive system tray messages
-	LPCTSTR pClass = AfxRegisterWndClass( 0 );
+	LPCTSTR pClass = AfxRegisterWndClass(0);
 	CRect rc;
-	rc.SetRectEmpty( );
+	rc.SetRectEmpty();
 	
-	if (m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, SZ_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0)
+	if (m_wnd.CreateEx(WS_EX_TOOLWINDOW, pClass, SZ_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0)
 	{
-		ShowError( IDS_CREATEWINDOW_ERR, MB_OK | MB_ICONHAND );
+		ShowError(IDS_CREATEWINDOW_ERR, MB_OK | MB_ICONHAND);
 		return FALSE;	//bail out
 	}
 	
 	m_pMainWnd = &m_wnd;
-	m_wnd.StartUp( );
+	m_wnd.StartUp();
 	
-	WSACleanup( );
+	WSACleanup();
 	
 	return TRUE;
 }
@@ -110,5 +110,5 @@ BOOL CNetPerSecApp::InitInstance()
 
 void CNetPerSecApp::WinHelp(DWORD dwData, UINT nCmd)
 {
-	m_wnd.WinHelp( dwData, nCmd );
+	m_wnd.WinHelp(dwData, nCmd);
 }

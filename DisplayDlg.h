@@ -18,8 +18,8 @@ class CDisplayDlg : public CPropertyPage
 public:
 	CDisplayDlg();
 	~CDisplayDlg();
-	BOOL GetColor( COLORREF* pColorRef );
-	void ShowSampleIcon( );
+	BOOL GetColor(COLORREF* pColorRef);
+	void ShowSampleIcon();
 	
 	COLORREF    m_Restore_ColorSent,
 	            m_Restore_ColorRecv,
