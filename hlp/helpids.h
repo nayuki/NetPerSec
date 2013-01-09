@@ -1,0 +1,10 @@
+#define  IDH_network_lights		1000
+#define  IDH_connection_tab		1001
+#define  IDH_options_tab		1002
+#define  IDH_stats_tab		1003
+#define  IDH_colors_tab		1004
+#define  IDH_glossary		1005
+#define  IDH_requirements_and_limitations		1006
+#define  IDH_configuration		1007
+#define  IDH_netpersec_icon		1008
+#define  IDH_bits__bytes__and_the_metric_prefixes		1009

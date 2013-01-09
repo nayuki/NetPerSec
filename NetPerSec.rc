@@ -1,0 +1,414 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+// Generated Help ID header file
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.hm"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\netpersec.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_MAINFRAME           ICON    DISCARDABLE     "res\\netpersec.ico"
+IDI_BARGRAPH            ICON    DISCARDABLE     "res\\bargraph.ico"
+IDI_HISTOGRAM           ICON    DISCARDABLE     "res\\histogram.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 284, 204
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "",IDC_STATIC,6,5,271,180
+    LTEXT           "FileVersion",IDC_VERSION,149,64,44,8
+    CTEXT           "LegalCopyright",IDC_COPYRIGHT,61,83,161,19
+    RTEXT           "Version:",IDC_STATIC,116,64,26,8
+    LTEXT           "First published in PC Magazine, US Edition",IDC_STATIC,
+                    75,122,134,8
+    LTEXT           "January 16, 2001",IDC_STATIC,114,133,56,8
+    LTEXT           "Written by Mark Sweeney",IDC_STATIC,101,151,82,8
+    LTEXT           "NetPerSec",IDC_STATIC,123,20,36,8
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,84,109,114,1
+    ICON            IDI_MAINFRAME,IDC_STATIC,131,36,20,20
+END
+
+IDD_SESSION_DLG DIALOGEX 0, 0, 284, 204
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Graph"
+FONT 8, "MS Sans Serif"
+BEGIN
+    PUSHBUTTON      "Reset data",IDC_RESET_DATA,228,173,43,18
+    CONTROL         "Current",IDC_CURRENT_RECV_OPTION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,23,171,39,10
+    CONTROL         "Average",IDC_AVE_RECV_OPTION,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,23,185,43,10
+    CONTROL         "Bar graph",IDC_BARGRAPH,"Button",BS_AUTORADIOBUTTON,78,
+                    171,47,10
+    CONTROL         "Line graph",IDC_LINEGRAPH,"Button",BS_AUTORADIOBUTTON,
+                    78,185,49,10
+    CONTROL         "bits per second (bps)",IDC_BPS,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP,136,171,81,10
+    CONTROL         "Bytes per second (Bps)",IDC_BYTES,"Button",
+                    BS_AUTORADIOBUTTON,136,185,89,10
+    CONTROL         "Auto scale",IDC_AUTOSCALE_RECV,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,83,70,49,10
+    CONTROL         "Slider1",IDC_SCALE_SLIDER_RECV,"msctls_trackbar32",
+                    TBS_AUTOTICKS | TBS_TOP | TBS_NOTICKS | WS_TABSTOP,135,
+                    71,72,9
+    CONTROL         "Auto scale",IDC_AUTOSCALE_SENT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,83,147,49,10
+    CONTROL         "Slider1",IDC_SCALE_SLIDER_SENT,"msctls_trackbar32",
+                    TBS_AUTOTICKS | TBS_TOP | TBS_NOTICKS | WS_TABSTOP,133,
+                    148,72,9
+    GROUPBOX        "Display",IDC_STATIC,6,161,270,40
+    RTEXT           "Static",IDC_RECV_CURRENT,14,22,66,12,0,WS_EX_CLIENTEDGE
+    RTEXT           "Static",IDC_RECV_AVERAGE,14,44,66,12,0,WS_EX_CLIENTEDGE
+    RTEXT           "Static",IDC_RECV_MAXIMUM,14,66,66,12,0,WS_EX_CLIENTEDGE
+    RTEXT           "Static",IDC_SENT_CURRENT,14,100,66,12,0,
+                    WS_EX_CLIENTEDGE
+    RTEXT           "Static",IDC_SENT_AVERAGE,14,122,66,12,0,
+                    WS_EX_CLIENTEDGE
+    GROUPBOX        "Received",IDC_GROUP_RECV,6,5,270,76,0,0,HIDC_GROUP_RECV
+    GROUPBOX        "Sent",IDC_GROUP_SENT,6,83,270,76
+    GROUPBOX        "",IDC_RECV_GRAPH,83,22,132,46
+    GROUPBOX        "",IDC_SENT_GRAPH,83,100,132,46
+    LTEXT           "Static",IDC_SCALE_MAX_RECV,217,18,53,8
+    LTEXT           "Static",IDC_SCALE_MID_RECV,217,40,53,8
+    LTEXT           "0",IDC_RECV_ZERO,217,62,53,8
+    LTEXT           "Static",IDC_SCALE_MAX_SENT,217,96,53,8
+    LTEXT           "Static",IDC_SCALE_MID_SENT,217,117,53,8
+    LTEXT           "0",IDC_SENT_ZERO,217,139,53,8
+    LTEXT           "Current",IDC_STATIC,14,14,24,8
+    LTEXT           "Average",IDC_STATIC,14,36,28,8
+    LTEXT           "Current",IDC_STATIC,14,92,24,8
+    LTEXT           "Average",IDC_STATIC,14,114,28,8
+    LTEXT           "Max",IDC_STATIC,14,58,14,8
+    RTEXT           "Static",IDC_SENT_MAXIMUM,14,144,66,12,0,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "Max",IDC_STATIC,14,136,14,8
+END
+
+IDD_OPTIONS_DLG DIALOG DISCARDABLE  0, 0, 284, 204
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Options"
+FONT 8, "MS Sans Serif"
+BEGIN
+    CONTROL         "Slider1",IDC_SAMPLE_SLIDER,"msctls_trackbar32",
+                    TBS_AUTOTICKS | WS_TABSTOP,29,40,227,12
+    CONTROL         "Slider1",IDC_AVERAGE_SLIDER,"msctls_trackbar32",
+                    TBS_AUTOTICKS | WS_TABSTOP,29,107,227,12
+    CONTROL         "Monitor all network activity (default).",IDC_USE_SNMP,
+                    "Button",BS_AUTORADIOBUTTON | WS_TABSTOP,23,155,129,10
+    CONTROL         "Monitor dial-up networking only.",IDC_USE_DUN,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,23,168,115,10
+    CONTROL         "Monitor specific adapter.",IDC_MONITOR_ADAPTER,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,23,181,93,10
+    COMBOBOX        IDC_INTERFACES,120,180,121,51,CBS_DROPDOWN | WS_VSCROLL | 
+                    WS_TABSTOP
+    GROUPBOX        "Sampling Rate",IDC_SAMPLE_GROUP,6,5,266,62
+    CTEXT           ".25",IDC_STATIC,27,56,11,8
+    CTEXT           "5",IDC_STATIC,246,56,8,8
+    LTEXT           "This setting controls how often the network statistics are updated.  Lower values (left) will yield more accurate results.",
+                    IDC_STATIC,45,18,196,19
+    GROUPBOX        "Averaging Window",IDC_AVERAGE_GROUP,6,69,266,69
+    CTEXT           "60",IDC_AVERAGE_MAX,242,124,17,8
+    CTEXT           "5",IDC_AVERAGE_MIN,25,124,19,8
+    LTEXT           "Averages are calculated over a period of time.   This setting specifies the number of seconds of network activity to include in the average.",
+                    IDC_STATIC,41,81,204,24
+    GROUPBOX        "Network Interface",IDC_STATIC,6,142,266,56
+END
+
+IDD_COLOR_DLG DIALOGEX 0, 0, 284, 204
+STYLE WS_CHILD | WS_DISABLED | WS_CAPTION
+EXSTYLE WS_EX_LEFTSCROLLBAR
+CAPTION "Display"
+FONT 8, "MS Sans Serif"
+BEGIN
+    GROUPBOX        "Graph && Icon Colors",IDC_STATIC,6,5,272,138
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,117,272,1
+    GROUPBOX        "Startup && Display",IDC_STATIC,6,150,272,45,WS_GROUP
+    CONTROL         "Button1",IDC_COLOR_SENT,"Button",BS_OWNERDRAW | 
+                    WS_TABSTOP,25,28,32,14
+    CONTROL         "Button1",IDC_COLOR_RECV,"Button",BS_OWNERDRAW | 
+                    WS_TABSTOP,25,47,32,14
+    CONTROL         "",IDC_COLOR_AVE,"Button",BS_OWNERDRAW | WS_TABSTOP,25,
+                    65,32,14,WS_EX_DLGMODALFRAME
+    CONTROL         "",IDC_COLOR_BACK,"Button",BS_OWNERDRAW | WS_TABSTOP,25,
+                    95,32,14,WS_EX_DLGMODALFRAME
+    CONTROL         "Button1",IDC_COLOR_ICON_BACK,"Button",BS_OWNERDRAW | 
+                    WS_TABSTOP,151,95,32,14
+    CONTROL         "Bar graph icon",IDC_ICON_BARGRAPH,"Button",
+                    BS_AUTORADIOBUTTON,196,58,62,10
+    CONTROL         "Histogram icon",IDC_ICON_HISTOGRAM,"Button",
+                    BS_AUTORADIOBUTTON,196,71,63,10
+    PUSHBUTTON      "Undo Changes",IDC_UNDO,78,124,59,13,WS_DISABLED
+    PUSHBUTTON      "Default Colors",IDC_DEFAULT_COLORS,146,124,59,13
+    CONTROL         "Start with windows",IDC_STARTWITHWINDOWS,"Button",
+                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,53,171,75,10
+    CONTROL         "Always on top",IDC_ONTOP,"Button",BS_AUTOCHECKBOX | 
+                    WS_GROUP | WS_TABSTOP,153,171,60,10
+    LTEXT           "Receiving color",IDC_STATIC,62,50,50,8
+    LTEXT           "Sending color",IDC_STATIC,62,31,44,8
+    LTEXT           "Average color",IDC_STATIC,62,69,45,8
+    LTEXT           "Graph background color",IDC_STATIC,62,97,78,8
+    ICON            "",IDC_SAMPLE_ICON,219,22,20,20,SS_CENTERIMAGE | 
+                    SS_SUNKEN
+    RTEXT           "Sample icon",IDC_STATIC,208,44,40,8
+    LTEXT           "Icon background color",IDC_COLOR_ICON_BACK_TEXT,188,97,
+                    72,8
+END
+
+IDD_COLORCUBE_DLG DIALOGEX 0, 0, 47, 43
+STYLE DS_MODALFRAME | WS_POPUP
+FONT 8, "MS Sans Serif", 0, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_COLOR1,"Button",BS_OWNERDRAW | WS_TABSTOP,0,1,11,
+                    10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR2,"Button",BS_OWNERDRAW | WS_TABSTOP,12,1,11,
+                    10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR3,"Button",BS_OWNERDRAW | WS_TABSTOP,24,1,11,
+                    10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR4,"Button",BS_OWNERDRAW | WS_TABSTOP,36,1,11,
+                    10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR5,"Button",BS_OWNERDRAW | WS_TABSTOP,0,12,11,
+                    10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR6,"Button",BS_OWNERDRAW | WS_TABSTOP,12,12,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR7,"Button",BS_OWNERDRAW | WS_TABSTOP,24,12,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR8,"Button",BS_OWNERDRAW | WS_TABSTOP,36,12,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR9,"Button",BS_OWNERDRAW | WS_TABSTOP,0,23,11,
+                    10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR10,"Button",BS_OWNERDRAW | WS_TABSTOP,12,23,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR11,"Button",BS_OWNERDRAW | WS_TABSTOP,24,23,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR12,"Button",BS_OWNERDRAW | WS_TABSTOP,36,23,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR13,"Button",BS_OWNERDRAW | WS_TABSTOP,0,33,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR14,"Button",BS_OWNERDRAW | WS_TABSTOP,12,33,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR15,"Button",BS_OWNERDRAW | WS_TABSTOP,24,33,
+                    11,10,WS_EX_CLIENTEDGE
+    CONTROL         "",IDC_COLOR16,"Button",BS_OWNERDRAW | WS_TABSTOP,36,33,
+                    11,10,WS_EX_CLIENTEDGE
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,1,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "Written by Mark Sweeney\0"
+            VALUE "CompanyName", "Ziff-Davis Media, Inc.\0"
+            VALUE "FileDescription", "NetPerSec\0"
+            VALUE "FileVersion", "1.1\0"
+            VALUE "InternalName", "NetPerSec\0"
+            VALUE "LegalCopyright", "Copyright © 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "NetPerSec\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "NetPerSec\0"
+            VALUE "ProductVersion", "0, 0, 0, 1\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 277
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_SESSION_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 277
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+
+    IDD_COLOR_DLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 277
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 197
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU DISCARDABLE 
+BEGIN
+    POPUP "popup"
+    BEGIN
+        MENUITEM "&Open",                       ID_PROPERTIES
+        MENUITEM "&Exit",                       IDCLOSE
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_ABOUTBOX            "&About netpersec..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_INETMIB_ERR         "Unable to load inetmib1.dll.  Please see the online help."
+    IDS_CREATEWINDOW_ERR    "Unable to create window."
+    IDS_STARTUP_ERR         "Unable to add shortcut to the startup folder."
+    IDS_DUN_ERR             "Unable to retrieve the performance data in the registry.\n  Please see the Requirements section in the online help."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_SNMPINIT_ERR        "SnmpExtensionInit address not found."
+    IDS_SNMPQUERY_ERR       "SnmpExtensionQuery address not found."
+    IDS_SNMPFAIL_ERR        "SnmpExtensionInit returned an error."
+    IDS_SNMPAPI_ERR         "The SNMPAPI.DLL file was not found."
+    IDS_INETMIB1_ERR        "Error loading inetmib1.dll. "
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\netpersec.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

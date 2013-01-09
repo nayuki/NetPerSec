@@ -1,0 +1,108 @@
+LICENSE AGREEMENT FOR PC MAGAZINE UTILITIES
+
+READ THIS AGREEMENT CAREFULLY BEFORE USING THE SOFTWARE EMBODIED IN THE 
+DISC OR CD-ROM DISTRIBUTED WITH THIS LICENSE AGREEMENT OR, IF 
+DOWNLOADED OR IF PROVIDED AS PART OF A COLLECTION, THE DOWNLOADED OR 
+COLLECTED FILE(S) (the "Media"). Embodied in the Media is a PC Magazine 
+Utility computer program, its source code, and related documentation 
+(the "Software"). Ziff Davis Media Inc. ("Ziff-Davis") is the licensor 
+under this Agreement and you are the licensee. By using the Software, in 
+whole or in part, you agree to be bound by the terms of this Agreement. 
+If you do not agree to the terms of this Agreement, promptly return the 
+Software to the fulfillment house from whom you received the disc or 
+CD-ROM (or, if downloaded, delete the Software, or if provided as part 
+of a collection, cease use of the Software). Title to the Software and 
+all copyrights and other proprietary rights therein are owned by Ziff-
+Davis. All rights therein, except those expressly granted to you in 
+this Agreement, are reserved by Ziff-Davis. 
+
+1.	Limited License
+Ziff-Davis grants you a non-exclusive, non-transferable license to 
+install and use the Software in a single location on a hard disk or 
+other storage device, and to make a single archival copy of the Software.
+
+Ziff-Davis grants you a non-exclusive, non-transferable license to use 
+the source code distributed with PC Magazine utilities for educational, 
+non-commercial purposes only. Under no circumstances may you distribute 
+any unaltered or altered version of the Software through any means, 
+including, without limitation, personal bulletin boards, ftp sites, 
+CompuServe, the Web, floppy disk or other storage device, or under any 
+name, including without limitation, your name, Ziff-Davis' name or any 
+third party's name, nor may you distribute or market programs that 
+contain altered or unaltered portions of the Software's source code. In 
+no event shall Ziff-Davis' distribution of the source code with the 
+Software imply or result in a diminishment or impairment of Ziff-Davis' 
+rights in the Software or the source code of the Software, including, 
+without limitation, Ziff-Davis' copyright in the Software or the source 
+code of the Software.
+
+This Agreement and your rights hereunder shall automatically terminate 
+if you fail to comply with any provision of this Agreement. Upon such 
+termination, you shall cease all use of the Software. Further you shall 
+delete the Software and destroy any archival copies of the Software and 
+other materials related to the Software in your possession or under 
+your control, or, if downloaded or if provided as part of a collection, 
+you shall cease use of and destroy any and all copies of the Software 
+in your possession or under your control.
+
+2.	Additional Restrictions
+A.	You shall not copy the Software or any component thereof, except 
+for a single archival copy pursuant to paragraph 1 above.  You shall 
+not rent, lease, sell or sublicense the Software.  Any attempt to do so 
+shall be void and of no effect.  To obtain additional copies of the 
+Software, refer to the PC Magazine Web site located at 
+http://www.pcmag.com or PC Magazine's Utilities column.
+
+B.	You shall not (and shall not permit other persons or entities to) 
+merge, modify, include in other software or translate the Software or 
+any component thereof.
+
+C.	You shall not (and shall not permit other persons or entities to) 
+remove or obscure Ziff-Davis' copyright, trademark or other proprietary 
+notices or legends from any of the materials contained in this package 
+or downloaded.
+
+3.	Disclaimer of Warranty
+THE SOFTWARE AND THE MEDIA ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY 
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, ANY 
+WARRANTY OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. IN NO 
+EVENT SHALL ZIFF-DAVIS OR ITS AUTHORIZED DISTRIBUTORS BE LIABLE FOR ANY 
+DIRECT, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE 
+USE OR INABILITY TO USE THE SOFTWARE OR THE MEDIA, EVEN IF ZIFF-DAVIS 
+OR ITS AUTHORIZED DISTRIBUTORS HAVE BEEN ADVISED OF THE LIKELIHOOD OF 
+SUCH DAMAGES OCCURRING. ZIFF-DAVIS AND ITS AUTHORIZED DISTRIBUTORS 
+SHALL NOT BE LIABLE FOR ANY LOSS, DAMAGES OR COSTS, ARISING OUT OF, BUT 
+NOT LIMITED TO, LOST PROFITS OR REVENUE, LOSS OF USE OF THE SOFTWARE OR 
+THE MEDIA, LOSS OF DATA OR EQUIPMENT, THE COSTS OF RECOVERING SOFTWARE, 
+THE MEDIA, DATA OR EQUIPMENT, THE COST OF SUBSTITUTE SOFTWARE OR THE 
+MEDIA, DATA OR EQUIPMENT OR CLAIMS BY THIRD PARTIES, OR OTHER SIMILAR 
+COSTS.
+
+SOME STATES DO NOT ALLOW EXCLUSION OR LIMITATION OF IMPLIED WARRANTIES 
+OR LIMITATION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO 
+THE ABOVE LIMITATIONS OR EXCLUSIONS MAY NOT APPLY TO YOU.
+
+4.	U.S. Government Restricted Rights
+The Software is licensed subject to RESTRICTED RIGHTS. Use, duplication 
+or disclosure by the Government or any person or entity acting on its 
+behalf is subject to restrictions as set forth in subdivision 
+(c)(1)(ii) of the Rights in Technical Data and Computer Software Clause 
+at DFARS (48 CFR 252.227-7013) for DoD contracts, in paragraphs (c)(1) 
+and (2) of the Commercial Computer Software-Restricted Rights clause in 
+the FAR (48 CFR 52.227-19) for civilian agencies, or in the case of 
+NASA, in Clause 18-52.227-86(d) of the NASA Supplement to the FAR, or 
+in other comparable agency clauses.
+
+5.	General Provisions
+Nothing in this Agreement constitutes a waiver of Ziff-Davis' rights 
+under U.S. copyright laws or any other Federal, state, local or foreign 
+law. You are responsible for installation, management, and operation of 
+the Software. This Agreement shall be construed, interpreted and 
+governed under New York law. If any provision of this Agreement shall 
+be held by a court of competent jurisdiction to be illegal, invalid or 
+unenforceable, the remaining provisions shall remain in full force and 
+effect.  You agree that the Software will not be shipped, transferred 
+or exported into any country or used in any manner prohibited by the 
+United States Export Administration Act or any other export laws, 
+restrictions or regulations. 
+

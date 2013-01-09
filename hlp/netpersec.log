@@ -1,0 +1,31 @@
+Microsoft (R) Help Compiler
+HCRTF 4.03.0002
+Copyright (c) Microsoft Corp 1990 - 1995. All rights reserved.
+netpersec.hpj
+    HC3048: Warning: topic #1 of D:\DEV\NetPerSec\hlp\.\.\netpersec.rtf : 
+	Nonscrolling region defined after scrolling region.
+    HC3048: Warning: topic #2 of D:\DEV\NetPerSec\hlp\.\.\netpersec.rtf : 
+	Nonscrolling region defined after scrolling region.
+    HC3048: Warning: topic #3 of D:\DEV\NetPerSec\hlp\.\.\netpersec.rtf : 
+	Nonscrolling region defined after scrolling region.
+    HC3048: Warning: topic #4 of D:\DEV\NetPerSec\hlp\.\.\netpersec.rtf : 
+	Nonscrolling region defined after scrolling region.
+    HC3048: Warning: topic #5 of D:\DEV\NetPerSec\hlp\.\.\netpersec.rtf : 
+	Nonscrolling region defined after scrolling region.
+    HC3048: Warning: topic #6 of D:\DEV\NetPerSec\hlp\.\.\netpersec.rtf : 
+	Nonscrolling region defined after scrolling region.
+    HC1010: Note: 
+	The following mapped Topic IDs were not used in any topic:
+	IDH_glossary
+	IDH_configuration
+	IDH_stats_tab
+7	Topics
+18	Jumps
+29	Keywords
+5	Bitmaps
+
+
+Created D:\DEV\NetPerSec\hlp\netpersec.hlp, 99,652 bytes
+Bitmaps: 69,724 bytes
+Compile time: 0 minutes, 0 seconds
+1 note, 6 warnings

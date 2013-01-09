@@ -1,0 +1,13 @@
+
+IDH_network_lights      NetPerSec NetPerSec;
+IDH_connection_tab	Connection Tab	Connection Tab;
+IDH_connection_tab	Connection Tab	Connection Tab;
+IDH_options_tab	Options Tab	Options Tab;
+IDH_stats_tab	Stats Tab	Stats Tab;
+IDH_colors_tab	Colors Tab	Colors Tab;
+IDH_glossary	Glossary	Glossary;
+IDH_requirements_and_limitations	Requirements and Limitations	Requirements and Limitations;
+IDH_configuration	Configuration	Configuration;
+IDH_netpersec_icon	NetPerSec's Icon	NetPerSec's Icon;
+
+IDH_bits__bytes__and_the_metric_prefixes	Bits, Bytes, and the Metric Prefixes	Bits, Bytes, and the Metric Prefixes;

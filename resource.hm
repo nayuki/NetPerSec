@@ -1,0 +1,4 @@
+// Microsoft Developer Studio generated Help ID include file.
+// Used by NetworkLights.rc
+//
+#define HIDC_GROUP_RECV                 0x806a0419    // IDD_SESSION

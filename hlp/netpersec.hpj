@@ -1,0 +1,35 @@
+; This file is maintained by HCW. Do not modify this file directly.
+
+;
+[OPTIONS]
+;
+;
+ERRORLOG=.\netpersec.log
+LCID=0x409 0x0 0x0 ; English (United States)
+REPORT=Yes
+CONTENTS=IDH_network_lights
+TITLE=NetPerSec Help
+CNT=.\netpersec.cnt
+BMROOT=..
+BMROOT=.
+BMROOT=f:\hlpbrz\hb_bmaps
+ROOT=.
+HLP=.\netpersec.hlp
+
+[FILES]
+.\netpersec.rtf
+
+[BUILDTAGS]
+;
+
+[WINDOWS]
+main="NetPerSec Help",(517,109,507,758),28932,(r14876671),(r12632256),f2
+proc1="NetPerSec",(581,96,439,758),20740,(r14876671),(r12632256),f2
+
+
+[CONFIG]
+Back()
+BrowseButtons()
+
+[MAP]
+#include <helpids.h>

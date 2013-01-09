@@ -1,0 +1,8 @@
+:Base netpersec.hlp>main
+:Title NetPerSec
+1 Using NetPerSec=IDH_network_lights
+1 NetPerSec's Icon=IDH_netpersec_icon
+1 Graph Tab=IDH_connection_tab
+1 Options Tab=IDH_options_tab
+1 Display Tab=IDH_colors_tab
+1 Requirements and Troubleshooting=IDH_requirements_and_limitations
