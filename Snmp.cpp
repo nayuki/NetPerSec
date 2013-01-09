@@ -1,17 +1,6 @@
-/*=========================================================================*/
-/*                           SNMP.CPP                                      */
-/*                                                                         */
-/*               Implements the SNMP and IPHLPAPI functions.               */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Implements the SNMP and IPHLPAPI functions.
+ */
 
 #include "stdafx.h"
 #include "NetPerSec.h"

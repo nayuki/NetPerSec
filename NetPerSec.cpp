@@ -1,17 +1,7 @@
-/*=========================================================================*/
-/*                          NETPERSEC.CPP                                  */
-/*                                                                         */
-/*           Creates a hidden window to manage the system tray             */
-/*           icons. see winproc.cpp.                                       */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Creates a hidden window to manage the system tray
+ * icons. see winproc.cpp.
+ */
 
 #include "stdafx.h"
 #include "NetPerSec.h"

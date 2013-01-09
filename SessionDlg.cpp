@@ -1,17 +1,7 @@
-/*=========================================================================*/
-/*                        SESSIONDLG.CPP                                   */
-/*                                                                         */
-/*                 Implements the graphs property page and displays        */
-/*                 statistics about the current session.                   */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Implements the graphs property page and displays
+ * statistics about the current session.
+ */
 
 #include "stdafx.h"
 #include "NetPerSec.h"

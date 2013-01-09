@@ -1,17 +1,6 @@
-/*=========================================================================*/
-/*                           ABOUT.CPP                                     */
-/*                                                                         */
-/*                       About property page.                              */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * About property page.
+ */
 
 #include "stdafx.h"
 #include "NetPerSec.h"

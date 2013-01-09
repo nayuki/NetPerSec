@@ -1,5 +1,3 @@
-// PerfData.cpp : implementation file
-//
 #include "stdafx.h"
 #include "netpersec.h"
 #include "PerfData.h"

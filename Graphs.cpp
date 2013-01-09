@@ -1,17 +1,7 @@
-/*=========================================================================*/
-/*                            GRAPHS.CPP                                   */
-/*                                                                         */
-/*                  Draws the histogram and line graphs                    */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Draws the histogram and line graphs
+ */
+
 #include "stdafx.h"
 #include "globals.h"
 #include "Graphs.h"

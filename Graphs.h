@@ -1,6 +1,3 @@
-// Graphs.h : header file
-//
-
 #ifndef __GRAPHS_H__
 #define __GRAPHS_H__
 

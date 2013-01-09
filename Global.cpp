@@ -1,17 +1,8 @@
-/*=========================================================================*/
-/*                            GLOBAL.CPP                                   */
-/*                                                                         */
-/*         Shared functions and variables used by all modules.  Variables  */
-/*         beginning with a g_ underscore are global.                      */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.0 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Shared functions and variables used by all modules.  Variables
+ * beginning with a g_ underscore are global.
+ */
+
 #include "stdafx.h"
 #include "NetPerSec.h"
 #include <atlbase.h>

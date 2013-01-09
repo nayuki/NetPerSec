@@ -1,17 +1,6 @@
-/*=========================================================================*/
-/*                         DLGPROPSHEET.CPP                                */
-/*                                                                         */
-/*                       Main property sheet.                              */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Main property sheet.
+ */
 
 #include "stdafx.h"
 #include "NetPerSec.h"

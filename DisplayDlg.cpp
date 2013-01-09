@@ -1,17 +1,6 @@
-/*=========================================================================*/
-/*                         DISPLAYDLG.CPP                                  */
-/*                                                                         */
-/*                Implements the display property page.                    */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Implements the display property page.
+ */
 
 #include "stdafx.h"
 #include "NetPerSec.h"

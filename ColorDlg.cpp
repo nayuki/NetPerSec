@@ -1,17 +1,6 @@
-/*=========================================================================*/
-/*                         COLORDLG.CPP                                    */
-/*                                                                         */
-/*                Implements the color selection dialog.                   */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Implements the color selection dialog.
+ */
 
 #include "stdafx.h"
 #include "resource.h"

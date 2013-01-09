@@ -1,17 +1,6 @@
-/*=========================================================================*/
-/*                            ICONS.CPP                                    */
-/*                                                                         */
-/*            Implements the bar graph and histogram icons.                */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                                                                         */
-/*                   NetPerSec 1.1 Copyright (c) 2000                      */
-/*                      Ziff Davis Media, Inc.							   */
-/*                       All rights reserved.							   */
-/*																		   */
-/*                     Programmed by Mark Sweeney                          */
-/*=========================================================================*/
+/* 
+ * Implements the bar graph and histogram icons.
+ */
 
 #include "stdafx.h"
 #include "icons.h"
