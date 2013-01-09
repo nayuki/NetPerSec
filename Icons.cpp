@@ -21,16 +21,16 @@ CIcons::CIcons( )
 //
 CIcons::~CIcons( )
 {
-	if( m_hHistogramIcon )
+	if (m_hHistogramIcon)
 		DestroyIcon( m_hHistogramIcon );
 	
-	if( m_hBarGraphIcon )
+	if (m_hBarGraphIcon)
 		DestroyIcon( m_hBarGraphIcon );
 	
-	if( m_BarGraphIconInfo.hbmColor )
+	if (m_BarGraphIconInfo.hbmColor)
 		DeleteObject( m_BarGraphIconInfo.hbmColor );
 	
-	if( m_BarGraphIconInfo.hbmMask )
+	if (m_BarGraphIconInfo.hbmMask)
 		DeleteObject( m_BarGraphIconInfo.hbmMask );
 }
 
@@ -39,7 +39,7 @@ CIcons::~CIcons( )
 // return a handle to a histogram or bar graph icon.  the calling function must delete this handle
 HICON CIcons::GetIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int nStyle )
 {
-	if( nStyle == ICON_HISTOGRAM )
+	if (nStyle == ICON_HISTOGRAM)
 		return GetHistogramIcon( pRecv, pSent, nIndex );
 	else
 		return GetBargraphIcon( pRecv, pSent, nIndex );
@@ -55,16 +55,16 @@ void CIcons::FillBarIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nI
 	
 	int start = nIndex;
 	start -= size;
-	if( start < 0 )
+	if (start < 0)
 		start += MAX_SAMPLES;
 	
 	DWORD dwHigh = max( 1, pStats[nIndex].Bps );
 	for( i = 0; i < size; i++ )
 	{
-		if( start >= MAX_SAMPLES )
+		if (start >= MAX_SAMPLES)
 			start = 0;
 		
-		if( pStats[start].Bps > dwHigh )
+		if (pStats[start].Bps > dwHigh)
 			dwHigh = pStats[start].Bps;
 		start++;
 	}
@@ -81,7 +81,7 @@ void CIcons::FillBarIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nI
 //returns icon for the bar graph
 HICON CIcons::GetBargraphIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex )
 {
-	if( m_hBarGraphIcon == 0 )
+	if (m_hBarGraphIcon == 0)
 	{
 		m_hBarGraphIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE( IDI_BARGRAPH ),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
 		GetIconInfo( m_hBarGraphIcon, &m_BarGraphIconInfo );
@@ -138,7 +138,7 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 	
 	int start = nIndex;
 	start -= size;
-	if( start < 0 )
+	if (start < 0)
 		start += MAX_SAMPLES;
 	
 	int savestart = start;
@@ -148,10 +148,10 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 	
 	for( i = 0; i < size; i++ )
 	{
-		if( start >= MAX_SAMPLES )
+		if (start >= MAX_SAMPLES)
 			start = 0;
 		
-		if( pStats[start].Bps > dwHigh )
+		if (pStats[start].Bps > dwHigh)
 			dwHigh = pStats[start].Bps;
 		
 		start++;
@@ -161,13 +161,13 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 	
 	for( i = 0; i < size; i++ )
 	{
-		if( start  >= MAX_SAMPLES )
+		if (start  >= MAX_SAMPLES)
 			start = 0;
 		
 		//60 percent -- icon is 6 pixels high
 		int nIcon = MulDiv( pStats[start].Bps, 6, dwHigh );
 		
-		if( pStats[start].Bps && nIcon == 0 )
+		if (pStats[start].Bps && nIcon == 0)
 			nIcon = 1;
 		
 		ASSERT(nIcon < 7 );
@@ -185,7 +185,7 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 //returns a histogram icon
 HICON CIcons::GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex )
 {
-	if( m_hHistogramIcon == 0 )
+	if (m_hHistogramIcon == 0)
 	{
 		m_hHistogramIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE( IDI_HISTOGRAM ),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
 		ASSERT( m_hHistogramIcon != 0 );

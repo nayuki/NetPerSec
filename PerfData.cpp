@@ -23,9 +23,9 @@ CPerfData::CPerfData()
 
 CPerfData::~CPerfData()
 {
-	if( m_lpNameStrings )
+	if (m_lpNameStrings)
 		free( m_lpNameStrings );
-	if( m_lpNamesArray )
+	if (m_lpNamesArray)
 		free( m_lpNamesArray );
 }
 
@@ -38,7 +38,7 @@ BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
 	LONG lErr = !ERROR_SUCCESS;
 	*dwValue = 0;
 	
-	if( ERROR_SUCCESS == reg.Open(HKEY_DYN_DATA, "PerfStats\\StatData") )
+	if (ERROR_SUCCESS == reg.Open(HKEY_DYN_DATA, "PerfStats\\StatData"))
 	{
 		DWORD dwType = NULL;
 		DWORD dwCount = sizeof(DWORD);
@@ -137,11 +137,11 @@ void CPerfData::ReadData9x( DWORD* pReceived, DWORD* pSent )
 {
 	static BOOL bErrorShown = FALSE;
 	
-	if( GetPerfStats9x( "Dial-Up Adapter\\TotalBytesXmit" , pSent ) )
+	if (GetPerfStats9x( "Dial-Up Adapter\\TotalBytesXmit" , pSent ))
 	{
 		GetPerfStats9x( "Dial-Up Adapter\\TotalBytesRecvd", pReceived );
 	} else {
-		if( !bErrorShown )
+		if (!bErrorShown)
 		{
 			//requires the Dial-up networking update
 			bErrorShown = TRUE;
@@ -164,7 +164,7 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 	// Allocate the buffer
 	PerfData = (PPERF_DATA_BLOCK) malloc( BufferSize );
 	
-	if( !PerfData )
+	if (!PerfData)
 		return;
 	
 	while( RegQueryValueEx( HKEY_PERFORMANCE_DATA,
@@ -189,7 +189,7 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 		PerfCntr = FirstCounter( PerfObj );
 		
 		// don't enumerate instances
-		if( PerfObj->NumInstances < 1 )
+		if (PerfObj->NumInstances < 1)
 		{
 			// Get the counter block.
 			PtrToCntr = (PPERF_COUNTER_BLOCK) ((PBYTE)PerfObj + PerfObj->DefinitionLength );
@@ -197,12 +197,12 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 			// Retrieve all counters.
 			for( j=0; j < PerfObj->NumCounters; j++ )
 			{
-				if( !strcmp("Bytes Transmitted", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ) )
+				if (!strcmp("Bytes Transmitted", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ))
 				{
 					*pSent =*( (DWORD*)((BYTE*)PtrToCntr+PerfCntr->CounterOffset) );
 				}
 				
-				if( !strcmp("Bytes Received", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ) )
+				if (!strcmp("Bytes Received", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ))
 				{
 					*pReceived =*( (DWORD*)((BYTE*)PtrToCntr+PerfCntr->CounterOffset) );
 				}
@@ -223,13 +223,13 @@ BOOL CPerfData::GetReceivedAndSentOctets( DWORD* pReceived, DWORD* pSent )
 {
 	static BOOL bInitPerfData = FALSE;
 	
-	if( !bInitPerfData )
+	if (!bInitPerfData)
 	{
 		Init( );
 		bInitPerfData = TRUE;
 	}
 	
-	if( m_bIs95 )
+	if (m_bIs95)
 		ReadData9x( pReceived, pSent );
 	else
 		ReadDataNT( pReceived, pSent );
@@ -244,7 +244,7 @@ void CPerfData::Init(void)
 	DWORD dwVersion = GetVersion();
 	
 	// Windows NT
-	if( dwVersion >> 31 == 0 )
+	if (dwVersion >> 31 == 0)
 	{
 		m_bIs95 = FALSE;
 		GetNameStrings( );

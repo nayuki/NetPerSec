@@ -53,7 +53,7 @@ BOOL CGraphs::Create(DWORD dwStyle, const RECT& rc, CWnd* pParentWnd, UINT nID, 
 
 void CGraphs::SetGraphRange( UINT nRange)
 {
-	if( nRange < 1 )
+	if (nRange < 1)
 		nRange = 1;
 	
 	m_nGraphScale = 0;
@@ -152,7 +152,7 @@ void CGraphs::ShiftLeft( )
 	CRect rcClient;
 	GetClientRect( rcClient );
 	
-	if( m_MemDC.GetSafeHdc() != NULL )
+	if (m_MemDC.GetSafeHdc() != NULL)
 	{
 		CRect rcRight = rcClient;
 		rcRight.left = rcRight.right - WIDTH;
@@ -170,12 +170,12 @@ void CGraphs::DrawGraph( UINT nPos, COLORREF crColor, int nLineIndex )
 	CRect rcClient;
 	GetClientRect( rcClient );
 	
-	if( m_nGraphScale && nPos )
+	if (m_nGraphScale && nPos)
 		nPos = nPos / ( m_nGraphScale * 1000 );
 	
 	nPos = min( m_nGraphRange, nPos );
 	
-	if( m_MemDC.GetSafeHdc() != NULL )
+	if (m_MemDC.GetSafeHdc() != NULL)
 	{
 		m_MemDC.BitBlt( 0, 0, rcClient.Width(), rcClient.Height(), &m_MemDC, 0, 0, SRCCOPY );
 		
@@ -201,12 +201,12 @@ void CGraphs::DrawGraph( UINT nPos, COLORREF crColor, int nLineIndex )
 		//#endif
 		
 		// draw graph
-		if( m_bBarGraph )
+		if (m_bBarGraph)
 		{
 			CBrush brush( crColor );
 			m_MemDC.FillRect(rcTop, &brush);
 		} else {
-			if( nLineIndex != -1 && nLineIndex < m_GraphArray.GetSize( ) )
+			if (nLineIndex != -1 && nLineIndex < m_GraphArray.GetSize( ))
 			{
 				CPen pen( PS_SOLID,1, crColor );
 				CPen* pOldPen = m_MemDC.SelectObject( &pen );

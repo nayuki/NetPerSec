@@ -91,7 +91,7 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 	dc.SelectObject( &br_CurrentColor );
 	dc.Rectangle(left+5,top+4,right-15,bottom-4);
 	
-	if( lpd->itemState & ODS_FOCUS )
+	if (lpd->itemState & ODS_FOCUS)
 	{
 		int i;
 		for( i=left+3;i<right-4;i+=2 )
@@ -172,10 +172,10 @@ BOOL CColorCubeDlg::OnInitDialog()
 	SetWindowPos( NULL, rc.left, rc.bottom, 0, 0, SWP_NOSIZE|SWP_NOZORDER );
 	GetWindowRect( &r2);
 	
-	if( r2.bottom > GetSystemMetrics(SM_CYSCREEN) )
+	if (r2.bottom > GetSystemMetrics(SM_CYSCREEN))
 		r2.top = rc.top-(r2.bottom-r2.top);
 	
-	if( r2.right > GetSystemMetrics(SM_CXSCREEN) )
+	if (r2.right > GetSystemMetrics(SM_CXSCREEN))
 		r2.left = GetSystemMetrics(SM_CXSCREEN) - (r2.right-r2.left);
 	
 	SetWindowPos( NULL, r2.left, r2.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER );
@@ -267,7 +267,7 @@ void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt)
 {
 	CWnd *pWnd = ChildWindowFromPoint( pt, CWP_ALL );
 	
-	if( pWnd && pWnd != this )
+	if (pWnd && pWnd != this)
 		pWnd->SendMessage( WM_LBUTTONDOWN, 0, 0 );
 	
 	CDialog::OnLButtonUp( nFlags, pt );

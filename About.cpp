@@ -29,7 +29,7 @@ void InitDlg( HWND hDlg )
 	GetModuleFileName( hInst, szFullPath, sizeof(szFullPath) );
 	dwVerInfoSize = GetFileVersionInfoSize( szFullPath, &dwVerHnd );
 	
-	if( dwVerInfoSize )
+	if (dwVerInfoSize)
 	{
 		// If we were able to get the information, process it:
 		HANDLE  hMem;
@@ -63,13 +63,13 @@ void InitDlg( HWND hDlg )
 					break;
 			}
 			
-			if( wID )
+			if (wID)
 			{
 				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
 				lstrcpy( &szGetName[cchRoot], szResult );
 				fRet = VerQueryValue( lpvMem, szGetName, (void**)&lszVer, &cchVer );
 				
-				if( fRet && cchVer && lszVer )
+				if (fRet && cchVer && lszVer)
 				{
 					// Replace dialog item text with version info
 					lstrcpy( szResult, lszVer );

@@ -67,7 +67,7 @@ DWORD GetServicePack( )
 	#define SZ_SPKEY "System\\CurrentControlSet\\Control\\Windows"
 	
 	DWORD dwVersion = 0;
-	if( key.Open( HKEY_LOCAL_MACHINE, SZ_SPKEY ) == ERROR_SUCCESS )
+	if (key.Open( HKEY_LOCAL_MACHINE, SZ_SPKEY ) == ERROR_SUCCESS)
 	{
 		key.QueryValue( dwVersion, "CSDVersion" );
 		key.Close( );
@@ -100,7 +100,7 @@ void SetStartupOptions( )
 			CLSCTX_INPROC_SERVER, IID_IShellLink,
 			reinterpret_cast<LPVOID*>(&pShellLink));
 	
-	if( FAILED( hr ) )
+	if (FAILED( hr ))
 	{
 		return;
 	}
@@ -117,13 +117,13 @@ void SetStartupOptions( )
 	// Get the IPersistFile interface to save
 	hr = pShellLink->QueryInterface(IID_IPersistFile, reinterpret_cast<LPVOID*>(&pPF));
 	
-	if(FAILED(hr))
+	if (FAILED(hr))
 	{
 		pShellLink->Release();
 		return;
 	}
 	
-	if( SUCCEEDED( SHGetMalloc( &pMalloc ) ) )
+	if (SUCCEEDED( SHGetMalloc( &pMalloc ) ))
 	{
 		SHGetSpecialFolderLocation( NULL, CSIDL_STARTUP, &pidl );
 		SHGetPathFromIDList( pidl, szPath );
@@ -134,16 +134,16 @@ void SetStartupOptions( )
 	//create a .lnk file
 	wsprintf( szLinkFile, "%s.lnk", SZ_APPNAME );
 	
-	if( szPath[lstrlen(szPath) -1] != '\\' )
+	if (szPath[lstrlen(szPath) -1] != '\\')
 		lstrcat( szPath, "\\" ) ;
 	lstrcat( szPath, szLinkFile );
 	
-	if( g_bStartWithWindows )
+	if (g_bStartWithWindows)
 	{
 		// Save Unicode LNK file
 		MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szPath, -1, wszLinkFile, MAX_PATH );
 		hr = pPF->Save( wszLinkFile, TRUE );
-		if( FAILED( hr ) )
+		if (FAILED( hr ))
 		{
 			ShowError( IDS_STARTUP_ERR, MB_ICONHAND );
 		}
@@ -183,7 +183,7 @@ void FormatBytes( double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecon
 	UINT KILO = KILOBYTE;
 	
 	//convert to bits
-	if( g_DisplayBytes == 0 )
+	if (g_DisplayBytes == 0)
 	{
 		num *= 8;
 		b = "bits";
@@ -192,22 +192,22 @@ void FormatBytes( double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecon
 		KILO = KILOBITS;
 	}
 	
-	if( num >= GIGA )
+	if (num >= GIGA)
 	{
 		sprintf( s, "%.1f", ( (double)num / (double)(GIGA) ) );
 		*pString = s;
 		ch = 'G';
 	} else {
-		if ( num >= MEGA )
+		if (num >= MEGA)
 		{
 			sprintf( s, "%.1f", ( (double)num / (double)(MEGA) ) );
 			ch = 'M';
 		} else {
-			if ( num >= KILO )
+			if (num >= KILO)
 			{
 				sprintf( s, "%.1f", ( (double)num / (double)(KILO) ) );
 				*pString = s;
-				if( g_DisplayBytes )
+				if (g_DisplayBytes)
 					ch = 'K';
 				else
 					ch = 'k';
@@ -219,7 +219,7 @@ void FormatBytes( double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecon
 		}
 	}
 	
-	if( bPerSecond )
+	if (bPerSecond)
 		pString->Format( "%s %c%s/s", s, ch, b );
 	else
 		pString->Format( "%s %c%s", s, ch, b );
@@ -279,7 +279,7 @@ void QualifyPathName( CString *pFile, LPCSTR pIni )
 	GetModuleFileName( AfxGetInstanceHandle( ), szName, sizeof( szName ) );
 	p = strrchr( szName, '\\' );
 	
-	if( p )
+	if (p)
 		*(++p) = 0;
 	else
 		p = szName;

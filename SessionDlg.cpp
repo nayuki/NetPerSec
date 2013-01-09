@@ -70,7 +70,7 @@ CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD)
 //
 CSessionDlg::~CSessionDlg()
 {
-	if( m_pbrBackground )
+	if (m_pbrBackground)
 		delete m_pbrBackground;
 	m_pbrBackground = 0;
 }
@@ -113,10 +113,10 @@ END_MESSAGE_MAP()
 BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 {
 	//show the color dialog if a graph is right clicked
-	if( pMsg->message == WM_RBUTTONUP )
+	if (pMsg->message == WM_RBUTTONUP)
 	{
 		WORD wID = (WORD)GetWindowLong( pMsg->hwnd, GWL_ID );
-		if( wID == IDC_RECV_GRAPH_WINDOW || wID == IDC_SENT_GRAPH_WINDOW )
+		if (wID == IDC_RECV_GRAPH_WINDOW || wID == IDC_SENT_GRAPH_WINDOW)
 		{
 			pTheApp->m_wnd.m_pPropertiesDlg->SetActivePage( 2 );
 			return TRUE;
@@ -130,7 +130,7 @@ BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 //
 BOOL CSessionDlg::OnSetActive()
 {
-	if( m_pbrBackground )
+	if (m_pbrBackground)
 		delete m_pbrBackground;
 	
 	m_pbrBackground = new CBrush( g_ColorBack );
@@ -165,10 +165,10 @@ DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index )
 	
 	for( int i = 0; i < total; i++ )
 	{
-		if( index < 0 )
+		if (index < 0)
 			index = MAX_SAMPLES-1;
 		
-		if( pStats[index].Bps > dwMax )
+		if (pStats[index].Bps > dwMax)
 			dwMax = pStats[index].Bps;
 		index--;
 	}
@@ -213,7 +213,7 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */)
 //
 BOOL CSessionDlg::OnKillActive()
 {
-	if( m_pbrBackground )
+	if (m_pbrBackground)
 		delete m_pbrBackground;
 	m_pbrBackground = 0;
 	
@@ -281,25 +281,25 @@ BOOL CSessionDlg::OnInitDialog()
 // draw the graphs
 void CSessionDlg::DrawGraph( int nIndex, UPDATE_MODE update )
 {
-	if ( update & RECV_DATA )
+	if (update & RECV_DATA)
 	{
 		m_RecvGraph.ShiftLeft( );
 		
-		if( g_GraphOptions & OPTION_AVE )
+		if (g_GraphOptions & OPTION_AVE)
 			m_RecvGraph.SetPos( pTheApp->m_wnd.RecvStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE );
 		
-		if( g_GraphOptions & OPTION_BPS )
+		if (g_GraphOptions & OPTION_BPS)
 			m_RecvGraph.SetPos( pTheApp->m_wnd.RecvStats[nIndex].Bps, g_ColorRecv, LINEGRAPH_BPS );
 	}
 	
-	if ( update & SENT_DATA )
+	if (update & SENT_DATA)
 	{
 		m_SentGraph.ShiftLeft( );
 		
-		if( g_GraphOptions & OPTION_AVE )
+		if (g_GraphOptions & OPTION_AVE)
 			m_SentGraph.SetPos( pTheApp->m_wnd.SentStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE );
 		
-		if( g_GraphOptions & OPTION_BPS )
+		if (g_GraphOptions & OPTION_BPS)
 			m_SentGraph.SetPos( pTheApp->m_wnd.SentStats[nIndex].Bps, g_ColorSent, LINEGRAPH_BPS );
 	}
 }
@@ -310,14 +310,14 @@ void CSessionDlg::UpdateScrollPos( WORD wControl, DWORD dwValue )
 {
 	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem( wControl );
 	
-	if( pCtrl )
+	if (pCtrl)
 	{
 		int nStart = ELEMENTS(bpsArray) - 1;
 		int nPos = nStart;
 		
 		for( int i = nStart; i >= 0; i-- )
 		{
-			if( bpsArray[i] >= dwValue )
+			if (bpsArray[i] >= dwValue)
 				nPos = i;
 		}
 		pCtrl->SetPos( nPos );
@@ -329,10 +329,10 @@ void CSessionDlg::UpdateScrollPos( WORD wControl, DWORD dwValue )
 void CSessionDlg::UpdateGraph( )
 {
 	//check autosize
-	if( !g_bAutoScaleRecv || CalcAutoScale( &m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA ) == FALSE )
+	if (!g_bAutoScaleRecv || CalcAutoScale( &m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA ) == FALSE)
 		DrawGraph( pTheApp->m_wnd.GetArrayIndex(), RECV_DATA );
 	
-	if( !g_bAutoScaleSent || CalcAutoScale( &m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA ) == FALSE )
+	if (!g_bAutoScaleSent || CalcAutoScale( &m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA ) == FALSE)
 		DrawGraph( pTheApp->m_wnd.GetArrayIndex(), SENT_DATA );
 }
 
@@ -348,22 +348,22 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 	
 	int total = m_SentGraph.GetTotalElements( );
 	start -= total;
-	if( start < 0 )
+	if (start < 0)
 		start += MAX_SAMPLES;
 	
 	for( int i = 0; i < total; i++ )
 	{
-		if( start >= MAX_SAMPLES )
+		if (start >= MAX_SAMPLES)
 			start = 0;
-		if( g_GraphOptions & OPTION_BPS )
+		if (g_GraphOptions & OPTION_BPS)
 		{
-			if( pStats[start].Bps > dwHigh )
+			if (pStats[start].Bps > dwHigh)
 				dwHigh = pStats[start].Bps;
 		}
 		
-		if( g_GraphOptions & OPTION_AVE )
+		if (g_GraphOptions & OPTION_AVE)
 		{
-			if( pStats[start].ave > dwHigh )
+			if (pStats[start].ave > dwHigh)
 				dwHigh = pStats[start].ave;
 		}
 		start++;
@@ -376,12 +376,12 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 	dwHigh = MulDiv( dwHigh, 100, 80 );
 	
 	BOOL bUpdate = FALSE;
-	if( dwHigh > *pAutoScale )
+	if (dwHigh > *pAutoScale)
 	{
 		bUpdate = TRUE;
 		*pAutoScale = dwHigh;
 	} else {
-		if( *pAutoScale > dwHigh && *pAutoScale > 1000 )
+		if (*pAutoScale > dwHigh && *pAutoScale > 1000)
 		{
 			*pAutoScale = dwHigh;
 			*pAutoScale = max( 1000, *pAutoScale );
@@ -389,10 +389,10 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 		}
 	}
 	
-	if( bUpdate )
+	if (bUpdate)
 	{
 		//move the sliders
-		if( update == SENT_DATA )
+		if (update == SENT_DATA)
 		{
 			UpdateScrollPos( IDC_SCALE_SLIDER_SENT, *pAutoScale );
 			UpdateGraphTextSent( *pAutoScale );
@@ -413,7 +413,7 @@ void CSessionDlg::SetGraphRangeSent( )
 {
 	DWORD dwNumber;
 	
-	if( !g_bAutoScaleSent )
+	if (!g_bAutoScaleSent)
 		dwNumber = bpsArray[g_Range_Sent];
 	else
 		dwNumber = m_AutoScale_Sent;
@@ -426,12 +426,12 @@ void CSessionDlg::SetGraphRangeSent( )
 	
 	int total = m_SentGraph.GetTotalElements( );
 	start -= total;
-	if( start < 0 )
+	if (start < 0)
 		start += MAX_SAMPLES;
 	
 	for( int i = 0; i <= total; i++ )
 	{
-		if( start >= MAX_SAMPLES )
+		if (start >= MAX_SAMPLES)
 			start = 0;
 		DrawGraph( start++, SENT_DATA );
 	}
@@ -443,7 +443,7 @@ void CSessionDlg::SetGraphRangeRecv( )
 {
 	DWORD dwNumber;
 	
-	if( !g_bAutoScaleRecv )
+	if (!g_bAutoScaleRecv)
 		dwNumber = bpsArray[g_Range_Recv];
 	else
 		dwNumber = m_AutoScale_Recv;
@@ -456,12 +456,12 @@ void CSessionDlg::SetGraphRangeRecv( )
 	
 	int total = m_SentGraph.GetTotalElements( );
 	start -= total;
-	if( start < 0 )
+	if (start < 0)
 		start += MAX_SAMPLES;
 	
 	for( int i = 0; i <= total; i++ )
 	{
-		if( start >= MAX_SAMPLES )
+		if (start >= MAX_SAMPLES)
 			start = 0;
 		DrawGraph( start++, RECV_DATA );
 	}
@@ -476,7 +476,7 @@ HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	COLORREF cr;
 	
 	//set the foreground and background colors for the text labels
-	if( nCtlColor == CTLCOLOR_STATIC )
+	if (nCtlColor == CTLCOLOR_STATIC)
 	{
 		int iID = pWnd->GetDlgCtrlID( );
 		switch( iID )
@@ -508,10 +508,10 @@ void CSessionDlg::SetOptions( )
 {
 	g_GraphOptions = 0;
 	
-	if( IsDlgButtonChecked( IDC_CURRENT_RECV_OPTION ) )
+	if (IsDlgButtonChecked( IDC_CURRENT_RECV_OPTION ))
 		g_GraphOptions += OPTION_BPS;
 	
-	if( IsDlgButtonChecked( IDC_AVE_RECV_OPTION ) )
+	if (IsDlgButtonChecked( IDC_AVE_RECV_OPTION ))
 		g_GraphOptions += OPTION_AVE;
 	
 	SetGraphRangeRecv(  );	//redraw the graphs
@@ -610,19 +610,19 @@ void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	ASSERT( pCtrl != NULL );
 	
 	nPos = pCtrl->GetPos( );
-	if( nPos < 0 )
+	if (nPos < 0)
 		nPos = 0;
-	if( nPos >= ELEMENTS(bpsArray) )
+	if (nPos >= ELEMENTS(bpsArray))
 		nPos = ELEMENTS(bpsArray)-1;
 	
-	if( nControl == IDC_SCALE_SLIDER_RECV )
+	if (nControl == IDC_SCALE_SLIDER_RECV)
 	{
 		m_AutoScale_Recv = 0;
 		g_Range_Recv = nPos;
 		UpdateGraphTextRecv( bpsArray[nPos] );
 	}
 	
-	if( nControl == IDC_SCALE_SLIDER_SENT )
+	if (nControl == IDC_SCALE_SLIDER_SENT)
 	{
 		m_AutoScale_Sent = 0;
 		g_Range_Sent = nPos;
@@ -699,12 +699,12 @@ void CSessionDlg::OnBps()
 void CSessionDlg::OnBytes()
 {
 	g_DisplayBytes = IsDlgButtonChecked( IDC_BYTES );
-	if( g_bAutoScaleRecv )
+	if (g_bAutoScaleRecv)
 		UpdateGraphTextRecv(  m_AutoScale_Recv );
 	else
 		UpdateGraphTextRecv( bpsArray[g_Range_Recv] );
 	
-	if( g_bAutoScaleSent )
+	if (g_bAutoScaleSent)
 		UpdateGraphTextSent( m_AutoScale_Sent  );
 	else
 		UpdateGraphTextSent( bpsArray[g_Range_Sent] );

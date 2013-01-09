@@ -97,7 +97,7 @@ BOOL COptionsDlg::OnInitDialog()
 	int nPos = 0;
 	for( int i = 0; i < ELEMENTS(SampleRates); i++ )
 	{
-		if( (UINT)g_nSampleRate >= SampleRates[i] )
+		if ((UINT)g_nSampleRate >= SampleRates[i])
 			nPos = i;
 	}
 	
@@ -106,10 +106,10 @@ BOOL COptionsDlg::OnInitDialog()
 	
 	int nID;
 	nID = IDC_USE_SNMP;
-	if( g_MonitorMode == MONITOR_DUN )
+	if (g_MonitorMode == MONITOR_DUN)
 		nID = IDC_USE_DUN;
 	
-	if( g_MonitorMode == MONITOR_ADAPTER )
+	if (g_MonitorMode == MONITOR_ADAPTER)
 		nID = IDC_MONITOR_ADAPTER ;
 	
 	CheckRadioButton( IDC_USE_SNMP, IDC_MONITOR_ADAPTER , nID );
@@ -153,7 +153,7 @@ void COptionsDlg::UpdateDlg( )
 	
 	UpdateAveragingWindow( );
 	
-	if( g_nSampleRate == 1000 )
+	if (g_nSampleRate == 1000)
 		s = "1 second";
 	else
 		s.Format( "%.5g seconds", (double)((double)g_nSampleRate / (double)1000) );
@@ -163,7 +163,7 @@ void COptionsDlg::UpdateDlg( )
 	
 	double ave = (double)( (double)g_nAveragingWindow * (double)( (double)g_nSampleRate / 1000 ) );
 	
-	if( ave == 1 )
+	if (ave == 1)
 		s = "1 second";
 	else
 		s.Format( "%.5g seconds", ave );
@@ -206,10 +206,10 @@ void COptionsDlg::OnUseSnmp()
 {
 	g_MonitorMode = MONITOR_ALL;
 	
-	if( IsDlgButtonChecked( IDC_USE_DUN ) )
+	if (IsDlgButtonChecked( IDC_USE_DUN ))
 		g_MonitorMode = MONITOR_DUN;
 	
-	if( IsDlgButtonChecked( IDC_MONITOR_ADAPTER ) )
+	if (IsDlgButtonChecked( IDC_MONITOR_ADAPTER ))
 	{
 		g_MonitorMode = MONITOR_ADAPTER;
 		g_dwAdapter = m_Interfaces.GetItemData( m_Interfaces.GetCurSel( ) );
@@ -237,7 +237,7 @@ BOOL COptionsDlg::OnSetActive()
 {
 	CSnmp* pSnmp = &pTheApp->m_wnd.snmp;
 	
-	if( pSnmp )
+	if (pSnmp)
 	{
 		CStringArray s;
 		CUIntArray  nAdapterArray;
@@ -249,10 +249,10 @@ BOOL COptionsDlg::OnSetActive()
 		for( int i = 0; i <= s.GetUpperBound( ); i++ )
 		{
 			int index = m_Interfaces.AddString( s.GetAt(i) );
-			if( index != CB_ERR )
+			if (index != CB_ERR)
 			{
 				m_Interfaces.SetItemData( index, nAdapterArray.GetAt( i ) );
-				if( nAdapterArray.GetAt( i ) == g_dwAdapter )
+				if (nAdapterArray.GetAt( i ) == g_dwAdapter)
 					active = i;
 			}
 		}

@@ -41,7 +41,7 @@ CNetPerSecApp::CNetPerSecApp()
 
 CNetPerSecApp::~CNetPerSecApp()
 {
-	if(m_hMutex)
+	if (m_hMutex)
 		::CloseHandle(m_hMutex);
 }
 
@@ -55,9 +55,9 @@ BOOL CNetPerSecApp::InitInstance()
 {
 	//single instance
 	m_hMutex = ::CreateMutex(NULL, FALSE, SZ_APPNAME);
-	if( m_hMutex != NULL )
+	if (m_hMutex != NULL)
 	{
-		if(::GetLastError()==ERROR_ALREADY_EXISTS)
+		if (::GetLastError()==ERROR_ALREADY_EXISTS)
 		{
 			HWND hWnd = FindWindow(NULL, SZ_APPNAME);
 			if( hWnd ) {
@@ -80,7 +80,7 @@ BOOL CNetPerSecApp::InitInstance()
 #endif
 	
 	WSADATA WinsockData;
-	if( WSAStartup(MAKEWORD(1,1), &WinsockData) != 0)
+	if (WSAStartup(MAKEWORD(1,1), &WinsockData) != 0)
 	{
 		AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
 	}
@@ -93,7 +93,7 @@ BOOL CNetPerSecApp::InitInstance()
 	CRect rc;
 	rc.SetRectEmpty( );
 	
-	if( m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, SZ_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0 )
+	if (m_wnd.CreateEx( WS_EX_TOOLWINDOW, pClass, SZ_APPNAME, WS_OVERLAPPED, rc, NULL, 0) == 0)
 	{
 		ShowError( IDS_CREATEWINDOW_ERR, MB_OK | MB_ICONHAND );
 		return FALSE;	//bail out

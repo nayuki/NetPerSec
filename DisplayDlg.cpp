@@ -73,7 +73,7 @@ BOOL CDisplayDlg::GetColor( COLORREF* pColorRef )
 	CColorDialog dlg;
 	dlg.m_cc.Flags |= CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT;
 	dlg.m_cc.rgbResult = *pColorRef;
-	if( dlg.DoModal( ) == IDOK )
+	if (dlg.DoModal( ) == IDOK)
 	{
 		*pColorRef = dlg.m_cc.rgbResult;
 		return TRUE;
@@ -90,7 +90,7 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 	COLORREF cr;
 	
 	int iStyle;
-	if( (lpDrawItemStruct->itemAction & ODA_SELECT ) && (lpDrawItemStruct->itemState & ODS_SELECTED ) )
+	if ((lpDrawItemStruct->itemAction & ODA_SELECT ) && (lpDrawItemStruct->itemState & ODS_SELECTED ))
 		iStyle = EDGE_SUNKEN;
 	else
 		iStyle = EDGE_RAISED;
@@ -129,7 +129,7 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 //
 void CDisplayDlg::OnColorAve()
 {
-	if( GetColor( &g_ColorAve ) )
+	if (GetColor( &g_ColorAve ))
 	{
 		GetDlgItem(IDC_COLOR_AVE)->InvalidateRect( NULL );
 		GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
@@ -140,7 +140,7 @@ void CDisplayDlg::OnColorAve()
 //
 void CDisplayDlg::OnColorBack()
 {
-	if( GetColor( &g_ColorBack ) )
+	if (GetColor( &g_ColorBack ))
 	{
 		GetDlgItem(IDC_COLOR_BACK )->InvalidateRect( NULL );
 		GetDlgItem( IDC_UNDO )->EnableWindow( TRUE );
@@ -214,7 +214,7 @@ void CDisplayDlg::ShowSampleIcon( )
 	STATS_STRUCT s[MAX_SAMPLES];
 	
 	//fill the stats array with random data for the sample icon in the dialog
-	if( g_IconStyle == ICON_BARGRAPH )
+	if (g_IconStyle == ICON_BARGRAPH)
 	{
 		for( int i = 0; i <= 16; i++ )
 		{
@@ -233,7 +233,7 @@ void CDisplayDlg::ShowSampleIcon( )
 	
 	HICON hIcon = pTheApp->m_Icons.GetIcon( &s[0], &r[0], 14, g_IconStyle  );
 	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE,IMAGE_ICON,(LPARAM)hIcon );
-	if( hOld )
+	if (hOld)
 		DestroyIcon( hOld );
 }
 
@@ -248,7 +248,7 @@ void CDisplayDlg::OnStartwithwindows()
 void CDisplayDlg::OnOntop()
 {
 	g_bOnTop = IsDlgButtonChecked( IDC_ONTOP );
-	if( g_bOnTop )
+	if (g_bOnTop)
 		GetParent()->SetWindowPos( &wndTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE );
 	else
 		GetParent()->SetWindowPos( &wndNoTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
@@ -311,7 +311,7 @@ void CDisplayDlg::OnIconBargraph()
 //
 void CDisplayDlg::OnIconHistogram()
 {
-	if( IsDlgButtonChecked( IDC_ICON_BARGRAPH ) )
+	if (IsDlgButtonChecked( IDC_ICON_BARGRAPH ))
 		g_IconStyle = ICON_BARGRAPH;
 	else
 		g_IconStyle = ICON_HISTOGRAM;

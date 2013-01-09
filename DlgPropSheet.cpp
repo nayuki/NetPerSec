@@ -102,13 +102,13 @@ BOOL DlgPropSheet::OnInitDialog()
 	GetClientRect( rc );
 	LoadWindowPosition( &rc );
 	BOOL bCenter = FALSE;
-	if( rc.left < 0 || ( rc.left + rc.right ) >= GetSystemMetrics(SM_CXFULLSCREEN) )
+	if (rc.left < 0 || ( rc.left + rc.right ) >= GetSystemMetrics(SM_CXFULLSCREEN))
 		bCenter = TRUE;
 	
-	if( rc.top < 0 || ( rc.top + rc.bottom ) >= GetSystemMetrics(SM_CYFULLSCREEN) )
+	if (rc.top < 0 || ( rc.top + rc.bottom ) >= GetSystemMetrics(SM_CYFULLSCREEN))
 		bCenter = TRUE;
 	
-	if( bCenter )
+	if (bCenter)
 	{
 		GetWindowRect( rc );
 		rc.OffsetRect(-rc.left, -rc.top);
@@ -118,7 +118,7 @@ BOOL DlgPropSheet::OnInitDialog()
 		SetWindowPos( NULL,rc.left,rc.top,0,0,SWP_SHOWWINDOW | SWP_NOZORDER | SWP_NOSIZE );
 	}
 	
-	if( g_bOnTop )
+	if (g_bOnTop)
 		SetWindowPos( &wndTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE );
 	
 	return bResult;
@@ -151,7 +151,7 @@ void DlgPropSheet::PostNcDestroy()
 //
 LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if( message == WM_SIZE && wParam == SIZE_MINIMIZED )
+	if (message == WM_SIZE && wParam == SIZE_MINIMIZED)
 	{
 		SaveSettings( );
 		PostMessage( WM_CLOSE,0,0);
