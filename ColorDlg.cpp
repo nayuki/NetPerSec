@@ -94,13 +94,13 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 	if (lpd->itemState & ODS_FOCUS)
 	{
 		int i;
-		for( i=left+3;i<right-4;i+=2 )
+		for (i=left+3;i<right-4;i+=2)
 		{
 			dc.SetPixel(i,top+3,RGB(0,0,0));
 			dc.SetPixel(i,bottom-4,RGB(0,0,0));
 		}
 		
-		for( i=top+3;i<bottom-4;i+=2 )
+		for (i=top+3;i<bottom-4;i+=2)
 		{
 			dc.SetPixel(left+3,i,RGB(0,0,0));
 			dc.SetPixel(right-4,i,RGB(0,0,0));

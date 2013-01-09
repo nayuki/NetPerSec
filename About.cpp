@@ -45,7 +45,7 @@ void InitDlg( HWND hDlg )
 		cchRoot = lstrlen( szGetName );
 		
 		// Walk through the dialog items that we want to replace:
-		for( i = 0; i < 3; i++ )
+		for (i = 0; i < 3; i++)
 		{
 			BOOL  fRet;
 			UINT  cchVer = 0;
@@ -53,7 +53,7 @@ void InitDlg( HWND hDlg )
 			TCHAR  szResult[256];
 			WORD  wID = 0;
 			
-			switch( i )
+			switch (i)
 			{
 				case 0:
 					wID = IDC_COPYRIGHT;

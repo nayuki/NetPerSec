@@ -141,7 +141,7 @@ void CSnmp::GetInterfaces( )
 					m_fpGetInterfaceInfo ( pInterface, &dwSize );
 					m_dwInterfaces = min( MAX_INTERFACES, pInterface->NumAdapters );
 					
-					for( i = 0; i < m_dwInterfaces; i++ )
+					for (i = 0; i < m_dwInterfaces; i++)
 						m_dwInterfaceArray[i] = pInterface->Adapter[i].Index;
 					
 					GlobalFree( pInterface );
@@ -154,7 +154,7 @@ void CSnmp::GetInterfaces( )
 		if (m_fpGetNumberOfInterfaces( &m_dwInterfaces ) == NO_ERROR)
 		{
 			m_dwInterfaces = min( MAX_INTERFACES, m_dwInterfaces );
-			for( i = 0; i < m_dwInterfaces; i++ )
+			for (i = 0; i < m_dwInterfaces; i++)
 				m_dwInterfaceArray[i] = i + 1; //not zero based
 		}
 	}
@@ -231,7 +231,7 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper( DWORD* pReceived, DWORD *pSent)
 	
 	GetInterfaces( );
 	
-	for( i = 0; i < m_dwInterfaces; i++ )
+	for (i = 0; i < m_dwInterfaces; i++)
 	{
 		mib.dwIndex = m_dwInterfaceArray[i];
 		
@@ -313,7 +313,7 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 	m_fpSnmpUtilOidCpy(&varBind[1].name,&MIB_ifOutoctets );
 	m_fpSnmpUtilOidCpy(&varBind[2].name,&MIB_ifType );
 	
-	while( TRUE )
+	while (TRUE)
 	{
 		ret = m_fpExtensionQuery( ASN_RFC1157_GETNEXTREQUEST, m_pvarBindList, &errorStatus, &errorIndex );
 		if (!ret)
@@ -331,7 +331,7 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 		
 		// Prepare for the next iteration.  Make sure returned oid is
 		// preserved and the returned value is freed.
-		for( int i = 0; i < VAR_BINDS; i++ )
+		for (int i = 0; i < VAR_BINDS; i++)
 		{
 			m_fpSnmpUtilOidCpy( &tempOid, &varBind[i].name );
 			m_fpSnmpUtilVarBindFree( &varBind[i] );
@@ -341,7 +341,7 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 		}
 	}
 	
-	for( int i = 0; i < VAR_BINDS; i++ )
+	for (int i = 0; i < VAR_BINDS; i++)
 		m_fpSnmpUtilOidFree( &varBind[i].name );
 	
 	return 1;
@@ -381,7 +381,7 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
 	m_fpSnmpUtilOidCpy(&varBind[1].name,&MIB_ifIndex);
 	m_fpSnmpUtilOidCpy(&varBind[2].name,&MIB_ifType);
 	
-	while( 1 )
+	while (1)
 	{
 		ret = m_fpExtensionQuery( ASN_RFC1157_GETNEXTREQUEST, &varBindList, &errorStatus, &errorIndex );
 		if (!ret)
@@ -406,7 +406,7 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
 			}
 		}
 		
-		for( int i = 0; i < VAR_BINDS_DESCRIPTIONS; i++ )
+		for (int i = 0; i < VAR_BINDS_DESCRIPTIONS; i++)
 		{
 			// Prepare for the next iteration.  Make sure returned oid is
 			// preserved and the returned value is freed.
@@ -418,7 +418,7 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
 		}
 	}
 	
-	for(int i = 0; i < VAR_BINDS_DESCRIPTIONS; i++ )
+	for (int i = 0; i < VAR_BINDS_DESCRIPTIONS; i++)
 		m_fpSnmpUtilOidFree( &varBind[i].name );
 }
 

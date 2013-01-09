@@ -237,7 +237,7 @@ LPSTR FormatNumber( DWORD N )
 	char *ptr = buf + BUF_SIZE - 1;
 	*ptr-- = NULL;
 	
-	for ( ; len <= BUF_SIZE; ++len, ++posn)
+	for (; len <= BUF_SIZE; ++len, ++posn)
 	{
 		*ptr-- = (char)((N % 10L) + '0');
 		if (0L == (N /= 10L))

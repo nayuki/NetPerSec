@@ -183,7 +183,7 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 	PerfObj = FirstObject( PerfData );
 	
 	// Process all objects.
-	for( i=0; i < PerfData->NumObjectTypes; i++ )
+	for (i=0; i < PerfData->NumObjectTypes; i++)
 	{
 		// Get the first counter.
 		PerfCntr = FirstCounter( PerfObj );
@@ -195,7 +195,7 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 			PtrToCntr = (PPERF_COUNTER_BLOCK) ((PBYTE)PerfObj + PerfObj->DefinitionLength );
 			
 			// Retrieve all counters.
-			for( j=0; j < PerfObj->NumCounters; j++ )
+			for (j=0; j < PerfObj->NumCounters; j++)
 			{
 				if (!strcmp("Bytes Transmitted", m_lpNamesArray[PerfCntr->CounterNameTitleIndex] ))
 				{

@@ -57,7 +57,7 @@ void CGraphs::SetGraphRange( UINT nRange)
 		nRange = 1;
 	
 	m_nGraphScale = 0;
-	while( nRange > 0xffff )
+	while (nRange > 0xffff)
 	{
 		nRange = nRange / ( ++m_nGraphScale * 1000 );
 	}
@@ -80,7 +80,7 @@ void CGraphs::SetStyle( int nStyle )
 	m_bBarGraph = nStyle;
 	
 	int len = m_GraphArray.GetSize( );
-	for( int i = 0; i < len; i++ )
+	for (int i = 0; i < len; i++)
 		m_GraphArray[i] = 0;
 }
 

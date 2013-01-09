@@ -163,7 +163,7 @@ DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index )
 	//calc max
 	DWORD dwMax = 0;
 	
-	for( int i = 0; i < total; i++ )
+	for (int i = 0; i < total; i++)
 	{
 		if (index < 0)
 			index = MAX_SAMPLES-1;
@@ -315,7 +315,7 @@ void CSessionDlg::UpdateScrollPos( WORD wControl, DWORD dwValue )
 		int nStart = ELEMENTS(bpsArray) - 1;
 		int nPos = nStart;
 		
-		for( int i = nStart; i >= 0; i-- )
+		for (int i = nStart; i >= 0; i--)
 		{
 			if (bpsArray[i] >= dwValue)
 				nPos = i;
@@ -351,7 +351,7 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 	if (start < 0)
 		start += MAX_SAMPLES;
 	
-	for( int i = 0; i < total; i++ )
+	for (int i = 0; i < total; i++)
 	{
 		if (start >= MAX_SAMPLES)
 			start = 0;
@@ -429,7 +429,7 @@ void CSessionDlg::SetGraphRangeSent( )
 	if (start < 0)
 		start += MAX_SAMPLES;
 	
-	for( int i = 0; i <= total; i++ )
+	for (int i = 0; i <= total; i++)
 	{
 		if (start >= MAX_SAMPLES)
 			start = 0;
@@ -459,7 +459,7 @@ void CSessionDlg::SetGraphRangeRecv( )
 	if (start < 0)
 		start += MAX_SAMPLES;
 	
-	for( int i = 0; i <= total; i++ )
+	for (int i = 0; i <= total; i++)
 	{
 		if (start >= MAX_SAMPLES)
 			start = 0;
@@ -479,7 +479,7 @@ HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	if (nCtlColor == CTLCOLOR_STATIC)
 	{
 		int iID = pWnd->GetDlgCtrlID( );
-		switch( iID )
+		switch (iID)
 		{
 			case IDC_SENT_MAXIMUM:
 			case IDC_SENT_CURRENT: cr = g_ColorSent; break;

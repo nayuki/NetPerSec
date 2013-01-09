@@ -95,7 +95,7 @@ BOOL COptionsDlg::OnInitDialog()
 	pWindowSlider->SetLineSize( 1 );
 	
 	int nPos = 0;
-	for( int i = 0; i < ELEMENTS(SampleRates); i++ )
+	for (int i = 0; i < ELEMENTS(SampleRates); i++)
 	{
 		if ((UINT)g_nSampleRate >= SampleRates[i])
 			nPos = i;
@@ -181,7 +181,7 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT( pCtrl != NULL );
 	
-	switch( nControl )
+	switch (nControl)
 	{
 		case IDC_SAMPLE_SLIDER:
 		{
@@ -246,7 +246,7 @@ BOOL COptionsDlg::OnSetActive()
 		
 		int active = 0;
 		
-		for( int i = 0; i <= s.GetUpperBound( ); i++ )
+		for (int i = 0; i <= s.GetUpperBound( ); i++)
 		{
 			int index = m_Interfaces.AddString( s.GetAt(i) );
 			if (index != CB_ERR)

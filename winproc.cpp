@@ -249,7 +249,7 @@ LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(wParam);
 	
-	switch( lParam )
+	switch (lParam)
 	{
 		case WM_MOUSEMOVE:
 		{
@@ -292,7 +292,7 @@ LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 			int cmd = pMenu->TrackPopupMenu( TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY , pt.x, pt.y,this );
 			PostMessage( WM_NULL, 0, 0);
 			
-			switch( cmd )
+			switch (cmd)
 			{
 				case IDCLOSE:
 					//save any settings if the user closes the tray icon while the dlg is open
@@ -360,7 +360,7 @@ void Cwinproc::WinHelp( DWORD /*dwData*/, UINT /*nCmd*/ )
 {
 	if (m_pPropertiesDlg)
 	{
-		switch( m_pPropertiesDlg->GetActiveIndex( ) )
+		switch (m_pPropertiesDlg->GetActiveIndex( ))
 		{
 			case 0:
 				CWnd::WinHelp( IDH_connection_tab );

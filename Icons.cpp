@@ -59,7 +59,7 @@ void CIcons::FillBarIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nI
 		start += MAX_SAMPLES;
 	
 	DWORD dwHigh = max( 1, pStats[nIndex].Bps );
-	for( i = 0; i < size; i++ )
+	for (i = 0; i < size; i++)
 	{
 		if (start >= MAX_SAMPLES)
 			start = 0;
@@ -146,7 +146,7 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 	int i;
 	DWORD dwHigh = max( 1, pStats[nIndex].Bps );
 	
-	for( i = 0; i < size; i++ )
+	for (i = 0; i < size; i++)
 	{
 		if (start >= MAX_SAMPLES)
 			start = 0;
@@ -159,7 +159,7 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 	
 	start = savestart;
 	
-	for( i = 0; i < size; i++ )
+	for (i = 0; i < size; i++)
 	{
 		if (start  >= MAX_SAMPLES)
 			start = 0;

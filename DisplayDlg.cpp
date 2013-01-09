@@ -95,7 +95,7 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct)
 	else
 		iStyle = EDGE_RAISED;
 	
-	switch( nIDCtl )
+	switch (nIDCtl)
 	{
 		case IDC_COLOR_BACK: cr = g_ColorBack; break;
 		case IDC_COLOR_AVE:	cr = g_ColorAve ; break;
@@ -216,7 +216,7 @@ void CDisplayDlg::ShowSampleIcon( )
 	//fill the stats array with random data for the sample icon in the dialog
 	if (g_IconStyle == ICON_BARGRAPH)
 	{
-		for( int i = 0; i <= 16; i++ )
+		for (int i = 0; i <= 16; i++)
 		{
 			r[i].Bps = 70;
 			s[i].Bps = 35;
@@ -224,7 +224,7 @@ void CDisplayDlg::ShowSampleIcon( )
 		r[1].Bps = 100;
 		s[1].Bps = 100;
 	} else {
-		for( int i = 0; i <= 16; i++ )
+		for (int i = 0; i <= 16; i++)
 		{
 			r[i].Bps = i * 4;
 			s[i].Bps = i * 4;
