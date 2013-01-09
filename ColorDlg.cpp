@@ -286,5 +286,3 @@ void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt)
 	
 	CDialog::OnLButtonUp( nFlags, pt );
 }
-
-

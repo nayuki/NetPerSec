@@ -342,4 +342,3 @@ void CDisplayDlg::OnIconHistogram()
 		g_IconStyle = ICON_HISTOGRAM;
 	ShowSampleIcon( );
 }
-

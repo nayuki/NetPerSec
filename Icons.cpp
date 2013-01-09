@@ -238,5 +238,3 @@ HICON CIcons::GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nI
 	return( hIcon );
 	
 }
-
-

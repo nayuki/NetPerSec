@@ -397,4 +397,3 @@ void Cwinproc::WinHelp( DWORD /*dwData*/, UINT /*nCmd*/ )
 	
 	CWnd::WinHelp( 0,HELP_CONTENTS);
 }
-

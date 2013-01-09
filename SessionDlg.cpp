@@ -746,4 +746,3 @@ void CSessionDlg::OnBytes()
 		UpdateGraphTextSent( bpsArray[g_Range_Sent] );
 	
 }
-

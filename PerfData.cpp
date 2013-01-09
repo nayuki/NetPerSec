@@ -264,6 +264,3 @@ void CPerfData::Init(void)
 		m_bIs95 = TRUE;
 	}
 }
-
-
-

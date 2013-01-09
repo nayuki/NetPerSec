@@ -146,6 +146,3 @@ BOOL CAboutPage::OnInitDialog( )
 	InitDlg( GetSafeHwnd( ) );
 	return( TRUE );
 }
-
-
-

@@ -422,5 +422,3 @@ void SaveSettings( )
 	
 	SetStartupOptions( );
 }
-
-
