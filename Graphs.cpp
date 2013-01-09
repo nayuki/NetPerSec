@@ -53,13 +53,13 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CGraphs message handlers
 
-BOOL CGraphs::Create(DWORD dwStyle, const RECT& rc, CWnd* pParentWnd, UINT nID, CCreateContext* /* pContext */) 
+BOOL CGraphs::Create(DWORD dwStyle, const RECT& rc, CWnd* pParentWnd, UINT nID, CCreateContext* /* pContext */)
 {
     static CString sClass = AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW);
-	return( CWnd::CreateEx(WS_EX_CLIENTEDGE | WS_EX_STATICEDGE, 
-		                    sClass, NULL, dwStyle, 
+	return( CWnd::CreateEx(WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,
+		                    sClass, NULL, dwStyle,
 		                    rc.left, rc.top, rc.right-rc.left, rc.bottom-rc.top,
-		                    pParentWnd->GetSafeHwnd(), 
+		                    pParentWnd->GetSafeHwnd(),
                             (HMENU) nID) );
 }
 
@@ -69,7 +69,7 @@ void CGraphs::SetGraphRange( UINT nRange)
         nRange = 1;
 
     m_nGraphScale = 0;
-    while( nRange > 0xffff ) 
+    while( nRange > 0xffff )
     {
         nRange = nRange / ( ++m_nGraphScale * 1000 );
     }
@@ -108,10 +108,10 @@ void CGraphs::DrawGrid( CDC* pDC, CRect* pRect )
 
 void CGraphs::ClearGraph()
 {
-	CRect rc;		
+	CRect rc;
 	GetClientRect(rc);
 
-	CBrush bkBrush( g_ColorBack );  
+	CBrush bkBrush( g_ColorBack );
 	m_MemDC.FillRect(rc, &bkBrush);
     DrawGrid( &m_MemDC, &rc );
 }
@@ -145,7 +145,7 @@ void CGraphs::SetPos(UINT nPos, COLORREF cr, int nIndex )
 	Invalidate( );
 }
 
-void CGraphs::OnPaint() 
+void CGraphs::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 
@@ -171,7 +171,7 @@ void CGraphs::ShiftLeft( )
 		rcRight.left = rcRight.right - WIDTH;
 
         m_MemDC.BitBlt( 0, 0, rcClient.Width(), rcClient.Height(), &m_MemDC, WIDTH, 0, SRCCOPY );
-        CBrush bkBrush( g_ColorBack);  
+        CBrush bkBrush( g_ColorBack);
         m_MemDC.FillRect(rcRight,&bkBrush);
     }
 
@@ -214,7 +214,7 @@ void CGraphs::DrawGraph( UINT nPos, COLORREF crColor, int nLineIndex )
         m_MemDC.SelectObject( pOldPen );
         //#endif
 
-		// draw graph 
+		// draw graph
         if( m_bBarGraph )
         {
             CBrush brush( crColor );
@@ -224,12 +224,12 @@ void CGraphs::DrawGraph( UINT nPos, COLORREF crColor, int nLineIndex )
             {
 				CPen pen( PS_SOLID,1, crColor );
                 CPen* pOldPen = m_MemDC.SelectObject( &pen );
-                m_MemDC.MoveTo( rcRight.left-1, m_GraphArray.GetAt(nLineIndex) ); 
+                m_MemDC.MoveTo( rcRight.left-1, m_GraphArray.GetAt(nLineIndex) );
                 m_MemDC.LineTo( rcClient.right-1, rcTop.top);
 				m_GraphArray.SetAt( nLineIndex, rcTop.top );
                 m_MemDC.SelectObject( pOldPen );
 				
-            }        
+            }
         }
 
 	}

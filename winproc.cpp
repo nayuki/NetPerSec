@@ -26,7 +26,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");	
+UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ Cwinproc::Cwinproc()
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// 
+//
 Cwinproc::~Cwinproc()
 {
 }
@@ -54,7 +54,7 @@ Cwinproc::~Cwinproc()
 
 /////////////////////////////////////////////////////////////////////////////
 // Cwinproc
-void Cwinproc::OnClose() 
+void Cwinproc::OnClose()
 {
     KillTimer( TIMER_ID_WINPROC );
 	if( m_SystemTray.hWnd )
@@ -69,7 +69,7 @@ BEGIN_MESSAGE_MAP(Cwinproc, CWnd)
 	ON_WM_TIMER()
 	ON_WM_CLOSE()
 	//}}AFX_MSG_MAP
-    ON_REGISTERED_MESSAGE(TaskbarCallbackMsg, OnTaskbarNotify)	
+    ON_REGISTERED_MESSAGE(TaskbarCallbackMsg, OnTaskbarNotify)
 END_MESSAGE_MAP()
 
 
@@ -109,7 +109,7 @@ void Cwinproc::StartUp( )
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// 
+//
 void Cwinproc::CalcAverages( double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT* pStats )
 {
     ASSERT( g_nAveragingWindow <= MAX_SAMPLES );
@@ -129,7 +129,7 @@ void Cwinproc::CalcAverages( double dbTotal, DWORD dwTime, DWORD dwBps, STATS_ST
 		start = MAX_SAMPLES + start;
 
     //the array entry may not have been filled in yet
-    if( pStats[start].total == 0 ) 
+    if( pStats[start].total == 0 )
         start = 0;
     
     //set average based upon sampling window size
@@ -151,7 +151,7 @@ void Cwinproc::CalcAverages( double dbTotal, DWORD dwTime, DWORD dwBps, STATS_ST
 
 /////////////////////////////////////////////////////////////////////////////
 // Calculate samples
-void Cwinproc::OnTimer( UINT /* nIDEvent */ ) 
+void Cwinproc::OnTimer( UINT /* nIDEvent */ )
 {
     DWORD s,r, elapsed;
     DWORD dwRecv_bps, dwSent_bps;
@@ -169,7 +169,7 @@ void Cwinproc::OnTimer( UINT /* nIDEvent */ )
     }
 
     //don't depend upon exact WM_TIMER messages, get the true elapsed number of milliseconds
-    dwTime = GetTickCount( ); 
+    dwTime = GetTickCount( );
     elapsed = ( dwTime - m_dwStartTime );
     m_dwStartTime = dwTime;
 
@@ -197,7 +197,7 @@ void Cwinproc::OnTimer( UINT /* nIDEvent */ )
      
 	//calc bits per second
     if( elapsed )
-    { 
+    {
         dwRecv_bps = MulDiv( total_recv, 1000, elapsed );
         dwSent_bps = MulDiv( total_sent, 1000, elapsed );
     }
@@ -212,7 +212,7 @@ void Cwinproc::OnTimer( UINT /* nIDEvent */ )
 
     //get the icon for the system tray
     HICON hIcon = pTheApp->m_Icons.GetIcon( &RecvStats[0], &SentStats[0], m_nArrayIndex, g_IconStyle  );
-    UpdateTrayIcon( hIcon );    
+    UpdateTrayIcon( hIcon );
     DestroyIcon( hIcon );
 
     //increment the circular buffer index
@@ -228,7 +228,7 @@ void Cwinproc::OnTimer( UINT /* nIDEvent */ )
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
+//
 void Cwinproc::ShowPropertiesDlg( )
 {
     if( m_pPropertiesDlg )
@@ -259,13 +259,13 @@ void Cwinproc::ShowPropertiesDlg( )
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
-LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)	
+//
+LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(wParam);
 
 	switch( lParam )
-	{			
+	{
         case WM_MOUSEMOVE:
 		{
 			CString s,sRecvBPS,sRecvAVE;
@@ -280,7 +280,7 @@ LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 			m_SystemTray.uID    = 1;
 			m_SystemTray.uFlags = NIF_TIP;
 			strncpy( m_SystemTray.szTip, s, sizeof( m_SystemTray.szTip ) );
-			Shell_NotifyIcon( NIM_MODIFY, &m_SystemTray );		
+			Shell_NotifyIcon( NIM_MODIFY, &m_SystemTray );
 		}
 		break;
 
@@ -302,7 +302,7 @@ LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
             pMenu = menu.GetSubMenu( 0 );
             pMenu->SetDefaultItem( 0, TRUE );
 
-			//see Q135788 
+			//see Q135788
 			SetForegroundWindow( );
             int cmd = pMenu->TrackPopupMenu( TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY , pt.x, pt.y,this );
 			PostMessage( WM_NULL, 0, 0);
@@ -310,9 +310,9 @@ LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
             switch( cmd )
             {
                 case IDCLOSE:
-                    //save any settings if the user closes the tray icon while the dlg is open                    
+                    //save any settings if the user closes the tray icon while the dlg is open
                     if( m_pPropertiesDlg )
-                    {                       
+                    {
                         SaveSettings( );
                         m_pPropertiesDlg->SendMessage( WM_CLOSE );
                     }
@@ -344,7 +344,7 @@ int Cwinproc::GetArrayIndex( )
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// 
+//
 void Cwinproc::UpdateTrayIcon( HICON hIcon )
 {
     ASSERT( hIcon != 0 );
@@ -375,8 +375,8 @@ void Cwinproc::ResetData( )
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
-void Cwinproc::WinHelp( DWORD /*dwData*/, UINT /*nCmd*/ ) 
+//
+void Cwinproc::WinHelp( DWORD /*dwData*/, UINT /*nCmd*/ )
 {
     if( m_pPropertiesDlg )
     {
@@ -387,14 +387,14 @@ void Cwinproc::WinHelp( DWORD /*dwData*/, UINT /*nCmd*/ )
                 return;
             case 1:
                 CWnd::WinHelp( IDH_options_tab );
-                return;          
+                return;
             case 2:
                 CWnd::WinHelp( IDH_colors_tab );
-                return;          
+                return;
 
         }
     }
     
-    CWnd::WinHelp( 0,HELP_CONTENTS);    
+    CWnd::WinHelp( 0,HELP_CONTENTS);
 }
 

@@ -36,7 +36,7 @@ protected:
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	//}}AFX_MSG
 
-	void OnColorSelect( UINT );    
+	void OnColorSelect( UINT );
     void EndDialog( int );
 
 	DECLARE_MESSAGE_MAP()

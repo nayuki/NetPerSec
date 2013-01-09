@@ -24,7 +24,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-static int m_nLastTab = 0;    
+static int m_nLastTab = 0;
 
 /////////////////////////////////////////////////////////////////////////////
 // DlgPropSheet
@@ -76,13 +76,13 @@ void DlgPropSheet::AddPropPages( )
     AddPage( m_pDisplayDlg );
     AddPage( m_pAboutDlg );
       
-    SetActivePage( m_nLastTab );    
+    SetActivePage( m_nLastTab );
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void DlgPropSheet::OnPaint() 
+void DlgPropSheet::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	// Do not call CPropertySheet::OnPaint() for painting messages
@@ -90,17 +90,17 @@ void DlgPropSheet::OnPaint()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult) 
+BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult)
 {
     //save last tab
-    m_nLastTab = GetActiveIndex( );    	
+    m_nLastTab = GetActiveIndex( );
 	return CPropertySheet::OnChildNotify(message, wParam, lParam, pLResult);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-BOOL DlgPropSheet::OnInitDialog() 
+BOOL DlgPropSheet::OnInitDialog()
 {
     BOOL bResult = CPropertySheet::OnInitDialog();
   
@@ -119,7 +119,7 @@ BOOL DlgPropSheet::OnInitDialog()
     if( rc.top < 0 || ( rc.top + rc.bottom ) >= GetSystemMetrics(SM_CYFULLSCREEN) )
         bCenter = TRUE;
 
-    if( bCenter ) 
+    if( bCenter )
     {
         GetWindowRect( rc );
         rc.OffsetRect(-rc.left, -rc.top);
@@ -138,7 +138,7 @@ BOOL DlgPropSheet::OnInitDialog()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void DlgPropSheet::OnDestroy() 
+void DlgPropSheet::OnDestroy()
 {
     CRect rc;
     GetWindowRect( rc );
@@ -151,7 +151,7 @@ void DlgPropSheet::OnDestroy()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void DlgPropSheet::PostNcDestroy() 
+void DlgPropSheet::PostNcDestroy()
 {
     //restore mfc's main window handle
     pTheApp->m_pMainWnd = &pTheApp->m_wnd;
@@ -163,13 +163,13 @@ void DlgPropSheet::PostNcDestroy()
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam) 
+LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
     if( message == WM_SIZE && wParam == SIZE_MINIMIZED )
     {
         SaveSettings( );
         PostMessage( WM_CLOSE,0,0);
-    }          
+    }
 
 	return CPropertySheet::DefWindowProc(message, wParam, lParam);
 }
@@ -177,17 +177,17 @@ LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct) 
+int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CPropertySheet::OnCreate(lpCreateStruct) == -1)
 		return -1;
 	
-    ModifyStyle( DS_CONTEXTHELP | DS_MODALFRAME, WS_MINIMIZEBOX );    
+    ModifyStyle( DS_CONTEXTHELP | DS_MODALFRAME, WS_MINIMIZEBOX );
 	// Configure our system menu
 	GetSystemMenu( TRUE ); //revert the menu
 	CMenu* pSysMenu = GetSystemMenu( FALSE ); //and grab the handle
     pSysMenu->EnableMenuItem( SC_MINIMIZE, MF_ENABLED );
-	pSysMenu->DeleteMenu( SC_MAXIMIZE, MF_BYCOMMAND );	  
+	pSysMenu->DeleteMenu( SC_MAXIMIZE, MF_BYCOMMAND );
 	pSysMenu->DeleteMenu( SC_SIZE, MF_BYCOMMAND );
 	pSysMenu->EnableMenuItem( SC_RESTORE, MF_DISABLED | MF_GRAYED );
     	

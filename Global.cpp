@@ -21,20 +21,20 @@ int g_nSampleRate;       //milliseconds
 int g_nAveragingWindow;  //seconds
 int g_Range_Recv;        //for graph window (in Bps)
 int g_Range_Sent;        //for graph window (in Bps)
-int g_GraphOptions; 
-int g_DisplayBytes; 
+int g_GraphOptions;
+int g_DisplayBytes;
 BOOL g_bStartWithWindows;
-BOOL g_bOnTop; 
+BOOL g_bOnTop;
 BOOL g_bShowBarGraph;
 BOOL g_bAutoScaleRecv;
 BOOL g_bAutoScaleSent;
 double g_dbResetRecv;   //when user clicks reset these
 double g_dbResetSent;   //values are subtracted from the total
-DWORD g_dwAdapter;  
+DWORD g_dwAdapter;
 COLORREF g_ColorBack;
-COLORREF g_ColorRecv; 
+COLORREF g_ColorRecv;
 COLORREF g_ColorSent;
-COLORREF g_ColorAve ; 
+COLORREF g_ColorAve ;
 COLORREF g_ColorIconBack;
 ICON_STYLE g_IconStyle;
 MONITOR_MODE g_MonitorMode;
@@ -97,7 +97,7 @@ void SetStartupOptions( )
 	TCHAR szPath[MAX_PATH] = {0};
     TCHAR szLinkFile[MAX_PATH] = {0};
 	WCHAR wszLinkFile[MAX_PATH] = {0};
-	LPITEMIDLIST pidl;   
+	LPITEMIDLIST pidl;
 	LPMALLOC pMalloc;
 	
 
@@ -107,7 +107,7 @@ void SetStartupOptions( )
 	//required for Win95
 	CoInitialize( NULL );
 
-	//Create the COM server 
+	//Create the COM server
 	HRESULT hr = CoCreateInstance(CLSID_ShellLink, NULL,
 								 CLSCTX_INPROC_SERVER, IID_IShellLink,
 								 reinterpret_cast<LPVOID*>(&pShellLink));
@@ -135,13 +135,13 @@ void SetStartupOptions( )
         return;
     }
 
-	if( SUCCEEDED( SHGetMalloc( &pMalloc ) ) ) 
+	if( SUCCEEDED( SHGetMalloc( &pMalloc ) ) )
 	{
 		SHGetSpecialFolderLocation( NULL, CSIDL_STARTUP, &pidl );
 		SHGetPathFromIDList( pidl, szPath );
 		pMalloc->Free( pidl );
 		pMalloc->Release( );
-	}		
+	}
 
     //create a .lnk file
     wsprintf( szLinkFile, "%s.lnk", SZ_APPNAME );
@@ -152,7 +152,7 @@ void SetStartupOptions( )
 
 	if( g_bStartWithWindows )
     {
-	    // Save Unicode LNK file 
+	    // Save Unicode LNK file
 	    MultiByteToWideChar( CP_ACP, MB_PRECOMPOSED, szPath, -1, wszLinkFile, MAX_PATH );
 	    hr = pPF->Save( wszLinkFile, TRUE );
         if( FAILED( hr ) )
@@ -183,13 +183,13 @@ double num = dbBytes;
 
 
 //decimal format
-#define GIGABITS 1000 * 1000 * 1000 
-#define MEGABITS 1000 * 1000 
+#define GIGABITS 1000 * 1000 * 1000
+#define MEGABITS 1000 * 1000
 #define KILOBITS 1000
 
 //binary format
-#define GIGABYTE 1024 * 1024 * 1024 
-#define MEGABYTE 1024 * 1024 
+#define GIGABYTE 1024 * 1024 * 1024
+#define MEGABYTE 1024 * 1024
 #define KILOBYTE 1024
 
     UINT GIGA = GIGABYTE;
@@ -225,7 +225,7 @@ double num = dbBytes;
                 if( g_DisplayBytes )
                     ch = 'K';
                 else
-                    ch = 'k';                    
+                    ch = 'k';
              } else {
                 sprintf( s, "%g", num );
                 *pString = s;
@@ -301,7 +301,7 @@ LPSTR p;
 
 	if( p )
 		*(++p) = 0;
-	else 
+	else
 		p = szName;
 
 	strcat( p, pIni );
@@ -374,22 +374,22 @@ void LoadWindowPosition( CRect *pRect )
 //
 void ReadSettings( )
 {
-    g_nSampleRate = GetPrivateProfileInt( SZ_SAMPLERATE, 1000 ); 
-    g_nAveragingWindow = GetPrivateProfileInt( SZ_AVERAGEWINDOW, 30 ); 
-    g_Range_Recv = GetPrivateProfileInt( SZ_RANGE_RECV, 1 ); 
-    g_Range_Sent = GetPrivateProfileInt( SZ_RANGE_SENT, 1 ); 
-    g_GraphOptions = GetPrivateProfileInt( SZ_GRAPHOPTIONS, -1 ); 
-	g_DisplayBytes = GetPrivateProfileInt( SZ_DISPLAYBYTES, 0 ); 
-	g_bStartWithWindows = GetPrivateProfileInt( SZ_STARTUP, 0 ); 
-	g_bOnTop = GetPrivateProfileInt( SZ_ONTOP, 0 ); 
+    g_nSampleRate = GetPrivateProfileInt( SZ_SAMPLERATE, 1000 );
+    g_nAveragingWindow = GetPrivateProfileInt( SZ_AVERAGEWINDOW, 30 );
+    g_Range_Recv = GetPrivateProfileInt( SZ_RANGE_RECV, 1 );
+    g_Range_Sent = GetPrivateProfileInt( SZ_RANGE_SENT, 1 );
+    g_GraphOptions = GetPrivateProfileInt( SZ_GRAPHOPTIONS, -1 );
+	g_DisplayBytes = GetPrivateProfileInt( SZ_DISPLAYBYTES, 0 );
+	g_bStartWithWindows = GetPrivateProfileInt( SZ_STARTUP, 0 );
+	g_bOnTop = GetPrivateProfileInt( SZ_ONTOP, 0 );
     g_bShowBarGraph =  GetPrivateProfileInt( SZ_BARGRAPH,1 );
     g_bAutoScaleRecv = GetPrivateProfileInt( SZ_AUTOSCALE_RECV,1 );
     g_bAutoScaleSent = GetPrivateProfileInt( SZ_AUTOSCALE_SENT,1 );
     g_IconStyle = (ICON_STYLE)GetPrivateProfileInt( SZ_ICON_STYLE, ICON_HISTOGRAM );
     g_ColorBack = GetPrivateProfileInt( SZ_COLOR_BACK, COLOR_ICON_BACK );
-    g_ColorRecv = GetPrivateProfileInt( SZ_COLOR_RECV, COLOR_ICON_RECV ); 
+    g_ColorRecv = GetPrivateProfileInt( SZ_COLOR_RECV, COLOR_ICON_RECV );
     g_ColorSent = GetPrivateProfileInt( SZ_COLOR_SENT, COLOR_ICON_SENT );
-    g_ColorAve  = GetPrivateProfileInt( SZ_COLOR_AVE , COLOR_AVERAGE ); 
+    g_ColorAve  = GetPrivateProfileInt( SZ_COLOR_AVE , COLOR_AVERAGE );
     g_ColorIconBack = GetPrivateProfileInt( SZ_COLOR_ICON, COLOR_ICON_BACK );
     g_MonitorMode = (MONITOR_MODE)GetPrivateProfileInt( SZ_MONITOR_MODE, 0 );
     g_dwAdapter = GetPrivateProfileInt( SZ_ADAPTER_INDEX, 0 );
@@ -402,21 +402,21 @@ void SaveSettings( )
 {
     WritePrivateProfileInt( SZ_SAMPLERATE, g_nSampleRate );
     WritePrivateProfileInt( SZ_AVERAGEWINDOW, g_nAveragingWindow );
-    WritePrivateProfileInt( SZ_RANGE_RECV, g_Range_Recv);    
-    WritePrivateProfileInt( SZ_RANGE_SENT, g_Range_Sent);    
-    WritePrivateProfileInt( SZ_GRAPHOPTIONS, g_GraphOptions ); 
-	WritePrivateProfileInt( SZ_DISPLAYBYTES, g_DisplayBytes ); 
+    WritePrivateProfileInt( SZ_RANGE_RECV, g_Range_Recv);
+    WritePrivateProfileInt( SZ_RANGE_SENT, g_Range_Sent);
+    WritePrivateProfileInt( SZ_GRAPHOPTIONS, g_GraphOptions );
+	WritePrivateProfileInt( SZ_DISPLAYBYTES, g_DisplayBytes );
 	WritePrivateProfileInt( SZ_STARTUP, g_bStartWithWindows );
-	WritePrivateProfileInt( SZ_ONTOP, g_bOnTop ); 
+	WritePrivateProfileInt( SZ_ONTOP, g_bOnTop );
     WritePrivateProfileInt( SZ_BARGRAPH, g_bShowBarGraph );
     WritePrivateProfileInt( SZ_AUTOSCALE_RECV, g_bAutoScaleRecv );
     WritePrivateProfileInt( SZ_AUTOSCALE_SENT, g_bAutoScaleSent );
     WritePrivateProfileInt( SZ_COLOR_BACK, g_ColorBack );
-    WritePrivateProfileInt( SZ_COLOR_RECV, g_ColorRecv ); 
+    WritePrivateProfileInt( SZ_COLOR_RECV, g_ColorRecv );
     WritePrivateProfileInt( SZ_COLOR_SENT, g_ColorSent );
-    WritePrivateProfileInt( SZ_COLOR_AVE , g_ColorAve ); 
+    WritePrivateProfileInt( SZ_COLOR_AVE , g_ColorAve );
     WritePrivateProfileInt( SZ_COLOR_ICON, g_ColorIconBack );
-    WritePrivateProfileInt( SZ_ICON_STYLE, g_IconStyle );    
+    WritePrivateProfileInt( SZ_ICON_STYLE, g_IconStyle );
     WritePrivateProfileInt( SZ_MONITOR_MODE, g_MonitorMode );
     WritePrivateProfileInt( SZ_ADAPTER_INDEX, g_dwAdapter );
 

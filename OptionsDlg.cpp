@@ -39,7 +39,7 @@ UINT SampleRates[]={
     3000,
     4000,
     5000
-};	
+};
 
 
 
@@ -85,12 +85,12 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // COptionsDlg message handlers
 
-BOOL COptionsDlg::OnInitDialog() 
+BOOL COptionsDlg::OnInitDialog()
 {
 	CPropertyPage::OnInitDialog();
 	
 
-    CSliderCtrl* pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER); 
+    CSliderCtrl* pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER);
     CSliderCtrl* pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
     ASSERT( pSampleSlider != NULL );
     ASSERT( pWindowSlider != NULL );
@@ -98,8 +98,8 @@ BOOL COptionsDlg::OnInitDialog()
     pSampleSlider->SetRange( 0, ELEMENTS(SampleRates)-1 );   //milliseconds
 	pWindowSlider->SetRange( 1, ( MAX_SAMPLES -1 ) / AVERAGING_MULTIPLIER );   //seconds
 
-	pSampleSlider->SetTicFreq( 1 );  
-	pWindowSlider->SetTicFreq( 1 );  
+	pSampleSlider->SetTicFreq( 1 );
+	pWindowSlider->SetTicFreq( 1 );
 
 	pSampleSlider->SetPageSize( 1 );
 	pSampleSlider->SetLineSize( 1 );
@@ -170,9 +170,9 @@ void COptionsDlg::UpdateDlg( )
     UpdateAveragingWindow( );
 
     if( g_nSampleRate == 1000 )
-        s = "1 second";             
+        s = "1 second";
      else
-        s.Format( "%.5g seconds", (double)((double)g_nSampleRate / (double)1000) );                                 
+        s.Format( "%.5g seconds", (double)((double)g_nSampleRate / (double)1000) );
 
     s = "Sampling Rate:   " + s;
     SetDlgItemText( IDC_SAMPLE_GROUP, s );
@@ -181,18 +181,18 @@ void COptionsDlg::UpdateDlg( )
     double ave = (double)( (double)g_nAveragingWindow * (double)( (double)g_nSampleRate / 1000 ) );
 
     if( ave == 1 )
-        s = "1 second";             
-    else                
-        s.Format( "%.5g seconds", ave ); 
+        s = "1 second";
+    else
+        s.Format( "%.5g seconds", ave );
 
-    s = "Averaging Window:   " + s;    
+    s = "Averaging Window:   " + s;
     SetDlgItemText( IDC_AVERAGE_GROUP, s );
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
-void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) 
+void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
     int nControl = pScrollBar->GetDlgCtrlID( );
     CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
@@ -200,7 +200,7 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 
     switch( nControl )
     {
-        case IDC_SAMPLE_SLIDER: 
+        case IDC_SAMPLE_SLIDER:
         {
 			int nPos = pCtrl->GetPos( );
 			nPos = min( nPos, ELEMENTS(SampleRates) );
@@ -220,7 +220,7 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 }
 
 
-void COptionsDlg::OnUseSnmp() 
+void COptionsDlg::OnUseSnmp()
 {
 	g_MonitorMode = MONITOR_ALL;
 
@@ -231,7 +231,7 @@ void COptionsDlg::OnUseSnmp()
     {
         g_MonitorMode = MONITOR_ADAPTER;
         g_dwAdapter = m_Interfaces.GetItemData( m_Interfaces.GetCurSel( ) );
-    }        
+    }
 
     m_Interfaces.EnableWindow( g_MonitorMode == MONITOR_ADAPTER );
 
@@ -247,12 +247,12 @@ void COptionsDlg::OnUseSnmp()
 
 }
 
-void COptionsDlg::OnUseDun() 
+void COptionsDlg::OnUseDun()
 {
 	OnUseSnmp( );
 }
 
-BOOL COptionsDlg::OnSetActive() 
+BOOL COptionsDlg::OnSetActive()
 {
     CSnmp* pSnmp = &pTheApp->m_wnd.snmp;
 
@@ -281,13 +281,13 @@ BOOL COptionsDlg::OnSetActive()
 	return CPropertyPage::OnSetActive();
 }
 
-void COptionsDlg::OnMonitorAdapter() 
+void COptionsDlg::OnMonitorAdapter()
 {
 	OnUseSnmp();
 	
 }
 
-void COptionsDlg::OnSelchangeInterfaces() 
+void COptionsDlg::OnSelchangeInterfaces()
 {
     OnUseSnmp();
 }

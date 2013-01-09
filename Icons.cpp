@@ -40,10 +40,10 @@ CIcons::~CIcons( )
         DestroyIcon( m_hBarGraphIcon );
     
     if( m_BarGraphIconInfo.hbmColor )
-        DeleteObject( m_BarGraphIconInfo.hbmColor ); 
+        DeleteObject( m_BarGraphIconInfo.hbmColor );
     
     if( m_BarGraphIconInfo.hbmMask )
-        DeleteObject( m_BarGraphIconInfo.hbmMask ); 
+        DeleteObject( m_BarGraphIconInfo.hbmMask );
 
 }
 
@@ -72,14 +72,14 @@ void CIcons::FillBarIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nI
 	if( start < 0 )
 		start += MAX_SAMPLES;
     
-    DWORD dwHigh = max( 1, pStats[nIndex].Bps ); 
+    DWORD dwHigh = max( 1, pStats[nIndex].Bps );
     for( i = 0; i < size; i++ )
 	{
 		if( start >= MAX_SAMPLES )
 			start = 0;
 
         if( pStats[start].Bps > dwHigh )
-			dwHigh = pStats[start].Bps; 
+			dwHigh = pStats[start].Bps;
         start++;
 	}
 
@@ -101,7 +101,7 @@ HICON CIcons::GetBargraphIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIn
 	if( m_hBarGraphIcon == 0 )
 	{
         m_hBarGraphIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE( IDI_BARGRAPH ),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
-   		GetIconInfo( m_hBarGraphIcon, &m_BarGraphIconInfo ); 
+   		GetIconInfo( m_hBarGraphIcon, &m_BarGraphIconInfo );
 	  	m_bmpBarGraph.Attach( m_BarGraphIconInfo.hbmColor );
 		ASSERT( m_hBarGraphIcon != 0 );
 	}
@@ -124,7 +124,7 @@ HICON CIcons::GetBargraphIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIn
 
     dcMem.SelectObject( pOld );
 
-    HICON hIcon = CreateIconIndirect( &m_BarGraphIconInfo );        
+    HICON hIcon = CreateIconIndirect( &m_BarGraphIconInfo );
     dcMem.DeleteDC( );
     return( hIcon );  //calling function must delete this icon handle
 }
@@ -170,7 +170,7 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 			start = 0;
 
 		if( pStats[start].Bps > dwHigh )
-			dwHigh = pStats[start].Bps; 
+			dwHigh = pStats[start].Bps;
         
         start++;
 	}
@@ -179,7 +179,7 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
     start = savestart;
 
 	for( i = 0; i < size; i++ )
-	{		
+	{
 		if( start  >= MAX_SAMPLES )
 			start = 0;
 
@@ -231,7 +231,7 @@ HICON CIcons::GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nI
 
     dcMem.SelectObject( pOld );
 
-    HICON hIcon = CreateIconIndirect( &m_HistogramIconInfo );        
+    HICON hIcon = CreateIconIndirect( &m_HistogramIconInfo );
     dcMem.DeleteDC( );
 
     //calling function must delete this icon

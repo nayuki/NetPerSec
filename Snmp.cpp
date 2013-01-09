@@ -47,7 +47,7 @@ void CSnmp::SnmpUtilMemFree( LPVOID pMem )
 CSnmp::CSnmp( )
 {
 	m_fpSnmpUtilMemAlloc = NULL;
-	m_fpSnmpUtilMemFree = NULL; 
+	m_fpSnmpUtilMemFree = NULL;
 	m_pvarBindList = NULL;
 	m_bUse_iphlpapi = FALSE;
 	m_hInstIpHlp = 0;
@@ -99,7 +99,7 @@ BOOL CSnmp::CheckNT( )
 		
         if( m_hInstIpHlp )
 		{
-            m_fpGetIfEntry = (fpGetIfEntry)GetProcAddress(m_hInstIpHlp,"GetIfEntry" );	
+            m_fpGetIfEntry = (fpGetIfEntry)GetProcAddress(m_hInstIpHlp,"GetIfEntry" );
             m_fpGetNumberOfInterfaces = (fpGetNumberOfInterfaces)GetProcAddress( m_hInstIpHlp, "GetNumberOfInterfaces" );
             
             //if WinNT 4
@@ -108,7 +108,7 @@ BOOL CSnmp::CheckNT( )
                 //requires SP4 or higher
                 DWORD dwServicePack = GetServicePack( );
                 if( dwServicePack > 0x300 )
-                {        
+                {
 			        if( m_fpGetNumberOfInterfaces != 0 )
                         m_bUse_iphlpapi = TRUE;
                 }
@@ -118,7 +118,7 @@ BOOL CSnmp::CheckNT( )
                 //and control flags in the upper word of the adapter[].index
                 //GetInterfaceInfo is not supported by WinNT
                 m_fpGetInterfaceInfo = (fpGetInterfaceInfo)GetProcAddress( m_hInstIpHlp, "GetInterfaceInfo" );
-                if( m_fpGetInterfaceInfo ) 
+                if( m_fpGetInterfaceInfo )
                 {
                     m_bUseGetInterfaceInfo = TRUE;
                     m_bUse_iphlpapi = TRUE;
@@ -155,7 +155,7 @@ void CSnmp::GetInterfaces( )
                     m_dwInterfaces = min( MAX_INTERFACES, pInterface->NumAdapters );
 
                     for( i = 0; i < m_dwInterfaces; i++ )
-                        m_dwInterfaceArray[i] = pInterface->Adapter[i].Index; 
+                        m_dwInterfaceArray[i] = pInterface->Adapter[i].Index;
                 
                     GlobalFree( pInterface );
                 }
@@ -163,8 +163,8 @@ void CSnmp::GetInterfaces( )
         }
     } else {
 
-        //WinNT 4 uses scalar "friendly" values for the GetIfEntry function 
-        //although this is poorly documented by Microsoft  
+        //WinNT 4 uses scalar "friendly" values for the GetIfEntry function
+        //although this is poorly documented by Microsoft
          if( m_fpGetNumberOfInterfaces( &m_dwInterfaces ) == NO_ERROR )
             {
                 m_dwInterfaces = min( MAX_INTERFACES, m_dwInterfaces );
@@ -300,8 +300,8 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
     m_pvarBindList->list = varBind;
     m_pvarBindList->len  = VAR_BINDS;
     varBind[0].name = MIB_NULL;
-    varBind[1].name = MIB_NULL;		 
-    varBind[2].name = MIB_NULL;		 
+    varBind[1].name = MIB_NULL;
+    varBind[2].name = MIB_NULL;
 
     //monitor specific adapter?
     if( g_MonitorMode == MONITOR_ADAPTER )
@@ -310,13 +310,13 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
         OID_ifInoctets[10] = g_dwAdapter;
         OID_ifOutoctets[10] = g_dwAdapter;
 
-        m_fpSnmpUtilOidCpy(&varBind[0].name,&MIB_ifInoctets ); 
+        m_fpSnmpUtilOidCpy(&varBind[0].name,&MIB_ifInoctets );
         m_fpSnmpUtilOidCpy(&varBind[1].name,&MIB_ifOutoctets );
     
-    	ret = m_fpExtensionQuery( ASN_RFC1157_GETREQUEST, m_pvarBindList, &errorStatus, &errorIndex );    
+    	ret = m_fpExtensionQuery( ASN_RFC1157_GETREQUEST, m_pvarBindList, &errorStatus, &errorIndex );
         if( ret && !errorStatus )
         {
-            *pReceived = varBind[0].value.asnValue.number;    
+            *pReceived = varBind[0].value.asnValue.number;
             *pSent = varBind[1].value.asnValue.number;
         }
         
@@ -330,9 +330,9 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
     OID_ifInoctets[10] = 0;
     OID_ifOutoctets[10] = 0;
 
-    m_fpSnmpUtilOidCpy(&varBind[0].name,&MIB_ifInoctets ); 
+    m_fpSnmpUtilOidCpy(&varBind[0].name,&MIB_ifInoctets );
     m_fpSnmpUtilOidCpy(&varBind[1].name,&MIB_ifOutoctets );
-    m_fpSnmpUtilOidCpy(&varBind[2].name,&MIB_ifType );    
+    m_fpSnmpUtilOidCpy(&varBind[2].name,&MIB_ifType );
 
     while( TRUE )
     {
@@ -346,7 +346,7 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 
         if( varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK )
         {
-            *pReceived += varBind[0].value.asnValue.number;    
+            *pReceived += varBind[0].value.asnValue.number;
             *pSent += varBind[1].value.asnValue.number;
         }
 
@@ -400,12 +400,12 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
     varBindList.list = varBind;
     varBindList.len  = VAR_BINDS_DESCRIPTIONS;
     varBind[0].name = MIB_NULL;
-    varBind[1].name = MIB_NULL;		 
-    varBind[2].name = MIB_NULL;		 
+    varBind[1].name = MIB_NULL;
+    varBind[2].name = MIB_NULL;
 
-    m_fpSnmpUtilOidCpy(&varBind[0].name,&MIB_ifDesc); 
-    m_fpSnmpUtilOidCpy(&varBind[1].name,&MIB_ifIndex); 
-    m_fpSnmpUtilOidCpy(&varBind[2].name,&MIB_ifType); 
+    m_fpSnmpUtilOidCpy(&varBind[0].name,&MIB_ifDesc);
+    m_fpSnmpUtilOidCpy(&varBind[1].name,&MIB_ifIndex);
+    m_fpSnmpUtilOidCpy(&varBind[2].name,&MIB_ifType);
 
     while( 1 )
     {
@@ -418,7 +418,7 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
             break;
 
         if( !errorStatus )
-        {       
+        {
             //Win9x occasionally fails to truncate the ifDesc string (and leaks memory when this happens)
             //Limit the output string to 32 characters max.
             if( varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK )
@@ -452,7 +452,7 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-// 
+//
 void CSnmp::ShowSystemError( int nID )
 {
    LPVOID lpMsgBuf;
@@ -461,26 +461,26 @@ void CSnmp::ShowSystemError( int nID )
    DWORD dwErr = GetLastError( );
 
    rc = FormatMessage(	FORMAT_MESSAGE_ALLOCATE_BUFFER |
-                        FORMAT_MESSAGE_FROM_SYSTEM |     
-                        FORMAT_MESSAGE_IGNORE_INSERTS,    
-						NULL, dwErr, 
-						MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), 
+                        FORMAT_MESSAGE_FROM_SYSTEM |
+                        FORMAT_MESSAGE_IGNORE_INSERTS,
+						NULL, dwErr,
+						MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 						(LPSTR)&lpMsgBuf, 0, NULL);
 
 
 	CString sMsg;
     sMsg.LoadString( nID );
-    sErr.Format( "%s\n\nError code = %u.  %s\nPlease review the Troubleshooting section in the online help.", 
+    sErr.Format( "%s\n\nError code = %u.  %s\nPlease review the Troubleshooting section in the online help.",
 	             sMsg, dwErr, lpMsgBuf );
 
 	AfxMessageBox( sErr, MB_OK | MB_ICONHAND | MB_SETFOREGROUND );
 
     LocalFree( lpMsgBuf );
-} 
+}
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-// Returns the number of bytes received and transmitted 
+// Returns the number of bytes received and transmitted
 BOOL CSnmp::GetReceivedAndSentOctets( DWORD* pReceived, DWORD *pSent )
 {
     *pReceived = 0;
@@ -488,7 +488,7 @@ BOOL CSnmp::GetReceivedAndSentOctets( DWORD* pReceived, DWORD *pSent )
 
     //use performance data from the registry
     if( g_MonitorMode == MONITOR_DUN )
-        return( perfdata.GetReceivedAndSentOctets( pReceived, pSent ) ); 
+        return( perfdata.GetReceivedAndSentOctets( pReceived, pSent ) );
 
 	//use IPHLPAPI.DLL
     if( m_bUse_iphlpapi )

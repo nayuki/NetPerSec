@@ -24,7 +24,7 @@ public:
 
     COLORREF    m_Restore_ColorSent,
                 m_Restore_ColorRecv,
-                m_Restore_ColorAve, 
+                m_Restore_ColorAve,
                 m_Restore_ColorBack,
                 m_Restore_ColorIconBack;
 

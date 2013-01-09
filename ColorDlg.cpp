@@ -28,7 +28,7 @@ static char THIS_FILE[] = __FILE__;
 // CColorCube
 CColorCube::CColorCube()
 {
-    dlg.m_hParent = this;   
+    dlg.m_hParent = this;
     m_crCurrentColor = RGB(255,255,255);
 }
 
@@ -39,7 +39,7 @@ CColorCube::~CColorCube()
 
 
 BEGIN_MESSAGE_MAP(CColorCube, CButton)
-	//{{AFX_MSG_MAP(CColorCube)	
+	//{{AFX_MSG_MAP(CColorCube)
 	ON_CONTROL_REFLECT_EX(BN_CLICKED, OnClick)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
@@ -57,15 +57,15 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
     bottom = lpd->rcItem.bottom;
     right  = lpd->rcItem.right;
     
-    CBrush br_CurrentColor;            
+    CBrush br_CurrentColor;
     CBrush br_BackColor;
     CPen   graypen;
     br_CurrentColor.CreateSolidBrush( m_crCurrentColor );
     br_BackColor.CreateSolidBrush( GetSysColor(COLOR_3DFACE) );
-    graypen.CreatePen(PS_SOLID,1,GetSysColor( COLOR_3DSHADOW));  
+    graypen.CreatePen(PS_SOLID,1,GetSysColor( COLOR_3DSHADOW));
     
-    CBrush *oldbrush = (CBrush*)dc.SelectStockObject( NULL_BRUSH );  
-    CPen   *oldpen   = (CPen*)dc.SelectStockObject( NULL_PEN );  
+    CBrush *oldbrush = (CBrush*)dc.SelectStockObject( NULL_BRUSH );
+    CPen   *oldpen   = (CPen*)dc.SelectStockObject( NULL_PEN );
     
     dc.SelectObject( br_BackColor);
     dc.Rectangle(&lpd->rcItem);
@@ -82,7 +82,7 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 
     dc.SelectStockObject( WHITE_PEN );
     dc.LineTo(left+1,top+1);
-    dc.LineTo(left+1,bottom-2);    
+    dc.LineTo(left+1,bottom-2);
     dc.MoveTo(right-10,top+4);
     dc.LineTo(right-10,bottom-4);
 
@@ -100,7 +100,7 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
     dc.SetPixel(right-6,(bottom/2)+1,RGB(0,0,0));
 
     dc.SelectObject( &br_CurrentColor );
-    dc.Rectangle(left+5,top+4,right-15,bottom-4);    
+    dc.Rectangle(left+5,top+4,right-15,bottom-4);
 
     if( lpd->itemState & ODS_FOCUS )
     {
@@ -115,24 +115,24 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
         {
             dc.SetPixel(left+3,i,RGB(0,0,0));
             dc.SetPixel(right-4,i,RGB(0,0,0));
-        }       
+        }
     }
         
     dc.SelectObject( oldpen );
     dc.SelectObject( oldbrush );
-    dc.Detach();    
+    dc.Detach();
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
-BOOL CColorCube::OnClick( ) 
+//
+BOOL CColorCube::OnClick( )
 {
 	if (dlg.DoModal() == IDOK)
     {
         m_crCurrentColor = IconColors[dlg.m_ColorIndex];
         InvalidateRect(NULL);
-    }	
+    }
     return FALSE;
 
 }
@@ -162,9 +162,9 @@ void CColorCubeDlg::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CColorCubeDlg, CDialog)
 	//{{AFX_MSG_MAP(CColorCubeDlg)
-	ON_WM_LBUTTONDOWN()	
+	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
-    ON_WM_DRAWITEM()	
+    ON_WM_DRAWITEM()
 	//}}AFX_MSG_MAP
     ON_COMMAND_RANGE(IDC_COLOR1,IDC_COLOR16,OnColorSelect)
 END_MESSAGE_MAP()
@@ -173,7 +173,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CColorCubeDlg message handlers
 
-BOOL CColorCubeDlg::OnInitDialog() 
+BOOL CColorCubeDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
@@ -185,7 +185,7 @@ BOOL CColorCubeDlg::OnInitDialog()
     GetWindowRect( &r2);
     
     if( r2.bottom > GetSystemMetrics(SM_CYSCREEN) )
-        r2.top = rc.top-(r2.bottom-r2.top);        
+        r2.top = rc.top-(r2.bottom-r2.top);
 
     if( r2.right > GetSystemMetrics(SM_CXSCREEN) )
         r2.left = GetSystemMetrics(SM_CXSCREEN) - (r2.right-r2.left);
@@ -193,13 +193,13 @@ BOOL CColorCubeDlg::OnInitDialog()
     SetWindowPos( NULL, r2.left, r2.top, 0, 0, SWP_NOSIZE|SWP_NOZORDER );
     SetCapture( );
 	
-	return TRUE; 
+	return TRUE;
 }
 
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
+//
 void CColorCubeDlg::EndDialog( int nResult )
 {
     ReleaseCapture( );
@@ -208,8 +208,8 @@ void CColorCubeDlg::EndDialog( int nResult )
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
-void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt) 
+//
+void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 {
     RECT rc;
 
@@ -234,8 +234,8 @@ void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
-void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd) 
+//
+void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd)
 {
 	CDC dc;
     CPen nullpen;
@@ -266,7 +266,7 @@ void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
+//
 void CColorCubeDlg::OnColorSelect(UINT id)
 {
     m_ColorIndex = id - IDC_COLOR1;
@@ -276,13 +276,13 @@ void CColorCubeDlg::OnColorSelect(UINT id)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// 
-void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt) 
+//
+void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt)
 {
     CWnd *pWnd = ChildWindowFromPoint( pt, CWP_ALL );
     
     if( pWnd && pWnd != this )
-        pWnd->SendMessage( WM_LBUTTONDOWN, 0, 0 );	
+        pWnd->SendMessage( WM_LBUTTONDOWN, 0, 0 );
 	
 	CDialog::OnLButtonUp( nFlags, pt );
 }

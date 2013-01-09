@@ -68,9 +68,9 @@ BOOL CNetPerSecApp::InitInstance()
 {
 
     //single instance
-	m_hMutex = ::CreateMutex(NULL, FALSE, SZ_APPNAME);	
+	m_hMutex = ::CreateMutex(NULL, FALSE, SZ_APPNAME);
 	if( m_hMutex != NULL )
-	{   
+	{
        if(::GetLastError()==ERROR_ALREADY_EXISTS)
 	   {
 			HWND hWnd = FindWindow(NULL, SZ_APPNAME);
@@ -95,7 +95,7 @@ BOOL CNetPerSecApp::InitInstance()
 #endif
 
     WSADATA WinsockData;
-    if( WSAStartup(MAKEWORD(1,1), &WinsockData) != 0) 
+    if( WSAStartup(MAKEWORD(1,1), &WinsockData) != 0)
     {
         AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
     }
@@ -105,7 +105,7 @@ BOOL CNetPerSecApp::InitInstance()
     ReadSettings( );
     
     //create a hidden window to receive system tray messages
-    LPCTSTR pClass = AfxRegisterWndClass( 0 ); 
+    LPCTSTR pClass = AfxRegisterWndClass( 0 );
     CRect rc;
    	rc.SetRectEmpty( );
 
@@ -124,7 +124,7 @@ BOOL CNetPerSecApp::InitInstance()
 }
 
 
-void CNetPerSecApp::WinHelp(DWORD dwData, UINT nCmd) 
+void CNetPerSecApp::WinHelp(DWORD dwData, UINT nCmd)
 {
 	m_wnd.WinHelp( dwData, nCmd );
 }

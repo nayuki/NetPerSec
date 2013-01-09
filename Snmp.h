@@ -9,7 +9,7 @@
 	
 ///////////////////////////////////////////////////////////////////
 //
-class CSnmp 
+class CSnmp
 {
 
 typedef BOOL (WINAPI *pSnmpExtensionInit)(
@@ -36,9 +36,9 @@ typedef BOOL (WINAPI *pSnmpExtensionInitEx)(
 typedef LPVOID (CALLBACK* SUALLOC)(UINT);
 typedef VOID (CALLBACK* SUFREE)(LPVOID);
 
-typedef DWORD (WINAPI* fpGetNumberOfInterfaces)( LPDWORD );	
-typedef DWORD (WINAPI* fpGetIfEntry)( LPVOID );		
-typedef DWORD (WINAPI* fpGetInterfaceInfo)( PIP_INTERFACE_INFO, LPDWORD );	
+typedef DWORD (WINAPI* fpGetNumberOfInterfaces)( LPDWORD );
+typedef DWORD (WINAPI* fpGetIfEntry)( LPVOID );
+typedef DWORD (WINAPI* fpGetInterfaceInfo)( PIP_INTERFACE_INFO, LPDWORD );
 
 #define OID_SIZEOF( Oid )( sizeof Oid / sizeof(UINT) )
 
@@ -60,7 +60,7 @@ private:
 	HINSTANCE               m_hInst,m_hInstIpHlp;
 	pSnmpExtensionInit      m_fpExtensionInit;
 	pSnmpExtensionQuery     m_fpExtensionQuery;
-	fpGetIfEntry		    m_fpGetIfEntry;	
+	fpGetIfEntry		    m_fpGetIfEntry;
     fpGetNumberOfInterfaces m_fpGetNumberOfInterfaces;
     fpGetInterfaceInfo      m_fpGetInterfaceInfo;
 
@@ -75,9 +75,9 @@ private:
     DWORD   m_dwInterfaces;
     BOOL    m_bUseGetInterfaceInfo;
 
-	SUALLOC m_fpSnmpUtilMemAlloc; 
-	SUFREE  m_fpSnmpUtilMemFree; 
-	RFC1157VarBindList*		m_pvarBindList; 
+	SUALLOC m_fpSnmpUtilMemAlloc;
+	SUFREE  m_fpSnmpUtilMemFree;
+	RFC1157VarBindList*		m_pvarBindList;
 	BOOL  m_bUse_iphlpapi;
     DWORD  m_dwInterfaceArray[MAX_INTERFACES];
 
@@ -94,7 +94,7 @@ public:
     void GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter );
 
 
-private:    
+private:
     BOOL GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent );
     int  GetReceivedAndSentOctets_IPHelper( DWORD* pReceived, DWORD *pSent);
     void GetInterfaces( );

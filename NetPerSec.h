@@ -30,7 +30,7 @@ public:
 	~CNetPerSecApp();
 
     Cwinproc m_wnd;
-	CIcons m_Icons;	    
+	CIcons m_Icons;
 	HANDLE m_hMutex; //single instance
 
 

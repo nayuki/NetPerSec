@@ -40,7 +40,7 @@ CPerfData::~CPerfData()
 BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
 {
     CRegKey reg;
-    LONG lErr = !ERROR_SUCCESS; 
+    LONG lErr = !ERROR_SUCCESS;
 	*dwValue = 0;
 
 	if( ERROR_SUCCESS == reg.Open(HKEY_DYN_DATA, "PerfStats\\StatData") )
@@ -169,14 +169,14 @@ void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
     DWORD i, j;
 
 	
-    // Allocate the buffer 
+    // Allocate the buffer
     PerfData = (PPERF_DATA_BLOCK) malloc( BufferSize );
     
     if( !PerfData )
         return;
 
     while( RegQueryValueEx( HKEY_PERFORMANCE_DATA,
-                               "906", 
+                               "906",
                                NULL,
                                NULL,
                                (LPBYTE) PerfData,
@@ -252,8 +252,8 @@ void CPerfData::Init(void)
 {
 	DWORD dwVersion = GetVersion();
 
-	// Windows NT 
-	if( dwVersion >> 31 == 0 )  
+	// Windows NT
+	if( dwVersion >> 31 == 0 )
 	{
 		m_bIs95 = FALSE;
 		GetNameStrings( );

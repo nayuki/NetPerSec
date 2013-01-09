@@ -13,7 +13,7 @@
 #define SZ_GRAPHOPTIONS "GraphOptions"
 #define SZ_DISPLAYBYTES "DisplayBytes"
 #define SZ_STARTUP "StartUp"
-#define SZ_ONTOP "OnTop" 
+#define SZ_ONTOP "OnTop"
 #define SZ_BARGRAPH "BarGraph"
 #define SZ_AUTOSCALE_RECV "AutoScaleRecv"
 #define SZ_AUTOSCALE_SENT "AutoScaleSent"
@@ -30,7 +30,7 @@
 
 //timer ids
 #define	TIMER_ID_WINPROC  1
-#define TIMER_ID_SESSION  2 
+#define TIMER_ID_SESSION  2
 
 
 //default colors
@@ -42,7 +42,7 @@
 //these entries contain the current SNMP sample
 typedef struct
 {
-    DWORD Bps;          //bytes per second          
+    DWORD Bps;          //bytes per second
     DWORD ave;          //average throughput
     DWORD time;         //time in milliseconds that the sample was taken
     double total;       //total received or sent in bits
@@ -72,10 +72,10 @@ extern int g_nSampleRate;        //milliseconds
 extern int g_nAveragingWindow;   //seconds
 extern int g_Range_Recv;  //for graph window (in bps)
 extern int g_Range_Sent;  //for graph window (in bps)
-extern int g_GraphOptions; 
+extern int g_GraphOptions;
 extern int g_DisplayBytes;
 extern BOOL g_bStartWithWindows;
-extern BOOL g_bOnTop; 
+extern BOOL g_bOnTop;
 extern BOOL g_bShowBarGraph;
 extern BOOL g_bAutoScaleRecv;
 extern BOOL g_bAutoScaleSent;
@@ -85,15 +85,15 @@ extern double g_dbResetSent;   //these values are subtracted from the total
 extern DWORD g_dwAdapter;      //specific adapter index to monitor
 
 extern COLORREF g_ColorBack;
-extern COLORREF g_ColorRecv; 
+extern COLORREF g_ColorRecv;
 extern COLORREF g_ColorSent;
-extern COLORREF g_ColorAve ; 
+extern COLORREF g_ColorAve ;
 extern COLORREF g_ColorIconBack;
 extern ICON_STYLE g_IconStyle;
 
 
 
-// Prototypes 
+// Prototypes
 void ReadSettings( );
 void SaveSettings( );
 void ShowError( UINT nID, int nType );
