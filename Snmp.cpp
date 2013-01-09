@@ -10,8 +10,6 @@
 HANDLE hPollForTrapEvent = NULL;
 AsnObjectIdentifier SupportedView = {0,0};
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 LPVOID CSnmp::SnmpUtilMemAlloc(UINT nSize)
 {
 	if (m_fpSnmpUtilMemAlloc)
@@ -20,8 +18,6 @@ LPVOID CSnmp::SnmpUtilMemAlloc(UINT nSize)
 		return GlobalAlloc(GPTR, nSize);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSnmp::SnmpUtilMemFree(LPVOID pMem)
 {
 	if (m_fpSnmpUtilMemFree)
@@ -31,8 +27,6 @@ void CSnmp::SnmpUtilMemFree(LPVOID pMem)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 CSnmp::CSnmp()
 {
 	m_fpSnmpUtilMemAlloc = NULL;
@@ -47,8 +41,6 @@ CSnmp::CSnmp()
 	m_bUseGetInterfaceInfo = FALSE; //win2k
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 CSnmp::~CSnmp()
 {
 	if (m_pvarBindList)
@@ -69,7 +61,6 @@ CSnmp::~CSnmp()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //if running under NT use iphlpapi -- requires SP4 for NT4 otherwise there is a memory leak in SNMP
 //We could use this on Win98, however certain releases of IE5 cause iphlpapi to fail.
 BOOL CSnmp::CheckNT()
@@ -117,7 +108,6 @@ BOOL CSnmp::CheckNT()
 	return m_bUse_iphlpapi;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //check if an interface, such as DUN, has been added or removed
 //Win2K does not report adapters until they are used
 void CSnmp::GetInterfaces()
@@ -161,7 +151,6 @@ void CSnmp::GetInterfaces()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //Load the SNMP dlls.
 BOOL CSnmp::Init()
 {
@@ -218,7 +207,6 @@ BOOL CSnmp::Init()
 	return TRUE;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // Use the IPHLPAPI interface to retrieve the transmitted and received bytes
 int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD* pReceived, DWORD *pSent)
 {
@@ -253,7 +241,6 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD* pReceived, DWORD *pSent)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // Returns the number of bytes received and transmitted through all network interfaces
 BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD* pReceived, DWORD *pSent)
 {
@@ -348,7 +335,6 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD* pReceived, DWORD *pSent)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // Returns a list of adapter names and index values
 void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 {
@@ -423,8 +409,6 @@ void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSnmp::ShowSystemError(int nID)
 {
 	LPVOID lpMsgBuf;
@@ -450,7 +434,6 @@ void CSnmp::ShowSystemError(int nID)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // Returns the number of bytes received and transmitted
 BOOL CSnmp::GetReceivedAndSentOctets(DWORD* pReceived, DWORD *pSent)
 {

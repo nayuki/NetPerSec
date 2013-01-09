@@ -5,9 +5,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 // About.h : header file
-//
 
-/////////////////////////////////////////////////////////////////////////////
 // CAboutPage dialog
 class CAboutPage : public CPropertyPage
 {

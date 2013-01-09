@@ -17,7 +17,6 @@ static char THIS_FILE[] = __FILE__;
 #define WIDTH 4
 
 
-/////////////////////////////////////////////////////////////////////////////
 // CGraphs
 CGraphs::CGraphs()
 {
@@ -38,7 +37,6 @@ BEGIN_MESSAGE_MAP(CGraphs, CWnd)
 END_MESSAGE_MAP()
 
 
-/////////////////////////////////////////////////////////////////////////////
 // CGraphs message handlers
 
 BOOL CGraphs::Create(DWORD dwStyle, const RECT& rc, CWnd* pParentWnd, UINT nID, CCreateContext* /* pContext */)

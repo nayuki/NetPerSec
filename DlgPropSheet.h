@@ -5,7 +5,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 // DlgPropSheet.h : header file
-//
 
 #include "SessionDlg.h"
 #include "OptionsDlg.h"
@@ -13,7 +12,6 @@
 #include "about.h"
 
 
-/////////////////////////////////////////////////////////////////////////////
 // DlgPropSheet
 class DlgPropSheet : public CPropertySheet
 {
@@ -60,7 +58,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-/////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

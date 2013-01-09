@@ -51,15 +51,12 @@ COLORREF IconColors[MAX_ICON_COLORS] =
 };
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void ShowError(UINT nID, int nType)
 {
 	AfxMessageBox(nID, nType);
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // GetServicePack -- returns the hex value of the current NT Service Pack
 DWORD GetServicePack()
 {
@@ -77,10 +74,8 @@ DWORD GetServicePack()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 //  SetStartupOptions()
 //  creates a shortcut in the startup folder.
-//
 void SetStartupOptions()
 {
 	TCHAR szPath[MAX_PATH] = {0};
@@ -159,7 +154,6 @@ void SetStartupOptions()
 	CoUninitialize();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //  Format BYTES into a string,  the function will convert to bits if it is the default option
 void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond = TRUE */)
 {
@@ -226,7 +220,6 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //  returns a comma formatted number
 LPSTR FormatNumber(DWORD N)
 {
@@ -268,8 +261,6 @@ LPSTR FormatNumber(DWORD N)
 	return buf;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void QualifyPathName(CString *pFile, LPCSTR pIni)
 {
 	char szName[MAX_PATH];
@@ -288,8 +279,6 @@ void QualifyPathName(CString *pFile, LPCSTR pIni)
 	*pFile = szName;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 int GetPrivateProfileInt(LPCSTR pKey, int nDefault)
 {
 	CString sFileName;
@@ -297,8 +286,6 @@ int GetPrivateProfileInt(LPCSTR pKey, int nDefault)
 	return GetPrivateProfileInt(SZ_CONFIG, pKey, nDefault, sFileName);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize)
 {
 	CString sFileName;
@@ -306,8 +293,6 @@ int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nS
 	return GetPrivateProfileString(SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void WritePrivateProfileInt(LPCSTR pSection, int nValue)
 {
 	CString sFileName;
@@ -318,8 +303,6 @@ void WritePrivateProfileInt(LPCSTR pSection, int nValue)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue)
 {
 	CString sFileName;
@@ -327,16 +310,12 @@ void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue)
 	WritePrivateProfileString(SZ_CONFIG, pSection, pValue, sFileName);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void SaveWindowPosition(CRect *pRect)
 {
 	WritePrivateProfileInt(SZ_WINPOS_TOP, pRect->top);
 	WritePrivateProfileInt(SZ_WINPOS_LEFT, pRect->left);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void LoadWindowPosition(CRect *pRect)
 {
 	pRect->top = (int)GetPrivateProfileInt(SZ_WINPOS_TOP, -1);
@@ -344,8 +323,6 @@ void LoadWindowPosition(CRect *pRect)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void ReadSettings()
 {
 	g_nSampleRate = GetPrivateProfileInt(SZ_SAMPLERATE, 1000);
@@ -369,8 +346,6 @@ void ReadSettings()
 	g_dwAdapter = GetPrivateProfileInt(SZ_ADAPTER_INDEX, 0);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void SaveSettings()
 {
 	WritePrivateProfileInt(SZ_SAMPLERATE, g_nSampleRate);

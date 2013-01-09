@@ -7,8 +7,6 @@
 
 #define MAX_INTERFACES 64
 	
-///////////////////////////////////////////////////////////////////
-//
 class CSnmp
 {
 	typedef BOOL (WINAPI *pSnmpExtensionInit)(

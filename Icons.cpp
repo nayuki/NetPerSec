@@ -7,8 +7,6 @@
 #include "globals.h"
 #include "resource.h"
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 CIcons::CIcons()
 {
 	m_hHistogramIcon = 0;
@@ -17,8 +15,6 @@ CIcons::CIcons()
 	ZeroMemory(&m_HistogramIconInfo, sizeof(m_HistogramIconInfo));
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 CIcons::~CIcons()
 {
 	if (m_hHistogramIcon)
@@ -35,7 +31,6 @@ CIcons::~CIcons()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // return a handle to a histogram or bar graph icon.  the calling function must delete this handle
 HICON CIcons::GetIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int nStyle)
 {
@@ -46,7 +41,6 @@ HICON CIcons::GetIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int 
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // draw the bar graph icon
 void CIcons::FillBarIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIndex, CRect *prc)
 {
@@ -77,7 +71,6 @@ void CIcons::FillBarIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIn
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //returns icon for the bar graph
 HICON CIcons::GetBargraphIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex)
 {
@@ -113,7 +106,6 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nInd
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // draw the histogram icon
 void CIcons::FillHistogramIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIndex, CRect *prc)
 {
@@ -181,7 +173,6 @@ void CIcons::FillHistogramIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, i
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //returns a histogram icon
 HICON CIcons::GetHistogramIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex)
 {

@@ -52,7 +52,6 @@ static UINT bpsArray[] = {
 	10000000 / 8 };
 
 
-/////////////////////////////////////////////////////////////////////////////
 // CSessionDlg property page
 
 IMPLEMENT_DYNCREATE(CSessionDlg, CPropertyPage)
@@ -66,8 +65,6 @@ CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD)
 	m_pbrBackground = 0;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 CSessionDlg::~CSessionDlg()
 {
 	if (m_pbrBackground)
@@ -75,8 +72,6 @@ CSessionDlg::~CSessionDlg()
 	m_pbrBackground = 0;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPage::DoDataExchange(pDX);
@@ -107,7 +102,6 @@ BEGIN_MESSAGE_MAP(CSessionDlg, CPropertyPage)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
 // CSessionDlg message handlers
 
 BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
@@ -126,8 +120,6 @@ BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 BOOL CSessionDlg::OnSetActive()
 {
 	if (m_pbrBackground)
@@ -145,7 +137,6 @@ BOOL CSessionDlg::OnSetActive()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 // display a formatted number
 void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes)
 {
@@ -154,8 +145,6 @@ void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes)
 	SetDlgItemText(nID, s);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index)
 {
 	int total = m_SentGraph.GetTotalElements();
@@ -176,8 +165,6 @@ DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index)
 	return dwMax;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::UpdateDlg()
 {
 	int i = pTheApp->m_wnd.GetArrayIndex();
@@ -193,7 +180,6 @@ void CSessionDlg::UpdateDlg()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 // update the total sent and received amounts
 void CSessionDlg::OnTimer(UINT /* nIDEvent */)
 {
@@ -209,8 +195,6 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 BOOL CSessionDlg::OnKillActive()
 {
 	if (m_pbrBackground)
@@ -222,8 +206,6 @@ BOOL CSessionDlg::OnKillActive()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 BOOL CSessionDlg::OnInitDialog()
 {
 	CPropertyPage::OnInitDialog();
@@ -277,7 +259,6 @@ BOOL CSessionDlg::OnInitDialog()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 // draw the graphs
 void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update)
 {
@@ -304,7 +285,6 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update)
 	}
 }
 
-/////////////////////////////////////////////////////////////////////////////
 // adjust the auto scale position
 void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue)
 {
@@ -324,8 +304,6 @@ void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue)
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::UpdateGraph()
 {
 	//check autosize
@@ -337,7 +315,6 @@ void CSessionDlg::UpdateGraph()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // determine the range of the graph based upon recent samples. returns TRUE if the graph should
 // be updated.
 BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update)
@@ -407,7 +384,6 @@ BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // draws the transmitted samples
 void CSessionDlg::SetGraphRangeSent()
 {
@@ -437,7 +413,6 @@ void CSessionDlg::SetGraphRangeSent()
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // draws the received samples
 void CSessionDlg::SetGraphRangeRecv()
 {
@@ -468,7 +443,6 @@ void CSessionDlg::SetGraphRangeRecv()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // sets the colors for the graph labels
 HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
@@ -502,8 +476,6 @@ HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	return hbr;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::SetOptions()
 {
 	g_GraphOptions = 0;
@@ -518,49 +490,36 @@ void CSessionDlg::SetOptions()
 	SetGraphRangeSent();	//redraw the graphs
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnAveRecvOption()
 {
 	SetOptions();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnAveSentOption()
 {
 	SetOptions();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnCurrentRecvOption()
 {
 	SetOptions();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnCurrentSentOption()
 {
 	SetOptions();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnMaxRecvOption()
 {
 	SetOptions();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnMaxSentOption()
 {
 	SetOptions();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //draw the labels on the right side of the graph
 void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber)
 {
@@ -581,7 +540,6 @@ void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber)
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // draw the labels on the right side of the graph
 void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber)
 {
@@ -601,7 +559,6 @@ void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
 //respond to the slider commands
 void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
@@ -632,22 +589,16 @@ void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	CPropertyPage::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnBargraph()
 {
 	SetGraphStyle();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnLinegraph()
 {
 	SetGraphStyle();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::SetGraphStyle()
 {
 	g_bShowBarGraph = IsDlgButtonChecked(IDC_BARGRAPH);
@@ -658,8 +609,6 @@ void CSessionDlg::SetGraphStyle()
 	SetGraphRangeSent();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnResetData()
 {
 	pTheApp->m_wnd.ResetData();
@@ -676,8 +625,6 @@ void CSessionDlg::OnResetData()
 	OnTimer(0);   //update the display
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnAutoscale()
 {
 	g_bAutoScaleRecv = IsDlgButtonChecked(IDC_AUTOSCALE_RECV);
@@ -687,14 +634,11 @@ void CSessionDlg::OnAutoscale()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void CSessionDlg::OnBps()
 {
 	OnBytes();
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
 // sets the display type to either Bps or bps
 void CSessionDlg::OnBytes()
 {

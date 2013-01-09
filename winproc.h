@@ -11,7 +11,6 @@
 #include "about.h"
 
 
-/////////////////////////////////////////////////////////////////////////////
 // Cwinproc window
 
 class Cwinproc : public CWnd
@@ -70,7 +69,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-/////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

@@ -15,7 +15,6 @@ static char THIS_FILE[] = __FILE__;
 
 static int m_nLastTab = 0;
 
-/////////////////////////////////////////////////////////////////////////////
 // DlgPropSheet
 
 IMPLEMENT_DYNAMIC(DlgPropSheet, CPropertySheet)
@@ -50,7 +49,6 @@ BEGIN_MESSAGE_MAP(DlgPropSheet, CPropertySheet)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
 // DlgPropSheet message handlers
 
 void DlgPropSheet::AddPropPages()
@@ -69,16 +67,12 @@ void DlgPropSheet::AddPropPages()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void DlgPropSheet::OnPaint()
 {
 	CPaintDC dc(this); // device context for painting
 	// Do not call CPropertySheet::OnPaint() for painting messages
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult)
 {
 	//save last tab
@@ -87,8 +81,6 @@ BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRE
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 BOOL DlgPropSheet::OnInitDialog()
 {
 	BOOL bResult = CPropertySheet::OnInitDialog();
@@ -125,8 +117,6 @@ BOOL DlgPropSheet::OnInitDialog()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void DlgPropSheet::OnDestroy()
 {
 	CRect rc;
@@ -137,8 +127,6 @@ void DlgPropSheet::OnDestroy()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void DlgPropSheet::PostNcDestroy()
 {
 	//restore mfc's main window handle
@@ -147,8 +135,6 @@ void DlgPropSheet::PostNcDestroy()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (message == WM_SIZE && wParam == SIZE_MINIMIZED)
@@ -161,8 +147,6 @@ LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam)
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CPropertySheet::OnCreate(lpCreateStruct) == -1)

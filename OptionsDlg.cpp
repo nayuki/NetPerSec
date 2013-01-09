@@ -31,7 +31,6 @@ UINT SampleRates[]={
 };
 
 
-/////////////////////////////////////////////////////////////////////////////
 // COptionsDlg property page
 
 IMPLEMENT_DYNCREATE(COptionsDlg, CPropertyPage)
@@ -43,14 +42,10 @@ COptionsDlg::COptionsDlg() : CPropertyPage(COptionsDlg::IDD)
 	//}}AFX_DATA_INIT
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 COptionsDlg::~COptionsDlg()
 {
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void COptionsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CPropertyPage::DoDataExchange(pDX);
@@ -70,7 +65,6 @@ BEGIN_MESSAGE_MAP(COptionsDlg, CPropertyPage)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
 // COptionsDlg message handlers
 
 BOOL COptionsDlg::OnInitDialog()
@@ -123,8 +117,6 @@ BOOL COptionsDlg::OnInitDialog()
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void COptionsDlg::UpdateAveragingWindow()
 {
 	CString s;
@@ -145,8 +137,6 @@ void COptionsDlg::UpdateAveragingWindow()
 
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void COptionsDlg::UpdateDlg()
 {
 	CString s;
@@ -173,8 +163,6 @@ void COptionsDlg::UpdateDlg()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////
-//
 void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	int nControl = pScrollBar->GetDlgCtrlID();

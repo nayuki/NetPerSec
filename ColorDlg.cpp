@@ -13,7 +13,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
 // CColorCube
 CColorCube::CColorCube()
 {
@@ -33,7 +32,6 @@ BEGIN_MESSAGE_MAP(CColorCube, CButton)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
 // CColorCube message handlers
 void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 {
@@ -113,8 +111,6 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 BOOL CColorCube::OnClick()
 {
 	if (dlg.DoModal() == IDOK)
@@ -126,7 +122,6 @@ BOOL CColorCube::OnClick()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 // CColorCubeDlg dialog
 
 
@@ -158,7 +153,6 @@ BEGIN_MESSAGE_MAP(CColorCubeDlg, CDialog)
 END_MESSAGE_MAP()
 
 
-/////////////////////////////////////////////////////////////////////////////
 // CColorCubeDlg message handlers
 
 BOOL CColorCubeDlg::OnInitDialog()
@@ -185,8 +179,6 @@ BOOL CColorCubeDlg::OnInitDialog()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CColorCubeDlg::EndDialog(int nResult)
 {
 	ReleaseCapture();
@@ -194,8 +186,6 @@ void CColorCubeDlg::EndDialog(int nResult)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 {
 	RECT rc;
@@ -220,8 +210,6 @@ void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd)
 {
 	CDC dc;
@@ -252,8 +240,6 @@ void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CColorCubeDlg::OnColorSelect(UINT id)
 {
 	m_ColorIndex = id - IDC_COLOR1;
@@ -261,8 +247,6 @@ void CColorCubeDlg::OnColorSelect(UINT id)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt)
 {
 	CWnd *pWnd = ChildWindowFromPoint(pt, CWP_ALL);

@@ -12,7 +12,6 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
 // CPerfData
 CPerfData::CPerfData()
 {
@@ -30,8 +29,6 @@ CPerfData::~CPerfData()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 BOOL CPerfData::GetPerfStats9x(LPCSTR pKey, DWORD *dwValue)
 {
 	CRegKey reg;
@@ -131,8 +128,6 @@ void CPerfData::GetNameStrings()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CPerfData::ReadData9x(DWORD* pReceived, DWORD* pSent)
 {
 	static BOOL bErrorShown = FALSE;
@@ -150,8 +145,6 @@ void CPerfData::ReadData9x(DWORD* pReceived, DWORD* pSent)
 	}
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CPerfData::ReadDataNT(DWORD* pReceived, DWORD* pSent)
 {
 	PPERF_DATA_BLOCK PerfData = NULL;
@@ -217,8 +210,6 @@ void CPerfData::ReadDataNT(DWORD* pReceived, DWORD* pSent)
 	free(PerfData);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 BOOL CPerfData::GetReceivedAndSentOctets(DWORD* pReceived, DWORD* pSent)
 {
 	static BOOL bInitPerfData = FALSE;
@@ -237,8 +228,6 @@ BOOL CPerfData::GetReceivedAndSentOctets(DWORD* pReceived, DWORD* pSent)
 	return TRUE;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void CPerfData::Init(void)
 {
 	DWORD dwVersion = GetVersion();

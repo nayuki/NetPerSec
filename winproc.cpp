@@ -20,7 +20,6 @@ static char THIS_FILE[] = __FILE__;
 UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");
 
 
-/////////////////////////////////////////////////////////////////////////////
 // Cwinproc
 Cwinproc::Cwinproc()
 {
@@ -35,14 +34,11 @@ Cwinproc::Cwinproc()
 	ResetData();
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 Cwinproc::~Cwinproc()
 {
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 // Cwinproc
 void Cwinproc::OnClose()
 {
@@ -52,7 +48,6 @@ void Cwinproc::OnClose()
 	CWnd::OnClose();
 }
 
-/////////////////////////////////////////////////////////////////////////////
 // Cwinproc
 BEGIN_MESSAGE_MAP(Cwinproc, CWnd)
 	//{{AFX_MSG_MAP(Cwinproc)
@@ -63,11 +58,9 @@ BEGIN_MESSAGE_MAP(Cwinproc, CWnd)
 END_MESSAGE_MAP()
 
 
-/////////////////////////////////////////////////////////////////////////////
 // Cwinproc message handlers
 
 
-/////////////////////////////////////////////////////////////////////////////
 // Startup -- called when the invisible window is created in netpersec.cpp
 // initializes SNMP and the system tray icon
 void Cwinproc::StartUp()
@@ -96,8 +89,6 @@ void Cwinproc::StartUp()
 	}
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT* pStats)
 {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
@@ -136,7 +127,6 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
 // Calculate samples
 void Cwinproc::OnTimer(UINT /* nIDEvent */)
 {
@@ -213,8 +203,6 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */)
 
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void Cwinproc::ShowPropertiesDlg()
 {
 	if (m_pPropertiesDlg)
@@ -243,8 +231,6 @@ void Cwinproc::ShowPropertiesDlg()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam)
 {
 	UNREFERENCED_PARAMETER(wParam);
@@ -315,7 +301,6 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
 //the index to the array will always be one greater than the actual current value
 int Cwinproc::GetArrayIndex()
 {
@@ -325,8 +310,6 @@ int Cwinproc::GetArrayIndex()
 	return i;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void Cwinproc::UpdateTrayIcon(HICON hIcon)
 {
 	ASSERT(hIcon != 0);
@@ -344,7 +327,6 @@ void Cwinproc::UpdateTrayIcon(HICON hIcon)
 
 
 
-/////////////////////////////////////////////////////////////////////////////
 // init all arrays
 void Cwinproc::ResetData()
 {
@@ -354,8 +336,6 @@ void Cwinproc::ResetData()
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-//
 void Cwinproc::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/)
 {
 	if (m_pPropertiesDlg)

@@ -19,7 +19,6 @@ extern UINT TaskbarCallbackMsg;
 static char THIS_FILE[] = __FILE__;
 #endif
 
-/////////////////////////////////////////////////////////////////////////////
 // CNetPerSecApp
 
 BEGIN_MESSAGE_MAP(CNetPerSecApp, CWinApp)
@@ -30,7 +29,6 @@ BEGIN_MESSAGE_MAP(CNetPerSecApp, CWinApp)
 	ON_COMMAND(ID_HELP, CWinApp::OnHelp)
 END_MESSAGE_MAP()
 
-/////////////////////////////////////////////////////////////////////////////
 // CNetPerSecApp construction
 CNetPerSecApp::CNetPerSecApp()
 {
@@ -45,11 +43,9 @@ CNetPerSecApp::~CNetPerSecApp()
 		::CloseHandle(m_hMutex);
 }
 
-/////////////////////////////////////////////////////////////////////////////
 // The one and only CNetPerSecApp object
 CNetPerSecApp theApp;
 
-/////////////////////////////////////////////////////////////////////////////
 // CNetPerSecApp initialization
 BOOL CNetPerSecApp::InitInstance()
 {

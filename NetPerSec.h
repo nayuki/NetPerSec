@@ -15,10 +15,8 @@
 #include "globals.h"
 #include "Icons.h"
 
-/////////////////////////////////////////////////////////////////////////////
 // CNetPerSecApp:
 // See NetPerSec.cpp for the implementation of this class
-//
 class CNetPerSecApp : public CWinApp
 {
 public:
@@ -49,7 +47,6 @@ public:
 extern CNetPerSecApp* pTheApp;
 
 
-/////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.

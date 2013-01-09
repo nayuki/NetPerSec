@@ -5,7 +5,6 @@
 #pragma once
 #endif // _MSC_VER > 1000
 // SessionDlg.h : header file
-//
 #include "Graphs.h"
 
 typedef enum {
@@ -14,7 +13,6 @@ typedef enum {
 } UPDATE_MODE;
 
 
-/////////////////////////////////////////////////////////////////////////////
 // CSessionDlg dialog
 class CSessionDlg : public CPropertyPage
 {

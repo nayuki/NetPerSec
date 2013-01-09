@@ -5,9 +5,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 // OptionsDlg.h : header file
-//
 
-/////////////////////////////////////////////////////////////////////////////
 // COptionsDlg dialog
 class COptionsDlg : public CPropertyPage
 {
