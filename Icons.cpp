@@ -51,9 +51,9 @@ CIcons::~CIcons( )
 HICON CIcons::GetIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int nStyle )
 {
 	if( nStyle == ICON_HISTOGRAM )
-		return( GetHistogramIcon( pRecv, pSent, nIndex ) );
+		return GetHistogramIcon( pRecv, pSent, nIndex );
 	else
-		return( GetBargraphIcon( pRecv, pSent, nIndex ) );
+		return GetBargraphIcon( pRecv, pSent, nIndex );
 }
 
 
@@ -120,7 +120,7 @@ HICON CIcons::GetBargraphIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIn
 	
 	HICON hIcon = CreateIconIndirect( &m_BarGraphIconInfo );
 	dcMem.DeleteDC( );
-	return( hIcon );  //calling function must delete this icon handle
+	return hIcon;  //calling function must delete this icon handle
 }
 
 
@@ -225,5 +225,5 @@ HICON CIcons::GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nI
 	dcMem.DeleteDC( );
 	
 	//calling function must delete this icon
-	return( hIcon );
+	return hIcon;
 }

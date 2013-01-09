@@ -129,7 +129,7 @@ BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 		if( wID == IDC_RECV_GRAPH_WINDOW || wID == IDC_SENT_GRAPH_WINDOW )
 		{
 			pTheApp->m_wnd.m_pPropertiesDlg->SetActivePage( 2 );
-			return( TRUE );
+			return TRUE;
 		}
 	}
 	return CPropertyPage::PreTranslateMessage(pMsg);
@@ -183,7 +183,7 @@ DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index )
 		index--;
 	}
 	
-	return( dwMax );
+	return dwMax;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -411,9 +411,9 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 			UpdateGraphTextRecv( *pAutoScale );
 		}
 	} else {
-		return( FALSE );    //graph not updated
+		return FALSE;    //graph not updated
 	}
-	return( TRUE );
+	return TRUE;
 }
 
 
@@ -505,7 +505,7 @@ HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		}
 		pDC->SetBkMode( TRANSPARENT );
 		pDC->SetTextColor( cr );
-		return( (HBRUSH)m_pbrBackground->m_hObject );
+		return (HBRUSH)m_pbrBackground->m_hObject;
 	}
 	
 	// TODO: Return a different brush if the default is not desired

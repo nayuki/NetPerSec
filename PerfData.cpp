@@ -48,7 +48,7 @@ BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
 		reg.Close( );
 	}
 	
-	return( lErr == ERROR_SUCCESS );
+	return lErr == ERROR_SUCCESS;
 }
 
 
@@ -236,7 +236,7 @@ BOOL CPerfData::GetReceivedAndSentOctets( DWORD* pReceived, DWORD* pSent )
 	else
 		ReadDataNT( pReceived, pSent );
 	
-	return( TRUE );
+	return TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////

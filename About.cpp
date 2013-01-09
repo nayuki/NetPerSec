@@ -139,5 +139,5 @@ BOOL CAboutPage::OnInitDialog( )
 {
 	CDialog::OnInitDialog();
 	InitDlg( GetSafeHwnd( ) );
-	return( TRUE );
+	return TRUE;
 }

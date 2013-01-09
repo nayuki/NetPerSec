@@ -26,9 +26,9 @@ AsnObjectIdentifier SupportedView = {0,0};
 LPVOID CSnmp::SnmpUtilMemAlloc( UINT nSize )
 {
 	if( m_fpSnmpUtilMemAlloc )
-		return( m_fpSnmpUtilMemAlloc( nSize ) );
+		return m_fpSnmpUtilMemAlloc( nSize );
 	else
-		return( GlobalAlloc( GPTR, nSize ) );
+		return GlobalAlloc( GPTR, nSize );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -125,7 +125,7 @@ BOOL CSnmp::CheckNT( )
 			}
 		}
 	}
-	return( m_bUse_iphlpapi );
+	return m_bUse_iphlpapi;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -191,19 +191,19 @@ BOOL CSnmp::Init( )
 	if( !m_fpExtensionInit )
 	{
 		ShowSystemError( IDS_SNMPINIT_ERR );
-		return( FALSE );
+		return FALSE;
 	}
 	if( !m_fpExtensionQuery )
 	{
 		ShowSystemError( IDS_SNMPQUERY_ERR );
-		return( FALSE );
+		return FALSE;
 	}
 	
 	//init
 	if( !m_fpExtensionInit( GetTickCount(), &hPollForTrapEvent, &SupportedView ) )
 	{
 		ShowSystemError( IDS_SNMPFAIL_ERR );
-		return( FALSE );
+		return FALSE;
 	}
 	
 	//check to see if the MemAlloc and MemFree functions are available
@@ -219,14 +219,14 @@ BOOL CSnmp::Init( )
 		m_fpSnmpUtilOidCpy = (pSnmpUtilOidCpy)GetProcAddress( m_hInstSnmp, "SnmpUtilOidCpy" );
 	} else {
 		ShowSystemError( IDS_SNMPAPI_ERR );
-		return( FALSE );
+		return FALSE;
 	}
 	
 	//alloc our bindlist
 	m_pvarBindList = (SnmpVarBindList*)SnmpUtilMemAlloc( sizeof(SnmpVarBindList) );
 	ASSERT( m_pvarBindList != NULL );
 	
-	return( TRUE );
+	return TRUE;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -260,7 +260,7 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper( DWORD* pReceived, DWORD *pSent)
 			}
 		}
 	}
-	return( TRUE );
+	return TRUE;
 }
 
 
@@ -470,12 +470,12 @@ BOOL CSnmp::GetReceivedAndSentOctets( DWORD* pReceived, DWORD *pSent )
 	
 	//use performance data from the registry
 	if( g_MonitorMode == MONITOR_DUN )
-		return( perfdata.GetReceivedAndSentOctets( pReceived, pSent ) );
+		return perfdata.GetReceivedAndSentOctets( pReceived, pSent );
 	
 	//use IPHLPAPI.DLL
 	if( m_bUse_iphlpapi )
-		return( GetReceivedAndSentOctets_IPHelper( pReceived, pSent ) );
+		return GetReceivedAndSentOctets_IPHelper( pReceived, pSent );
 	
 	//use INETMIB1.DLL
-	return( GetReceivedAndSentOctets_9x( pReceived, pSent ) );
+	return GetReceivedAndSentOctets_9x( pReceived, pSent );
 }

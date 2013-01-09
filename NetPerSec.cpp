@@ -74,7 +74,7 @@ BOOL CNetPerSecApp::InitInstance()
 				PostMessage( hWnd, TaskbarCallbackMsg ,0 ,WM_LBUTTONDBLCLK );
 				SetForegroundWindow( hWnd );
 			}
-			return( FALSE );
+			return FALSE;
 		}
 	}
 	

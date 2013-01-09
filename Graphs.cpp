@@ -233,5 +233,5 @@ int CGraphs::GetTotalElements( )
 {
 	CRect rc;
 	GetClientRect( rc );
-	return( ( rc.right + WIDTH ) / WIDTH );
+	return ( rc.right + WIDTH ) / WIDTH;
 }

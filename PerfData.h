@@ -42,17 +42,17 @@ public:
 protected:
 	PPERF_OBJECT_TYPE FirstObject( PPERF_DATA_BLOCK PerfData )
 	{
-		return( (PPERF_OBJECT_TYPE)((PBYTE)PerfData + PerfData->HeaderLength) );
+		return (PPERF_OBJECT_TYPE)((PBYTE)PerfData + PerfData->HeaderLength);
 	}
 	
 	PPERF_OBJECT_TYPE NextObject( PPERF_OBJECT_TYPE PerfObj )
 	{
-		return( (PPERF_OBJECT_TYPE)((PBYTE)PerfObj + PerfObj->TotalByteLength) );
+		return (PPERF_OBJECT_TYPE)((PBYTE)PerfObj + PerfObj->TotalByteLength);
 	}
 	
 	PPERF_INSTANCE_DEFINITION FirstInstance( PPERF_OBJECT_TYPE PerfObj )
 	{
-		return( (PPERF_INSTANCE_DEFINITION)((PBYTE)PerfObj + PerfObj->DefinitionLength) );
+		return (PPERF_INSTANCE_DEFINITION)((PBYTE)PerfObj + PerfObj->DefinitionLength);
 	}
 	
 	PPERF_INSTANCE_DEFINITION NextInstance( PPERF_INSTANCE_DEFINITION PerfInst )
@@ -61,17 +61,17 @@ protected:
 	
 		PerfCntrBlk = (PPERF_COUNTER_BLOCK)((PBYTE)PerfInst + PerfInst->ByteLength);
 	
-		return( (PPERF_INSTANCE_DEFINITION)((PBYTE)PerfCntrBlk + PerfCntrBlk->ByteLength) );
+		return (PPERF_INSTANCE_DEFINITION)((PBYTE)PerfCntrBlk + PerfCntrBlk->ByteLength);
 	}
 	
 	PPERF_COUNTER_DEFINITION FirstCounter( PPERF_OBJECT_TYPE PerfObj )
 	{
-		return( (PPERF_COUNTER_DEFINITION) ((PBYTE)PerfObj +  PerfObj->HeaderLength) );
+		return (PPERF_COUNTER_DEFINITION) ((PBYTE)PerfObj +  PerfObj->HeaderLength);
 	}
 	
 	PPERF_COUNTER_DEFINITION NextCounter( PPERF_COUNTER_DEFINITION PerfCntr )
 	{
-		return( (PPERF_COUNTER_DEFINITION)((PBYTE)PerfCntr + PerfCntr->ByteLength) );
+		return (PPERF_COUNTER_DEFINITION)((PBYTE)PerfCntr + PerfCntr->ByteLength);
 	}
 };
 

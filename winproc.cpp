@@ -331,7 +331,7 @@ int Cwinproc::GetArrayIndex( )
 	int i = m_nArrayIndex - 1;
 	if( i < 0 )
 		i = MAX_SAMPLES + i;
-	return( i );
+	return i;
 }
 
 /////////////////////////////////////////////////////////////////////////////

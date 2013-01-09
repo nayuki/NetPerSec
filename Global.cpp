@@ -82,7 +82,7 @@ DWORD GetServicePack( )
 		key.Close( );
 	}
 	
-	return( dwVersion );
+	return dwVersion;
 }
 
 
@@ -259,14 +259,14 @@ LPSTR FormatNumber( DWORD N )
 		}
 		
 		if (len >= BUF_SIZE)
-			return( "" );
+			return "";
 	}
 	
 	if (0 > sign)
 	{
 		if (len >= BUF_SIZE)
 		{
-			return( "" );
+			return "";
 		}
 		
 		*ptr-- = '-';
@@ -274,7 +274,7 @@ LPSTR FormatNumber( DWORD N )
 	}
 	
 	memmove(buf, ++ptr, len + 1);
-	return( buf );
+	return buf;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -303,7 +303,7 @@ int GetPrivateProfileInt( LPCSTR pKey, int nDefault )
 {
 	CString sFileName;
 	QualifyPathName( &sFileName, SZ_NETPERSEC_INI );
-	return( GetPrivateProfileInt( SZ_CONFIG, pKey, nDefault, sFileName ) );
+	return GetPrivateProfileInt( SZ_CONFIG, pKey, nDefault, sFileName );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -312,7 +312,7 @@ int GetPrivateProfileString( LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int n
 {
 	CString sFileName;
 	QualifyPathName( &sFileName, SZ_NETPERSEC_INI );
-	return( GetPrivateProfileString( SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName ) );
+	return GetPrivateProfileString( SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
