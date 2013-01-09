@@ -28,22 +28,22 @@ class CNetPerSecApp : public CWinApp
 public:
 	CNetPerSecApp();
 	~CNetPerSecApp();
-
-    Cwinproc m_wnd;
+	
+	Cwinproc m_wnd;
 	CIcons m_Icons;
 	HANDLE m_hMutex; //single instance
-
-
+	
+	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CNetPerSecApp)
-	public:
+public:
 	virtual BOOL InitInstance();
 	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
 	//}}AFX_VIRTUAL
-
+	
 // Implementation
-
+	
 	//{{AFX_MSG(CNetPerSecApp)
 		// NOTE - the ClassWizard will add and remove member functions here.
 		//    DO NOT EDIT what you see in these blocks of generated code !

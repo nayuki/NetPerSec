@@ -14,21 +14,21 @@
 class CDisplayDlg : public CPropertyPage
 {
 	DECLARE_DYNCREATE(CDisplayDlg)
-
+	
 // Construction
 public:
 	CDisplayDlg();
 	~CDisplayDlg();
-    BOOL GetColor( COLORREF* pColorRef );
-    void ShowSampleIcon( );
-
-    COLORREF    m_Restore_ColorSent,
-                m_Restore_ColorRecv,
-                m_Restore_ColorAve,
-                m_Restore_ColorBack,
-                m_Restore_ColorIconBack;
-
-
+	BOOL GetColor( COLORREF* pColorRef );
+	void ShowSampleIcon( );
+	
+	COLORREF    m_Restore_ColorSent,
+	            m_Restore_ColorRecv,
+	            m_Restore_ColorAve,
+	            m_Restore_ColorBack,
+	            m_Restore_ColorIconBack;
+	
+	
 // Dialog Data
 	//{{AFX_DATA(CDisplayDlg)
 	enum { IDD = IDD_COLOR_DLG };
@@ -36,8 +36,8 @@ public:
 	CColorCube	m_SentBtn;
 	CColorCube	m_RecvBtn;
 	//}}AFX_DATA
-
-
+	
+	
 // Overrides
 	// ClassWizard generate virtual function overrides
 	//{{AFX_VIRTUAL(CDisplayDlg)
@@ -47,7 +47,7 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
-
+	
 // Implementation
 protected:
 	// Generated message map functions
@@ -67,7 +67,7 @@ protected:
 	afx_msg void OnIconHistogram();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-
+	
 };
 
 //{{AFX_INSERT_LOCATION}}

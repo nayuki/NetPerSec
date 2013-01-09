@@ -21,52 +21,52 @@ class Cwinproc : public CWnd
 public:
 	Cwinproc();
 	void StartUp( );
-    LRESULT OnTaskbarNotify( WPARAM wParam, LPARAM lParam );
-    void UpdateTrayIcon( HICON hIcon );
-    void ShowPropertiesDlg( );
-    UINT GetSNMPValue( LPCSTR pString );
-    
-
+	LRESULT OnTaskbarNotify( WPARAM wParam, LPARAM lParam );
+	void UpdateTrayIcon( HICON hIcon );
+	void ShowPropertiesDlg( );
+	UINT GetSNMPValue( LPCSTR pString );
+	
+	
 // Attributes
 public:
-    CSnmp snmp;
-    DlgPropSheet* m_pPropertiesDlg;
-
-    DWORD m_dwStartTime;
-    double m_dbTotalBytesRecv;
-    double m_dbTotalBytesSent;
-    double m_dbRecvWrap;
-    double m_dbSentWrap;
-
-    NOTIFYICONDATA	m_SystemTray;
-    STATS_STRUCT RecvStats[MAX_SAMPLES];
-    STATS_STRUCT SentStats[MAX_SAMPLES];
-
-    int  GetArrayIndex( );
-    void ResetData( );
-    void CalcAverages( double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT* pStats );
-    
-
+	CSnmp snmp;
+	DlgPropSheet* m_pPropertiesDlg;
+	
+	DWORD m_dwStartTime;
+	double m_dbTotalBytesRecv;
+	double m_dbTotalBytesSent;
+	double m_dbRecvWrap;
+	double m_dbSentWrap;
+	
+	NOTIFYICONDATA	m_SystemTray;
+	STATS_STRUCT RecvStats[MAX_SAMPLES];
+	STATS_STRUCT SentStats[MAX_SAMPLES];
+	
+	int  GetArrayIndex( );
+	void ResetData( );
+	void CalcAverages( double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT* pStats );
+	
+	
 private:
-    int m_nArrayIndex;
-
+	int m_nArrayIndex;
+	
 // Operations
 public:
-
-    
-
+	
+	
+	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(Cwinproc)
-	public:
+public:
 	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
 	//}}AFX_VIRTUAL
-    
-
+	
+	
 // Implementation
 public:
 	virtual ~Cwinproc();
-
+	
 	// Generated message map functions
 protected:
 	//{{AFX_MSG(Cwinproc)

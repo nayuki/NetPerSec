@@ -32,39 +32,39 @@ static char THIS_FILE[] = __FILE__;
 
 void InitDlg( HWND hDlg )
 {
-    TCHAR szFullPath[256];
-    DWORD dwVerHnd;
-    DWORD dwVerInfoSize;
+	TCHAR szFullPath[256];
+	DWORD dwVerHnd;
+	DWORD dwVerInfoSize;
 	HINSTANCE hInst = AfxGetInstanceHandle( );
-	 
-    // Get version information from the application
-    GetModuleFileName( hInst, szFullPath, sizeof(szFullPath) );
-    dwVerInfoSize = GetFileVersionInfoSize( szFullPath, &dwVerHnd );
-
+	
+	// Get version information from the application
+	GetModuleFileName( hInst, szFullPath, sizeof(szFullPath) );
+	dwVerInfoSize = GetFileVersionInfoSize( szFullPath, &dwVerHnd );
+	
 	if( dwVerInfoSize )
-    {
-        // If we were able to get the information, process it:
-        HANDLE  hMem;
-        LPVOID  lpvMem;
-        TCHAR   szGetName[256];
-        int     cchRoot;
-        int     i;
-
-        hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
-        lpvMem = GlobalLock(hMem);
-        GetFileVersionInfo(szFullPath, dwVerHnd, dwVerInfoSize, lpvMem);
-        lstrcpy(szGetName, _T("\\StringFileInfo\\040904b0\\") );
-        cchRoot = lstrlen( szGetName );
-
-        // Walk through the dialog items that we want to replace:
-        for( i = 0; i < 3; i++ )
-        {
-            BOOL  fRet;
-            UINT  cchVer = 0;
-            LPTSTR lszVer = NULL;
-            TCHAR  szResult[256];
+	{
+		// If we were able to get the information, process it:
+		HANDLE  hMem;
+		LPVOID  lpvMem;
+		TCHAR   szGetName[256];
+		int     cchRoot;
+		int     i;
+		
+		hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
+		lpvMem = GlobalLock(hMem);
+		GetFileVersionInfo(szFullPath, dwVerHnd, dwVerInfoSize, lpvMem);
+		lstrcpy(szGetName, _T("\\StringFileInfo\\040904b0\\") );
+		cchRoot = lstrlen( szGetName );
+		
+		// Walk through the dialog items that we want to replace:
+		for( i = 0; i < 3; i++ )
+		{
+			BOOL  fRet;
+			UINT  cchVer = 0;
+			LPTSTR lszVer = NULL;
+			TCHAR  szResult[256];
 			WORD  wID = 0;
-
+			
 			switch( i )
 			{
 				case 0:
@@ -74,13 +74,13 @@ void InitDlg( HWND hDlg )
 					wID = IDC_VERSION;
 					break;
 			}
-				
-            if( wID )
+			
+			if( wID )
 			{
 				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
 				lstrcpy( &szGetName[cchRoot], szResult );
 				fRet = VerQueryValue( lpvMem, szGetName, (void**)&lszVer, &cchVer );
-
+				
 				if( fRet && cchVer && lszVer )
 				{
 					// Replace dialog item text with version info
@@ -88,13 +88,13 @@ void InitDlg( HWND hDlg )
 					::SetDlgItemText(hDlg, wID, szResult );
 				}
 			}
-        }
-        GlobalUnlock( hMem );
-        GlobalFree( hMem );
-    }
-
-    return;
-
+		}
+		GlobalUnlock( hMem );
+		GlobalFree( hMem );
+	}
+	
+	return;
+	
 }
 
 
@@ -142,9 +142,9 @@ END_MESSAGE_MAP()
 BOOL CAboutPage::OnInitDialog( )
 {
 	CDialog::OnInitDialog();
-   
-    InitDlg( GetSafeHwnd( ) );
-    return( TRUE );
+	
+	InitDlg( GetSafeHwnd( ) );
+	return( TRUE );
 }
 
 

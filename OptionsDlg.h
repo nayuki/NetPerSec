@@ -13,21 +13,21 @@
 class COptionsDlg : public CPropertyPage
 {
 	DECLARE_DYNCREATE(COptionsDlg)
-
+	
 // Construction
 public:
 	COptionsDlg();
 	~COptionsDlg();
-    void UpdateDlg( );
-    void UpdateAveragingWindow( );
-
+	void UpdateDlg( );
+	void UpdateAveragingWindow( );
+	
 // Dialog Data
 	//{{AFX_DATA(COptionsDlg)
 	enum { IDD = IDD_OPTIONS_DLG };
 	CComboBox	m_Interfaces;
 	//}}AFX_DATA
-
-
+	
+	
 // Overrides
 	// ClassWizard generate virtual function overrides
 	//{{AFX_VIRTUAL(COptionsDlg)
@@ -36,7 +36,7 @@ public:
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
-
+	
 // Implementation
 protected:
 	// Generated message map functions
@@ -49,7 +49,7 @@ protected:
 	afx_msg void OnSelchangeInterfaces();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-
+	
 };
 
 //{{AFX_INSERT_LOCATION}}

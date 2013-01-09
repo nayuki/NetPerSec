@@ -19,39 +19,39 @@
 class DlgPropSheet : public CPropertySheet
 {
 	DECLARE_DYNAMIC(DlgPropSheet)
-
+	
 // Construction
 public:
 	DlgPropSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
 	DlgPropSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
-
+	
 // Attributes
 public:
-    CSessionDlg*    m_pSessionDlg;
-    CDisplayDlg*    m_pDisplayDlg;
-    COptionsDlg*    m_pOptionsDlg;
-    CAboutPage*     m_pAboutDlg;
-  
+	CSessionDlg*    m_pSessionDlg;
+	CDisplayDlg*    m_pDisplayDlg;
+	COptionsDlg*    m_pOptionsDlg;
+	CAboutPage*     m_pAboutDlg;
+	
 // Operations
 public:
-void  AddPropPages( );
-
+	void  AddPropPages( );
+	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(DlgPropSheet)
-	public:
+public:
 	virtual BOOL OnInitDialog();
 	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
-	protected:
+protected:
 	virtual void PostNcDestroy();
 	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);
 	//}}AFX_VIRTUAL
-
+	
 // Implementation
 public:
 	virtual ~DlgPropSheet();
-
-	// Generated message map functions
+	
+// Generated message map functions
 protected:
 	//{{AFX_MSG(DlgPropSheet)
 	afx_msg void OnPaint();

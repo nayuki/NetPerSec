@@ -9,8 +9,8 @@
 #include "Graphs.h"
 
 typedef enum {
-    RECV_DATA = 0x01,
-    SENT_DATA = 0x02,
+	RECV_DATA = 0x01,
+	SENT_DATA = 0x02,
 } UPDATE_MODE;
 
 
@@ -20,54 +20,54 @@ typedef enum {
 class CSessionDlg : public CPropertyPage
 {
 	DECLARE_DYNCREATE(CSessionDlg)
-
+	
 // Construction
 public:
 	CSessionDlg();
 	~CSessionDlg();
-    
-    void UpdateDlg( );
-    
-    void DisplayNumber( int nID, DWORD dwNumber );
-    void SetGraphRangeSent( );
-    void SetGraphRangeRecv( );
-    void DrawGraph( int nIndex, UPDATE_MODE update);
-    void SetOptions( );
-    void UpdateGraphTextSent( DWORD );
-    void UpdateGraphTextRecv( DWORD );
-    void UpdateGraph( );
-    void SetGraphStyle( );
-    BOOL CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update );
-    void UpdateScrollPos( WORD wControl, DWORD dwValue );
-    DWORD CalcMax(STATS_STRUCT* pStats, int start );
-
-
-    CToolTipCtrl m_ToolTip;
-    CGraphs m_RecvGraph;
-    CGraphs m_SentGraph;
-    UINT m_AutoScale_Recv;
-    UINT m_AutoScale_Sent;
-    CBrush* m_pbrBackground;
-
+	
+	void UpdateDlg( );
+	
+	void DisplayNumber( int nID, DWORD dwNumber );
+	void SetGraphRangeSent( );
+	void SetGraphRangeRecv( );
+	void DrawGraph( int nIndex, UPDATE_MODE update);
+	void SetOptions( );
+	void UpdateGraphTextSent( DWORD );
+	void UpdateGraphTextRecv( DWORD );
+	void UpdateGraph( );
+	void SetGraphStyle( );
+	BOOL CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update );
+	void UpdateScrollPos( WORD wControl, DWORD dwValue );
+	DWORD CalcMax(STATS_STRUCT* pStats, int start );
+	
+	
+	CToolTipCtrl m_ToolTip;
+	CGraphs m_RecvGraph;
+	CGraphs m_SentGraph;
+	UINT m_AutoScale_Recv;
+	UINT m_AutoScale_Sent;
+	CBrush* m_pbrBackground;
+	
 // Dialog Data
 	//{{AFX_DATA(CSessionDlg)
 	enum { IDD = IDD_SESSION_DLG };
 		// NOTE - ClassWizard will add data members here.
 		//    DO NOT EDIT what you see in these blocks of generated code !
 	//}}AFX_DATA
-
-
+	
+	
 // Overrides
 	// ClassWizard generate virtual function overrides
 	//{{AFX_VIRTUAL(CSessionDlg)
-	public:
+public:
 	virtual BOOL OnSetActive();
 	virtual BOOL OnKillActive();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
-
+	
 // Implementation
 protected:
 	// Generated message map functions
@@ -90,7 +90,7 @@ protected:
 	afx_msg void OnBytes();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-
+	
 };
 
 //{{AFX_INSERT_LOCATION}}

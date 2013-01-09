@@ -42,23 +42,23 @@
 //these entries contain the current SNMP sample
 typedef struct
 {
-    DWORD Bps;          //bytes per second
-    DWORD ave;          //average throughput
-    DWORD time;         //time in milliseconds that the sample was taken
-    double total;       //total received or sent in bits
+	DWORD Bps;          //bytes per second
+	DWORD ave;          //average throughput
+	DWORD time;         //time in milliseconds that the sample was taken
+	double total;       //total received or sent in bits
 } STATS_STRUCT;
 
 //system tray icon style
 typedef enum {
-    ICON_BARGRAPH,
-    ICON_HISTOGRAM,
+	ICON_BARGRAPH,
+	ICON_HISTOGRAM,
 } ICON_STYLE;
 
 //monitor mode
 typedef enum {
-    MONITOR_ALL,
-    MONITOR_DUN,
-    MONITOR_ADAPTER,
+	MONITOR_ALL,
+	MONITOR_DUN,
+	MONITOR_ADAPTER,
 } MONITOR_MODE;
 
 #define MAX_SAMPLES 61
