@@ -79,8 +79,8 @@ void SetStartupOptions() {
 	LPITEMIDLIST pidl;
 	LPMALLOC pMalloc;
 	
-	IShellLink* pShellLink = NULL;
-	IPersistFile* pPF = NULL;
+	IShellLink *pShellLink = NULL;
+	IPersistFile *pPF = NULL;
 	
 	//required for Win95
 	CoInitialize(NULL);
@@ -148,7 +148,7 @@ void SetStartupOptions() {
 void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond = TRUE */) {
 	static char s[256];
 	char ch;
-	char* b = "Bytes";
+	char *b = "Bytes";
 	double num = dbBytes;
 	
 	//decimal format

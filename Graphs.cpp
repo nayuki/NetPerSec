@@ -36,7 +36,7 @@ END_MESSAGE_MAP()
 
 // CGraphs message handlers
 
-BOOL CGraphs::Create(DWORD dwStyle, const RECT& rc, CWnd* pParentWnd, UINT nID, CCreateContext* /* pContext */) {
+BOOL CGraphs::Create(DWORD dwStyle, const RECT &rc, CWnd *pParentWnd, UINT nID, CCreateContext* /* pContext */) {
 	static CString sClass = AfxRegisterWndClass(CS_HREDRAW | CS_VREDRAW);
 	return(CWnd::CreateEx(WS_EX_CLIENTEDGE | WS_EX_STATICEDGE,
 			sClass, NULL, dwStyle,
@@ -74,9 +74,9 @@ void CGraphs::SetStyle(int nStyle) {
 		m_GraphArray[i] = 0;
 }
 
-void CGraphs::DrawGrid(CDC* pDC, CRect* pRect) {
+void CGraphs::DrawGrid(CDC *pDC, CRect *pRect) {
 	CPen pen(PS_SOLID,1, RGB(0, 128,0));
-	CPen* pOldPen = pDC->SelectObject(&pen);
+	CPen *pOldPen = pDC->SelectObject(&pen);
 	pDC->MoveTo(0, pRect->Height() / 2);
 	pDC->LineTo(pRect->right, pRect->Height() / 2);
 	pDC->SelectObject(pOldPen);
@@ -173,7 +173,7 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 		//draw a tick mark
 		//#if 0
 		CPen pen(PS_SOLID,1, RGB(0, 128,0));
-		CPen* pOldPen = m_MemDC.SelectObject(&pen);
+		CPen *pOldPen = m_MemDC.SelectObject(&pen);
 		m_MemDC.MoveTo(rcRight.left, rcRight.Height() / 2 - 2);
 		m_MemDC.LineTo(rcRight.left, rcRight.Height() / 2 + 3);
 		m_MemDC.SelectObject(pOldPen);
@@ -186,7 +186,7 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 		} else {
 			if (nLineIndex != -1 && nLineIndex < m_GraphArray.GetSize()) {
 				CPen pen(PS_SOLID,1, crColor);
-				CPen* pOldPen = m_MemDC.SelectObject(&pen);
+				CPen *pOldPen = m_MemDC.SelectObject(&pen);
 				m_MemDC.MoveTo(rcRight.left-1, m_GraphArray.GetAt(nLineIndex));
 				m_MemDC.LineTo(rcClient.right-1, rcTop.top);
 				m_GraphArray.SetAt(nLineIndex, rcTop.top);

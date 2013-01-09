@@ -43,7 +43,7 @@ public:
 	DECLARE_MESSAGE_MAP()
 };
 
-extern CNetPerSecApp* pTheApp;
+extern CNetPerSecApp *pTheApp;
 
 
 

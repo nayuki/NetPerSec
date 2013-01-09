@@ -83,7 +83,7 @@ void Cwinproc::StartUp() {
 	}
 }
 
-void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT* pStats) {
+void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT *pStats) {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
 	//set current bps
@@ -253,7 +253,7 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 			menu.LoadMenu(IDR_MENU1);
 			menu.SetDefaultItem(0, TRUE);
 			
-			CMenu* pMenu;
+			CMenu *pMenu;
 			pMenu = menu.GetSubMenu(0);
 			pMenu->SetDefaultItem(0, TRUE);
 			

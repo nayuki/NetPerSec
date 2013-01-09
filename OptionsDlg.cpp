@@ -43,7 +43,7 @@ COptionsDlg::COptionsDlg() : CPropertyPage(COptionsDlg::IDD) {
 
 COptionsDlg::~COptionsDlg() {}
 
-void COptionsDlg::DoDataExchange(CDataExchange* pDX) {
+void COptionsDlg::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(COptionsDlg)
 	DDX_Control(pDX, IDC_INTERFACES, m_Interfaces);
@@ -66,8 +66,8 @@ END_MESSAGE_MAP()
 BOOL COptionsDlg::OnInitDialog() {
 	CPropertyPage::OnInitDialog();
 	
-	CSliderCtrl* pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER);
-	CSliderCtrl* pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
+	CSliderCtrl *pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER);
+	CSliderCtrl *pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	ASSERT(pSampleSlider != NULL);
 	ASSERT(pWindowSlider != NULL);
 	
@@ -113,7 +113,7 @@ BOOL COptionsDlg::OnInitDialog() {
 
 void COptionsDlg::UpdateAveragingWindow() {
 	CString s;
-	CSliderCtrl* pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
+	CSliderCtrl *pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	
 	int max = (MAX_SAMPLES -1) / AVERAGING_MULTIPLIER;
 	pWindowSlider->SetRange(1, max, TRUE);   //seconds
@@ -155,9 +155,9 @@ void COptionsDlg::UpdateDlg() {
 }
 
 
-void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
+void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	int nControl = pScrollBar->GetDlgCtrlID();
-	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
+	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT(pCtrl != NULL);
 	
 	switch (nControl) {
@@ -208,7 +208,7 @@ void COptionsDlg::OnUseDun() {
 }
 
 BOOL COptionsDlg::OnSetActive() {
-	CSnmp* pSnmp = &pTheApp->m_wnd.snmp;
+	CSnmp *pSnmp = &pTheApp->m_wnd.snmp;
 	
 	if (pSnmp) {
 		CStringArray s;

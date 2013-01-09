@@ -13,7 +13,7 @@ public:
 	void SetGraphRange(UINT nRange);
 	void RedrawGraph();
 	void DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex = -1  /*int nLineIndex = -1 */);
-	void DrawGrid(CDC* pDC, CRect* pRect);
+	void DrawGrid(CDC *pDC, CRect *pRect);
 	void SetSize(int nPoints);
 	void ShiftLeft();
 	void SetStyle(int nStyle);
@@ -28,7 +28,7 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CGraphs)
 	public:
-	virtual BOOL Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID, CCreateContext* pContext = NULL);
+	virtual BOOL Create(DWORD dwStyle, const RECT &rect, CWnd *pParentWnd, UINT nID, CCreateContext *pContext = NULL);
 	//}}AFX_VIRTUAL
 	
 // Implementation

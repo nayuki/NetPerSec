@@ -26,7 +26,7 @@ CDisplayDlg::CDisplayDlg() : CPropertyPage(CDisplayDlg::IDD) {
 
 CDisplayDlg::~CDisplayDlg() {}
 
-void CDisplayDlg::DoDataExchange(CDataExchange* pDX) {
+void CDisplayDlg::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CDisplayDlg)
 	DDX_Control(pDX, IDC_COLOR_ICON_BACK, m_IconBtn);
@@ -56,7 +56,7 @@ END_MESSAGE_MAP()
 // CDisplayDlg message handlers
 
 
-BOOL CDisplayDlg::GetColor(COLORREF* pColorRef) {
+BOOL CDisplayDlg::GetColor(COLORREF *pColorRef) {
 	CColorDialog dlg;
 	dlg.m_cc.Flags |= CC_ANYCOLOR | CC_FULLOPEN | CC_RGBINIT;
 	dlg.m_cc.rgbResult = *pColorRef;

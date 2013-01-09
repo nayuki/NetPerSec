@@ -26,7 +26,7 @@ public:
 // Attributes
 public:
 	CSnmp snmp;
-	DlgPropSheet* m_pPropertiesDlg;
+	DlgPropSheet *m_pPropertiesDlg;
 	
 	DWORD m_dwStartTime;
 	double m_dbTotalBytesRecv;
@@ -40,7 +40,7 @@ public:
 	
 	int  GetArrayIndex();
 	void ResetData();
-	void CalcAverages(double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT* pStats);
+	void CalcAverages(double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT *pStats);
 	
 private:
 	int m_nArrayIndex;

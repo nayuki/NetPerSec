@@ -16,7 +16,7 @@ class CDisplayDlg : public CPropertyPage {
 public:
 	CDisplayDlg();
 	~CDisplayDlg();
-	BOOL GetColor(COLORREF* pColorRef);
+	BOOL GetColor(COLORREF *pColorRef);
 	void ShowSampleIcon();
 	
 	COLORREF    m_Restore_ColorSent,
@@ -40,7 +40,7 @@ public:
 	virtual BOOL OnSetActive();
 	virtual void OnCancel();
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange *pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
 	
 // Implementation

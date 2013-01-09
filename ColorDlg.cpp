@@ -116,7 +116,7 @@ BOOL CColorCube::OnClick() {
 // CColorCubeDlg dialog
 
 
-CColorCubeDlg::CColorCubeDlg(CWnd* pParent /*=NULL*/)
+CColorCubeDlg::CColorCubeDlg(CWnd *pParent /*=NULL*/)
 	: CDialog(CColorCubeDlg::IDD, pParent) {
 	//{{AFX_DATA_INIT(CColorCubeDlg)
 		// NOTE: the ClassWizard will add member initialization here
@@ -124,7 +124,7 @@ CColorCubeDlg::CColorCubeDlg(CWnd* pParent /*=NULL*/)
 }
 
 
-void CColorCubeDlg::DoDataExchange(CDataExchange* pDX) {
+void CColorCubeDlg::DoDataExchange(CDataExchange *pDX) {
 	CDialog::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CColorCubeDlg)
 		// NOTE: the ClassWizard will add DDX and DDV calls here

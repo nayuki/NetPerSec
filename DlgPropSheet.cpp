@@ -20,12 +20,12 @@ static int m_nLastTab = 0;
 IMPLEMENT_DYNAMIC(DlgPropSheet, CPropertySheet)
 
 
-DlgPropSheet::DlgPropSheet(UINT nIDCaption, CWnd* pParentWnd, UINT iSelectPage)
+DlgPropSheet::DlgPropSheet(UINT nIDCaption, CWnd *pParentWnd, UINT iSelectPage)
 	:CPropertySheet(nIDCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
 
-DlgPropSheet::DlgPropSheet(LPCTSTR pszCaption, CWnd* pParentWnd, UINT iSelectPage)
+DlgPropSheet::DlgPropSheet(LPCTSTR pszCaption, CWnd *pParentWnd, UINT iSelectPage)
 	:CPropertySheet(pszCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
@@ -68,7 +68,7 @@ void DlgPropSheet::OnPaint() {
 	// Do not call CPropertySheet::OnPaint() for painting messages
 }
 
-BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult) {
+BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT *pLResult) {
 	//save last tab
 	m_nLastTab = GetActiveIndex();
 	return CPropertySheet::OnChildNotify(message, wParam, lParam, pLResult);
@@ -142,7 +142,7 @@ int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	ModifyStyle(DS_CONTEXTHELP | DS_MODALFRAME, WS_MINIMIZEBOX);
 	// Configure our system menu
 	GetSystemMenu(TRUE); //revert the menu
-	CMenu* pSysMenu = GetSystemMenu(FALSE); //and grab the handle
+	CMenu *pSysMenu = GetSystemMenu(FALSE); //and grab the handle
 	pSysMenu->EnableMenuItem(SC_MINIMIZE, MF_ENABLED);
 	pSysMenu->DeleteMenu(SC_MAXIMIZE, MF_BYCOMMAND);
 	pSysMenu->DeleteMenu(SC_SIZE, MF_BYCOMMAND);

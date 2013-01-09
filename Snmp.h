@@ -29,12 +29,12 @@ class CSnmp {
 	typedef BOOL (WINAPI *pSnmpExtensionInitEx)(
 		OUT AsnObjectIdentifier *supportedView);
 	
-	typedef LPVOID (CALLBACK* SUALLOC)(UINT);
-	typedef VOID (CALLBACK* SUFREE)(LPVOID);
+	typedef LPVOID (CALLBACK *SUALLOC)(UINT);
+	typedef VOID (CALLBACK *SUFREE)(LPVOID);
 	
-	typedef DWORD (WINAPI* fpGetNumberOfInterfaces)(LPDWORD);
-	typedef DWORD (WINAPI* fpGetIfEntry)(LPVOID);
-	typedef DWORD (WINAPI* fpGetInterfaceInfo)(PIP_INTERFACE_INFO, LPDWORD);
+	typedef DWORD (WINAPI *fpGetNumberOfInterfaces)(LPDWORD);
+	typedef DWORD (WINAPI *fpGetIfEntry)(LPVOID);
+	typedef DWORD (WINAPI *fpGetInterfaceInfo)(PIP_INTERFACE_INFO, LPDWORD);
 	
 	#define OID_SIZEOF(Oid)(sizeof Oid / sizeof(UINT))
 	
@@ -69,7 +69,7 @@ private:
 	
 	SUALLOC m_fpSnmpUtilMemAlloc;
 	SUFREE  m_fpSnmpUtilMemFree;
-	RFC1157VarBindList*		m_pvarBindList;
+	RFC1157VarBindList *m_pvarBindList;
 	BOOL  m_bUse_iphlpapi;
 	DWORD  m_dwInterfaceArray[MAX_INTERFACES];
 	
@@ -81,12 +81,12 @@ private:
 	
 public:
 	BOOL Init();
-	BOOL GetReceivedAndSentOctets(DWORD* pReceived, DWORD *pSent);
+	BOOL GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent);
 	void GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter);
 	
 private:
-	BOOL GetReceivedAndSentOctets_9x(DWORD* pReceived, DWORD *pSent);
-	int  GetReceivedAndSentOctets_IPHelper(DWORD* pReceived, DWORD *pSent);
+	BOOL GetReceivedAndSentOctets_9x(DWORD *pReceived, DWORD *pSent);
+	int  GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent);
 	void GetInterfaces();
 	void ShowSystemError(int nID);
 	BOOL CheckNT();

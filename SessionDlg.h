@@ -33,16 +33,16 @@ public:
 	void UpdateGraphTextRecv(DWORD);
 	void UpdateGraph();
 	void SetGraphStyle();
-	BOOL CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update);
+	BOOL CalcAutoScale(UINT *pAutoScale,  STATS_STRUCT *pStats, UPDATE_MODE update);
 	void UpdateScrollPos(WORD wControl, DWORD dwValue);
-	DWORD CalcMax(STATS_STRUCT* pStats, int start);
+	DWORD CalcMax(STATS_STRUCT *pStats, int start);
 	
 	CToolTipCtrl m_ToolTip;
 	CGraphs m_RecvGraph;
 	CGraphs m_SentGraph;
 	UINT m_AutoScale_Recv;
 	UINT m_AutoScale_Sent;
-	CBrush* m_pbrBackground;
+	CBrush *m_pbrBackground;
 	
 // Dialog Data
 	//{{AFX_DATA(CSessionDlg)
@@ -57,9 +57,9 @@ public:
 public:
 	virtual BOOL OnSetActive();
 	virtual BOOL OnKillActive();
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
+	virtual BOOL PreTranslateMessage(MSG *pMsg);
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange *pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
 	
 // Implementation
@@ -68,14 +68,14 @@ protected:
 	//{{AFX_MSG(CSessionDlg)
 	afx_msg void OnTimer(UINT nIDEvent);
 	virtual BOOL OnInitDialog();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
+	afx_msg HBRUSH OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor);
 	afx_msg void OnAveRecvOption();
 	afx_msg void OnAveSentOption();
 	afx_msg void OnCurrentRecvOption();
 	afx_msg void OnCurrentSentOption();
 	afx_msg void OnMaxRecvOption();
 	afx_msg void OnMaxSentOption();
-	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar);
 	afx_msg void OnBargraph();
 	afx_msg void OnLinegraph();
 	afx_msg void OnResetData();

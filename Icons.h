@@ -18,10 +18,10 @@ private:
 	CBitmap m_bmpBarGraph;
 	CBitmap m_bmpHistogram;
 	
-	HICON GetBargraphIcon(STATS_STRUCT* pSent, STATS_STRUCT* pRecv, int nIndex);
-	HICON GetHistogramIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex);
-	void  FillHistogramIcon(CDC* pDC, STATS_STRUCT* pRecv, COLORREF color, int nIndex, CRect *prc);
-	void  FillBarIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIndex, CRect *prc);
+	HICON GetBargraphIcon(STATS_STRUCT *pSent, STATS_STRUCT *pRecv, int nIndex);
+	HICON GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex);
+	void  FillHistogramIcon(CDC *pDC, STATS_STRUCT *pRecv, COLORREF color, int nIndex, CRect *prc);
+	void  FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, int nIndex, CRect *prc);
 };
 
 #endif

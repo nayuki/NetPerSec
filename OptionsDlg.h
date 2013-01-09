@@ -29,7 +29,7 @@ public:
 	public:
 	virtual BOOL OnSetActive();
 	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange *pDX);    // DDX/DDV support
 	//}}AFX_VIRTUAL
 	
 // Implementation
@@ -37,7 +37,7 @@ protected:
 	// Generated message map functions
 	//{{AFX_MSG(COptionsDlg)
 	virtual BOOL OnInitDialog();
-	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar);
+	afx_msg void OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar);
 	afx_msg void OnUseSnmp();
 	afx_msg void OnUseDun();
 	afx_msg void OnMonitorAdapter();

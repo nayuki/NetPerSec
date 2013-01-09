@@ -18,15 +18,15 @@ class DlgPropSheet : public CPropertySheet {
 	
 // Construction
 public:
-	DlgPropSheet(UINT nIDCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
-	DlgPropSheet(LPCTSTR pszCaption, CWnd* pParentWnd = NULL, UINT iSelectPage = 0);
+	DlgPropSheet(UINT nIDCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0);
+	DlgPropSheet(LPCTSTR pszCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0);
 	
 // Attributes
 public:
-	CSessionDlg*    m_pSessionDlg;
-	CDisplayDlg*    m_pDisplayDlg;
-	COptionsDlg*    m_pOptionsDlg;
-	CAboutPage*     m_pAboutDlg;
+	CSessionDlg *m_pSessionDlg;
+	CDisplayDlg *m_pDisplayDlg;
+	COptionsDlg *m_pOptionsDlg;
+	CAboutPage *m_pAboutDlg;
 	
 // Operations
 public:
@@ -37,7 +37,7 @@ public:
 	//{{AFX_VIRTUAL(DlgPropSheet)
 public:
 	virtual BOOL OnInitDialog();
-	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT* pLResult);
+	virtual BOOL OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT *pLResult);
 protected:
 	virtual void PostNcDestroy();
 	virtual LRESULT DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam);

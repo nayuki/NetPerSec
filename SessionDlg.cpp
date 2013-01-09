@@ -70,7 +70,7 @@ CSessionDlg::~CSessionDlg() {
 	m_pbrBackground = 0;
 }
 
-void CSessionDlg::DoDataExchange(CDataExchange* pDX) {
+void CSessionDlg::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CSessionDlg)
 		// NOTE: the ClassWizard will add DDX and DDV calls here
@@ -101,7 +101,7 @@ END_MESSAGE_MAP()
 
 // CSessionDlg message handlers
 
-BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg) {
+BOOL CSessionDlg::PreTranslateMessage(MSG *pMsg) {
 	//show the color dialog if a graph is right clicked
 	if (pMsg->message == WM_RBUTTONUP) {
 		WORD wID = (WORD)GetWindowLong(pMsg->hwnd, GWL_ID);
@@ -137,7 +137,7 @@ void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes) {
 	SetDlgItemText(nID, s);
 }
 
-DWORD CSessionDlg::CalcMax(STATS_STRUCT* pStats, int index) {
+DWORD CSessionDlg::CalcMax(STATS_STRUCT *pStats, int index) {
 	int total = m_SentGraph.GetTotalElements();
 	
 	//calc max
@@ -219,12 +219,12 @@ BOOL CSessionDlg::OnInitDialog() {
 	
 	OnAutoscale();
 	
-	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_RECV);
+	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_RECV);
 	pCtrl->SetRange(0, ELEMENTS(bpsArray)-1);
 	pCtrl->SetTicFreq(1);
 	pCtrl->SetPos(g_Range_Recv);
 	
-	CSliderCtrl* pCtrl2 = (CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_SENT);
+	CSliderCtrl *pCtrl2 = (CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_SENT);
 	pCtrl2->SetRange(0, ELEMENTS(bpsArray)-1);
 	pCtrl2->SetTicFreq(1);
 	pCtrl2->SetPos(g_Range_Sent);
@@ -270,7 +270,7 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update) {
 
 // adjust the auto scale position
 void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue) {
-	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(wControl);
+	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(wControl);
 	
 	if (pCtrl) {
 		int nStart = ELEMENTS(bpsArray) - 1;
@@ -296,7 +296,7 @@ void CSessionDlg::UpdateGraph() {
 
 // determine the range of the graph based upon recent samples. returns TRUE if the graph should
 // be updated.
-BOOL CSessionDlg::CalcAutoScale(UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update) {
+BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale,  STATS_STRUCT *pStats, UPDATE_MODE update) {
 	DWORD dwHigh = 0;
 	
 	int start = pTheApp->m_wnd.GetArrayIndex();
@@ -411,7 +411,7 @@ void CSessionDlg::SetGraphRangeRecv() {
 
 
 // sets the colors for the graph labels
-HBRUSH CSessionDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor) {
+HBRUSH CSessionDlg::OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor) {
 	HBRUSH hbr = CPropertyPage::OnCtlColor(pDC, pWnd, nCtlColor);
 	COLORREF cr;
 	
@@ -515,9 +515,9 @@ void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber) {
 
 
 //respond to the slider commands
-void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar) {
+void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	int nControl = pScrollBar->GetDlgCtrlID();
-	CSliderCtrl* pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
+	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT(pCtrl != NULL);
 	
 	nPos = pCtrl->GetPos();

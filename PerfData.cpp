@@ -122,7 +122,7 @@ void CPerfData::GetNameStrings() {
 }
 
 
-void CPerfData::ReadData9x(DWORD* pReceived, DWORD* pSent) {
+void CPerfData::ReadData9x(DWORD *pReceived, DWORD *pSent) {
 	static BOOL bErrorShown = FALSE;
 	
 	if (GetPerfStats9x("Dial-Up Adapter\\TotalBytesXmit" , pSent)) {
@@ -136,7 +136,7 @@ void CPerfData::ReadData9x(DWORD* pReceived, DWORD* pSent) {
 	}
 }
 
-void CPerfData::ReadDataNT(DWORD* pReceived, DWORD* pSent) {
+void CPerfData::ReadDataNT(DWORD *pReceived, DWORD *pSent) {
 	PPERF_DATA_BLOCK PerfData = NULL;
 	PPERF_OBJECT_TYPE PerfObj;
 	PPERF_COUNTER_DEFINITION PerfCntr;
@@ -194,7 +194,7 @@ void CPerfData::ReadDataNT(DWORD* pReceived, DWORD* pSent) {
 	free(PerfData);
 }
 
-BOOL CPerfData::GetReceivedAndSentOctets(DWORD* pReceived, DWORD* pSent) {
+BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	static BOOL bInitPerfData = FALSE;
 	
 	if (!bInitPerfData) {

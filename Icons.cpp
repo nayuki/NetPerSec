@@ -30,7 +30,7 @@ CIcons::~CIcons() {
 
 
 // return a handle to a histogram or bar graph icon.  the calling function must delete this handle
-HICON CIcons::GetIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int nStyle) {
+HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex, int nStyle) {
 	if (nStyle == ICON_HISTOGRAM)
 		return GetHistogramIcon(pRecv, pSent, nIndex);
 	else
@@ -39,7 +39,7 @@ HICON CIcons::GetIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int 
 
 
 // draw the bar graph icon
-void CIcons::FillBarIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIndex, CRect *prc) {
+void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, int nIndex, CRect *prc) {
 	int i;
 	int size = 14;
 	
@@ -67,7 +67,7 @@ void CIcons::FillBarIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIn
 
 
 //returns icon for the bar graph
-HICON CIcons::GetBargraphIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex) {
+HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex) {
 	if (m_hBarGraphIcon == 0) {
 		m_hBarGraphIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE(IDI_BARGRAPH),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
 		GetIconInfo(m_hBarGraphIcon, &m_BarGraphIconInfo);
@@ -78,7 +78,7 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nInd
 	CDC dcMem;
 	dcMem.CreateCompatibleDC(NULL);
 	
-	CBitmap* pOld = dcMem.SelectObject(&m_bmpBarGraph);
+	CBitmap *pOld = dcMem.SelectObject(&m_bmpBarGraph);
 	
 	//offsets for the left and right halves of the icon
 	CRect rcSent(1,1,7,15);
@@ -100,7 +100,7 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nInd
 
 
 // draw the histogram icon
-void CIcons::FillHistogramIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIndex, CRect *prc) {
+void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, int nIndex, CRect *prc) {
 	CRect rc;
 	rc.CopyRect(prc);
 	
@@ -164,7 +164,7 @@ void CIcons::FillHistogramIcon(CDC* pDC, STATS_STRUCT* pStats, COLORREF color, i
 }
 
 //returns a histogram icon
-HICON CIcons::GetHistogramIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex) {
+HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex) {
 	if (m_hHistogramIcon == 0) {
 		m_hHistogramIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE(IDI_HISTOGRAM),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
 		ASSERT(m_hHistogramIcon != 0);
@@ -175,7 +175,7 @@ HICON CIcons::GetHistogramIcon(STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIn
 	
 	CDC dcMem;
 	dcMem.CreateCompatibleDC(NULL);
-	CBitmap* pOld = dcMem.SelectObject(&m_bmpHistogram);
+	CBitmap *pOld = dcMem.SelectObject(&m_bmpHistogram);
 	
 	//icon is 16 pixels high
 	CRect rc(0,0,16,16);

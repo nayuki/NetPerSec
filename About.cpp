@@ -89,7 +89,7 @@ CAboutPage::CAboutPage() : CPropertyPage(CAboutPage::IDD) {
 
 CAboutPage::~CAboutPage() {}
 
-void CAboutPage::DoDataExchange(CDataExchange* pDX) {
+void CAboutPage::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
 	//{{AFX_DATA_MAP(CAboutPage)
 		// NOTE: the ClassWizard will add DDX and DDV calls here

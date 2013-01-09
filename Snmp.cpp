@@ -186,7 +186,7 @@ BOOL CSnmp::Init() {
 }
 
 // Use the IPHLPAPI interface to retrieve the transmitted and received bytes
-int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD* pReceived, DWORD *pSent) {
+int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
 	DWORD i;
 	MIB_IFROW mib;
 	ZeroMemory(&mib, sizeof(mib));
@@ -216,7 +216,7 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD* pReceived, DWORD *pSent) {
 
 
 // Returns the number of bytes received and transmitted through all network interfaces
-BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD* pReceived, DWORD *pSent) {
+BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD *pReceived, DWORD *pSent) {
 	#define VAR_BINDS	3
 	RFC1157VarBind      varBind[VAR_BINDS];
 	AsnInteger          errorStatus;
@@ -397,7 +397,7 @@ void CSnmp::ShowSystemError(int nID) {
 
 
 // Returns the number of bytes received and transmitted
-BOOL CSnmp::GetReceivedAndSentOctets(DWORD* pReceived, DWORD *pSent) {
+BOOL CSnmp::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	*pReceived = 0;
 	*pSent = 0;
 	
