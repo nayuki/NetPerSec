@@ -1,17 +1,17 @@
 /* 
- * Shared functions and variables used by all modules.  Variables
- * beginning with a g_ underscore are global.
+ * Shared functions and variables used by all modules.
+ * Variables beginning with g+underscore are global.
  */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "NetPerSec.h"
 #include <atlbase.h>
 
-//loaded via ini file
-int g_nSampleRate;       //milliseconds
-int g_nAveragingWindow;  //seconds
-int g_Range_Recv;        //for graph window (in Bps)
-int g_Range_Sent;        //for graph window (in Bps)
+// Loaded via ini file
+int g_nSampleRate;       // Milliseconds
+int g_nAveragingWindow;  // Seconds
+int g_Range_Recv;        // For graph window (in Bps)
+int g_Range_Sent;        // For graph window (in Bps)
 int g_GraphOptions;
 int g_DisplayBytes;
 BOOL g_bStartWithWindows;
@@ -19,8 +19,8 @@ BOOL g_bOnTop;
 BOOL g_bShowBarGraph;
 BOOL g_bAutoScaleRecv;
 BOOL g_bAutoScaleSent;
-double g_dbResetRecv;   //when user clicks reset these
-double g_dbResetSent;   //values are subtracted from the total
+double g_dbResetRecv;   // When user clicks reset these
+double g_dbResetSent;   // Values are subtracted from the total
 DWORD g_dwAdapter;
 COLORREF g_ColorBack;
 COLORREF g_ColorRecv;
@@ -55,7 +55,7 @@ void ShowError(UINT nID, int nType) {
 }
 
 
-// GetServicePack -- returns the hex value of the current NT Service Pack
+// Returns the hex value of the current NT Service Pack
 DWORD GetServicePack() {
 	CRegKey key;
 	#define SZ_SPKEY "System\\CurrentControlSet\\Control\\Windows"
@@ -65,13 +65,11 @@ DWORD GetServicePack() {
 		key.QueryValue(dwVersion, "CSDVersion");
 		key.Close();
 	}
-	
 	return dwVersion;
 }
 
 
-//  SetStartupOptions()
-//  creates a shortcut in the startup folder.
+// Creates a shortcut in the startup folder.
 void SetStartupOptions() {
 	TCHAR szPath[MAX_PATH] = {0};
 	TCHAR szLinkFile[MAX_PATH] = {0};
@@ -82,17 +80,15 @@ void SetStartupOptions() {
 	IShellLink *pShellLink = NULL;
 	IPersistFile *pPF = NULL;
 	
-	//required for Win95
+	// Required for Win95
 	CoInitialize(NULL);
 	
-	//Create the COM server
+	// Create the COM server
 	HRESULT hr = CoCreateInstance(CLSID_ShellLink, NULL,
 			CLSCTX_INPROC_SERVER, IID_IShellLink,
 			reinterpret_cast<LPVOID*>(&pShellLink));
-	
-	if (FAILED(hr)) {
+	if (FAILED(hr))
 		return;
-	}
 	
 	GetModuleFileName(NULL, szPath, sizeof(szPath));
 	GetShortPathName(szPath, szPath, sizeof(szPath));
@@ -118,45 +114,42 @@ void SetStartupOptions() {
 		pMalloc->Release();
 	}
 	
-	//create a .lnk file
+	// Create a .lnk file
 	wsprintf(szLinkFile, "%s.lnk", SZ_APPNAME);
 	
-	if (szPath[lstrlen(szPath) -1] != '\\')
-		lstrcat(szPath, "\\") ;
+	if (szPath[lstrlen(szPath) - 1] != '\\')
+		lstrcat(szPath, "\\");
 	lstrcat(szPath, szLinkFile);
 	
 	if (g_bStartWithWindows) {
 		// Save Unicode LNK file
 		MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szPath, -1, wszLinkFile, MAX_PATH);
 		hr = pPF->Save(wszLinkFile, TRUE);
-		if (FAILED(hr)) {
+		if (FAILED(hr))
 			ShowError(IDS_STARTUP_ERR, MB_ICONHAND);
-		}
-		
 	} else {
 		DeleteFile(szPath);
 	}
 	
-	//Clean up
+	// Clean up
 	pPF->Release();
 	pShellLink->Release();
-	
 	CoUninitialize();
 }
 
-//  Format BYTES into a string,  the function will convert to bits if it is the default option
+// Format BYTES into a string, the function will convert to bits if it is the default option
 void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond = TRUE */) {
 	static char s[256];
 	char ch;
 	char *b = "Bytes";
 	double num = dbBytes;
 	
-	//decimal format
+	// Decimal format
 	#define GIGABITS 1000 * 1000 * 1000
 	#define MEGABITS 1000 * 1000
 	#define KILOBITS 1000
 	
-	//binary format
+	// Binary format
 	#define GIGABYTE 1024 * 1024 * 1024
 	#define MEGABYTE 1024 * 1024
 	#define KILOBYTE 1024
@@ -165,7 +158,7 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 	UINT MEGA = MEGABYTE;
 	UINT KILO = KILOBYTE;
 	
-	//convert to bits
+	// Convert to bits
 	if (g_DisplayBytes == 0) {
 		num *= 8;
 		b = "bits";
@@ -178,24 +171,17 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 		sprintf(s, "%.1f", ((double)num / (double)(GIGA)));
 		*pString = s;
 		ch = 'G';
+	} else if (num >= MEGA) {
+		sprintf(s, "%.1f", ((double)num / (double)(MEGA)));
+		ch = 'M';
+	} else if (num >= KILO) {
+		sprintf(s, "%.1f", ((double)num / (double)(KILO)));
+		*pString = s;
+		ch = g_DisplayBytes ? 'K' : 'k';
 	} else {
-		if (num >= MEGA) {
-			sprintf(s, "%.1f", ((double)num / (double)(MEGA)));
-			ch = 'M';
-		} else {
-			if (num >= KILO) {
-				sprintf(s, "%.1f", ((double)num / (double)(KILO)));
-				*pString = s;
-				if (g_DisplayBytes)
-					ch = 'K';
-				else
-					ch = 'k';
-			} else {
-				sprintf(s, "%g", num);
-				*pString = s;
-				ch = ' ';
-			}
-		}
+		sprintf(s, "%g", num);
+		*pString = s;
+		ch = ' ';
 	}
 	
 	if (bPerSecond)
@@ -205,36 +191,34 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 }
 
 
-//  returns a comma formatted number
+// Returns a comma-formatted number
 LPSTR FormatNumber(DWORD N) {
 	#define BUF_SIZE 128
-	static char buf[BUF_SIZE+1];
+	static char buf[BUF_SIZE + 1];
 	
 	int len = 1, posn = 1, sign = 1;
 	char *ptr = buf + BUF_SIZE - 1;
-	*ptr-- = NULL;
+	*ptr-- = '\0';
 	
-	for (; len <= BUF_SIZE; ++len, ++posn) {
+	for (; len <= BUF_SIZE; len++, posn++) {
 		*ptr-- = (char)((N % 10L) + '0');
-		if (0L == (N /= 10L))
+		if ((N /= 10L) == 0L)
 			break;
 		
-		if (0 == (posn % 3)) {
+		if (posn % 3 == 0) {
 			*ptr-- = ',';
-			++len;
+			len++;
 		}
 		
 		if (len >= BUF_SIZE)
 			return "";
 	}
 	
-	if (0 > sign) {
-		if (len >= BUF_SIZE) {
+	if (sign < 0) {
+		if (len >= BUF_SIZE)
 			return "";
-		}
-		
 		*ptr-- = '-';
-		++len;
+		len++;
 	}
 	
 	memmove(buf, ++ptr, len + 1);
@@ -245,11 +229,11 @@ void QualifyPathName(CString *pFile, LPCSTR pIni) {
 	char szName[MAX_PATH];
 	LPSTR p;
 	
-	//Qualify the INI file to the same location as our exe
+	// Qualify the INI file to the same location as our EXE
 	GetModuleFileName(AfxGetInstanceHandle(), szName, sizeof(szName));
 	p = strrchr(szName, '\\');
 	
-	if (p)
+	if (p != NULL)
 		*(++p) = 0;
 	else
 		p = szName;
@@ -305,7 +289,7 @@ void ReadSettings() {
 	g_DisplayBytes = GetPrivateProfileInt(SZ_DISPLAYBYTES, 0);
 	g_bStartWithWindows = GetPrivateProfileInt(SZ_STARTUP, 0);
 	g_bOnTop = GetPrivateProfileInt(SZ_ONTOP, 0);
-	g_bShowBarGraph =  GetPrivateProfileInt(SZ_BARGRAPH,1);
+	g_bShowBarGraph = GetPrivateProfileInt(SZ_BARGRAPH,1);
 	g_bAutoScaleRecv = GetPrivateProfileInt(SZ_AUTOSCALE_RECV,1);
 	g_bAutoScaleSent = GetPrivateProfileInt(SZ_AUTOSCALE_SENT,1);
 	g_IconStyle = (ICON_STYLE)GetPrivateProfileInt(SZ_ICON_STYLE, ICON_HISTOGRAM);
@@ -338,6 +322,5 @@ void SaveSettings() {
 	WritePrivateProfileInt(SZ_ICON_STYLE, g_IconStyle);
 	WritePrivateProfileInt(SZ_MONITOR_MODE, g_MonitorMode);
 	WritePrivateProfileInt(SZ_ADAPTER_INDEX, g_dwAdapter);
-	
 	SetStartupOptions();
 }

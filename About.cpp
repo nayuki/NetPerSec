@@ -2,7 +2,7 @@
  * About property page.
  */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "NetPerSec.h"
 #include "About.h"
 
@@ -15,7 +15,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-// CAboutPage message handlers
+/* CAboutPage message handlers */
 
 void InitDlg(HWND hDlg) {
 	TCHAR szFullPath[256];
@@ -28,12 +28,11 @@ void InitDlg(HWND hDlg) {
 	dwVerInfoSize = GetFileVersionInfoSize(szFullPath, &dwVerHnd);
 	
 	if (dwVerInfoSize) {
-		// If we were able to get the information, process it:
-		HANDLE  hMem;
-		LPVOID  lpvMem;
-		TCHAR   szGetName[256];
-		int     cchRoot;
-		int     i;
+		// If we were able to get the information, process it
+		HANDLE hMem;
+		LPVOID lpvMem;
+		TCHAR szGetName[256];
+		int cchRoot;
 		
 		hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
 		lpvMem = GlobalLock(hMem);
@@ -41,29 +40,26 @@ void InitDlg(HWND hDlg) {
 		lstrcpy(szGetName, _T("\\StringFileInfo\\040904b0\\"));
 		cchRoot = lstrlen(szGetName);
 		
-		// Walk through the dialog items that we want to replace:
-		for (i = 0; i < 3; i++) {
-			BOOL  fRet;
-			UINT  cchVer = 0;
+		// Walk through the dialog items that we want to replace
+		for (int i = 0; i < 3; i++) {
+			BOOL fRet;
+			UINT cchVer = 0;
 			LPTSTR lszVer = NULL;
-			TCHAR  szResult[256];
-			WORD  wID = 0;
+			TCHAR szResult[256];
+			WORD wID;
+			if (i == 0)
+				wID = IDC_COPYRIGHT;
+			else if (i == 1)
+				wID = IDC_VERSION;
+			else
+				wID = 0;
 			
-			switch (i) {
-				case 0:
-					wID = IDC_COPYRIGHT;
-					break;
-				case 1:
-					wID = IDC_VERSION;
-					break;
-			}
-			
-			if (wID) {
+			if (wID != 0) {
 				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
 				lstrcpy(&szGetName[cchRoot], szResult);
 				fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
 				
-				if (fRet && cchVer && lszVer) {
+				if (fRet && cchVer != 0 && lszVer != NULL) {
 					// Replace dialog item text with version info
 					lstrcpy(szResult, lszVer);
 					::SetDlgItemText(hDlg, wID, szResult);

@@ -2,10 +2,10 @@
  * Main property sheet.
  */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "NetPerSec.h"
 #include "DlgPropSheet.h"
-#include "about.h"
+#include "About.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -46,7 +46,8 @@ BEGIN_MESSAGE_MAP(DlgPropSheet, CPropertySheet)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-// DlgPropSheet message handlers
+
+/* DlgPropSheet message handlers */
 
 void DlgPropSheet::AddPropPages() {
 	m_pSessionDlg = new CSessionDlg;
@@ -64,12 +65,12 @@ void DlgPropSheet::AddPropPages() {
 
 
 void DlgPropSheet::OnPaint() {
-	CPaintDC dc(this); // device context for painting
+	CPaintDC dc(this);  // Device context for painting
 	// Do not call CPropertySheet::OnPaint() for painting messages
 }
 
 BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT *pLResult) {
-	//save last tab
+	// Save last tab
 	m_nLastTab = GetActiveIndex();
 	return CPropertySheet::OnChildNotify(message, wParam, lParam, pLResult);
 }
@@ -79,31 +80,31 @@ BOOL DlgPropSheet::OnInitDialog() {
 	BOOL bResult = CPropertySheet::OnInitDialog();
 	
 	HICON m_hIcon = AfxGetApp()->LoadIcon(IDI_MAINFRAME);
-	SetIcon(m_hIcon, TRUE);         // Set big icon
-	SetIcon(m_hIcon, FALSE);        // Set small icon
+	SetIcon(m_hIcon, TRUE );  // Set big icon
+	SetIcon(m_hIcon, FALSE);  // Set small icon
 	
-	//position the dialog
+	// Position the dialog
 	CRect rc;
 	GetClientRect(rc);
 	LoadWindowPosition(&rc);
 	BOOL bCenter = FALSE;
-	if (rc.left < 0 || (rc.left + rc.right) >= GetSystemMetrics(SM_CXFULLSCREEN))
+	if (rc.left < 0 || rc.left + rc.right >= GetSystemMetrics(SM_CXFULLSCREEN))
 		bCenter = TRUE;
 	
-	if (rc.top < 0 || (rc.top + rc.bottom) >= GetSystemMetrics(SM_CYFULLSCREEN))
+	if (rc.top < 0 || rc.top + rc.bottom >= GetSystemMetrics(SM_CYFULLSCREEN))
 		bCenter = TRUE;
 	
 	if (bCenter) {
 		GetWindowRect(rc);
 		rc.OffsetRect(-rc.left, -rc.top);
 		MoveWindow(((GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2 + 4) & ~7,
-		             (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2, rc.right, rc.bottom, 0);
+		            (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2, rc.right, rc.bottom, 0);
 	} else {
-		SetWindowPos(NULL,rc.left,rc.top,0,0,SWP_SHOWWINDOW | SWP_NOZORDER | SWP_NOSIZE);
+		SetWindowPos(NULL, rc.left, rc.top, 0, 0, SWP_SHOWWINDOW | SWP_NOZORDER | SWP_NOSIZE);
 	}
 	
 	if (g_bOnTop)
-		SetWindowPos(&wndTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
+		SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
 	
 	return bResult;
 }
@@ -119,7 +120,7 @@ void DlgPropSheet::OnDestroy() {
 
 
 void DlgPropSheet::PostNcDestroy() {
-	//restore mfc's main window handle
+	// Restore MFC's main window handle
 	pTheApp->m_pMainWnd = &pTheApp->m_wnd;
 	CPropertySheet::PostNcDestroy();
 }
@@ -128,9 +129,8 @@ void DlgPropSheet::PostNcDestroy() {
 LRESULT DlgPropSheet::DefWindowProc(UINT message, WPARAM wParam, LPARAM lParam) {
 	if (message == WM_SIZE && wParam == SIZE_MINIMIZED) {
 		SaveSettings();
-		PostMessage(WM_CLOSE,0,0);
+		PostMessage(WM_CLOSE, 0, 0);
 	}
-	
 	return CPropertySheet::DefWindowProc(message, wParam, lParam);
 }
 
@@ -141,8 +141,8 @@ int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	
 	ModifyStyle(DS_CONTEXTHELP | DS_MODALFRAME, WS_MINIMIZEBOX);
 	// Configure our system menu
-	GetSystemMenu(TRUE); //revert the menu
-	CMenu *pSysMenu = GetSystemMenu(FALSE); //and grab the handle
+	GetSystemMenu(TRUE);  // Revert the menu
+	CMenu *pSysMenu = GetSystemMenu(FALSE);  // And grab the handle
 	pSysMenu->EnableMenuItem(SC_MINIMIZE, MF_ENABLED);
 	pSysMenu->DeleteMenu(SC_MAXIMIZE, MF_BYCOMMAND);
 	pSysMenu->DeleteMenu(SC_SIZE, MF_BYCOMMAND);

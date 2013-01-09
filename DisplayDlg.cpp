@@ -2,10 +2,10 @@
  * Implements the display property page.
  */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "NetPerSec.h"
 #include "DisplayDlg.h"
-#include "globals.h"
+#include "Globals.h"
 
 
 #ifdef _DEBUG
@@ -53,8 +53,8 @@ BEGIN_MESSAGE_MAP(CDisplayDlg, CPropertyPage)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-// CDisplayDlg message handlers
 
+/* CDisplayDlg message handlers */
 
 BOOL CDisplayDlg::GetColor(COLORREF *pColorRef) {
 	CColorDialog dlg;
@@ -64,7 +64,8 @@ BOOL CDisplayDlg::GetColor(COLORREF *pColorRef) {
 		*pColorRef = dlg.m_cc.rgbResult;
 		return TRUE;
 	}
-	return FALSE;
+	else
+		return FALSE;
 }
 
 
@@ -79,12 +80,17 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct) {
 		iStyle = EDGE_RAISED;
 	
 	switch (nIDCtl) {
-		case IDC_COLOR_BACK: cr = g_ColorBack; break;
-		case IDC_COLOR_AVE:	cr = g_ColorAve ; break;
-		default: {
+		case IDC_COLOR_BACK:
+			cr = g_ColorBack;
+			break;
+		
+		case IDC_COLOR_AVE:
+			cr = g_ColorAve;
+			break;
+		
+		default:
 			CDialog::OnDrawItem(nIDCtl, lpDrawItemStruct);
 			return;
-		}
 		
 		case IDC_COLOR_SENT:
 			m_SentBtn.DrawItem(lpDrawItemStruct);
@@ -103,7 +109,6 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct) {
 	FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, hbr);
 	DrawEdge(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, iStyle, BF_RECT);
 	DeleteObject(hbr);
-	return;
 }
 
 void CDisplayDlg::OnColorAve() {
@@ -134,7 +139,7 @@ BOOL CDisplayDlg::OnInitDialog() {
 	CheckDlgButton(IDC_ICON_BARGRAPH , g_IconStyle == ICON_BARGRAPH);
 	CheckDlgButton(IDC_ONTOP, g_bOnTop);
 	CheckDlgButton(IDC_STARTWITHWINDOWS, g_bStartWithWindows);
-	return TRUE;  // return TRUE unless you set the focus to a control
+	return TRUE;  // Return TRUE unless you set the focus to a control
 }
 
 BOOL CDisplayDlg::OnSetActive() {
@@ -168,7 +173,7 @@ void CDisplayDlg::ShowSampleIcon() {
 	STATS_STRUCT r[MAX_SAMPLES];
 	STATS_STRUCT s[MAX_SAMPLES];
 	
-	//fill the stats array with random data for the sample icon in the dialog
+	// Fill the stats array with random data for the sample icon in the dialog
 	if (g_IconStyle == ICON_BARGRAPH) {
 		for (int i = 0; i <= 16; i++) {
 			r[i].Bps = 70;
@@ -184,7 +189,7 @@ void CDisplayDlg::ShowSampleIcon() {
 	}
 	
 	HICON hIcon = pTheApp->m_Icons.GetIcon(&s[0], &r[0], 14, g_IconStyle);
-	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE,IMAGE_ICON,(LPARAM)hIcon);
+	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE, IMAGE_ICON, (LPARAM)hIcon);
 	if (hOld)
 		DestroyIcon(hOld);
 }
@@ -196,10 +201,7 @@ void CDisplayDlg::OnStartwithwindows() {
 
 void CDisplayDlg::OnOntop() {
 	g_bOnTop = IsDlgButtonChecked(IDC_ONTOP);
-	if (g_bOnTop)
-		GetParent()->SetWindowPos(&wndTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
-	else
-		GetParent()->SetWindowPos(&wndNoTopMost,0,0,0,0,SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
+	GetParent()->SetWindowPos(g_bOnTop ? &wndTopMost : &wndNoTopMost, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
 }
 
 void CDisplayDlg::OnDefaultColors() {
@@ -220,7 +222,7 @@ void CDisplayDlg::OnDefaultColors() {
 void CDisplayDlg::OnUndo() {
 	g_ColorSent = m_Restore_ColorSent;
 	g_ColorRecv = m_Restore_ColorRecv;
-	g_ColorAve = m_Restore_ColorAve;
+	g_ColorAve  = m_Restore_ColorAve;
 	g_ColorBack = m_Restore_ColorBack;
 	g_ColorIconBack = m_Restore_ColorIconBack;
 	
@@ -244,9 +246,6 @@ void CDisplayDlg::OnIconBargraph() {
 }
 
 void CDisplayDlg::OnIconHistogram() {
-	if (IsDlgButtonChecked(IDC_ICON_BARGRAPH))
-		g_IconStyle = ICON_BARGRAPH;
-	else
-		g_IconStyle = ICON_HISTOGRAM;
+	g_IconStyle = IsDlgButtonChecked(IDC_ICON_BARGRAPH) ? ICON_BARGRAPH : ICON_HISTOGRAM;
 	ShowSampleIcon();
 }
