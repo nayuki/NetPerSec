@@ -24,8 +24,7 @@ CDisplayDlg::CDisplayDlg() : CPropertyPage(CDisplayDlg::IDD) {
 	//}}AFX_DATA_INIT
 }
 
-CDisplayDlg::~CDisplayDlg() {
-}
+CDisplayDlg::~CDisplayDlg() {}
 
 void CDisplayDlg::DoDataExchange(CDataExchange* pDX) {
 	CPropertyPage::DoDataExchange(pDX);

@@ -41,8 +41,7 @@ COptionsDlg::COptionsDlg() : CPropertyPage(COptionsDlg::IDD) {
 	//}}AFX_DATA_INIT
 }
 
-COptionsDlg::~COptionsDlg() {
-}
+COptionsDlg::~COptionsDlg() {}
 
 void COptionsDlg::DoDataExchange(CDataExchange* pDX) {
 	CPropertyPage::DoDataExchange(pDX);

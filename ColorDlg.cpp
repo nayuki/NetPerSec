@@ -20,8 +20,7 @@ CColorCube::CColorCube() {
 }
 
 
-CColorCube::~CColorCube() {
-}
+CColorCube::~CColorCube() {}
 
 
 BEGIN_MESSAGE_MAP(CColorCube, CButton)

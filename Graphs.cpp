@@ -24,8 +24,7 @@ CGraphs::CGraphs() {
 	m_nGraphScale = 0;
 }
 
-CGraphs::~CGraphs() {
-}
+CGraphs::~CGraphs() {}
 
 
 BEGIN_MESSAGE_MAP(CGraphs, CWnd)

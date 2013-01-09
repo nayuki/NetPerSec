@@ -33,8 +33,7 @@ Cwinproc::Cwinproc() {
 	ResetData();
 }
 
-Cwinproc::~Cwinproc() {
-}
+Cwinproc::~Cwinproc() {}
 
 
 // Cwinproc
