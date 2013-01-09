@@ -9,26 +9,20 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutPage dialog
-
 class CAboutPage : public CPropertyPage
 {
-	
 	DECLARE_DYNCREATE(CAboutPage)
 	
 // Construction
 public:
-	
 	CAboutPage();
 	~CAboutPage();
-	
-	
 	
 // Dialog Data
 	//{{AFX_DATA(CAboutPage)
 	enum { IDD = IDD_ABOUTBOX };
 		// NOTE: the ClassWizard will add data members here
 	//}}AFX_DATA
-	
 	
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -39,7 +33,6 @@ protected:
 	
 // Implementation
 protected:
-	
 	// Generated message map functions
 	//{{AFX_MSG(CAboutPage)
 	virtual BOOL OnInitDialog();

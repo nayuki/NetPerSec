@@ -11,7 +11,6 @@
 //
 class CSnmp
 {
-	
 	typedef BOOL (WINAPI *pSnmpExtensionInit)(
 		IN  DWORD               dwTimeZeroReference,
 		OUT HANDLE              *hPollForTrapEvent,
@@ -50,8 +49,6 @@ class CSnmp
 	typedef int (WINAPI *pSnmpUtilOidCpy)(  AsnObjectIdentifier * pOidDst,
 	                                        AsnObjectIdentifier * pOidSrc );
 	
-	
-	
 public:
 	CSnmp( );
 	~CSnmp( );
@@ -64,13 +61,11 @@ private:
 	fpGetNumberOfInterfaces m_fpGetNumberOfInterfaces;
 	fpGetInterfaceInfo      m_fpGetInterfaceInfo;
 	
-	
 	pSnmpUtilOidFree        m_fpSnmpUtilOidFree;
 	pSnmpUtilVarBindFree    m_fpSnmpUtilVarBindFree;
 	pSnmpUtilOidNCmp        m_fpSnmpUtilOidNCmp;
 	pSnmpUtilOidCpy         m_fpSnmpUtilOidCpy;
 	HINSTANCE               m_hInstSnmp;
-	
 	
 	DWORD   m_dwInterfaces;
 	BOOL    m_bUseGetInterfaceInfo;
@@ -87,12 +82,10 @@ private:
 	LPVOID SnmpUtilMemAlloc( UINT nSize );
 	void  SnmpUtilMemFree( LPVOID pMem );
 	
-	
 public:
 	BOOL Init( );
 	BOOL GetReceivedAndSentOctets( DWORD* pReceived, DWORD *pSent );
 	void GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter );
-	
 	
 private:
 	BOOL GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent );
@@ -100,8 +93,6 @@ private:
 	void GetInterfaces( );
 	void ShowSystemError( int nID );
 	BOOL CheckNT( );
-	
-	
 };
 
 #endif

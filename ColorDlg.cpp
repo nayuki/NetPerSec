@@ -134,7 +134,6 @@ BOOL CColorCube::OnClick( )
 		InvalidateRect(NULL);
 	}
 	return FALSE;
-	
 }
 
 
@@ -195,7 +194,6 @@ BOOL CColorCubeDlg::OnInitDialog()
 	
 	return TRUE;
 }
-
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -271,7 +269,6 @@ void CColorCubeDlg::OnColorSelect(UINT id)
 {
 	m_ColorIndex = id - IDC_COLOR1;
 	EndDialog(IDOK);
-	
 }
 
 

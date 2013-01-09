@@ -16,7 +16,6 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 // CPerfData
-
 CPerfData::CPerfData()
 {
 	m_lpNameStrings = NULL;
@@ -31,8 +30,6 @@ CPerfData::~CPerfData()
 	if( m_lpNamesArray )
 		free( m_lpNamesArray );
 }
-
-
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -52,7 +49,6 @@ BOOL CPerfData::GetPerfStats9x( LPCSTR pKey, DWORD *dwValue )
 	}
 	
 	return( lErr == ERROR_SUCCESS );
-	
 }
 
 
@@ -160,14 +156,12 @@ void CPerfData::ReadData9x( DWORD* pReceived, DWORD* pSent )
 //
 void CPerfData::ReadDataNT( DWORD* pReceived, DWORD* pSent )
 {
-	
 	PPERF_DATA_BLOCK PerfData = NULL;
 	PPERF_OBJECT_TYPE PerfObj;
 	PPERF_COUNTER_DEFINITION PerfCntr;
 	PPERF_COUNTER_BLOCK PtrToCntr;
 	DWORD BufferSize = TOTALBYTES;
 	DWORD i, j;
-	
 	
 	// Allocate the buffer
 	PerfData = (PPERF_DATA_BLOCK) malloc( BufferSize );
@@ -243,7 +237,6 @@ BOOL CPerfData::GetReceivedAndSentOctets( DWORD* pReceived, DWORD* pSent )
 		ReadDataNT( pReceived, pSent );
 	
 	return( TRUE );
-	
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -12,7 +12,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CPerfData window
-
 class CPerfData
 {
 // Construction
@@ -35,17 +34,12 @@ private:
 	void ReadDataNT( DWORD* pReceived, DWORD* pSent );
 	BOOL GetPerfStats9x( LPCSTR pKey, DWORD *dwValue );
 	
-	
-	
 // Implementation
 public:
 	virtual ~CPerfData();
 	
 	// Generated message map functions
 protected:
-	
-	
-	
 	PPERF_OBJECT_TYPE FirstObject( PPERF_DATA_BLOCK PerfData )
 	{
 		return( (PPERF_OBJECT_TYPE)((PBYTE)PerfData + PerfData->HeaderLength) );
@@ -79,9 +73,6 @@ protected:
 	{
 		return( (PPERF_COUNTER_DEFINITION)((PBYTE)PerfCntr + PerfCntr->ByteLength) );
 	}
-	
-	
-	
 };
 
 /////////////////////////////////////////////////////////////////////////////

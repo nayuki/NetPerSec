@@ -42,7 +42,6 @@ UINT SampleRates[]={
 };
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 // COptionsDlg property page
 
@@ -88,7 +87,6 @@ END_MESSAGE_MAP()
 BOOL COptionsDlg::OnInitDialog()
 {
 	CPropertyPage::OnInitDialog();
-	
 	
 	CSliderCtrl* pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER);
 	CSliderCtrl* pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
@@ -140,7 +138,6 @@ BOOL COptionsDlg::OnInitDialog()
 //
 void COptionsDlg::UpdateAveragingWindow( )
 {
-	
 	CString s;
 	CSliderCtrl* pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	
@@ -151,12 +148,10 @@ void COptionsDlg::UpdateAveragingWindow( )
 	g_nAveragingWindow = max(1, nPos * AVERAGING_MULTIPLIER);
 	ASSERT( g_nAveragingWindow <= MAX_SAMPLES );
 	
-	
 	s.Format( "%.5g", (double)( g_nSampleRate * AVERAGING_MULTIPLIER ) / 1000 );
 	SetDlgItemText( IDC_AVERAGE_MIN, s );
 	s.Format( "%.5g", (double)( max * g_nSampleRate * AVERAGING_MULTIPLIER ) / 1000 );
 	SetDlgItemText( IDC_AVERAGE_MAX, s );
-	
 }
 
 
@@ -176,7 +171,6 @@ void COptionsDlg::UpdateDlg( )
 	
 	s = "Sampling Rate:   " + s;
 	SetDlgItemText( IDC_SAMPLE_GROUP, s );
-	
 	
 	double ave = (double)( (double)g_nAveragingWindow * (double)( (double)g_nSampleRate / 1000 ) );
 	
@@ -216,7 +210,6 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 	
 	UpdateDlg( );
 	CPropertyPage::OnHScroll(nSBCode, nPos, pScrollBar);
-	
 }
 
 
@@ -244,7 +237,6 @@ void COptionsDlg::OnUseSnmp()
 	pTheApp->m_wnd.m_dbSentWrap =
 	pTheApp->m_wnd.m_dbTotalBytesRecv =
 	pTheApp->m_wnd.m_dbTotalBytesSent = 0;
-	
 }
 
 void COptionsDlg::OnUseDun()
@@ -274,7 +266,6 @@ BOOL COptionsDlg::OnSetActive()
 				if( nAdapterArray.GetAt( i ) == g_dwAdapter )
 					active = i;
 			}
-			
 		}
 		m_Interfaces.SetCurSel( active );
 	}
@@ -284,7 +275,6 @@ BOOL COptionsDlg::OnSetActive()
 void COptionsDlg::OnMonitorAdapter()
 {
 	OnUseSnmp();
-	
 }
 
 void COptionsDlg::OnSelchangeInterfaces()

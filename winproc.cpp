@@ -31,7 +31,6 @@ UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");
 
 /////////////////////////////////////////////////////////////////////////////
 // Cwinproc
-
 Cwinproc::Cwinproc()
 {
 	m_dwStartTime = 0;
@@ -77,7 +76,6 @@ END_MESSAGE_MAP()
 // Cwinproc message handlers
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Startup -- called when the invisible window is created in netpersec.cpp
 // initializes SNMP and the system tray icon
@@ -105,7 +103,6 @@ void Cwinproc::StartUp( )
 		if( !Shell_NotifyIcon(NIM_ADD, &m_SystemTray ) )
 			AfxMessageBox("System tray error.");
 	}
-	
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -145,7 +142,6 @@ void Cwinproc::CalcAverages( double dbTotal, DWORD dwTime, DWORD dwBps, STATS_ST
 	//calc average
 	if( dwElapsed )
 		pStats[m_nArrayIndex].ave = MulDiv( (DWORD)dbSampleTotal, 1000, dwElapsed );
-	
 }
 
 
@@ -222,7 +218,6 @@ void Cwinproc::OnTimer( UINT /* nIDEvent */ )
 	//save the totals
 	m_dbTotalBytesRecv = dbRecv;
 	m_dbTotalBytesSent = dbSent;
-	
 }
 
 
@@ -235,7 +230,6 @@ void Cwinproc::ShowPropertiesDlg( )
 	{
 		m_pPropertiesDlg->SetForegroundWindow( );
 	} else {
-		
 		//fake out MFC in order to receive the 'minimize all windows' syscommand message
 		//the window is restored in initdialog
 		pTheApp->m_pMainWnd = NULL;
@@ -323,11 +317,9 @@ LRESULT Cwinproc::OnTaskbarNotify( WPARAM wParam, LPARAM lParam)
 				case ID_PROPERTIES:
 					ShowPropertiesDlg( );
 					break;
-					
 			}
 		}
 		break;
-		
 	}
 	return 0;
 }
@@ -339,7 +331,6 @@ int Cwinproc::GetArrayIndex( )
 	int i = m_nArrayIndex - 1;
 	if( i < 0 )
 		i = MAX_SAMPLES + i;
-	
 	return( i );
 }
 
@@ -348,7 +339,6 @@ int Cwinproc::GetArrayIndex( )
 void Cwinproc::UpdateTrayIcon( HICON hIcon )
 {
 	ASSERT( hIcon != 0 );
-	
 	if( m_SystemTray.hWnd && hIcon )
 	{
 		m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
@@ -368,7 +358,6 @@ void Cwinproc::UpdateTrayIcon( HICON hIcon )
 void Cwinproc::ResetData( )
 {
 	m_nArrayIndex = 0;
-	
 	ZeroMemory( RecvStats, sizeof( RecvStats ) );
 	ZeroMemory( SentStats, sizeof( SentStats ) );
 }
@@ -391,9 +380,7 @@ void Cwinproc::WinHelp( DWORD /*dwData*/, UINT /*nCmd*/ )
 			case 2:
 				CWnd::WinHelp( IDH_colors_tab );
 				return;
-				
 		}
 	}
-	
 	CWnd::WinHelp( 0,HELP_CONTENTS);
 }

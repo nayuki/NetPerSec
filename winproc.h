@@ -11,7 +11,6 @@
 #include "about.h"
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 // Cwinproc window
 
@@ -25,7 +24,6 @@ public:
 	void UpdateTrayIcon( HICON hIcon );
 	void ShowPropertiesDlg( );
 	UINT GetSNMPValue( LPCSTR pString );
-	
 	
 // Attributes
 public:
@@ -46,14 +44,11 @@ public:
 	void ResetData( );
 	void CalcAverages( double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT* pStats );
 	
-	
 private:
 	int m_nArrayIndex;
 	
 // Operations
 public:
-	
-	
 	
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -61,7 +56,6 @@ public:
 public:
 	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
 	//}}AFX_VIRTUAL
-	
 	
 // Implementation
 public:

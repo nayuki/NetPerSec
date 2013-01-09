@@ -92,7 +92,6 @@ extern COLORREF g_ColorIconBack;
 extern ICON_STYLE g_IconStyle;
 
 
-
 // Prototypes
 void ReadSettings( );
 void SaveSettings( );

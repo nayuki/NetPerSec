@@ -23,14 +23,12 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-
 //width of bars and length of lines
 #define WIDTH 4
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CGraphs
-
 CGraphs::CGraphs()
 {
 	m_nGraphRange = 100;
@@ -94,7 +92,6 @@ void CGraphs::SetStyle( int nStyle )
 	int len = m_GraphArray.GetSize( );
 	for( int i = 0; i < len; i++ )
 		m_GraphArray[i] = 0;
-	
 }
 
 void CGraphs::DrawGrid( CDC* pDC, CRect* pRect )
@@ -174,7 +171,6 @@ void CGraphs::ShiftLeft( )
 		CBrush bkBrush( g_ColorBack);
 		m_MemDC.FillRect(rcRight,&bkBrush);
 	}
-	
 }
 
 
@@ -228,10 +224,8 @@ void CGraphs::DrawGraph( UINT nPos, COLORREF crColor, int nLineIndex )
 				m_MemDC.LineTo( rcClient.right-1, rcTop.top);
 				m_GraphArray.SetAt( nLineIndex, rcTop.top );
 				m_MemDC.SelectObject( pOldPen );
-				
 			}
 		}
-		
 	}
 }
 

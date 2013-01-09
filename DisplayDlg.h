@@ -10,7 +10,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CDisplayDlg dialog
-
 class CDisplayDlg : public CPropertyPage
 {
 	DECLARE_DYNCREATE(CDisplayDlg)
@@ -28,7 +27,6 @@ public:
 	            m_Restore_ColorBack,
 	            m_Restore_ColorIconBack;
 	
-	
 // Dialog Data
 	//{{AFX_DATA(CDisplayDlg)
 	enum { IDD = IDD_COLOR_DLG };
@@ -36,7 +34,6 @@ public:
 	CColorCube	m_SentBtn;
 	CColorCube	m_RecvBtn;
 	//}}AFX_DATA
-	
 	
 // Overrides
 	// ClassWizard generate virtual function overrides
@@ -67,7 +64,6 @@ protected:
 	afx_msg void OnIconHistogram();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-	
 };
 
 //{{AFX_INSERT_LOCATION}}

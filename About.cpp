@@ -29,7 +29,6 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CAboutPage message handlers
 
-
 void InitDlg( HWND hDlg )
 {
 	TCHAR szFullPath[256];
@@ -92,15 +91,12 @@ void InitDlg( HWND hDlg )
 		GlobalUnlock( hMem );
 		GlobalFree( hMem );
 	}
-	
 	return;
-	
 }
 
 
 /////////////////////////////////////////////////////////////////////////////
 // CAboutPage property page
-
 IMPLEMENT_DYNCREATE(CAboutPage, CPropertyPage)
 
 
@@ -142,7 +138,6 @@ END_MESSAGE_MAP()
 BOOL CAboutPage::OnInitDialog( )
 {
 	CDialog::OnInitDialog();
-	
 	InitDlg( GetSafeHwnd( ) );
 	return( TRUE );
 }

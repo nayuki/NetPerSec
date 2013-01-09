@@ -77,7 +77,6 @@ CSnmp::~CSnmp( )
 	m_hInstSnmp = 0;
 	m_hInstIpHlp = 0;
 	m_hInst = 0;
-	
 }
 
 
@@ -123,7 +122,6 @@ BOOL CSnmp::CheckNT( )
 					m_bUseGetInterfaceInfo = TRUE;
 					m_bUse_iphlpapi = TRUE;
 				}
-				
 			}
 		}
 	}
@@ -162,7 +160,6 @@ void CSnmp::GetInterfaces( )
 			}
 		}
 	} else {
-		
 		//WinNT 4 uses scalar "friendly" values for the GetIfEntry function
 		//although this is poorly documented by Microsoft
 		if( m_fpGetNumberOfInterfaces( &m_dwInterfaces ) == NO_ERROR )
@@ -172,7 +169,6 @@ void CSnmp::GetInterfaces( )
 				m_dwInterfaceArray[i] = i + 1; //not zero based
 		}
 	}
-	
 }
 
 
@@ -180,7 +176,6 @@ void CSnmp::GetInterfaces( )
 //Load the SNMP dlls.
 BOOL CSnmp::Init( )
 {
-	
 	CheckNT( );
 	
 	m_hInst = LoadLibraryEx( "inetmib1.dll", NULL, 0 );
@@ -204,14 +199,12 @@ BOOL CSnmp::Init( )
 		return( FALSE );
 	}
 	
-	
 	//init
 	if( !m_fpExtensionInit( GetTickCount(), &hPollForTrapEvent, &SupportedView ) )
 	{
 		ShowSystemError( IDS_SNMPFAIL_ERR );
 		return( FALSE );
 	}
-	
 	
 	//check to see if the MemAlloc and MemFree functions are available
 	m_hInstSnmp = LoadLibraryEx( "snmpapi.dll", NULL, 0 );
@@ -271,8 +264,6 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper( DWORD* pReceived, DWORD *pSent)
 }
 
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Returns the number of bytes received and transmitted through all network interfaces
 BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
@@ -325,7 +316,6 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 		return 1;
 	}
 	
-	
 	//monitor all adapters
 	OID_ifInoctets[10] = 0;
 	OID_ifOutoctets[10] = 0;
@@ -350,7 +340,6 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 			*pSent += varBind[1].value.asnValue.number;
 		}
 		
-		
 		// Prepare for the next iteration.  Make sure returned oid is
 		// preserved and the returned value is freed.
 		for( int i = 0; i < VAR_BINDS; i++ )
@@ -361,7 +350,6 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 			varBind[i].value.asnType = ASN_NULL;
 			m_fpSnmpUtilOidFree( &tempOid );
 		}
-		
 	}
 	
 	for( int i = 0; i < VAR_BINDS; i++ )
@@ -371,13 +359,10 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x( DWORD* pReceived, DWORD *pSent )
 }
 
 
-
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 // Returns a list of adapter names and index values
 void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter )
 {
-	
 	#define VAR_BINDS_DESCRIPTIONS	3
 	AsnInteger          errorStatus;
 	AsnInteger          errorIndex;
@@ -444,10 +429,8 @@ void CSnmp::GetInterfaceDescriptions( CStringArray *sArray, CUIntArray *nAdapter
 		}
 	}
 	
-	
 	for(int i = 0; i < VAR_BINDS_DESCRIPTIONS; i++ )
 		m_fpSnmpUtilOidFree( &varBind[i].name );
-	
 }
 
 
@@ -466,7 +449,6 @@ void CSnmp::ShowSystemError( int nID )
 						NULL, dwErr,
 						MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 						(LPSTR)&lpMsgBuf, 0, NULL);
-	
 	
 	CString sMsg;
 	sMsg.LoadString( nID );
@@ -496,5 +478,4 @@ BOOL CSnmp::GetReceivedAndSentOctets( DWORD* pReceived, DWORD *pSent )
 	
 	//use INETMIB1.DLL
 	return( GetReceivedAndSentOctets_9x( pReceived, pSent ) );
-	
 }

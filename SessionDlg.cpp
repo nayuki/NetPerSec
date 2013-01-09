@@ -25,7 +25,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-
 //which graph to display -- bps and/or average
 enum {
 	OPTION_BPS = 0x01,
@@ -75,7 +74,6 @@ CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD)
 	//}}AFX_DATA_INIT
 	
 	m_pbrBackground = 0;
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -124,7 +122,6 @@ END_MESSAGE_MAP()
 
 BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 {
-	
 	//show the color dialog if a graph is right clicked
 	if( pMsg->message == WM_RBUTTONUP )
 	{
@@ -135,7 +132,6 @@ BOOL CSessionDlg::PreTranslateMessage(MSG* pMsg)
 			return( TRUE );
 		}
 	}
-	
 	return CPropertyPage::PreTranslateMessage(pMsg);
 }
 
@@ -159,13 +155,11 @@ BOOL CSessionDlg::OnSetActive()
 }
 
 
-
 /////////////////////////////////////////////////////////////////////////////
 // display a formatted number
 void CSessionDlg::DisplayNumber( int nID, DWORD dwBytes)
 {
 	CString s;
-	
 	FormatBytes( dwBytes, &s );
 	SetDlgItemText( nID, s );
 }
@@ -222,9 +216,7 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */)
 	
 	FormatBytes( (pTheApp->m_wnd.m_dbTotalBytesSent - g_dbResetSent), &s, FALSE );
 	SetDlgItemText( IDC_GROUP_SENT, "Sent: " + s );
-	
 }
-
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -299,7 +291,6 @@ BOOL CSessionDlg::OnInitDialog()
 // draw the graphs
 void CSessionDlg::DrawGraph( int nIndex, UPDATE_MODE update )
 {
-	
 	if ( update & RECV_DATA )
 	{
 		m_RecvGraph.ShiftLeft( );
@@ -311,7 +302,6 @@ void CSessionDlg::DrawGraph( int nIndex, UPDATE_MODE update )
 			m_RecvGraph.SetPos( pTheApp->m_wnd.RecvStats[nIndex].Bps, g_ColorRecv, LINEGRAPH_BPS );
 	}
 	
-	
 	if ( update & SENT_DATA )
 	{
 		m_SentGraph.ShiftLeft( );
@@ -322,7 +312,6 @@ void CSessionDlg::DrawGraph( int nIndex, UPDATE_MODE update )
 		if( g_GraphOptions & OPTION_BPS )
 			m_SentGraph.SetPos( pTheApp->m_wnd.SentStats[nIndex].Bps, g_ColorSent, LINEGRAPH_BPS );
 	}
-	
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -355,7 +344,6 @@ void CSessionDlg::UpdateGraph( )
 	
 	if( !g_bAutoScaleSent || CalcAutoScale( &m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA ) == FALSE )
 		DrawGraph( pTheApp->m_wnd.GetArrayIndex(), SENT_DATA );
-	
 }
 
 
@@ -364,7 +352,6 @@ void CSessionDlg::UpdateGraph( )
 // be updated.
 BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE_MODE update )
 {
-	
 	DWORD dwHigh = 0;
 	
 	int start = pTheApp->m_wnd.GetArrayIndex( );
@@ -404,7 +391,6 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 		bUpdate = TRUE;
 		*pAutoScale = dwHigh;
 	} else {
-		
 		if( *pAutoScale > dwHigh && *pAutoScale > 1000 )
 		{
 			*pAutoScale = dwHigh;
@@ -412,7 +398,6 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 			bUpdate = TRUE;
 		}
 	}
-	
 	
 	if( bUpdate )
 	{
@@ -425,22 +410,17 @@ BOOL CSessionDlg::CalcAutoScale( UINT* pAutoScale,  STATS_STRUCT* pStats, UPDATE
 			UpdateScrollPos( IDC_SCALE_SLIDER_RECV, *pAutoScale );
 			UpdateGraphTextRecv( *pAutoScale );
 		}
-		
 	} else {
 		return( FALSE );    //graph not updated
 	}
 	return( TRUE );
-	
-	
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // draws the transmitted samples
 void CSessionDlg::SetGraphRangeSent( )
 {
-	
 	DWORD dwNumber;
 	
 	if( !g_bAutoScaleSent )
@@ -465,7 +445,6 @@ void CSessionDlg::SetGraphRangeSent( )
 			start = 0;
 		DrawGraph( start++, SENT_DATA );
 	}
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -490,14 +469,12 @@ void CSessionDlg::SetGraphRangeRecv( )
 	if( start < 0 )
 		start += MAX_SAMPLES;
 	
-	
 	for( int i = 0; i <= total; i++ )
 	{
 		if( start >= MAX_SAMPLES )
 			start = 0;
 		DrawGraph( start++, RECV_DATA );
 	}
-	
 }
 
 
@@ -549,7 +526,6 @@ void CSessionDlg::SetOptions( )
 	
 	SetGraphRangeRecv(  );	//redraw the graphs
 	SetGraphRangeSent(  );	//redraw the graphs
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -619,7 +595,6 @@ void CSessionDlg::UpdateGraphTextRecv( DWORD dwNumber )
 // draw the labels on the right side of the graph
 void CSessionDlg::UpdateGraphTextSent( DWORD dwNumber )
 {
-	
 	CString s;
 	FormatBytes( dwNumber, &s );
 	
@@ -709,7 +684,6 @@ void CSessionDlg::OnResetData()
 	SetGraphRangeSent( );
 	
 	OnTimer( 0 );   //update the display
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -744,5 +718,4 @@ void CSessionDlg::OnBytes()
 		UpdateGraphTextSent( m_AutoScale_Sent  );
 	else
 		UpdateGraphTextSent( bpsArray[g_Range_Sent] );
-	
 }

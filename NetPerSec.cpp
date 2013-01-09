@@ -42,7 +42,6 @@ END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
 // CNetPerSecApp construction
-
 CNetPerSecApp::CNetPerSecApp()
 {
 	pTheApp = this;
@@ -58,15 +57,12 @@ CNetPerSecApp::~CNetPerSecApp()
 
 /////////////////////////////////////////////////////////////////////////////
 // The one and only CNetPerSecApp object
-
 CNetPerSecApp theApp;
 
 /////////////////////////////////////////////////////////////////////////////
 // CNetPerSecApp initialization
-
 BOOL CNetPerSecApp::InitInstance()
 {
-	
 	//single instance
 	m_hMutex = ::CreateMutex(NULL, FALSE, SZ_APPNAME);
 	if( m_hMutex != NULL )
@@ -80,7 +76,6 @@ BOOL CNetPerSecApp::InitInstance()
 			}
 			return( FALSE );
 		}
-		
 	}
 	
 	// Standard initialization
@@ -99,7 +94,6 @@ BOOL CNetPerSecApp::InitInstance()
 	{
 		AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND );
 	}
-	
 	
 	//read in saved settings from ini file
 	ReadSettings( );

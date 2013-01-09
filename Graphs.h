@@ -6,7 +6,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CGraphs window
-
 class CGraphs : public CWnd
 {
 // Construction
@@ -25,7 +24,6 @@ public:
 	void SetStyle( int nStyle );
 	void ClearGraph( );
 	int GetTotalElements( );
-	
 	
 // Operations
 public:
@@ -55,7 +53,6 @@ protected:
 	CBitmap  m_Bitmap;
 	BOOL     m_bBarGraph;
 	CUIntArray m_GraphArray;
-	
 };
 
 /////////////////////////////////////////////////////////////////////////////

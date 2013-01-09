@@ -9,7 +9,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // COptionsDlg dialog
-
 class COptionsDlg : public CPropertyPage
 {
 	DECLARE_DYNCREATE(COptionsDlg)
@@ -26,7 +25,6 @@ public:
 	enum { IDD = IDD_OPTIONS_DLG };
 	CComboBox	m_Interfaces;
 	//}}AFX_DATA
-	
 	
 // Overrides
 	// ClassWizard generate virtual function overrides
@@ -49,7 +47,6 @@ protected:
 	afx_msg void OnSelchangeInterfaces();
 	//}}AFX_MSG
 	DECLARE_MESSAGE_MAP()
-	
 };
 
 //{{AFX_INSERT_LOCATION}}

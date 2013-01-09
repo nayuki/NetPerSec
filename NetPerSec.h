@@ -22,7 +22,6 @@
 // CNetPerSecApp:
 // See NetPerSec.cpp for the implementation of this class
 //
-
 class CNetPerSecApp : public CWinApp
 {
 public:
@@ -32,7 +31,6 @@ public:
 	Cwinproc m_wnd;
 	CIcons m_Icons;
 	HANDLE m_hMutex; //single instance
-	
 	
 // Overrides
 	// ClassWizard generated virtual function overrides

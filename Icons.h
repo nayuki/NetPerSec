@@ -7,13 +7,11 @@
 //
 class CIcons
 {
-	
 public:
 	CIcons( );
 	~CIcons( );
 	
 	HICON GetIcon( STATS_STRUCT*, STATS_STRUCT*, int , int );
-	
 	
 private:
 	HICON m_hHistogramIcon;
@@ -27,7 +25,6 @@ private:
 	HICON GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex );
 	void  FillHistogramIcon( CDC* pDC, STATS_STRUCT* pRecv, COLORREF color, int nIndex, CRect *prc );
 	void  FillBarIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nIndex, CRect *prc );
-	
 };
 
 #endif

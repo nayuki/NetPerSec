@@ -24,7 +24,6 @@ CIcons::CIcons( )
 {
 	m_hHistogramIcon = 0;
 	m_hBarGraphIcon = 0;
-	
 	ZeroMemory( &m_BarGraphIconInfo, sizeof( m_BarGraphIconInfo ) );
 	ZeroMemory( &m_HistogramIconInfo, sizeof( m_HistogramIconInfo) );
 }
@@ -44,7 +43,6 @@ CIcons::~CIcons( )
 	
 	if( m_BarGraphIconInfo.hbmMask )
 		DeleteObject( m_BarGraphIconInfo.hbmMask );
-	
 }
 
 
@@ -57,7 +55,6 @@ HICON CIcons::GetIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex, int
 	else
 		return( GetBargraphIcon( pRecv, pSent, nIndex ) );
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -88,16 +85,13 @@ void CIcons::FillBarIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, int nI
 	prc->top =  prc->bottom - nIcon;
 	CBrush brush( color );
 	pDC->FillRect( prc, &brush );
-	
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //returns icon for the bar graph
 HICON CIcons::GetBargraphIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex )
 {
-	
 	if( m_hBarGraphIcon == 0 )
 	{
 		m_hBarGraphIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE( IDI_BARGRAPH ),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
@@ -128,7 +122,6 @@ HICON CIcons::GetBargraphIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIn
 	dcMem.DeleteDC( );
 	return( hIcon );  //calling function must delete this icon handle
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +168,6 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 		start++;
 	}
 	
-	
 	start = savestart;
 	
 	for( i = 0; i < size; i++ )
@@ -198,14 +190,12 @@ void CIcons::FillHistogramIcon( CDC* pDC, STATS_STRUCT* pStats, COLORREF color, 
 		
 		start++;
 	}
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 //returns a histogram icon
 HICON CIcons::GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nIndex )
 {
-	
 	if( m_hHistogramIcon == 0 )
 	{
 		m_hHistogramIcon = (HICON)LoadImage(AfxGetInstanceHandle(),MAKEINTRESOURCE( IDI_HISTOGRAM ),IMAGE_ICON,16,16,LR_DEFAULTCOLOR);
@@ -236,5 +226,4 @@ HICON CIcons::GetHistogramIcon( STATS_STRUCT* pRecv, STATS_STRUCT* pSent, int nI
 	
 	//calling function must delete this icon
 	return( hIcon );
-	
 }

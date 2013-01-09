@@ -60,7 +60,6 @@ COLORREF IconColors[MAX_ICON_COLORS] =
 };
 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 //
 void ShowError( UINT nID, int nType )
@@ -93,13 +92,11 @@ DWORD GetServicePack( )
 //
 void SetStartupOptions( )
 {
-	
 	TCHAR szPath[MAX_PATH] = {0};
 	TCHAR szLinkFile[MAX_PATH] = {0};
 	WCHAR wszLinkFile[MAX_PATH] = {0};
 	LPITEMIDLIST pidl;
 	LPMALLOC pMalloc;
-	
 	
 	IShellLink* pShellLink = NULL;
 	IPersistFile* pPF = NULL;
@@ -169,7 +166,6 @@ void SetStartupOptions( )
 	pShellLink->Release( );
 	
 	CoUninitialize( );
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -180,7 +176,6 @@ void FormatBytes( double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecon
 	char ch;
 	char* b = "Bytes";
 	double num = dbBytes;
-	
 	
 	//decimal format
 	#define GIGABITS 1000 * 1000 * 1000
@@ -205,7 +200,6 @@ void FormatBytes( double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecon
 		MEGA = MEGABITS;
 		KILO = KILOBITS;
 	}
-	
 	
 	if( num >= GIGA )
 	{
@@ -234,15 +228,11 @@ void FormatBytes( double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecon
 		}
 	}
 	
-	
 	if( bPerSecond )
 		pString->Format( "%s %c%s/s", s, ch, b );
 	else
 		pString->Format( "%s %c%s", s, ch, b );
-	
-	
 }
-
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -251,7 +241,6 @@ LPSTR FormatNumber( DWORD N )
 {
 	#define BUF_SIZE 128
 	static char buf[BUF_SIZE+1];
-	
 	
 	int len = 1, posn = 1, sign = 1;
 	char *ptr = buf + BUF_SIZE - 1;
@@ -306,7 +295,6 @@ void QualifyPathName( CString *pFile, LPCSTR pIni )
 	
 	strcat( p, pIni );
 	*pFile = szName;
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -314,7 +302,6 @@ void QualifyPathName( CString *pFile, LPCSTR pIni )
 int GetPrivateProfileInt( LPCSTR pKey, int nDefault )
 {
 	CString sFileName;
-	
 	QualifyPathName( &sFileName, SZ_NETPERSEC_INI );
 	return( GetPrivateProfileInt( SZ_CONFIG, pKey, nDefault, sFileName ) );
 }
@@ -324,7 +311,6 @@ int GetPrivateProfileInt( LPCSTR pKey, int nDefault )
 int GetPrivateProfileString( LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize )
 {
 	CString sFileName;
-	
 	QualifyPathName( &sFileName, SZ_NETPERSEC_INI );
 	return( GetPrivateProfileString( SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName ) );
 }
@@ -335,7 +321,6 @@ void WritePrivateProfileInt( LPCSTR pSection, int nValue )
 {
 	CString sFileName;
 	char buf[256];
-	
 	QualifyPathName( &sFileName, SZ_NETPERSEC_INI );
 	wsprintf( buf, "%u", nValue );
 	WritePrivateProfileString( SZ_CONFIG, pSection, buf, sFileName );
@@ -347,10 +332,8 @@ void WritePrivateProfileInt( LPCSTR pSection, int nValue )
 void WritePrivateProfileString( LPCSTR pSection, LPCSTR pValue )
 {
 	CString sFileName;
-	
 	QualifyPathName( &sFileName, SZ_NETPERSEC_INI );
 	WritePrivateProfileString( SZ_CONFIG, pSection, pValue, sFileName );
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -393,7 +376,6 @@ void ReadSettings( )
 	g_ColorIconBack = GetPrivateProfileInt( SZ_COLOR_ICON, COLOR_ICON_BACK );
 	g_MonitorMode = (MONITOR_MODE)GetPrivateProfileInt( SZ_MONITOR_MODE, 0 );
 	g_dwAdapter = GetPrivateProfileInt( SZ_ADAPTER_INDEX, 0 );
-	
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////

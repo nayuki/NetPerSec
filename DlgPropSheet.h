@@ -15,7 +15,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // DlgPropSheet
-
 class DlgPropSheet : public CPropertySheet
 {
 	DECLARE_DYNAMIC(DlgPropSheet)
