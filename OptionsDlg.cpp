@@ -15,19 +15,19 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-//tick marks for the averaging window are a multiple of 5 times the sample rate
+// Tick marks for the averaging window are a multiple of 5 times the sample rate
 #define AVERAGING_MULTIPLIER 5
 
 
-//milliseconds to set the timer for sampling SNMP
-UINT SampleRates[]={
+// Milliseconds to set the timer for sampling SNMP
+UINT SampleRates[] = {
 	250,
 	500,
 	1000,
 	2000,
 	3000,
 	4000,
-	5000
+	5000,
 };
 
 
@@ -61,7 +61,7 @@ BEGIN_MESSAGE_MAP(COptionsDlg, CPropertyPage)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
-// COptionsDlg message handlers
+/* COptionsDlg message handlers */
 
 BOOL COptionsDlg::OnInitDialog() {
 	CPropertyPage::OnInitDialog();
@@ -71,8 +71,8 @@ BOOL COptionsDlg::OnInitDialog() {
 	ASSERT(pSampleSlider != NULL);
 	ASSERT(pWindowSlider != NULL);
 	
-	pSampleSlider->SetRange(0, ELEMENTS(SampleRates)-1);   //milliseconds
-	pWindowSlider->SetRange(1, (MAX_SAMPLES -1) / AVERAGING_MULTIPLIER);   //seconds
+	pSampleSlider->SetRange(0, ELEMENTS(SampleRates) - 1);   //milliseconds
+	pWindowSlider->SetRange(1, (MAX_SAMPLES - 1) / AVERAGING_MULTIPLIER);   //seconds
 	
 	pSampleSlider->SetTicFreq(1);
 	pWindowSlider->SetTicFreq(1);
@@ -93,33 +93,33 @@ BOOL COptionsDlg::OnInitDialog() {
 	pWindowSlider->SetPos(g_nAveragingWindow / AVERAGING_MULTIPLIER);
 	
 	int nID;
-	nID = IDC_USE_SNMP;
 	if (g_MonitorMode == MONITOR_DUN)
 		nID = IDC_USE_DUN;
+	else if (g_MonitorMode == MONITOR_ADAPTER)
+		nID = IDC_MONITOR_ADAPTER;
+	else
+		nID = IDC_USE_SNMP;
 	
-	if (g_MonitorMode == MONITOR_ADAPTER)
-		nID = IDC_MONITOR_ADAPTER ;
-	
-	CheckRadioButton(IDC_USE_SNMP, IDC_MONITOR_ADAPTER , nID);
+	CheckRadioButton(IDC_USE_SNMP, IDC_MONITOR_ADAPTER, nID);
 	m_Interfaces.EnableWindow(g_MonitorMode == MONITOR_ADAPTER);
 	
 	UpdateDlg();
 	
-	return TRUE;  // return TRUE unless you set the focus to a control
-	              // EXCEPTION: OCX Property Pages should return FALSE
+	// Return TRUE unless you set the focus to a control
+	// Exception: OCX Property Pages should return FALSE
+	return TRUE;  
 }
-
 
 
 void COptionsDlg::UpdateAveragingWindow() {
 	CString s;
 	CSliderCtrl *pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	
-	int max = (MAX_SAMPLES -1) / AVERAGING_MULTIPLIER;
-	pWindowSlider->SetRange(1, max, TRUE);   //seconds
+	int max = (MAX_SAMPLES - 1) / AVERAGING_MULTIPLIER;
+	pWindowSlider->SetRange(1, max, TRUE);  // Seconds
 	int nPos = pWindowSlider->GetPos();
 	
-	g_nAveragingWindow = max(1, nPos * AVERAGING_MULTIPLIER);
+	g_nAveragingWindow = max(nPos * AVERAGING_MULTIPLIER, 1);
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
 	s.Format("%.5g", (double)(g_nSampleRate * AVERAGING_MULTIPLIER) / 1000);
@@ -127,7 +127,6 @@ void COptionsDlg::UpdateAveragingWindow() {
 	s.Format("%.5g", (double)(max * g_nSampleRate * AVERAGING_MULTIPLIER) / 1000);
 	SetDlgItemText(IDC_AVERAGE_MAX, s);
 }
-
 
 
 void COptionsDlg::UpdateDlg() {
@@ -138,13 +137,12 @@ void COptionsDlg::UpdateDlg() {
 	if (g_nSampleRate == 1000)
 		s = "1 second";
 	else
-		s.Format("%.5g seconds", (double)((double)g_nSampleRate / (double)1000));
+		s.Format("%.5g seconds", g_nSampleRate / 1000.0);
 	
 	s = "Sampling Rate:   " + s;
 	SetDlgItemText(IDC_SAMPLE_GROUP, s);
 	
-	double ave = (double)((double)g_nAveragingWindow * (double)((double)g_nSampleRate / 1000));
-	
+	double ave = g_nAveragingWindow * (g_nSampleRate / 1000.0);
 	if (ave == 1)
 		s = "1 second";
 	else
@@ -161,7 +159,8 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	ASSERT(pCtrl != NULL);
 	
 	switch (nControl) {
-		case IDC_SAMPLE_SLIDER: {
+		case IDC_SAMPLE_SLIDER:
+		{
 			int nPos = pCtrl->GetPos();
 			nPos = min(nPos, ELEMENTS(SampleRates));
 			
@@ -192,7 +191,7 @@ void COptionsDlg::OnUseSnmp() {
 	
 	m_Interfaces.EnableWindow(g_MonitorMode == MONITOR_ADAPTER);
 	
-	//reset totals
+	// Reset totals
 	pTheApp->m_wnd.ResetData();
 	
 	g_dbResetRecv =
@@ -209,15 +208,13 @@ void COptionsDlg::OnUseDun() {
 
 BOOL COptionsDlg::OnSetActive() {
 	CSnmp *pSnmp = &pTheApp->m_wnd.snmp;
-	
-	if (pSnmp) {
+	if (pSnmp != NULL) {
 		CStringArray s;
-		CUIntArray  nAdapterArray;
+		CUIntArray nAdapterArray;
 		pSnmp->GetInterfaceDescriptions(&s, &nAdapterArray);
 		m_Interfaces.ResetContent();
 		
 		int active = 0;
-		
 		for (int i = 0; i <= s.GetUpperBound(); i++) {
 			int index = m_Interfaces.AddString(s.GetAt(i));
 			if (index != CB_ERR) {
