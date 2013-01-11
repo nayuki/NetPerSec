@@ -3,13 +3,12 @@
 
 #if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-// DlgPropSheet.h : header file
+#endif
 
 #include "SessionDlg.h"
 #include "OptionsDlg.h"
 #include "DisplayDlg.h"
-#include "about.h"
+#include "About.h"
 
 
 // DlgPropSheet
@@ -18,8 +17,8 @@ class DlgPropSheet : public CPropertySheet {
 	
 // Construction
 public:
-	DlgPropSheet(UINT nIDCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0);
-	DlgPropSheet(LPCTSTR pszCaption, CWnd *pParentWnd = NULL, UINT iSelectPage = 0);
+	DlgPropSheet(UINT nIDCaption, CWnd *pParentWnd=NULL, UINT iSelectPage=0);
+	DlgPropSheet(LPCTSTR pszCaption, CWnd *pParentWnd=NULL, UINT iSelectPage=0);
 	
 // Attributes
 public:
@@ -30,7 +29,7 @@ public:
 	
 // Operations
 public:
-	void  AddPropPages();
+	void AddPropPages();
 	
 // Overrides
 	// ClassWizard generated virtual function overrides
@@ -61,4 +60,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_DLGPROPSHEET_H__7FE7EC25_9C41_11D4_A181_004033572A05__INCLUDED_)
+#endif

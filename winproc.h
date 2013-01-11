@@ -3,12 +3,11 @@
 
 #if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
+#endif
 
-
-#include "globals.h"
+#include "Globals.h"
 #include "DlgPropSheet.h"
-#include "about.h"
+#include "About.h"
 
 
 // Cwinproc window
@@ -34,11 +33,11 @@ public:
 	double m_dbRecvWrap;
 	double m_dbSentWrap;
 	
-	NOTIFYICONDATA	m_SystemTray;
+	NOTIFYICONDATA m_SystemTray;
 	STATS_STRUCT RecvStats[MAX_SAMPLES];
 	STATS_STRUCT SentStats[MAX_SAMPLES];
 	
-	int  GetArrayIndex();
+	int GetArrayIndex();
 	void ResetData();
 	void CalcAverages(double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT *pStats);
 	
@@ -52,7 +51,7 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(Cwinproc)
 public:
-	virtual void WinHelp(DWORD dwData, UINT nCmd = HELP_CONTEXT);
+	virtual void WinHelp(DWORD dwData, UINT nCmd=HELP_CONTEXT);
 	//}}AFX_VIRTUAL
 	
 // Implementation
@@ -72,4 +71,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_WINPROC_H__6564E3DE_EB5F_4094_9AEC_CF329AE35837__INCLUDED_)
+#endif

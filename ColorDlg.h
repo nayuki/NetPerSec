@@ -5,7 +5,7 @@
 class CColorCubeDlg : public CDialog {
 // Construction
 public:
-	CColorCubeDlg(CWnd *pParent = NULL);   // standard constructor
+	CColorCubeDlg(CWnd *pParent=NULL);  // Standard constructor
 	
 	CButton *m_hParent;
 	int m_ColorIndex;
@@ -20,7 +20,7 @@ public:
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CColorCubeDlg)
 protected:
-	virtual void DoDataExchange(CDataExchange *pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange *pDX);  // DDX/DDV support
 	//}}AFX_VIRTUAL
 	
 // Implementation
@@ -40,7 +40,6 @@ protected:
 };
 
 
-
 class CColorCube : public CButton {
 public:
 	CColorCube();
@@ -58,7 +57,7 @@ public:
 	// Generated message map functions
 	//protected:
 	//{{AFX_MSG(CColorCube)
-		afx_msg BOOL OnClick() ;
+	afx_msg BOOL OnClick();
 	//}}AFX_MSG
 	
 	void DrawItem(LPDRAWITEMSTRUCT);

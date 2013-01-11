@@ -3,9 +3,10 @@
 
 #if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-// SessionDlg.h : header file
+#endif
+
 #include "Graphs.h"
+
 
 typedef enum {
 	RECV_DATA = 0x01,
@@ -33,7 +34,7 @@ public:
 	void UpdateGraphTextRecv(DWORD);
 	void UpdateGraph();
 	void SetGraphStyle();
-	BOOL CalcAutoScale(UINT *pAutoScale,  STATS_STRUCT *pStats, UPDATE_MODE update);
+	BOOL CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_MODE update);
 	void UpdateScrollPos(WORD wControl, DWORD dwValue);
 	DWORD CalcMax(STATS_STRUCT *pStats, int start);
 	
@@ -48,7 +49,7 @@ public:
 	//{{AFX_DATA(CSessionDlg)
 	enum { IDD = IDD_SESSION_DLG };
 		// NOTE - ClassWizard will add data members here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
+		// DO NOT EDIT what you see in these blocks of generated code!
 	//}}AFX_DATA
 	
 // Overrides
@@ -59,7 +60,7 @@ public:
 	virtual BOOL OnKillActive();
 	virtual BOOL PreTranslateMessage(MSG *pMsg);
 protected:
-	virtual void DoDataExchange(CDataExchange *pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange *pDX);  // DDX/DDV support
 	//}}AFX_VIRTUAL
 	
 // Implementation
@@ -89,4 +90,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_SESSIONDLG_H__7FE7EC26_9C41_11D4_A181_004033572A05__INCLUDED_)
+#endif

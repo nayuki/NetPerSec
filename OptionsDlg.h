@@ -3,8 +3,8 @@
 
 #if _MSC_VER > 1000
 #pragma once
-#endif // _MSC_VER > 1000
-// OptionsDlg.h : header file
+#endif
+
 
 // COptionsDlg dialog
 class COptionsDlg : public CPropertyPage {
@@ -20,7 +20,7 @@ public:
 // Dialog Data
 	//{{AFX_DATA(COptionsDlg)
 	enum { IDD = IDD_OPTIONS_DLG };
-	CComboBox	m_Interfaces;
+	CComboBox m_Interfaces;
 	//}}AFX_DATA
 	
 // Overrides
@@ -29,7 +29,7 @@ public:
 	public:
 	virtual BOOL OnSetActive();
 	protected:
-	virtual void DoDataExchange(CDataExchange *pDX);    // DDX/DDV support
+	virtual void DoDataExchange(CDataExchange *pDX);  // DDX/DDV support
 	//}}AFX_VIRTUAL
 	
 // Implementation
@@ -49,4 +49,4 @@ protected:
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
-#endif // !defined(AFX_OPTIONSDLG_H__151341E1_9D38_11D4_A181_004033572A05__INCLUDED_)
+#endif
