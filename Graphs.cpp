@@ -13,7 +13,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-//width of bars and length of lines
+// Width of bars and length of lines
 #define WIDTH 4
 
 
@@ -65,7 +65,7 @@ void CGraphs::SetSize(int nPoints) {
 	m_GraphArray.SetSize(nPoints);
 }
 
-void CGraphs::SetStyle(int nStyle) {
+void CGraphs::SetStyle(ICON_STYLE nStyle) {
 	m_bBarGraph = nStyle;
 	int len = m_GraphArray.GetSize();
 	for (int i = 0; i < len; i++)

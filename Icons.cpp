@@ -7,10 +7,11 @@
 #include "Globals.h"
 #include "resource.h"
 
+
 CIcons::CIcons() {
 	m_hHistogramIcon = 0;
-	m_hBarGraphIcon = 0;
-	ZeroMemory(&m_BarGraphIconInfo, sizeof(m_BarGraphIconInfo));
+	m_hBarGraphIcon  = 0;
+	ZeroMemory(&m_BarGraphIconInfo , sizeof(m_BarGraphIconInfo));
 	ZeroMemory(&m_HistogramIconInfo, sizeof(m_HistogramIconInfo));
 }
 
@@ -24,34 +25,25 @@ CIcons::~CIcons() {
 
 // Return a handle to a histogram or bar graph icon.
 // The calling function must delete this handle
-HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex, int nStyle) {
+HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex, ICON_STYLE nStyle) {
 	if (nStyle == ICON_HISTOGRAM)
 		return GetHistogramIcon(pRecv, pSent, nIndex);
-	else
+	else if (nStyle == ICON_BARGRAPH)
 		return GetBargraphIcon(pRecv, pSent, nIndex);
+	else
+		ASSERT(false);
 }
 
 
-// Draw the bar graph icon
+// Draws the bar graph icon
 void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, int nIndex, CRect *prc) {
-	int size = 14;
-	
-	int start = nIndex;
-	start -= size;
-	if (start < 0)
-		start += MAX_SAMPLES;
-	
-	DWORD dwHigh = max(pStats[nIndex].Bps, 1);
-	for (int i = 0; i < size; i++) {
-		if (start >= MAX_SAMPLES)
-			start = 0;
-		if (pStats[start].Bps > dwHigh)
-			dwHigh = pStats[start].Bps;
-		start++;
-	}
+	// Find maximum among most recent HIST_SIZE samples in circular buffer
+	const int HIST_SIZE = 15;
+	DWORD dwHigh = 1;
+	for (int i = 0; i < HIST_SIZE; i++)
+		dwHigh = max(pStats[(nIndex - HIST_SIZE + 1 + i + MAX_SAMPLES) % MAX_SAMPLES].Bps, dwHigh);
 	
 	int nIcon = MulDiv(pStats[nIndex].Bps, 14, dwHigh);
-	
 	prc->top = prc->bottom - nIcon;
 	CBrush brush(color);
 	pDC->FillRect(prc, &brush);
@@ -69,7 +61,6 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nInd
 	
 	CDC dcMem;
 	dcMem.CreateCompatibleDC(NULL);
-	
 	CBitmap *pOld = dcMem.SelectObject(&m_bmpBarGraph);
 	
 	// Offsets for the left and right halves of the icon
@@ -84,14 +75,13 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nInd
 	FillBarIcon(&dcMem, pRecv, g_ColorRecv, nIndex, &rcRecv);
 	
 	dcMem.SelectObject(pOld);
-	
 	HICON hIcon = CreateIconIndirect(&m_BarGraphIconInfo);
 	dcMem.DeleteDC();
-	return hIcon;  // Calling function must delete this icon handle
+	return hIcon;  // Caller must delete this icon handle
 }
 
 
-// Draw the histogram icon
+// Draws the histogram icon
 void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, int nIndex, CRect *prc) {
 	CRect rc;
 	rc.CopyRect(prc);
@@ -112,35 +102,23 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, i
 	rc.left = offset;
 	CBrush brush(color);
 	
-	int start = nIndex;
-	start -= size;
+	int start = nIndex - size;
 	if (start < 0)
 		start += MAX_SAMPLES;
-	
 	int savestart = start;
 	
 	DWORD dwHigh = max(pStats[nIndex].Bps, 1);
-	
 	for (int i = 0; i < size; i++) {
-		if (start >= MAX_SAMPLES)
-			start = 0;
-		if (pStats[start].Bps > dwHigh)
-			dwHigh = pStats[start].Bps;
-		start++;
+		dwHigh = max(pStats[start].Bps, dwHigh);
+		start = (start + 1) % MAX_SAMPLES;
 	}
 	
 	start = savestart;
-	
 	for (int i = 0; i < size; i++) {
-		if (start >= MAX_SAMPLES)
-			start = 0;
-		
 		// 60 percent - icon is 6 pixels high
 		int nIcon = MulDiv(pStats[start].Bps, 6, dwHigh);
-		
-		if (pStats[start].Bps && nIcon == 0)
-			nIcon = 1;
-		
+		if (pStats[start].Bps != 0)  // For at least 1 pixel if there is traffic
+			nIcon = max(nIcon, 1);
 		ASSERT(nIcon < 7);
 		
 		rc.top = rc.bottom - nIcon;
@@ -148,16 +126,16 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, i
 		pDC->FillRect(&rc, &brush);
 		rc.left += width;
 		
-		start++;
+		start = (start + 1) % MAX_SAMPLES;
 	}
 }
+
 
 // Returns a histogram icon
 HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIndex) {
 	if (m_hHistogramIcon == 0) {
 		m_hHistogramIcon = (HICON)LoadImage(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDI_HISTOGRAM), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
 		ASSERT(m_hHistogramIcon != 0);
-		
 		GetIconInfo(m_hHistogramIcon, &m_HistogramIconInfo);
 		m_bmpHistogram.Attach(m_HistogramIconInfo.hbmColor);
 	}
@@ -169,7 +147,6 @@ HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIn
 	// Icon is 16 pixels high
 	CRect rc(0, 0, 16, 16);
 	rc.top = rc.bottom / 2;
-	
 	FillHistogramIcon(&dcMem, pSent, g_ColorSent, nIndex, &rc);
 	
 	rc.top = 0;
@@ -177,10 +154,7 @@ HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, int nIn
 	FillHistogramIcon(&dcMem, pRecv, g_ColorRecv, nIndex, &rc);
 	
 	dcMem.SelectObject(pOld);
-	
 	HICON hIcon = CreateIconIndirect(&m_HistogramIconInfo);
 	dcMem.DeleteDC();
-	
-	// Calling function must delete this icon
-	return hIcon;
+	return hIcon;  // Caller must delete this icon handle
 }

@@ -9,7 +9,7 @@ public:
 	CIcons();
 	~CIcons();
 	
-	HICON GetIcon(STATS_STRUCT*, STATS_STRUCT*, int, int);
+	HICON GetIcon(STATS_STRUCT*, STATS_STRUCT*, int, ICON_STYLE);
 	
 private:
 	HICON m_hHistogramIcon;

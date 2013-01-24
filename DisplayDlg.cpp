@@ -135,8 +135,8 @@ BOOL CDisplayDlg::OnInitDialog() {
 	m_Restore_ColorBack = g_ColorBack;
 	m_Restore_ColorIconBack = g_ColorIconBack;
 	
-	CheckDlgButton(IDC_ICON_HISTOGRAM, g_IconStyle != ICON_BARGRAPH);
-	CheckDlgButton(IDC_ICON_BARGRAPH , g_IconStyle == ICON_BARGRAPH);
+	CheckDlgButton(IDC_ICON_HISTOGRAM, g_IconStyle == ICON_HISTOGRAM);
+	CheckDlgButton(IDC_ICON_BARGRAPH , g_IconStyle == ICON_BARGRAPH );
 	CheckDlgButton(IDC_ONTOP, g_bOnTop);
 	CheckDlgButton(IDC_STARTWITHWINDOWS, g_bStartWithWindows);
 	return TRUE;  // Return TRUE unless you set the focus to a control
@@ -173,7 +173,7 @@ void CDisplayDlg::ShowSampleIcon() {
 	STATS_STRUCT r[MAX_SAMPLES];
 	STATS_STRUCT s[MAX_SAMPLES];
 	
-	// Fill the stats array with random data for the sample icon in the dialog
+	// Fill the stats array with artificial data for the sample icon in the dialog
 	if (g_IconStyle == ICON_BARGRAPH) {
 		for (int i = 0; i <= 16; i++) {
 			r[i].Bps = 70;
@@ -181,12 +181,13 @@ void CDisplayDlg::ShowSampleIcon() {
 		}
 		r[1].Bps = 100;
 		s[1].Bps = 100;
-	} else {
+	} else if (g_IconStyle == ICON_HISTOGRAM) {
 		for (int i = 0; i <= 16; i++) {
 			r[i].Bps = i * 4;
 			s[i].Bps = i * 4;
 		}
-	}
+	} else
+		ASSERT(false);
 	
 	HICON hIcon = pTheApp->m_Icons.GetIcon(&s[0], &r[0], 14, g_IconStyle);
 	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE, IMAGE_ICON, (LPARAM)hIcon);
@@ -246,6 +247,12 @@ void CDisplayDlg::OnIconBargraph() {
 }
 
 void CDisplayDlg::OnIconHistogram() {
-	g_IconStyle = IsDlgButtonChecked(IDC_ICON_BARGRAPH) ? ICON_BARGRAPH : ICON_HISTOGRAM;
+	if (IsDlgButtonChecked(IDC_ICON_BARGRAPH))
+		g_IconStyle = ICON_BARGRAPH;
+	else if (IsDlgButtonChecked(IDC_ICON_HISTOGRAM))
+		g_IconStyle = ICON_HISTOGRAM;
+	else
+		ASSERT(0);
+	
 	ShowSampleIcon();
 }

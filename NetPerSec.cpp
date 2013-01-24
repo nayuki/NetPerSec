@@ -48,15 +48,13 @@ CNetPerSecApp theApp;
 BOOL CNetPerSecApp::InitInstance() {
 	// Single instance
 	m_hMutex = ::CreateMutex(NULL, FALSE, SZ_APPNAME);
-	if (m_hMutex != NULL) {
-		if (::GetLastError() == ERROR_ALREADY_EXISTS) {
-			HWND hWnd = FindWindow(NULL, SZ_APPNAME);
-			if (hWnd) {
-				PostMessage(hWnd, TaskbarCallbackMsg, 0, WM_LBUTTONDBLCLK);
-				SetForegroundWindow(hWnd);
-			}
-			return FALSE;
+	if (m_hMutex != NULL && ::GetLastError() == ERROR_ALREADY_EXISTS) {
+		HWND hWnd = FindWindow(NULL, SZ_APPNAME);
+		if (hWnd) {
+			PostMessage(hWnd, TaskbarCallbackMsg, 0, WM_LBUTTONDBLCLK);
+			SetForegroundWindow(hWnd);
 		}
+		return FALSE;
 	}
 	
 	// Standard initialization.
