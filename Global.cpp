@@ -248,7 +248,7 @@ int GetPrivateProfileInt(LPCSTR pKey, int nDefault) {
 	return GetPrivateProfileInt(SZ_CONFIG, pKey, nDefault, sFileName);
 }
 
-int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize) {
+int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int nSize) {
 	CString sFileName;
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
 	return GetPrivateProfileString(SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName);
@@ -270,57 +270,57 @@ void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue) {
 }
 
 void SaveWindowPosition(CRect *pRect) {
-	WritePrivateProfileInt(SZ_WINPOS_TOP, pRect->top);
+	WritePrivateProfileInt(SZ_WINPOS_TOP , pRect->top );
 	WritePrivateProfileInt(SZ_WINPOS_LEFT, pRect->left);
 }
 
 void LoadWindowPosition(CRect *pRect) {
-	pRect->top = (int)GetPrivateProfileInt(SZ_WINPOS_TOP, -1);
+	pRect->top  = (int)GetPrivateProfileInt(SZ_WINPOS_TOP , -1);
 	pRect->left = (int)GetPrivateProfileInt(SZ_WINPOS_LEFT, -1);
 }
 
 
 void ReadSettings() {
-	g_nSampleRate = GetPrivateProfileInt(SZ_SAMPLERATE, 1000);
-	g_nAveragingWindow = GetPrivateProfileInt(SZ_AVERAGEWINDOW, 30);
-	g_Range_Recv = GetPrivateProfileInt(SZ_RANGE_RECV, 1);
-	g_Range_Sent = GetPrivateProfileInt(SZ_RANGE_SENT, 1);
-	g_GraphOptions = GetPrivateProfileInt(SZ_GRAPHOPTIONS, -1);
-	g_DisplayBytes = GetPrivateProfileInt(SZ_DISPLAYBYTES, 0);
+	g_nSampleRate       = GetPrivateProfileInt(SZ_SAMPLERATE, 1000);
+	g_nAveragingWindow  = GetPrivateProfileInt(SZ_AVERAGEWINDOW, 30);
+	g_Range_Recv        = GetPrivateProfileInt(SZ_RANGE_RECV, 1);
+	g_Range_Sent        = GetPrivateProfileInt(SZ_RANGE_SENT, 1);
+	g_GraphOptions      = GetPrivateProfileInt(SZ_GRAPHOPTIONS, -1);
+	g_DisplayBytes      = GetPrivateProfileInt(SZ_DISPLAYBYTES, 0);
 	g_bStartWithWindows = GetPrivateProfileInt(SZ_STARTUP, 0);
-	g_bOnTop = GetPrivateProfileInt(SZ_ONTOP, 0);
-	g_bShowBarGraph = GetPrivateProfileInt(SZ_BARGRAPH,1);
-	g_bAutoScaleRecv = GetPrivateProfileInt(SZ_AUTOSCALE_RECV,1);
-	g_bAutoScaleSent = GetPrivateProfileInt(SZ_AUTOSCALE_SENT,1);
-	g_IconStyle = (ICON_STYLE)GetPrivateProfileInt(SZ_ICON_STYLE, ICON_HISTOGRAM);
-	g_ColorBack = GetPrivateProfileInt(SZ_COLOR_BACK, COLOR_ICON_BACK);
-	g_ColorRecv = GetPrivateProfileInt(SZ_COLOR_RECV, COLOR_ICON_RECV);
-	g_ColorSent = GetPrivateProfileInt(SZ_COLOR_SENT, COLOR_ICON_SENT);
-	g_ColorAve  = GetPrivateProfileInt(SZ_COLOR_AVE , COLOR_AVERAGE);
-	g_ColorIconBack = GetPrivateProfileInt(SZ_COLOR_ICON, COLOR_ICON_BACK);
-	g_MonitorMode = (MONITOR_MODE)GetPrivateProfileInt(SZ_MONITOR_MODE, 0);
-	g_dwAdapter = GetPrivateProfileInt(SZ_ADAPTER_INDEX, 0);
+	g_bOnTop            = GetPrivateProfileInt(SZ_ONTOP, 0);
+	g_bShowBarGraph     = GetPrivateProfileInt(SZ_BARGRAPH, 1);
+	g_bAutoScaleRecv    = GetPrivateProfileInt(SZ_AUTOSCALE_RECV, 1);
+	g_bAutoScaleSent    = GetPrivateProfileInt(SZ_AUTOSCALE_SENT, 1);
+	g_IconStyle         = (ICON_STYLE)GetPrivateProfileInt(SZ_ICON_STYLE, ICON_HISTOGRAM);
+	g_ColorBack         = GetPrivateProfileInt(SZ_COLOR_BACK, COLOR_ICON_BACK);
+	g_ColorRecv         = GetPrivateProfileInt(SZ_COLOR_RECV, COLOR_ICON_RECV);
+	g_ColorSent         = GetPrivateProfileInt(SZ_COLOR_SENT, COLOR_ICON_SENT);
+	g_ColorAve          = GetPrivateProfileInt(SZ_COLOR_AVE , COLOR_AVERAGE);
+	g_ColorIconBack     = GetPrivateProfileInt(SZ_COLOR_ICON, COLOR_ICON_BACK);
+	g_MonitorMode       = (MONITOR_MODE)GetPrivateProfileInt(SZ_MONITOR_MODE, 0);
+	g_dwAdapter         = GetPrivateProfileInt(SZ_ADAPTER_INDEX, 0);
 }
 
 void SaveSettings() {
-	WritePrivateProfileInt(SZ_SAMPLERATE, g_nSampleRate);
-	WritePrivateProfileInt(SZ_AVERAGEWINDOW, g_nAveragingWindow);
-	WritePrivateProfileInt(SZ_RANGE_RECV, g_Range_Recv);
-	WritePrivateProfileInt(SZ_RANGE_SENT, g_Range_Sent);
-	WritePrivateProfileInt(SZ_GRAPHOPTIONS, g_GraphOptions);
-	WritePrivateProfileInt(SZ_DISPLAYBYTES, g_DisplayBytes);
-	WritePrivateProfileInt(SZ_STARTUP, g_bStartWithWindows);
-	WritePrivateProfileInt(SZ_ONTOP, g_bOnTop);
-	WritePrivateProfileInt(SZ_BARGRAPH, g_bShowBarGraph);
+	WritePrivateProfileInt(SZ_SAMPLERATE    , g_nSampleRate);
+	WritePrivateProfileInt(SZ_AVERAGEWINDOW , g_nAveragingWindow);
+	WritePrivateProfileInt(SZ_RANGE_RECV    , g_Range_Recv);
+	WritePrivateProfileInt(SZ_RANGE_SENT    , g_Range_Sent);
+	WritePrivateProfileInt(SZ_GRAPHOPTIONS  , g_GraphOptions);
+	WritePrivateProfileInt(SZ_DISPLAYBYTES  , g_DisplayBytes);
+	WritePrivateProfileInt(SZ_STARTUP       , g_bStartWithWindows);
+	WritePrivateProfileInt(SZ_ONTOP         , g_bOnTop);
+	WritePrivateProfileInt(SZ_BARGRAPH      , g_bShowBarGraph);
 	WritePrivateProfileInt(SZ_AUTOSCALE_RECV, g_bAutoScaleRecv);
 	WritePrivateProfileInt(SZ_AUTOSCALE_SENT, g_bAutoScaleSent);
-	WritePrivateProfileInt(SZ_COLOR_BACK, g_ColorBack);
-	WritePrivateProfileInt(SZ_COLOR_RECV, g_ColorRecv);
-	WritePrivateProfileInt(SZ_COLOR_SENT, g_ColorSent);
-	WritePrivateProfileInt(SZ_COLOR_AVE , g_ColorAve);
-	WritePrivateProfileInt(SZ_COLOR_ICON, g_ColorIconBack);
-	WritePrivateProfileInt(SZ_ICON_STYLE, g_IconStyle);
-	WritePrivateProfileInt(SZ_MONITOR_MODE, g_MonitorMode);
-	WritePrivateProfileInt(SZ_ADAPTER_INDEX, g_dwAdapter);
+	WritePrivateProfileInt(SZ_COLOR_BACK    , g_ColorBack);
+	WritePrivateProfileInt(SZ_COLOR_RECV    , g_ColorRecv);
+	WritePrivateProfileInt(SZ_COLOR_SENT    , g_ColorSent);
+	WritePrivateProfileInt(SZ_COLOR_AVE     , g_ColorAve);
+	WritePrivateProfileInt(SZ_COLOR_ICON    , g_ColorIconBack);
+	WritePrivateProfileInt(SZ_ICON_STYLE    , g_IconStyle);
+	WritePrivateProfileInt(SZ_MONITOR_MODE  , g_MonitorMode);
+	WritePrivateProfileInt(SZ_ADAPTER_INDEX , g_dwAdapter);
 	SetStartupOptions();
 }
