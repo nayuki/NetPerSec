@@ -144,38 +144,29 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 	char *b = "Bytes";
 	double num = dbBytes;
 	
-	// Decimal format
-	#define GIGABITS 1000 * 1000 * 1000
-	#define MEGABITS 1000 * 1000
-	#define KILOBITS 1000
+	// Binary prefixes
+	UINT GIGA = 1 << 30;
+	UINT MEGA = 1 << 20;
+	UINT KILO = 1 << 10;
 	
-	// Binary format
-	#define GIGABYTE 1024 * 1024 * 1024
-	#define MEGABYTE 1024 * 1024
-	#define KILOBYTE 1024
-	
-	UINT GIGA = GIGABYTE;
-	UINT MEGA = MEGABYTE;
-	UINT KILO = KILOBYTE;
-	
-	// Convert to bits
+	// Decimal prefixes, and convert to bits
 	if (g_DisplayBytes == 0) {
 		num *= 8;
 		b = "bits";
-		GIGA = GIGABITS;
-		MEGA = MEGABITS;
-		KILO = KILOBITS;
+		GIGA = 1000000000;
+		MEGA =    1000000;
+		KILO =       1000;
 	}
 	
 	if (num >= GIGA) {
-		sprintf(s, "%.1f", ((double)num / (double)(GIGA)));
+		sprintf(s, "%.1f", (double)num / GIGA);
 		*pString = s;
 		ch = 'G';
 	} else if (num >= MEGA) {
-		sprintf(s, "%.1f", ((double)num / (double)(MEGA)));
+		sprintf(s, "%.1f", (double)num / MEGA);
 		ch = 'M';
 	} else if (num >= KILO) {
-		sprintf(s, "%.1f", ((double)num / (double)(KILO)));
+		sprintf(s, "%.1f", (double)num / KILO);
 		*pString = s;
 		ch = g_DisplayBytes ? 'K' : 'k';
 	} else {
