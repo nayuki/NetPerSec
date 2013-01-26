@@ -182,14 +182,14 @@ void CDisplayDlg::ShowSampleIcon() {
 		r[1].Bps = 100;
 		s[1].Bps = 100;
 	} else if (g_IconStyle == ICON_HISTOGRAM) {
-		for (int i = 0; i <= 16; i++) {
-			r[i].Bps = i * 4;
-			s[i].Bps = i * 4;
+		for (int i = 0; i <= 14; i++) {
+			r[i].Bps = (14 - i) * 4;
+			s[i].Bps = (14 - i) * 4;
 		}
 	} else
 		ASSERT(false);
 	
-	HICON hIcon = pTheApp->m_Icons.GetIcon(&s[0], &r[0], 14, g_IconStyle);
+	HICON hIcon = pTheApp->m_Icons.GetIcon(&s[0], &r[0], g_IconStyle);
 	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE, IMAGE_ICON, (LPARAM)hIcon);
 	if (hOld)
 		DestroyIcon(hOld);

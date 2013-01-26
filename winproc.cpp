@@ -83,14 +83,12 @@ void Cwinproc::StartUp() {
 void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT *pStats) {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
-	int i = m_nArrayIndex;
-	
-	pStats[i].Bps = dwBps;
-	pStats[i].total = dbTotal;
-	pStats[i].time = dwTime;  // Current time interval (ms)
+	pStats[0].Bps = dwBps;
+	pStats[0].total = dbTotal;
+	pStats[0].time = dwTime;  // Current time interval (ms)
 	
 	// The index in the array for calculating averages
-	int start = (i - g_nAveragingWindow + MAX_SAMPLES) % MAX_SAMPLES;
+	int start = g_nAveragingWindow;
 	
 	// The array entry may not have been filled in yet
 	if (pStats[start].total == 0)
@@ -104,11 +102,11 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 		dbSampleTotal = dbTotal - pStats[start].total;
 	
 	// Elapsed time (ms)
-	DWORD dwElapsed = pStats[i].time - pStats[start].time;
+	DWORD dwElapsed = pStats[0].time - pStats[start].time;
 	
 	// Calculate average
 	if (dwElapsed > 0)
-		pStats[i].ave = MulDiv((DWORD)dbSampleTotal, 1000, dwElapsed);
+		pStats[0].ave = MulDiv((DWORD)dbSampleTotal, 1000, dwElapsed);
 }
 
 
@@ -158,17 +156,20 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	double recv_bits = (double)r;
 	double sent_bits = (double)s;
 	
+	// Shift over previous data
+	for (int i = MAX_SAMPLES - 1; i >= 1; i--) {
+		RecvStats[i] = RecvStats[i - 1];
+		SentStats[i] = SentStats[i - 1];
+	}
+	
 	// Calc the average bps
 	CalcAverages(recv_bits, dwTime, dwRecv_bps, &RecvStats[0]);
 	CalcAverages(sent_bits, dwTime, dwSent_bps, &SentStats[0]);
 	
 	// Get the icon for the system tray
-	HICON hIcon = pTheApp->m_Icons.GetIcon(&RecvStats[0], &SentStats[0], m_nArrayIndex, g_IconStyle);
+	HICON hIcon = pTheApp->m_Icons.GetIcon(&RecvStats[0], &SentStats[0], g_IconStyle);
 	UpdateTrayIcon(hIcon);
 	DestroyIcon(hIcon);
-	
-	// Increment circular buffer index
-	m_nArrayIndex = (m_nArrayIndex + 1) % MAX_SAMPLES;
 	
 	// Save the totals
 	m_dbTotalBytesRecv = dbRecv;
@@ -209,10 +210,8 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 		case WM_MOUSEMOVE:
 		{
 			CString s, sRecvBPS, sRecvAVE;
-			int index = GetArrayIndex();
-			
-			FormatBytes(RecvStats[index].Bps, &sRecvBPS);
-			FormatBytes(RecvStats[index].ave, &sRecvAVE);
+			FormatBytes(RecvStats[0].Bps, &sRecvBPS);
+			FormatBytes(RecvStats[0].ave, &sRecvAVE);
 			s.Format("Current: %s   Average: %s", sRecvBPS, sRecvAVE);
 			
 			m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
@@ -261,10 +260,6 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
-// m_nArrayIndex is always one after the most recently filled data index
-int Cwinproc::GetArrayIndex() {
-	return (m_nArrayIndex - 1 + MAX_SAMPLES) % MAX_SAMPLES;
-}
 
 void Cwinproc::UpdateTrayIcon(HICON hIcon) {
 	ASSERT(hIcon != 0);
@@ -282,7 +277,6 @@ void Cwinproc::UpdateTrayIcon(HICON hIcon) {
 
 // Init all arrays
 void Cwinproc::ResetData() {
-	m_nArrayIndex = 0;
 	ZeroMemory(RecvStats, sizeof(RecvStats));
 	ZeroMemory(SentStats, sizeof(SentStats));
 }

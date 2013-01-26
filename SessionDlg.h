@@ -36,7 +36,7 @@ public:
 	void SetGraphStyle();
 	BOOL CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_MODE update);
 	void UpdateScrollPos(WORD wControl, DWORD dwValue);
-	DWORD CalcMax(STATS_STRUCT *pStats, int start);
+	DWORD CalcMax(STATS_STRUCT *pStats);
 	
 	CToolTipCtrl m_ToolTip;
 	CGraphs m_RecvGraph;

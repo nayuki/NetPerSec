@@ -37,12 +37,8 @@ public:
 	STATS_STRUCT RecvStats[MAX_SAMPLES];
 	STATS_STRUCT SentStats[MAX_SAMPLES];
 	
-	int GetArrayIndex();
 	void ResetData();
 	void CalcAverages(double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT *pStats);
-	
-private:
-	int m_nArrayIndex;
 	
 // Operations
 public:

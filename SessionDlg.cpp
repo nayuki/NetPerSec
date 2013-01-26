@@ -137,26 +137,24 @@ void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes) {
 }
 
 
-DWORD CSessionDlg::CalcMax(STATS_STRUCT *pStats, int index) {
-	int numElems = min(m_SentGraph.GetTotalElements(), MAX_SAMPLES);
+DWORD CSessionDlg::CalcMax(STATS_STRUCT *pStats) {
+	int total = min(m_SentGraph.GetTotalElements(), MAX_SAMPLES);
 	DWORD dwMax = 0;
-	for (int i = 0; i < numElems; i++)
-		dwMax = max(pStats[(index - i + MAX_SAMPLES) % MAX_SAMPLES].Bps, dwMax);
+	for (int i = 0; i < total; i++)
+		dwMax = max(pStats[i].Bps, dwMax);
 	return dwMax;
 }
 
 
 void CSessionDlg::UpdateDlg() {
-	int i = pTheApp->m_wnd.GetArrayIndex();
+	DisplayNumber(IDC_RECV_CURRENT, pTheApp->m_wnd.RecvStats[0].Bps);
+	DisplayNumber(IDC_RECV_AVERAGE, pTheApp->m_wnd.RecvStats[0].ave);
 	
-	DisplayNumber(IDC_RECV_CURRENT, pTheApp->m_wnd.RecvStats[i].Bps);
-	DisplayNumber(IDC_RECV_AVERAGE, pTheApp->m_wnd.RecvStats[i].ave);
+	DisplayNumber(IDC_SENT_CURRENT, pTheApp->m_wnd.SentStats[0].Bps);
+	DisplayNumber(IDC_SENT_AVERAGE, pTheApp->m_wnd.SentStats[0].ave);
 	
-	DisplayNumber(IDC_SENT_CURRENT, pTheApp->m_wnd.SentStats[i].Bps);
-	DisplayNumber(IDC_SENT_AVERAGE, pTheApp->m_wnd.SentStats[i].ave);
-	
-	DisplayNumber(IDC_RECV_MAXIMUM, CalcMax(pTheApp->m_wnd.RecvStats, i));
-	DisplayNumber(IDC_SENT_MAXIMUM, CalcMax(pTheApp->m_wnd.SentStats, i));
+	DisplayNumber(IDC_RECV_MAXIMUM, CalcMax(pTheApp->m_wnd.RecvStats));
+	DisplayNumber(IDC_SENT_MAXIMUM, CalcMax(pTheApp->m_wnd.SentStats));
 }
 
 
@@ -275,34 +273,22 @@ void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue) {
 void CSessionDlg::UpdateGraph() {
 	// Check autosize
 	if (!g_bAutoScaleRecv || CalcAutoScale(&m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA) == FALSE)
-		DrawGraph(pTheApp->m_wnd.GetArrayIndex(), RECV_DATA);
+		DrawGraph(0, RECV_DATA);
 	if (!g_bAutoScaleSent || CalcAutoScale(&m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA) == FALSE)
-		DrawGraph(pTheApp->m_wnd.GetArrayIndex(), SENT_DATA);
+		DrawGraph(0, SENT_DATA);
 }
 
 
 // Determine the range of the graph based upon recent samples.
 // Returns TRUE if the graph should be updated.
 BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_MODE update) {
-	int start = pTheApp->m_wnd.GetArrayIndex();
 	int total = m_SentGraph.GetTotalElements();
-	start -= total;
-	if (start < 0)
-		start += MAX_SAMPLES;
-	
 	DWORD dwHigh = 0;
-	for (int i = 0; i < total; i++) {
-		if (start >= MAX_SAMPLES)
-			start = 0;
-		if (g_GraphOptions & OPTION_BPS) {
-			if (pStats[start].Bps > dwHigh)
-				dwHigh = pStats[start].Bps;
-		}
-		if (g_GraphOptions & OPTION_AVE) {
-			if (pStats[start].ave > dwHigh)
-				dwHigh = pStats[start].ave;
-		}
-		start++;
+	for (int i = 1; i <= total; i++) {
+		if (g_GraphOptions & OPTION_BPS)
+			dwHigh = max(pStats[i].Bps, dwHigh);
+		if (g_GraphOptions & OPTION_AVE)
+			dwHigh = max(pStats[i].ave, dwHigh);
 	}
 	
 	// Scale the highest point in the graph to 80% of the graphs total height
@@ -349,17 +335,9 @@ void CSessionDlg::SetGraphRangeSent() {
 	m_SentGraph.ClearGraph();
 	
 	// Init the graphs
-	int start = pTheApp->m_wnd.GetArrayIndex();
 	int total = m_SentGraph.GetTotalElements();
-	start -= total;
-	if (start < 0)
-		start += MAX_SAMPLES;
-	
-	for (int i = 0; i <= total; i++) {
-		if (start >= MAX_SAMPLES)
-			start = 0;
-		DrawGraph(start++, SENT_DATA);
-	}
+	for (int i = 0; i <= total; i++)
+		DrawGraph(total - i, SENT_DATA);
 }
 
 // Draws the received samples
@@ -374,17 +352,9 @@ void CSessionDlg::SetGraphRangeRecv() {
 	m_RecvGraph.ClearGraph();
 	
 	// Init the graphs
-	int start = pTheApp->m_wnd.GetArrayIndex();
 	int total = m_SentGraph.GetTotalElements();
-	start -= total;
-	if (start < 0)
-		start += MAX_SAMPLES;
-	
-	for (int i = 0; i <= total; i++) {
-		if (start >= MAX_SAMPLES)
-			start = 0;
-		DrawGraph(start++, RECV_DATA);
-	}
+	for (int i = 0; i <= total; i++)
+		DrawGraph(total - i, RECV_DATA);
 }
 
 
