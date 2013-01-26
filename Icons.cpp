@@ -100,7 +100,7 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 	CBrush brush(color);
 	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, size, 0);
-	for (int i = size; i >= 1; i--) {
+	for (int i = size - 1; i >= 0; i--) {
 		// 60 percent - icon is 6 pixels high
 		int nIcon = MulDiv(pStats[i].Bps, 6, dwHigh);
 		if (pStats[i].Bps != 0)  // For at least 1 pixel if there is traffic
