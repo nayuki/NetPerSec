@@ -138,11 +138,11 @@ void SetStartupOptions() {
 }
 
 // Format BYTES into a string, the function will convert to bits if it is the default option
-void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond = TRUE */) {
+void FormatBytes(double val, CString *pString, BOOL perSecond) {
 	static char s[256];
 	char ch;
 	char *b = "Bytes";
-	double num = dbBytes;
+	double num = val;
 	
 	// Binary prefixes
 	UINT GIGA = 1 << 30;
