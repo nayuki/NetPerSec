@@ -71,34 +71,30 @@ BOOL COptionsDlg::OnInitDialog() {
 	ASSERT(pSampleSlider != NULL);
 	ASSERT(pWindowSlider != NULL);
 	
-	pSampleSlider->SetRange(0, ELEMENTS(SampleRates) - 1);   //milliseconds
-	pWindowSlider->SetRange(1, (MAX_SAMPLES - 1) / AVERAGING_MULTIPLIER);   //seconds
-	
+	pSampleSlider->SetRange(0, ELEMENTS(SampleRates) - 1);  // Milliseconds
 	pSampleSlider->SetTicFreq(1);
-	pWindowSlider->SetTicFreq(1);
-	
 	pSampleSlider->SetPageSize(1);
 	pSampleSlider->SetLineSize(1);
-	
-	pWindowSlider->SetPageSize(1);
-	pWindowSlider->SetLineSize(1);
 	
 	int nPos = 0;
 	for (int i = 0; i < ELEMENTS(SampleRates); i++) {
 		if ((UINT)g_nSampleRate >= SampleRates[i])
 			nPos = i;
 	}
-	
 	pSampleSlider->SetPos(nPos);
+	
+	pWindowSlider->SetRange(1, (MAX_SAMPLES - 1) / AVERAGING_MULTIPLIER);  // Seconds
+	pWindowSlider->SetTicFreq(1);
+	pWindowSlider->SetPageSize(1);
+	pWindowSlider->SetLineSize(1);
 	pWindowSlider->SetPos(g_nAveragingWindow / AVERAGING_MULTIPLIER);
 	
 	int nID;
-	if (g_MonitorMode == MONITOR_DUN)
-		nID = IDC_USE_DUN;
-	else if (g_MonitorMode == MONITOR_ADAPTER)
-		nID = IDC_MONITOR_ADAPTER;
-	else
-		nID = IDC_USE_SNMP;
+	switch (g_MonitorMode) {
+		case MONITOR_DUN    :  nID = IDC_USE_DUN;          break;
+		case MONITOR_ADAPTER:  nID = IDC_MONITOR_ADAPTER;  break;
+		default             :  nID = IDC_USE_SNMP;         break;
+	}
 	
 	CheckRadioButton(IDC_USE_SNMP, IDC_MONITOR_ADAPTER, nID);
 	m_Interfaces.EnableWindow(g_MonitorMode == MONITOR_ADAPTER);
@@ -107,7 +103,7 @@ BOOL COptionsDlg::OnInitDialog() {
 	
 	// Return TRUE unless you set the focus to a control
 	// Exception: OCX Property Pages should return FALSE
-	return TRUE;  
+	return TRUE;
 }
 
 
@@ -122,9 +118,9 @@ void COptionsDlg::UpdateAveragingWindow() {
 	g_nAveragingWindow = max(nPos * AVERAGING_MULTIPLIER, 1);
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
-	s.Format("%.5g", (double)(g_nSampleRate * AVERAGING_MULTIPLIER) / 1000);
+	s.Format("%.5g", g_nSampleRate * AVERAGING_MULTIPLIER / 1000.0);
 	SetDlgItemText(IDC_AVERAGE_MIN, s);
-	s.Format("%.5g", (double)(max * g_nSampleRate * AVERAGING_MULTIPLIER) / 1000);
+	s.Format("%.5g", max * g_nSampleRate * AVERAGING_MULTIPLIER / 1000.0);
 	SetDlgItemText(IDC_AVERAGE_MAX, s);
 }
 

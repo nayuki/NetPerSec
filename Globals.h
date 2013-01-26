@@ -100,7 +100,7 @@ void ShowError(UINT nID, int nType);
 void FormatBytes(double Bytes, CString *pString, BOOL bPerSecond=TRUE);
 LPSTR FormatNumber(DWORD N);
 void WritePrivateProfileInt(LPCSTR pSection, int nValue);
-int GetPrivateProfileString(LPCSTR pKey,LPCSTR lpDefault, LPSTR lpReturn, int nSize);
+int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int nSize);
 int GetPrivateProfileInt(LPCSTR pKey, int nDefault=0);
 void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue);
 void LoadWindowPosition(CRect *pRect);

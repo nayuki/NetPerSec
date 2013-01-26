@@ -189,7 +189,7 @@ void CDisplayDlg::ShowSampleIcon() {
 	} else
 		ASSERT(false);
 	
-	HICON hIcon = pTheApp->m_Icons.GetIcon(&s[0], &r[0], g_IconStyle);
+	HICON hIcon = pTheApp->m_Icons.GetIcon(s, r, g_IconStyle);
 	HICON hOld = (HICON)GetDlgItem(IDC_SAMPLE_ICON)->SendMessage(STM_SETIMAGE, IMAGE_ICON, (LPARAM)hIcon);
 	if (hOld)
 		DestroyIcon(hOld);

@@ -60,7 +60,7 @@ void CGraphs::SetGraphRange(UINT nRange) {
 	RedrawGraph();
 }
 
-//for linegraph
+// For line graph
 void CGraphs::SetSize(int nPoints) {
 	m_GraphArray.SetSize(nPoints);
 }
@@ -114,7 +114,7 @@ void CGraphs::SetPos(UINT nPos, COLORREF cr, int nIndex) {
 }
 
 void CGraphs::OnPaint() {
-	CPaintDC dc(this); // device context for painting
+	CPaintDC dc(this);  // Device context for painting
 	
 	// Do not call CWnd::OnPaint() for painting messages
 	CRect rcClient;
@@ -180,7 +180,7 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 			m_MemDC.FillRect(rcTop, &brush);
 		} else {
 			if (nLineIndex != -1 && nLineIndex < m_GraphArray.GetSize()) {
-				CPen pen(PS_SOLID,1, crColor);
+				CPen pen(PS_SOLID, 1, crColor);
 				CPen *pOldPen = m_MemDC.SelectObject(&pen);
 				m_MemDC.MoveTo(rcRight.left - 1, m_GraphArray.GetAt(nLineIndex));
 				m_MemDC.LineTo(rcClient.right - 1, rcTop.top);

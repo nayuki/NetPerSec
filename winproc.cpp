@@ -163,11 +163,11 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	}
 	
 	// Calc the average bps
-	CalcAverages(recv_bits, dwTime, dwRecv_bps, &RecvStats[0]);
-	CalcAverages(sent_bits, dwTime, dwSent_bps, &SentStats[0]);
+	CalcAverages(recv_bits, dwTime, dwRecv_bps, RecvStats);
+	CalcAverages(sent_bits, dwTime, dwSent_bps, SentStats);
 	
 	// Get the icon for the system tray
-	HICON hIcon = pTheApp->m_Icons.GetIcon(&RecvStats[0], &SentStats[0], g_IconStyle);
+	HICON hIcon = pTheApp->m_Icons.GetIcon(RecvStats, SentStats, g_IconStyle);
 	UpdateTrayIcon(hIcon);
 	DestroyIcon(hIcon);
 	
@@ -242,7 +242,7 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 			
 			// See Q135788 "PRB: Menus for Notification Icons Do Not Work Correctly"
 			SetForegroundWindow();
-			int cmd = pMenu->TrackPopupMenu(TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY , pt.x, pt.y, this);
+			int cmd = pMenu->TrackPopupMenu(TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY, pt.x, pt.y, this);
 			PostMessage(WM_NULL, 0, 0);
 			
 			if (cmd == IDCLOSE) {
