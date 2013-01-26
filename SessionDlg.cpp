@@ -118,11 +118,9 @@ BOOL CSessionDlg::PreTranslateMessage(MSG *pMsg) {
 BOOL CSessionDlg::OnSetActive() {
 	if (m_pbrBackground != NULL)
 		delete m_pbrBackground;
-	
 	m_pbrBackground = new CBrush(g_ColorBack);
 	
 	SetTimer(TIMER_ID_SESSION, g_nSampleRate, NULL);
-	
 	UpdateDlg();
 	UpdateGraph();
 	SetGraphRangeRecv();
@@ -138,20 +136,15 @@ void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes) {
 	SetDlgItemText(nID, s);
 }
 
+
 DWORD CSessionDlg::CalcMax(STATS_STRUCT *pStats, int index) {
-	int total = m_SentGraph.GetTotalElements();
-	
-	// Calc max
+	int numElems = min(m_SentGraph.GetTotalElements(), MAX_SAMPLES);
 	DWORD dwMax = 0;
-	for (int i = 0; i < total; i++) {
-		if (index < 0)
-			index = MAX_SAMPLES - 1;
-		if (pStats[index].Bps > dwMax)
-			dwMax = pStats[index].Bps;
-		index--;
-	}
+	for (int i = 0; i < numElems; i++)
+		dwMax = max(pStats[(index - i + MAX_SAMPLES) % MAX_SAMPLES].Bps, dwMax);
 	return dwMax;
 }
+
 
 void CSessionDlg::UpdateDlg() {
 	int i = pTheApp->m_wnd.GetArrayIndex();

@@ -83,19 +83,14 @@ void Cwinproc::StartUp() {
 void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT *pStats) {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
-	// Set current bps
-	pStats[m_nArrayIndex].Bps = dwBps;
+	int i = m_nArrayIndex;
 	
-	// Set total bytes sent or recv
-	pStats[m_nArrayIndex].total = dbTotal;
+	pStats[i].Bps = dwBps;
+	pStats[i].total = dbTotal;
+	pStats[i].time = dwTime;  // Current time interval (ms)
 	
-	// Set the current time (milliseconds)
-	pStats[m_nArrayIndex].time = dwTime;
-	
-	// Start is the index in the array for calculating averages
-	int start = m_nArrayIndex - g_nAveragingWindow;
-	if (start < 0)
-		start += MAX_SAMPLES;
+	// The index in the array for calculating averages
+	int start = (i - g_nAveragingWindow + MAX_SAMPLES) % MAX_SAMPLES;
 	
 	// The array entry may not have been filled in yet
 	if (pStats[start].total == 0)
@@ -108,12 +103,12 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 	if (pStats[start].total)
 		dbSampleTotal = dbTotal - pStats[start].total;
 	
-	// Elapsed milliseconds
-	DWORD dwElapsed = pStats[m_nArrayIndex].time - pStats[start].time;
+	// Elapsed time (ms)
+	DWORD dwElapsed = pStats[i].time - pStats[start].time;
 	
-	// Calc average
-	if (dwElapsed)
-		pStats[m_nArrayIndex].ave = MulDiv((DWORD)dbSampleTotal, 1000, dwElapsed);
+	// Calculate average
+	if (dwElapsed > 0)
+		pStats[i].ave = MulDiv((DWORD)dbSampleTotal, 1000, dwElapsed);
 }
 
 
@@ -172,10 +167,8 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	UpdateTrayIcon(hIcon);
 	DestroyIcon(hIcon);
 	
-	// Increment the circular buffer index
-	m_nArrayIndex++;
-	if (m_nArrayIndex >= MAX_SAMPLES)
-		m_nArrayIndex = 0;
+	// Increment circular buffer index
+	m_nArrayIndex = (m_nArrayIndex + 1) % MAX_SAMPLES;
 	
 	// Save the totals
 	m_dbTotalBytesRecv = dbRecv;
@@ -268,12 +261,9 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
-// The index to the array will always be one greater than the actual current value
+// m_nArrayIndex is always one after the most recently filled data index
 int Cwinproc::GetArrayIndex() {
-	int i = m_nArrayIndex - 1;
-	if (i < 0)
-		i = MAX_SAMPLES + i;
-	return i;
+	return (m_nArrayIndex - 1 + MAX_SAMPLES) % MAX_SAMPLES;
 }
 
 void Cwinproc::UpdateTrayIcon(HICON hIcon) {
@@ -299,17 +289,11 @@ void Cwinproc::ResetData() {
 
 
 void Cwinproc::WinHelp(DWORD /*dwData*/, UINT /*nCmd*/) {
-	if (m_pPropertiesDlg) {
+	if (m_pPropertiesDlg != NULL) {
 		switch (m_pPropertiesDlg->GetActiveIndex()) {
-			case 0:
-				CWnd::WinHelp(IDH_connection_tab);
-				return;
-			case 1:
-				CWnd::WinHelp(IDH_options_tab);
-				return;
-			case 2:
-				CWnd::WinHelp(IDH_colors_tab);
-				return;
+			case 0:  CWnd::WinHelp(IDH_connection_tab);  return;
+			case 1:  CWnd::WinHelp(IDH_options_tab   );  return;
+			case 2:  CWnd::WinHelp(IDH_colors_tab    );  return;
 		}
 	}
 	CWnd::WinHelp(0, HELP_CONTENTS);
