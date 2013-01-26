@@ -210,8 +210,8 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 		case WM_MOUSEMOVE:
 		{
 			CString s, sRecvBPS, sRecvAVE;
-			FormatBytes(RecvStats[0].Bps, &sRecvBPS, true);
-			FormatBytes(RecvStats[0].ave, &sRecvAVE, true);
+			FormatBytes(RecvStats[0].Bps, sRecvBPS, true);
+			FormatBytes(RecvStats[0].ave, sRecvAVE, true);
 			s.Format("Current: %s   Average: %s", sRecvBPS, sRecvAVE);
 			
 			m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);

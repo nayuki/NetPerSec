@@ -132,7 +132,7 @@ BOOL CSessionDlg::OnSetActive() {
 // Display a formatted number
 void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes) {
 	CString s;
-	FormatBytes(dwBytes, &s, true);
+	FormatBytes(dwBytes, s, true);
 	SetDlgItemText(nID, s);
 }
 
@@ -164,10 +164,10 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */) {
 	UpdateGraph();
 	
 	CString s;
-	FormatBytes((pTheApp->m_wnd.m_dbTotalBytesRecv - g_dbResetRecv), &s, false);
+	FormatBytes((pTheApp->m_wnd.m_dbTotalBytesRecv - g_dbResetRecv), s, false);
 	SetDlgItemText(IDC_GROUP_RECV, "Received: " + s);
 	
-	FormatBytes((pTheApp->m_wnd.m_dbTotalBytesSent - g_dbResetSent), &s, false);
+	FormatBytes((pTheApp->m_wnd.m_dbTotalBytesSent - g_dbResetSent), s, false);
 	SetDlgItemText(IDC_GROUP_SENT, "Sent: " + s);
 }
 
@@ -419,15 +419,15 @@ void CSessionDlg::OnMaxSentOption() {
 // Draw the labels on the right side of the graph
 void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber) {
 	CString s;
-	FormatBytes(dwNumber, &s, true);
+	FormatBytes(dwNumber, s, true);
 	
 	SetDlgItemText(IDC_SCALE_MAX_RECV, s);
 	
-	FormatBytes(dwNumber / 2, &s, true);
+	FormatBytes(dwNumber / 2, s, true);
 	
 	SetDlgItemText(IDC_SCALE_MID_RECV, s);
 	
-	FormatBytes(0, &s, true);
+	FormatBytes(0, s, true);
 	SetDlgItemText(IDC_RECV_ZERO, s);
 	
 	SetGraphRangeRecv();
@@ -437,15 +437,15 @@ void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber) {
 // Draw the labels on the right side of the graph
 void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber) {
 	CString s;
-	FormatBytes(dwNumber, &s, true);
+	FormatBytes(dwNumber, s, true);
 	
 	SetDlgItemText(IDC_SCALE_MAX_SENT, s);
 	
-	FormatBytes(dwNumber / 2, &s, true);
+	FormatBytes(dwNumber / 2, s, true);
 	
 	SetDlgItemText(IDC_SCALE_MID_SENT, s);
 	
-	FormatBytes(0, &s, true);
+	FormatBytes(0, s, true);
 	SetDlgItemText(IDC_SENT_ZERO, s);
 	
 	SetGraphRangeSent();

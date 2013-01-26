@@ -111,9 +111,9 @@ BEGIN
                     171,47,10
     CONTROL         "Line graph",IDC_LINEGRAPH,"Button",BS_AUTORADIOBUTTON,
                     78,185,49,10
-    CONTROL         "bits per second (bps)",IDC_BPS,"Button",
+    CONTROL         "Bits per second (bit/s)",IDC_BPS,"Button",
                     BS_AUTORADIOBUTTON | WS_GROUP,136,171,81,10
-    CONTROL         "Bytes per second (Bps)",IDC_BYTES,"Button",
+    CONTROL         "Bytes per second (B/s)",IDC_BYTES,"Button",
                     BS_AUTORADIOBUTTON,136,185,89,10
     CONTROL         "Auto scale",IDC_AUTOSCALE_RECV,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,83,70,49,10
@@ -290,7 +290,7 @@ BEGIN
             VALUE "FileDescription", "NetPerSec\0"
             VALUE "FileVersion", "1.1\0"
             VALUE "InternalName", "NetPerSec\0"
-            VALUE "LegalCopyright", "Copyright © 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
+            VALUE "LegalCopyright", "Copyright ï¿½ 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "NetPerSec\0"
             VALUE "PrivateBuild", "\0"

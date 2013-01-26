@@ -137,48 +137,32 @@ void SetStartupOptions() {
 	CoUninitialize();
 }
 
-// Format BYTES into a string, the function will convert to bits if it is the default option
-void FormatBytes(double val, CString *pString, BOOL perSecond) {
-	static char s[256];
-	char ch;
-	char *b = "Bytes";
-	double num = val;
-	
-	// Binary prefixes
-	UINT GIGA = 1 << 30;
-	UINT MEGA = 1 << 20;
-	UINT KILO = 1 << 10;
-	
-	// Decimal prefixes, and convert to bits
-	if (g_DisplayBytes == 0) {
-		num *= 8;
-		b = "bits";
-		GIGA = 1000000000;
-		MEGA =    1000000;
-		KILO =       1000;
+// Format val into a string, the function will convert to bits if it is the default option
+void FormatBytes(double val, CString &outStr, BOOL perSecond) {
+	if (g_DisplayBytes != 0) {
+		// Binary prefixes
+		UINT GIGA = 1 << 30;
+		UINT MEGA = 1 << 20;
+		UINT KILO = 1 << 10;
+		if      (val >= GIGA) outStr.Format("%.3f GiB", val / GIGA);
+		else if (val >= MEGA) outStr.Format("%.2f MiB", val / MEGA);
+		else if (val >= KILO) outStr.Format("%.2f KiB", val / KILO);
+		else                  outStr.Format("%d bytes", (int)val);
+		
+	} else {  // Bits
+		// Decimal prefixes
+		UINT GIGA = 1000000000;
+		UINT MEGA =    1000000;
+		UINT KILO =       1000;
+		val *= 8;
+		if      (val >= GIGA) outStr.Format("%.3f Gbit", val / GIGA);
+		else if (val >= MEGA) outStr.Format("%.2f Mbit", val / MEGA);
+		else if (val >= KILO) outStr.Format("%.2f Kbit", val / KILO);
+		else                  outStr.Format("%d bit", (int)val);
 	}
 	
-	if (num >= GIGA) {
-		sprintf(s, "%.1f", (double)num / GIGA);
-		*pString = s;
-		ch = 'G';
-	} else if (num >= MEGA) {
-		sprintf(s, "%.1f", (double)num / MEGA);
-		ch = 'M';
-	} else if (num >= KILO) {
-		sprintf(s, "%.1f", (double)num / KILO);
-		*pString = s;
-		ch = g_DisplayBytes ? 'K' : 'k';
-	} else {
-		sprintf(s, "%g", num);
-		*pString = s;
-		ch = ' ';
-	}
-	
-	if (bPerSecond)
-		pString->Format("%s %c%s/s", s, ch, b);
-	else
-		pString->Format("%s %c%s", s, ch, b);
+	if (perSecond)
+		outStr += "/s";
 }
 
 

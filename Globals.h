@@ -97,7 +97,7 @@ extern ICON_STYLE g_IconStyle;
 void ReadSettings();
 void SaveSettings();
 void ShowError(UINT nID, int nType);
-void FormatBytes(double val, CString *pString, BOOL perSecond);
+void FormatBytes(double val, CString &outStr, BOOL perSecond);
 void WritePrivateProfileInt(LPCSTR pSection, int nValue);
 int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int nSize);
 int GetPrivateProfileInt(LPCSTR pKey, int nDefault=0);
