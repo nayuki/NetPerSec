@@ -182,40 +182,6 @@ void FormatBytes(double dbBytes, CString *pString, BOOL bPerSecond /* bPerSecond
 }
 
 
-// Returns a comma-formatted number
-LPSTR FormatNumber(DWORD N) {
-	#define BUF_SIZE 128
-	static char buf[BUF_SIZE + 1];
-	
-	int len = 1, posn = 1, sign = 1;
-	char *ptr = buf + BUF_SIZE - 1;
-	*ptr-- = '\0';
-	
-	for (; len <= BUF_SIZE; len++, posn++) {
-		*ptr-- = (char)((N % 10L) + '0');
-		if ((N /= 10L) == 0L)
-			break;
-		
-		if (posn % 3 == 0) {
-			*ptr-- = ',';
-			len++;
-		}
-		
-		if (len >= BUF_SIZE)
-			return "";
-	}
-	
-	if (sign < 0) {
-		if (len >= BUF_SIZE)
-			return "";
-		*ptr-- = '-';
-		len++;
-	}
-	
-	memmove(buf, ++ptr, len + 1);
-	return buf;
-}
-
 void QualifyPathName(CString *pFile, LPCSTR pIni) {
 	char szName[MAX_PATH];
 	LPSTR p;
