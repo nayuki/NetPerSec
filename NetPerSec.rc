@@ -84,17 +84,14 @@ STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
 FONT 8, "MS Sans Serif"
 BEGIN
-    GROUPBOX        "",IDC_STATIC,6,5,271,180
-    LTEXT           "FileVersion",IDC_VERSION,149,64,44,8
-    CTEXT           "LegalCopyright",IDC_COPYRIGHT,61,83,161,19
-    RTEXT           "Version:",IDC_STATIC,116,64,26,8
-    LTEXT           "First published in PC Magazine, US Edition",IDC_STATIC,
-                    75,122,134,8
-    LTEXT           "January 16, 2001",IDC_STATIC,114,133,56,8
-    LTEXT           "Written by Mark Sweeney",IDC_STATIC,101,151,82,8
-    LTEXT           "NetPerSec",IDC_STATIC,123,20,36,8
-    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,84,109,114,1
-    ICON            IDI_MAINFRAME,IDC_STATIC,131,36,20,20
+    GROUPBOX        "",IDC_STATIC,7,7,271,180
+    LTEXT           "FileVersion",IDC_VERSION,150,74,44,8
+    CTEXT           "LegalCopyright",IDC_COPYRIGHT,36,96,212,11
+    RTEXT           "Version:",IDC_STATIC,120,74,26,8
+    CTEXT           "First published in PC Magazine, US Edition, 2001-01-16\nWritten by Mark Sweeney\n\nUpdated by Nayuki Minase in 2013\nhttp://nayuki.eigenstate.org/",IDC_STATIC,47,136,190,44
+    LTEXT           "NetPerSec",IDC_STATIC,126,26,36,8
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,69,119,146,1
+    ICON            IDI_MAINFRAME,IDC_STATIC,131,43,21,20
 END
 
 IDD_SESSION_DLG DIALOGEX 0, 0, 284, 204
@@ -269,7 +266,7 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,1
+ FILEVERSION 1,2,0,1
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -288,9 +285,9 @@ BEGIN
             VALUE "Comments", "Written by Mark Sweeney\0"
             VALUE "CompanyName", "Ziff-Davis Media, Inc.\0"
             VALUE "FileDescription", "NetPerSec\0"
-            VALUE "FileVersion", "1.1\0"
+            VALUE "FileVersion", "1.2\0"
             VALUE "InternalName", "NetPerSec\0"
-            VALUE "LegalCopyright", "Copyright ï¿½ 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
+            VALUE "LegalCopyright", "Copyright © 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "NetPerSec\0"
             VALUE "PrivateBuild", "\0"
