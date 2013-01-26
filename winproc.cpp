@@ -91,8 +91,8 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 	int start = g_nAveragingWindow;
 	
 	// The array entry may not have been filled in yet
-	if (pStats[start].total == 0)
-		start = 0;
+	while (start > 0 && pStats[start].total == 0)
+		start--;
 	
 	// Set average based upon sampling window size
 	double dbSampleTotal = 0;
