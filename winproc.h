@@ -39,6 +39,7 @@ public:
 	
 	void ResetData();
 	void CalcAverages(double dwTotal, DWORD dwTime, DWORD dwBPS, STATS_STRUCT *pStats);
+	static DWORD GetRecentMaximum(STATS_STRUCT *stats, int num, int type);
 	
 // Operations
 public:

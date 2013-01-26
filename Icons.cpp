@@ -6,6 +6,8 @@
 #include "Icons.h"
 #include "Globals.h"
 #include "resource.h"
+#include "Snmp.h"
+#include "winproc.h"
 
 
 CIcons::CIcons() {
@@ -37,12 +39,7 @@ HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, ICON_STYLE nStyl
 
 // Draws the bar graph icon
 void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
-	// Find maximum among most recent HIST_SIZE samples in circular buffer
-	const int HIST_SIZE = 15;
-	DWORD dwHigh = 1;
-	for (int i = 0; i < HIST_SIZE; i++)
-		dwHigh = max(pStats[i].Bps, dwHigh);
-	
+	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, 15, 0);
 	int nIcon = MulDiv(pStats[0].Bps, 14, dwHigh);
 	prc->top = prc->bottom - nIcon;
 	CBrush brush(color);
@@ -102,10 +99,7 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 	rc.left = offset;
 	CBrush brush(color);
 	
-	DWORD dwHigh = 1;
-	for (int i = 0; i < size + 1; i++)
-		dwHigh = max(pStats[i].Bps, dwHigh);
-	
+	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, size, 0);
 	for (int i = size; i >= 1; i--) {
 		// 60 percent - icon is 6 pixels high
 		int nIcon = MulDiv(pStats[i].Bps, 6, dwHigh);

@@ -139,10 +139,7 @@ void CSessionDlg::DisplayNumber(int nID, DWORD dwBytes) {
 
 DWORD CSessionDlg::CalcMax(STATS_STRUCT *pStats) {
 	int total = min(m_SentGraph.GetTotalElements(), MAX_SAMPLES);
-	DWORD dwMax = 0;
-	for (int i = 0; i < total; i++)
-		dwMax = max(pStats[i].Bps, dwMax);
-	return dwMax;
+	return Cwinproc::GetRecentMaximum(pStats, total, 0);
 }
 
 
@@ -283,13 +280,11 @@ void CSessionDlg::UpdateGraph() {
 // Returns TRUE if the graph should be updated.
 BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_MODE update) {
 	int total = m_SentGraph.GetTotalElements();
-	DWORD dwHigh = 0;
-	for (int i = 1; i <= total; i++) {
-		if (g_GraphOptions & OPTION_BPS)
-			dwHigh = max(pStats[i].Bps, dwHigh);
-		if (g_GraphOptions & OPTION_AVE)
-			dwHigh = max(pStats[i].ave, dwHigh);
-	}
+	DWORD dwHigh = 1;
+	if (g_GraphOptions & OPTION_BPS)
+		dwHigh = max(Cwinproc::GetRecentMaximum(pStats, total, 0), dwHigh);
+	if (g_GraphOptions & OPTION_AVE)
+		dwHigh = max(Cwinproc::GetRecentMaximum(pStats, total, 1), dwHigh);
 	
 	// Scale the highest point in the graph to 80% of the graphs total height
 	// You don't want the bars or lines always to be bumping the top of the graph

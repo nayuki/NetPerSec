@@ -110,6 +110,21 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 }
 
 
+DWORD Cwinproc::GetRecentMaximum(STATS_STRUCT *stats, int num, int type) {
+	ASSERT(num <= MAX_SAMPLES);
+	DWORD result = 1;  // To prevent division by zero when using the maximum for scaling
+	if (type == 0) {
+		for (int i = 0; i < num; i++)
+			result = max(stats[i].Bps, result);
+	} else if (type == 1) {
+		for (int i = 0; i < num; i++)
+			result = max(stats[i].ave, result);
+	} else
+		ASSERT(false);
+	return result;
+}
+
+
 // Calculate samples
 void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	DWORD s, r;
