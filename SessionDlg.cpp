@@ -420,11 +420,9 @@ void CSessionDlg::OnMaxSentOption() {
 void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber) {
 	CString s;
 	FormatBytes(dwNumber, s, true);
-	
 	SetDlgItemText(IDC_SCALE_MAX_RECV, s);
 	
 	FormatBytes(dwNumber / 2, s, true);
-	
 	SetDlgItemText(IDC_SCALE_MID_RECV, s);
 	
 	FormatBytes(0, s, true);
@@ -438,11 +436,9 @@ void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber) {
 void CSessionDlg::UpdateGraphTextSent(DWORD dwNumber) {
 	CString s;
 	FormatBytes(dwNumber, s, true);
-	
 	SetDlgItemText(IDC_SCALE_MAX_SENT, s);
 	
 	FormatBytes(dwNumber / 2, s, true);
-	
 	SetDlgItemText(IDC_SCALE_MID_SENT, s);
 	
 	FormatBytes(0, s, true);
