@@ -1,5 +1,5 @@
-#if !defined(AFX_PERFDATA_H__8AC19065_EECB_11D4_A181_004033572A05__INCLUDED_)
-#define AFX_PERFDATA_H__8AC19065_EECB_11D4_A181_004033572A05__INCLUDED_
+#ifndef AFX_PERFDATA_H
+#define AFX_PERFDATA_H
 
 #if _MSC_VER > 1000
 #pragma once
@@ -26,8 +26,8 @@ private:
 	BOOL m_bIs95;
 	
 	void GetNameStrings();
-	void ReadData9x(DWORD *pReceived, DWORD *pSent);
-	void ReadDataNT(DWORD *pReceived, DWORD *pSent);
+	void ReadData9x(DWORD *pRecv, DWORD *pSent);
+	void ReadDataNT(DWORD *pRecv, DWORD *pSent);
 	BOOL GetPerfStats9x(LPCSTR pKey, DWORD *dwValue);
 	
 // Implementation

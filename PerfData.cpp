@@ -97,9 +97,9 @@ void CPerfData::GetNameStrings() {
 	// Allocate memory for the counter and object names
 	dwBuffer = dwMaxValueLen + 1;
 	
-	m_lpNameStrings = (char*)malloc(dwBuffer * sizeof(CHAR));
+	m_lpNameStrings = (LPSTR)malloc(dwBuffer * sizeof(CHAR));
 	
-	// Read Counter value
+	// Read counter value
 	RegQueryValueEx(hKeyPerflib009,
 		"Counter",
 		NULL,
@@ -117,27 +117,23 @@ void CPerfData::GetNameStrings() {
 }
 
 
-void CPerfData::ReadData9x(DWORD *pReceived, DWORD *pSent) {
+void CPerfData::ReadData9x(DWORD *pRecv, DWORD *pSent) {
 	static BOOL bErrorShown = FALSE;
 	
 	if (GetPerfStats9x("Dial-Up Adapter\\TotalBytesXmit" , pSent))
-		GetPerfStats9x("Dial-Up Adapter\\TotalBytesRecvd", pReceived);
+		GetPerfStats9x("Dial-Up Adapter\\TotalBytesRecvd", pRecv);
 	else if (!bErrorShown) {
-		// Requires the Dial-up networking update
+		// Requires the dial-up networking update
 		bErrorShown = TRUE;
 		ShowError(IDS_DUN_ERR, MB_OK);
 	}
 }
 
-void CPerfData::ReadDataNT(DWORD *pReceived, DWORD *pSent) {
-	PPERF_DATA_BLOCK PerfData = NULL;
-	PPERF_OBJECT_TYPE PerfObj;
-	PPERF_COUNTER_DEFINITION PerfCntr;
-	PPERF_COUNTER_BLOCK PtrToCntr;
+void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 	DWORD BufferSize = TOTALBYTES;
 	
 	// Allocate the buffer
-	PerfData = (PPERF_DATA_BLOCK)malloc(BufferSize);
+	PPERF_DATA_BLOCK PerfData = (PPERF_DATA_BLOCK)malloc(BufferSize);
 	if (!PerfData)
 		return;
 	
@@ -148,17 +144,17 @@ void CPerfData::ReadDataNT(DWORD *pReceived, DWORD *pSent) {
 	}
 	
 	// Get the first object type
-	PerfObj = FirstObject(PerfData);
+	PPERF_OBJECT_TYPE PerfObj = FirstObject(PerfData);
 	
 	// Process all objects
 	for (DWORD i = 0; i < PerfData->NumObjectTypes; i++) {
 		// Get the first counter
-		PerfCntr = FirstCounter(PerfObj);
+		PPERF_COUNTER_DEFINITION PerfCntr = FirstCounter(PerfObj);
 		
 		// Don't enumerate instances
 		if (PerfObj->NumInstances < 1) {
 			// Get the counter block
-			PtrToCntr = (PPERF_COUNTER_BLOCK)((PBYTE)PerfObj + PerfObj->DefinitionLength);
+			PPERF_COUNTER_BLOCK PtrToCntr = (PPERF_COUNTER_BLOCK)((PBYTE)PerfObj + PerfObj->DefinitionLength);
 			
 			// Retrieve all counters
 			for (DWORD j = 0; j < PerfObj->NumCounters; j++) {
@@ -166,7 +162,7 @@ void CPerfData::ReadDataNT(DWORD *pReceived, DWORD *pSent) {
 					*pSent = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
 				
 				if (strcmp("Bytes Received", m_lpNamesArray[PerfCntr->CounterNameTitleIndex]) == 0)
-					*pReceived = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
+					*pRecv = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
 				
 				// Get the next counter
 				PerfCntr = NextCounter(PerfCntr);
@@ -196,15 +192,14 @@ BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 
 void CPerfData::Init(void) {
 	DWORD dwVersion = GetVersion();
-	
-	// Windows NT
 	if (dwVersion >> 31 == 0) {
+		// Windows NT
 		m_bIs95 = FALSE;
 		GetNameStrings();
 	} else {
-		// Windows 95/98
-		// Requires Dial-up Networking Update v1.3 for Win95 users
-		// Since these functions use the registry you should close NPS before installing or updating system
+		// Windows 95/98. Requires Dial-up Networking Update v1.3 for Win95 users.
+		// Since these functions use the registry, you should close
+		// NetPerSec before installing or updating the system
 		m_bIs95 = TRUE;
 	}
 }

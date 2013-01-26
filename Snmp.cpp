@@ -154,7 +154,7 @@ BOOL CSnmp::Init() {
 	
 	if (m_hInstSnmp) {
 		m_fpSnmpUtilMemAlloc = (SUALLOC)GetProcAddress(m_hInstSnmp, "SnmpUtilMemAlloc");
-		m_fpSnmpUtilMemFree  = (SUFREE)GetProcAddress(m_hInstSnmp, "SnmpUtilMemFree");
+		m_fpSnmpUtilMemFree = (SUFREE)GetProcAddress(m_hInstSnmp, "SnmpUtilMemFree");
 		m_fpSnmpUtilOidFree = (pSnmpUtilOidFree)GetProcAddress(m_hInstSnmp, "SnmpUtilOidFree");
 		m_fpSnmpUtilVarBindFree = (pSnmpUtilVarBindFree)GetProcAddress(m_hInstSnmp, "SnmpUtilVarBindFree");
 		m_fpSnmpUtilOidNCmp = (pSnmpUtilOidNCmp)GetProcAddress(m_hInstSnmp, "SnmpUtilOidNCmp");
@@ -197,7 +197,7 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
 
 
 // Returns the number of bytes received and transmitted through all network interfaces
-BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD *pReceived, DWORD *pSent) {
+BOOL CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 	#define VAR_BINDS 3
 	RFC1157VarBind varBind[VAR_BINDS];
 	AsnInteger errorStatus;
@@ -234,8 +234,8 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD *pReceived, DWORD *pSent) {
 		
 		int ret = m_fpExtensionQuery(ASN_RFC1157_GETREQUEST, m_pvarBindList, &errorStatus, &errorIndex);
 		if (ret != 0 && !errorStatus) {
-			*pReceived = varBind[0].value.asnValue.number;
-			*pSent     = varBind[1].value.asnValue.number;
+			*pRecv = varBind[0].value.asnValue.number;
+			*pSent = varBind[1].value.asnValue.number;
 		}
 		
 		m_fpSnmpUtilOidFree(&varBind[0].name);
@@ -261,8 +261,8 @@ BOOL  CSnmp::GetReceivedAndSentOctets_9x(DWORD *pReceived, DWORD *pSent) {
 			break;
 		
 		if (varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK) {
-			*pReceived += varBind[0].value.asnValue.number;
-			*pSent     += varBind[1].value.asnValue.number;
+			*pRecv += varBind[0].value.asnValue.number;
+			*pSent += varBind[1].value.asnValue.number;
 		}
 		
 		// Prepare for the next iteration. Make sure returned oid is
@@ -368,18 +368,14 @@ void CSnmp::ShowSystemError(int nID) {
 
 
 // Returns the number of bytes received and transmitted
-BOOL CSnmp::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
-	*pReceived = 0;
+BOOL CSnmp::GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent) {
+	*pRecv = 0;
 	*pSent = 0;
 	
-	// Use performance data from the registry
-	if (g_MonitorMode == MONITOR_DUN)
-		return perfdata.GetReceivedAndSentOctets(pReceived, pSent);
-	
-	// Use IPHLPAPI.DLL
-	if (m_bUse_iphlpapi)
-		return GetReceivedAndSentOctets_IPHelper(pReceived, pSent);
-	
-	// Use INETMIB1.DLL
-	return GetReceivedAndSentOctets_9x(pReceived, pSent);
+	if (g_MonitorMode == MONITOR_DUN)  // Use performance data from the registry
+		return perfdata.GetReceivedAndSentOctets(pRecv, pSent);
+	else if (m_bUse_iphlpapi)  // Use IPHLPAPI.DLL
+		return GetReceivedAndSentOctets_IPHelper(pRecv, pSent);
+	else  // Use INETMIB1.DLL
+		return GetReceivedAndSentOctets_9x(pRecv, pSent);
 }

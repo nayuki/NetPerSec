@@ -1,5 +1,5 @@
-#ifndef _SNMP_UTIL_H_
-#define _SNMP_UTIL_H_
+#ifndef SNMP_UTIL_H
+#define SNMP_UTIL_H
 
 #include <snmp.h>
 #include "iphlpapi.h"  // Requires the platform SDK
@@ -82,11 +82,11 @@ private:
 	
 public:
 	BOOL Init();
-	BOOL GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent);
+	BOOL GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
 	void GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter);
 	
 private:
-	BOOL GetReceivedAndSentOctets_9x(DWORD *pReceived, DWORD *pSent);
+	BOOL GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent);
 	int  GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent);
 	void GetInterfaces();
 	void ShowSystemError(int nID);

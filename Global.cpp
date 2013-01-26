@@ -7,6 +7,7 @@
 #include "NetPerSec.h"
 #include <atlbase.h>
 
+
 // Loaded via ini file
 int g_nSampleRate;       // Milliseconds
 int g_nAveragingWindow;  // Seconds
@@ -72,25 +73,18 @@ DWORD GetServicePack() {
 
 // Creates a shortcut in the startup folder.
 void SetStartupOptions() {
-	TCHAR szPath[MAX_PATH] = {0};
-	TCHAR szLinkFile[MAX_PATH] = {0};
-	WCHAR wszLinkFile[MAX_PATH] = {0};
-	LPITEMIDLIST pidl;
-	LPMALLOC pMalloc;
-	
-	IShellLink *pShellLink = NULL;
-	IPersistFile *pPF = NULL;
-	
 	// Required for Win95
 	CoInitialize(NULL);
 	
 	// Create the COM server
+	IShellLink *pShellLink = NULL;
 	HRESULT hr = CoCreateInstance(CLSID_ShellLink, NULL,
 			CLSCTX_INPROC_SERVER, IID_IShellLink,
 			reinterpret_cast<LPVOID*>(&pShellLink));
 	if (FAILED(hr))
 		return;
 	
+	TCHAR szPath[MAX_PATH] = {0};
 	GetModuleFileName(NULL, szPath, sizeof(szPath));
 	GetShortPathName(szPath, szPath, sizeof(szPath));
 	
@@ -101,6 +95,7 @@ void SetStartupOptions() {
 	pShellLink->SetIconLocation(szPath, 0);
 	
 	// Get the IPersistFile interface to save
+	IPersistFile *pPF = NULL;
 	hr = pShellLink->QueryInterface(IID_IPersistFile, reinterpret_cast<LPVOID*>(&pPF));
 	
 	if (FAILED(hr)) {
@@ -108,7 +103,9 @@ void SetStartupOptions() {
 		return;
 	}
 	
+	LPMALLOC pMalloc;
 	if (SUCCEEDED(SHGetMalloc(&pMalloc))) {
+		LPITEMIDLIST pidl;
 		SHGetSpecialFolderLocation(NULL, CSIDL_STARTUP, &pidl);
 		SHGetPathFromIDList(pidl, szPath);
 		pMalloc->Free(pidl);
@@ -116,6 +113,7 @@ void SetStartupOptions() {
 	}
 	
 	// Create a .lnk file
+	TCHAR szLinkFile[MAX_PATH] = {0};
 	wsprintf(szLinkFile, "%s.lnk", SZ_APPNAME);
 	
 	if (szPath[lstrlen(szPath) - 1] != '\\')
@@ -124,6 +122,7 @@ void SetStartupOptions() {
 	
 	if (g_bStartWithWindows) {
 		// Save Unicode LNK file
+		WCHAR wszLinkFile[MAX_PATH] = {0};
 		MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szPath, -1, wszLinkFile, MAX_PATH);
 		hr = pPF->Save(wszLinkFile, TRUE);
 		if (FAILED(hr))
@@ -137,6 +136,7 @@ void SetStartupOptions() {
 	pShellLink->Release();
 	CoUninitialize();
 }
+
 
 // Format val into a string, the function will convert to bits if it is the default option
 void FormatBytes(double val, CString &outStr, BOOL perSecond) {
@@ -198,8 +198,8 @@ int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int n
 
 void WritePrivateProfileInt(LPCSTR pSection, int nValue) {
 	CString sFileName;
-	char buf[256];
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
+	char buf[256];
 	wsprintf(buf, "%u", nValue);
 	WritePrivateProfileString(SZ_CONFIG, pSection, buf, sFileName);
 }
