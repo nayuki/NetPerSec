@@ -65,7 +65,7 @@ void CGraphs::SetSize(int nPoints) {
 	m_GraphArray.SetSize(nPoints);
 }
 
-void CGraphs::SetStyle(ICON_STYLE nStyle) {
+void CGraphs::SetStyle(BOOL nStyle) {
 	m_bBarGraph = nStyle;
 	int len = m_GraphArray.GetSize();
 	for (int i = 0; i < len; i++)

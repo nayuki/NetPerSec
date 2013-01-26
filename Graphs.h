@@ -17,7 +17,7 @@ public:
 	void DrawGrid(CDC *pDC, CRect *pRect);
 	void SetSize(int nPoints);
 	void ShiftLeft();
-	void SetStyle(ICON_STYLE nStyle);
+	void SetStyle(BOOL nStyle);
 	void ClearGraph();
 	int GetTotalElements();
 	
