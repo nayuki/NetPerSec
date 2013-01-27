@@ -182,9 +182,9 @@ void CDisplayDlg::ShowSampleIcon() {
 		r[1].Bps = 100;
 		s[1].Bps = 100;
 	} else if (g_IconStyle == ICON_HISTOGRAM) {
-		for (int i = 0; i <= 14; i++) {
-			r[i].Bps = (14 - i) * 4;
-			s[i].Bps = (14 - i) * 4;
+		for (int i = 0; i < 16; i++) {
+			r[i].Bps = (16 - 1 - i) * 4;
+			s[i].Bps = (16 - 1 - i) * 4;
 		}
 	} else
 		ASSERT(false);

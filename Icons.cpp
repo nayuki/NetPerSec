@@ -80,54 +80,40 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 
 // Draws the histogram icon
 void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
-	CRect rc;
-	rc.CopyRect(prc);
-	
-	int offset = 1;
-	int width = 1;
-	int size = rc.Width() - offset * 2;
-	const int HEIGHT = 6;
-	
-	rc.bottom -= offset;
-	
-	rc.top += offset;
-	rc.right -= offset;
-	rc.left += offset;
 	CBrush back(g_ColorIconBack);
-	pDC->FillRect(rc, &back);
+	pDC->FillRect(*prc, &back);
 	
-	rc.right = offset;
-	rc.left = offset;
+	int width = prc->Width();
+	int height = prc->Height();
+	CRect temprect(*prc);
 	CBrush brush(color);
 	
-	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, size, 0);
-	for (int i = size - 1; i >= 0; i--) {
+	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, width, 0);
+	for (int i = 0; i < width; i++) {
 		// Compute and clamp
-		double barheight = (double)pStats[i].Bps / dwHigh * HEIGHT;
+		double barheight = (double)pStats[width - 1 - i].Bps / dwHigh * height;
 		if (barheight < 0)
 			barheight = 0;
-		else if (barheight > HEIGHT)
-			barheight = HEIGHT;
+		else if (barheight > height)
+			barheight = height;
 		
-		rc.top = rc.bottom - (int)barheight;
-		rc.right += width;
-		pDC->FillRect(&rc, &brush);
+		temprect.left = i;
+		temprect.right = i + 1;
+		temprect.bottom = prc->bottom;
+		temprect.top = temprect.bottom - (int)barheight;
+		pDC->FillRect(&temprect, &brush);
 		
+		// One pixel of antialiasing at top of bar
 		double t = barheight - (int)barheight;
 		if (t > 0) {
 			int tempcolor = (int)((color >> 16 & 0xFF) * t + (g_ColorIconBack >> 16 & 0xFF) * (1 - t) + 0.5) << 16
 			              | (int)((color >>  8 & 0xFF) * t + (g_ColorIconBack >>  8 & 0xFF) * (1 - t) + 0.5) <<  8
 			              | (int)((color >>  0 & 0xFF) * t + (g_ColorIconBack >>  0 & 0xFF) * (1 - t) + 0.5) <<  0;
 			CBrush tempbrush(tempcolor);
-			CRect temprc;
-			temprc.top = rc.top - 1;
-			temprc.bottom = rc.top;
-			temprc.left = rc.left;
-			temprc.right = rc.right;
-			pDC->FillRect(&temprc, &tempbrush);
+			temprect.bottom = temprect.top;
+			temprect.top--;
+			pDC->FillRect(&temprect, &tempbrush);
 		}
-		
-		rc.left += width;
 	}
 }
 
@@ -145,14 +131,18 @@ HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	dcMem.CreateCompatibleDC(NULL);
 	CBitmap *pOld = dcMem.SelectObject(&m_bmpHistogram);
 	
-	// Icon is 16 pixels high
-	CRect rc(0, 0, 16, 16);
-	rc.top = rc.bottom / 2;
+	// Top half is for received graph
+	CRect rc(0, 0, 16, 8);
+	FillHistogramIcon(&dcMem, pRecv, g_ColorRecv, &rc);
+	
+	// Bottom half (slightly less) is for sent graph
+	rc.SetRect(0, 9, 16, 16);
 	FillHistogramIcon(&dcMem, pSent, g_ColorSent, &rc);
 	
-	rc.top = 0;
-	rc.bottom -= rc.Height() / 2;
-	FillHistogramIcon(&dcMem, pRecv, g_ColorRecv, &rc);
+	// Line between the two graphs
+	CRect linerect(0, 8, 16, 9);
+	CBrush linebrush(RGB(128,128,128));
+	dcMem.FillRect(&linerect, &linebrush);
 	
 	dcMem.SelectObject(pOld);
 	HICON hIcon = CreateIconIndirect(&m_HistogramIconInfo);
