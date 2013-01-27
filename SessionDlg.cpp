@@ -584,13 +584,15 @@ void CSessionDlg::OnBps() {
 // Sets the display type to either Bps or bps
 void CSessionDlg::OnBytes() {
 	g_DisplayBytes = IsDlgButtonChecked(IDC_BYTES);
-	if (g_bAutoScaleRecv)
+	if (g_bAutoScaleRecv) {
+		CalcAutoScale(&m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA);
 		UpdateGraphTextRecv(m_AutoScale_Recv);
-	else
+	} else
 		UpdateGraphTextRecv(bpsArray[g_Range_Recv]);
 	
-	if (g_bAutoScaleSent)
+	if (g_bAutoScaleSent) {
+		CalcAutoScale(&m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA);
 		UpdateGraphTextSent(m_AutoScale_Sent);
-	else
+	} else
 		UpdateGraphTextSent(bpsArray[g_Range_Sent]);
 }
