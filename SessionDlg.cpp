@@ -30,26 +30,20 @@ enum {
 	LINE_GRAPH_SIZE,
 } LINE_GRAPH;
 
-// Array of bps values for the sliders
-// Divide by 8 since the formatting routine will multiply by 8 to convert to bits
-static UINT bpsArray[] = {
-	   14400 / 8,
-	   28800 / 8,
-	   33600 / 8,
-	   56000 / 8,
-	   70000 / 8,
-	   80000 / 8,
-	   90000 / 8,
-	  100000 / 8,
-	  125000 / 8,
-	  150000 / 8,
-	  200000 / 8,
-	  300000 / 8,
-	  500000 / 8,
-	 1000000 / 8,
-	 1500000 / 8,
-	 2000000 / 8,
+static UINT bpsArray[] = {  // In bytes
+	1000 / 8,  // Kilobit
+	3000 / 8,
+	10000 / 8,
+	30000 / 8,
+	100000 / 8,
+	300000 / 8,
+	1000000 / 8,  // Megabit
+	3000000 / 8,
 	10000000 / 8,
+	30000000 / 8,
+	100000000 / 8,
+	300000000 / 8,
+	1000000000 / 8,  // Gigabit
 };
 
 
