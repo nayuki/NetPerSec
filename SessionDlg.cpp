@@ -286,23 +286,100 @@ BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_M
 	if (g_GraphOptions & OPTION_AVE)
 		dwHigh = max(Cwinproc::GetRecentMaximum(pStats, total, 1), dwHigh);
 	
-	// Scale the highest point in the graph to 80% of the graphs total height
-	// You don't want the bars or lines always to be bumping the top of the graph
+	// Preferred top-of-scale numbers for binary-prefix bytes
+	static unsigned int byteScaleTops[] = {
+		100,
+		150,
+		250,
+		400,
+		600,
+		10 * 1024 / 10,
+		15 * 1024 / 10,
+		25 * 1024 / 10,
+		40 * 1024 / 10,
+		60 * 1024 / 10,
+		10 * 1024,
+		15 * 1024,
+		25 * 1024,
+		40 * 1024,
+		60 * 1024,
+		100 * 1024,
+		150 * 1024,
+		250 * 1024,
+		400 * 1024,
+		600 * 1024,
+		10 * 1024 * 1024 / 10,
+		15 * 1024 * 1024 / 10,
+		25 * 1024 * 1024 / 10,
+		40 * 1024 * 1024 / 10,
+		60 * 1024 * 1024 / 10,
+		10 * 1024 * 1024,
+		15 * 1024 * 1024,
+		25 * 1024 * 1024,
+		40 * 1024 * 1024,
+		60 * 1024 * 1024,
+		100 * 1024 * 1024,
+		150 * 1024 * 1024,
+		250 * 1024 * 1024,
+		400 * 1024 * 1024,
+		600 * 1024 * 1024,
+	};
 	
-	// Convert to bits
-	dwHigh = MulDiv(dwHigh, 100, 80);
+	// Preferred top-of-scale numbers for binary-prefix bits
+	static unsigned int bitScaleTops[] = {
+		1000,  // 1 Kb/s
+		1500,
+		2500,
+		4000,
+		6000,
+		10000,  // 10 Kb/s
+		15000,
+		25000,
+		40000,
+		60000,
+		100000,  // 100 Kb/s
+		150000,
+		250000,
+		400000,
+		600000,
+		1000000,  // 1 Mb/s
+		1500000,
+		2500000,
+		4000000,
+		6000000,
+		10000000,  // 10 Mb/s
+		15000000,
+		25000000,
+		40000000,
+		60000000,
+		100000000,  // 100 Mb/s
+		150000000,
+		250000000,
+		400000000,
+		600000000,
+		1000000000,  // 1 Gb/s
+		1500000000,
+	};
 	
-	BOOL bUpdate = FALSE;
-	if (dwHigh > *pAutoScale) {
-		bUpdate = TRUE;
-		*pAutoScale = dwHigh;
-	} else if (*pAutoScale > dwHigh && *pAutoScale > 1000) {
-		*pAutoScale = dwHigh;
-		*pAutoScale = max(*pAutoScale, 1000);
-		bUpdate = TRUE;
+	unsigned int *scaletops;
+	int len;
+	if (g_DisplayBytes != 0) {
+		scaletops = byteScaleTops;
+		len = ELEMENTS(byteScaleTops);
+	} else {
+		scaletops = bitScaleTops;
+		len = ELEMENTS(bitScaleTops);
 	}
 	
-	if (bUpdate) {
+	// Pick the smallest top such that the current max is under 90% of the top
+	int index = 0;
+	while (index < len - 1 && scaletops[index] * 0.9 < dwHigh)
+		index++;
+	dwHigh = max(scaletops[index], dwHigh);
+	
+	bool updated = dwHigh != *pAutoScale;
+	if (updated) {
+		*pAutoScale = dwHigh;
 		// Move the sliders
 		if (update == SENT_DATA) {
 			UpdateScrollPos(IDC_SCALE_SLIDER_SENT, *pAutoScale);
@@ -311,10 +388,8 @@ BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_M
 			UpdateScrollPos(IDC_SCALE_SLIDER_RECV, *pAutoScale);
 			UpdateGraphTextRecv(*pAutoScale);
 		}
-		return TRUE;
-	} else {
-		return FALSE;  // Graph not updated
 	}
+	return updated;
 }
 
 
