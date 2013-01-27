@@ -86,6 +86,7 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 	int offset = 1;
 	int width = 1;
 	int size = rc.Width() - offset * 2;
+	const int HEIGHT = 6;
 	
 	rc.bottom -= offset;
 	
@@ -101,15 +102,31 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, size, 0);
 	for (int i = size - 1; i >= 0; i--) {
-		// 60 percent - icon is 6 pixels high
-		int nIcon = MulDiv(pStats[i].Bps, 6, dwHigh);
-		if (pStats[i].Bps != 0)  // For at least 1 pixel if there is traffic
-			nIcon = max(nIcon, 1);
-		ASSERT(nIcon < 7);
+		// Compute and clamp
+		double barheight = (double)pStats[i].Bps / dwHigh * HEIGHT;
+		if (barheight < 0)
+			barheight = 0;
+		else if (barheight > HEIGHT)
+			barheight = HEIGHT;
 		
-		rc.top = rc.bottom - nIcon;
+		rc.top = rc.bottom - (int)barheight;
 		rc.right += width;
 		pDC->FillRect(&rc, &brush);
+		
+		double t = barheight - (int)barheight;
+		if (t > 0) {
+			int tempcolor = (int)((color >> 16 & 0xFF) * t + (g_ColorIconBack >> 16 & 0xFF) * (1 - t) + 0.5) << 16
+			              | (int)((color >>  8 & 0xFF) * t + (g_ColorIconBack >>  8 & 0xFF) * (1 - t) + 0.5) <<  8
+			              | (int)((color >>  0 & 0xFF) * t + (g_ColorIconBack >>  0 & 0xFF) * (1 - t) + 0.5) <<  0;
+			CBrush tempbrush(tempcolor);
+			CRect temprc;
+			temprc.top = rc.top - 1;
+			temprc.bottom = rc.top;
+			temprc.left = rc.left;
+			temprc.right = rc.right;
+			pDC->FillRect(&temprc, &tempbrush);
+		}
+		
 		rc.left += width;
 	}
 }
