@@ -12,6 +12,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+
 // CPerfData
 CPerfData::CPerfData() {
 	m_lpNameStrings = NULL;

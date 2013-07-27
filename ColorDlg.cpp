@@ -13,6 +13,7 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
+
 // CColorCube
 CColorCube::CColorCube() {
 	dlg.m_hParent = this;
