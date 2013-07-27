@@ -181,7 +181,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	CalcAverages(sent_bits, dwTime, dwSent_bps, SentStats);
 	
 	// Get the icon for the system tray
-	HICON hIcon = pTheApp->m_Icons.GetIcon(RecvStats, SentStats, g_IconStyle);
+	HICON hIcon = theApp.m_Icons.GetIcon(RecvStats, SentStats, g_IconStyle);
 	UpdateTrayIcon(hIcon);
 	DestroyIcon(hIcon);
 	
@@ -197,7 +197,7 @@ void Cwinproc::ShowPropertiesDlg() {
 	else {
 		// Fake out MFC in order to receive the "minimize all windows" syscommand message
 		// The window is restored in initdialog
-		pTheApp->m_pMainWnd = NULL;
+		theApp.m_pMainWnd = NULL;
 		
 		m_pPropertiesDlg = new DlgPropSheet(SZ_APPNAME, NULL);
 		
@@ -265,7 +265,7 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 					SaveSettings();
 					m_pPropertiesDlg->SendMessage(WM_CLOSE);
 				}
-				pTheApp->m_wnd.PostMessage(WM_CLOSE);
+				theApp.m_wnd.PostMessage(WM_CLOSE);
 			} else if (cmd == ID_PROPERTIES)
 				ShowPropertiesDlg();
 		}

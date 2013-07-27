@@ -114,14 +114,14 @@ void DlgPropSheet::OnDestroy() {
 	CRect rc;
 	GetWindowRect(rc);
 	SaveWindowPosition(&rc);
-	pTheApp->m_pMainWnd = &pTheApp->m_wnd;
+	theApp.m_pMainWnd = &theApp.m_wnd;
 	CPropertySheet::OnDestroy();
 }
 
 
 void DlgPropSheet::PostNcDestroy() {
 	// Restore MFC's main window handle
-	pTheApp->m_pMainWnd = &pTheApp->m_wnd;
+	theApp.m_pMainWnd = &theApp.m_wnd;
 	CPropertySheet::PostNcDestroy();
 }
 

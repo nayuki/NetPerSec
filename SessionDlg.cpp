@@ -101,7 +101,7 @@ BOOL CSessionDlg::PreTranslateMessage(MSG *pMsg) {
 	if (pMsg->message == WM_RBUTTONUP) {
 		WORD wID = (WORD)GetWindowLong(pMsg->hwnd, GWL_ID);
 		if (wID == IDC_RECV_GRAPH_WINDOW || wID == IDC_SENT_GRAPH_WINDOW) {
-			pTheApp->m_wnd.m_pPropertiesDlg->SetActivePage(2);
+			theApp.m_wnd.m_pPropertiesDlg->SetActivePage(2);
 			return TRUE;
 		}
 	}
@@ -138,14 +138,14 @@ DWORD CSessionDlg::CalcMax(STATS_STRUCT *pStats) {
 
 
 void CSessionDlg::UpdateDlg() {
-	DisplayNumber(IDC_RECV_CURRENT, pTheApp->m_wnd.RecvStats[0].Bps);
-	DisplayNumber(IDC_RECV_AVERAGE, pTheApp->m_wnd.RecvStats[0].ave);
+	DisplayNumber(IDC_RECV_CURRENT, theApp.m_wnd.RecvStats[0].Bps);
+	DisplayNumber(IDC_RECV_AVERAGE, theApp.m_wnd.RecvStats[0].ave);
 	
-	DisplayNumber(IDC_SENT_CURRENT, pTheApp->m_wnd.SentStats[0].Bps);
-	DisplayNumber(IDC_SENT_AVERAGE, pTheApp->m_wnd.SentStats[0].ave);
+	DisplayNumber(IDC_SENT_CURRENT, theApp.m_wnd.SentStats[0].Bps);
+	DisplayNumber(IDC_SENT_AVERAGE, theApp.m_wnd.SentStats[0].ave);
 	
-	DisplayNumber(IDC_RECV_MAXIMUM, CalcMax(pTheApp->m_wnd.RecvStats));
-	DisplayNumber(IDC_SENT_MAXIMUM, CalcMax(pTheApp->m_wnd.SentStats));
+	DisplayNumber(IDC_RECV_MAXIMUM, CalcMax(theApp.m_wnd.RecvStats));
+	DisplayNumber(IDC_SENT_MAXIMUM, CalcMax(theApp.m_wnd.SentStats));
 }
 
 
@@ -155,10 +155,10 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */) {
 	UpdateGraph();
 	
 	CString s;
-	FormatBytes((pTheApp->m_wnd.m_dbTotalBytesRecv - g_dbResetRecv), s, false);
+	FormatBytes((theApp.m_wnd.m_dbTotalBytesRecv - g_dbResetRecv), s, false);
 	SetDlgItemText(IDC_GROUP_RECV, "Received: " + s);
 	
-	FormatBytes((pTheApp->m_wnd.m_dbTotalBytesSent - g_dbResetSent), s, false);
+	FormatBytes((theApp.m_wnd.m_dbTotalBytesSent - g_dbResetSent), s, false);
 	SetDlgItemText(IDC_GROUP_SENT, "Sent: " + s);
 }
 
@@ -231,17 +231,17 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update) {
 	if (update & RECV_DATA) {
 		m_RecvGraph.ShiftLeft();
 		if (g_GraphOptions & OPTION_AVE)
-			m_RecvGraph.SetPos(pTheApp->m_wnd.RecvStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE);
+			m_RecvGraph.SetPos(theApp.m_wnd.RecvStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE);
 		if (g_GraphOptions & OPTION_BPS)
-			m_RecvGraph.SetPos(pTheApp->m_wnd.RecvStats[nIndex].Bps, g_ColorRecv, LINEGRAPH_BPS);
+			m_RecvGraph.SetPos(theApp.m_wnd.RecvStats[nIndex].Bps, g_ColorRecv, LINEGRAPH_BPS);
 	}
 	
 	if (update & SENT_DATA) {
 		m_SentGraph.ShiftLeft();
 		if (g_GraphOptions & OPTION_AVE)
-			m_SentGraph.SetPos(pTheApp->m_wnd.SentStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE);
+			m_SentGraph.SetPos(theApp.m_wnd.SentStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE);
 		if (g_GraphOptions & OPTION_BPS)
-			m_SentGraph.SetPos(pTheApp->m_wnd.SentStats[nIndex].Bps, g_ColorSent, LINEGRAPH_BPS);
+			m_SentGraph.SetPos(theApp.m_wnd.SentStats[nIndex].Bps, g_ColorSent, LINEGRAPH_BPS);
 	}
 }
 
@@ -263,9 +263,9 @@ void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue) {
 
 void CSessionDlg::UpdateGraph() {
 	// Check autosize
-	if (!g_bAutoScaleRecv || CalcAutoScale(&m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA) == FALSE)
+	if (!g_bAutoScaleRecv || CalcAutoScale(&m_AutoScale_Recv, theApp.m_wnd.RecvStats, RECV_DATA) == FALSE)
 		DrawGraph(0, RECV_DATA);
-	if (!g_bAutoScaleSent || CalcAutoScale(&m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA) == FALSE)
+	if (!g_bAutoScaleSent || CalcAutoScale(&m_AutoScale_Sent, theApp.m_wnd.SentStats, SENT_DATA) == FALSE)
 		DrawGraph(0, SENT_DATA);
 }
 
@@ -555,13 +555,13 @@ void CSessionDlg::SetGraphStyle() {
 }
 
 void CSessionDlg::OnResetData() {
-	pTheApp->m_wnd.ResetData();
+	theApp.m_wnd.ResetData();
 	
 	m_AutoScale_Recv = 0;
 	m_AutoScale_Sent = 0;
 	
-	g_dbResetRecv = pTheApp->m_wnd.m_dbTotalBytesRecv;  // When user clicks reset
-	g_dbResetSent = pTheApp->m_wnd.m_dbTotalBytesSent;  // These values are subtracted from the total
+	g_dbResetRecv = theApp.m_wnd.m_dbTotalBytesRecv;  // When user clicks reset
+	g_dbResetSent = theApp.m_wnd.m_dbTotalBytesSent;  // These values are subtracted from the total
 	
 	SetGraphRangeRecv();
 	SetGraphRangeSent();
@@ -585,13 +585,13 @@ void CSessionDlg::OnBps() {
 void CSessionDlg::OnBytes() {
 	g_DisplayBytes = IsDlgButtonChecked(IDC_BYTES);
 	if (g_bAutoScaleRecv) {
-		CalcAutoScale(&m_AutoScale_Recv, pTheApp->m_wnd.RecvStats, RECV_DATA);
+		CalcAutoScale(&m_AutoScale_Recv, theApp.m_wnd.RecvStats, RECV_DATA);
 		UpdateGraphTextRecv(m_AutoScale_Recv);
 	} else
 		UpdateGraphTextRecv(bpsArray[g_Range_Recv]);
 	
 	if (g_bAutoScaleSent) {
-		CalcAutoScale(&m_AutoScale_Sent, pTheApp->m_wnd.SentStats, SENT_DATA);
+		CalcAutoScale(&m_AutoScale_Sent, theApp.m_wnd.SentStats, SENT_DATA);
 		UpdateGraphTextSent(m_AutoScale_Sent);
 	} else
 		UpdateGraphTextSent(bpsArray[g_Range_Sent]);

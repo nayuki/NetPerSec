@@ -160,7 +160,7 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 			nPos = min(nPos, ELEMENTS(SampleRates));
 			
 			g_nSampleRate = SampleRates[nPos];
-			pTheApp->m_wnd.SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
+			theApp.m_wnd.SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
 			break;
 		}
 		
@@ -187,14 +187,14 @@ void COptionsDlg::OnUseSnmp() {
 	m_Interfaces.EnableWindow(g_MonitorMode == MONITOR_ADAPTER);
 	
 	// Reset totals
-	pTheApp->m_wnd.ResetData();
+	theApp.m_wnd.ResetData();
 	
 	g_dbResetRecv =
 	g_dbResetSent =
-	pTheApp->m_wnd.m_dbRecvWrap =
-	pTheApp->m_wnd.m_dbSentWrap =
-	pTheApp->m_wnd.m_dbTotalBytesRecv =
-	pTheApp->m_wnd.m_dbTotalBytesSent = 0;
+	theApp.m_wnd.m_dbRecvWrap =
+	theApp.m_wnd.m_dbSentWrap =
+	theApp.m_wnd.m_dbTotalBytesRecv =
+	theApp.m_wnd.m_dbTotalBytesSent = 0;
 }
 
 void COptionsDlg::OnUseDun() {
@@ -202,7 +202,7 @@ void COptionsDlg::OnUseDun() {
 }
 
 BOOL COptionsDlg::OnSetActive() {
-	CSnmp *pSnmp = &pTheApp->m_wnd.snmp;
+	CSnmp *pSnmp = &theApp.m_wnd.snmp;
 	if (pSnmp != NULL) {
 		CStringArray s;
 		CUIntArray nAdapterArray;

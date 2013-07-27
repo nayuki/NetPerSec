@@ -17,7 +17,6 @@ static char THIS_FILE[] = __FILE__;
 
 // The one and only CNetPerSecApp object
 CNetPerSecApp theApp;
-CNetPerSecApp *pTheApp;
 
 // Private message for the taskbar
 extern UINT TaskbarCallbackMsg;
@@ -33,7 +32,6 @@ END_MESSAGE_MAP()
 
 // CNetPerSecApp construction
 CNetPerSecApp::CNetPerSecApp() {
-	pTheApp = this;
 	m_hMutex = NULL;
 }
 

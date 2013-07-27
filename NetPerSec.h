@@ -44,7 +44,7 @@ public:
 };
 
 
-extern CNetPerSecApp *pTheApp;
+extern CNetPerSecApp theApp;
 
 
 //{{AFX_INSERT_LOCATION}}
