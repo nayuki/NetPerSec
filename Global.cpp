@@ -223,7 +223,7 @@ void LoadWindowPosition(CRect *pRect) {
 
 void ReadSettings() {
 	g_nSampleRate       = GetPrivateProfileInt(SZ_SAMPLERATE, 1000);
-	g_nAveragingWindow  = GetPrivateProfileInt(SZ_AVERAGEWINDOW, 30);
+	g_nAveragingWindow  = GetPrivateProfileInt(SZ_AVERAGEWINDOW, 10);
 	g_Range_Recv        = GetPrivateProfileInt(SZ_RANGE_RECV, 1);
 	g_Range_Sent        = GetPrivateProfileInt(SZ_RANGE_SENT, 1);
 	g_GraphOptions      = GetPrivateProfileInt(SZ_GRAPHOPTIONS, -1);
