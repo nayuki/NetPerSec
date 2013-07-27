@@ -155,10 +155,10 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */) {
 	UpdateGraph();
 	
 	CString s;
-	FormatBytes((theApp.m_wnd.m_dbTotalBytesRecv - g_dbResetRecv), s, false);
+	FormatBytes(theApp.m_wnd.m_dbTotalBytesRecv - g_dbResetRecv, s, false);
 	SetDlgItemText(IDC_GROUP_RECV, "Received: " + s);
 	
-	FormatBytes((theApp.m_wnd.m_dbTotalBytesSent - g_dbResetSent), s, false);
+	FormatBytes(theApp.m_wnd.m_dbTotalBytesSent - g_dbResetSent, s, false);
 	SetDlgItemText(IDC_GROUP_SENT, "Sent: " + s);
 }
 

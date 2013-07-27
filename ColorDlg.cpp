@@ -74,13 +74,13 @@ void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd) {
 	dc.LineTo(right-11, bottom-4);
 	
 	dc.SelectStockObject(BLACK_PEN);
-	dc.MoveTo(right-4, (bottom/2)-1);
-	dc.LineTo(right-9, (bottom/2)-1);
+	dc.MoveTo(right-4, bottom/2-1);
+	dc.LineTo(right-9, bottom/2-1);
 	
-	dc.MoveTo(right-5, (bottom/2));
-	dc.LineTo(right-8, (bottom/2));
+	dc.MoveTo(right-5, bottom/2);
+	dc.LineTo(right-8, bottom/2);
 	
-	dc.SetPixel(right-6, (bottom/2)+1, RGB(0,0,0));
+	dc.SetPixel(right-6, bottom/2+1, RGB(0,0,0));
 	
 	dc.SelectObject(&br_CurrentColor);
 	dc.Rectangle(left+5, top+4, right-15, bottom-4);
@@ -187,18 +187,15 @@ void CColorCubeDlg::OnLButtonDown(UINT nFlags, CPoint pt) {
 
 
 void CColorCubeDlg::OnDrawItem(int nID, LPDRAWITEMSTRUCT lpd) {
-	CDC dc;
 	CPen nullpen;
-	CBrush brush;
-	CPen *oldpen;
-	CBrush *oldbrush;
-	
 	nullpen.CreateStockObject(NULL_PEN);
+	CBrush brush;
 	brush.CreateSolidBrush(IconColors[nID-IDC_COLOR1]);
 	
+	CDC dc;
 	dc.Attach(lpd->hDC);
-	oldpen = dc.SelectObject(&nullpen);
-	oldbrush = dc.SelectObject(&brush);
+	CPen *oldpen = dc.SelectObject(&nullpen);
+	CBrush *oldbrush = dc.SelectObject(&brush);
 	
 	lpd->rcItem.right++;
 	lpd->rcItem.bottom++;
