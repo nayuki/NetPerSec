@@ -120,7 +120,6 @@ void CPerfData::GetNameStrings() {
 
 void CPerfData::ReadData9x(DWORD *pRecv, DWORD *pSent) {
 	static BOOL bErrorShown = FALSE;
-	
 	if (GetPerfStats9x("Dial-Up Adapter\\TotalBytesXmit" , pSent))
 		GetPerfStats9x("Dial-Up Adapter\\TotalBytesRecvd", pRecv);
 	else if (!bErrorShown) {
@@ -177,7 +176,6 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 
 BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	static BOOL bInitPerfData = FALSE;
-	
 	if (!bInitPerfData) {
 		Init();
 		bInitPerfData = TRUE;
@@ -187,7 +185,6 @@ BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 		ReadData9x(pReceived, pSent);
 	else
 		ReadDataNT(pReceived, pSent);
-	
 	return TRUE;
 }
 

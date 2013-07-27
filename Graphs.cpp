@@ -154,8 +154,8 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 		m_MemDC.BitBlt(0, 0, rcClient.Width(), rcClient.Height(), &m_MemDC, 0, 0, SRCCOPY);
 		
 		CRect rcTop(rcClient.right - WIDTH, 0, rcClient.right - WIDTH/2, rcClient.bottom);
-		rcTop.top  = (long)(((float)nPos / nRange) * rcClient.Height());
-		rcTop.top  = rcClient.bottom - rcTop.top;
+		rcTop.top = (long)(((float)nPos / nRange) * rcClient.Height());
+		rcTop.top = rcClient.bottom - rcTop.top;
 		
 		m_MemDC.SetBkColor(RGB(0,0,0));
 		
