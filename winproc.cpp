@@ -25,7 +25,7 @@ Cwinproc::Cwinproc() {
 	m_dbTotalBytesSent = 0;
 	m_dbRecvWrap = 0;
 	m_dbSentWrap = 0;
-	m_pPropertiesDlg = 0;
+	m_pPropertiesDlg = NULL;
 	ZeroMemory(&m_SystemTray, sizeof(m_SystemTray));
 	ResetData();
 }
@@ -210,7 +210,7 @@ void Cwinproc::ShowPropertiesDlg() {
 			ReadSettings();
 		
 		delete m_pPropertiesDlg;
-		m_pPropertiesDlg = 0;
+		m_pPropertiesDlg = NULL;
 		
 		SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
 	}

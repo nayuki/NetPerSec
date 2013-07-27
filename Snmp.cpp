@@ -251,7 +251,7 @@ BOOL CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 	m_fpSnmpUtilOidCpy(&varBind[1].name, &MIB_ifOutoctets);
 	m_fpSnmpUtilOidCpy(&varBind[2].name, &MIB_ifType);
 	
-	while (TRUE) {
+	while (true) {
 		int ret = m_fpExtensionQuery(ASN_RFC1157_GETNEXTREQUEST, m_pvarBindList, &errorStatus, &errorIndex);
 		if (ret == 0)
 			break;

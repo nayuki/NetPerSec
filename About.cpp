@@ -27,7 +27,7 @@ void InitDlg(HWND hDlg) {
 	GetModuleFileName(hInst, szFullPath, sizeof(szFullPath));
 	dwVerInfoSize = GetFileVersionInfoSize(szFullPath, &dwVerHnd);
 	
-	if (dwVerInfoSize) {
+	if (dwVerInfoSize != 0) {
 		// If we were able to get the information, process it
 		HANDLE hMem;
 		LPVOID lpvMem;
