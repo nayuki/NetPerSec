@@ -8,19 +8,21 @@
 #include "winsock2.h"
 #pragma comment(lib, "Ws2_32.lib")
 
-CNetPerSecApp *pTheApp;
-
-// Private message for the taskbar
-extern UINT TaskbarCallbackMsg;
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
 
-// CNetPerSecApp
 
+// The one and only CNetPerSecApp object
+CNetPerSecApp theApp;
+CNetPerSecApp *pTheApp;
+
+// Private message for the taskbar
+extern UINT TaskbarCallbackMsg;
+
+// CNetPerSecApp
 BEGIN_MESSAGE_MAP(CNetPerSecApp, CWinApp)
 	//{{AFX_MSG_MAP(CNetPerSecApp)
 		// NOTE - the ClassWizard will add and remove mapping macros here.
@@ -41,8 +43,6 @@ CNetPerSecApp::~CNetPerSecApp() {
 		::CloseHandle(m_hMutex);
 }
 
-// The one and only CNetPerSecApp object
-CNetPerSecApp theApp;
 
 // CNetPerSecApp initialization
 BOOL CNetPerSecApp::InitInstance() {

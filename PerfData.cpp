@@ -3,14 +3,14 @@
 #include "PerfData.h"
 #include <atlbase.h>
 
-#define TOTALBYTES    4096
-#define BYTEINCREMENT 1024
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #endif
+
+#define TOTALBYTES    4096
+#define BYTEINCREMENT 1024
 
 
 // CPerfData
