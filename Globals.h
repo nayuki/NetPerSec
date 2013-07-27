@@ -36,7 +36,8 @@
 #define COLOR_ICON_SENT RGB(0,0,255)
 #define COLOR_ICON_RECV RGB(255,0,0)
 #define COLOR_AVERAGE   RGB(255,255,0)
-#define COLOR_ICON_BACK RGB(208,208,208)
+#define COLOR_BACK      RGB(208,208,208)
+#define COLOR_ICON_BACK RGB(255,255,255)
 
 
 // These entries contain the current SNMP sample

@@ -234,7 +234,7 @@ void ReadSettings() {
 	g_bAutoScaleRecv    = GetPrivateProfileInt(SZ_AUTOSCALE_RECV, 1);
 	g_bAutoScaleSent    = GetPrivateProfileInt(SZ_AUTOSCALE_SENT, 1);
 	g_IconStyle         = (ICON_STYLE)GetPrivateProfileInt(SZ_ICON_STYLE, ICON_HISTOGRAM);
-	g_ColorBack         = GetPrivateProfileInt(SZ_COLOR_BACK, COLOR_ICON_BACK);
+	g_ColorBack         = GetPrivateProfileInt(SZ_COLOR_BACK, COLOR_BACK);
 	g_ColorRecv         = GetPrivateProfileInt(SZ_COLOR_RECV, COLOR_ICON_RECV);
 	g_ColorSent         = GetPrivateProfileInt(SZ_COLOR_SENT, COLOR_ICON_SENT);
 	g_ColorAve          = GetPrivateProfileInt(SZ_COLOR_AVE , COLOR_AVERAGE);
