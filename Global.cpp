@@ -168,12 +168,10 @@ void FormatBytes(double val, CString &outStr, BOOL perSecond) {
 
 
 void QualifyPathName(CString *pFile, LPCSTR pIni) {
-	char szName[MAX_PATH];
-	LPSTR p;
-	
 	// Qualify the INI file to the same location as our EXE
+	char szName[MAX_PATH];
 	GetModuleFileName(AfxGetInstanceHandle(), szName, sizeof(szName));
-	p = strrchr(szName, '\\');
+	LPSTR p = strrchr(szName, '\\');
 	
 	if (p != NULL) {
 		p++;

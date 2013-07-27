@@ -18,34 +18,24 @@ static char THIS_FILE[] = __FILE__;
 /* CAboutPage message handlers */
 
 void InitDlg(HWND hDlg) {
-	TCHAR szFullPath[256];
-	DWORD dwVerHnd;
-	DWORD dwVerInfoSize;
-	HINSTANCE hInst = AfxGetInstanceHandle();
-	
 	// Get version information from the application
+	HINSTANCE hInst = AfxGetInstanceHandle();
+	TCHAR szFullPath[256];
 	GetModuleFileName(hInst, szFullPath, sizeof(szFullPath));
-	dwVerInfoSize = GetFileVersionInfoSize(szFullPath, &dwVerHnd);
+	DWORD dwVerHnd;
+	DWORD dwVerInfoSize = GetFileVersionInfoSize(szFullPath, &dwVerHnd);
 	
 	if (dwVerInfoSize != 0) {
 		// If we were able to get the information, process it
-		HANDLE hMem;
-		LPVOID lpvMem;
-		TCHAR szGetName[256];
-		int cchRoot;
-		
-		hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
-		lpvMem = GlobalLock(hMem);
+		HANDLE hMem = GlobalAlloc(GMEM_MOVEABLE, dwVerInfoSize);
+		LPVOID lpvMem = GlobalLock(hMem);
 		GetFileVersionInfo(szFullPath, dwVerHnd, dwVerInfoSize, lpvMem);
+		TCHAR szGetName[256];
 		lstrcpy(szGetName, _T("\\StringFileInfo\\040904b0\\"));
-		cchRoot = lstrlen(szGetName);
+		int cchRoot = lstrlen(szGetName);
 		
 		// Walk through the dialog items that we want to replace
 		for (int i = 0; i < 3; i++) {
-			BOOL fRet;
-			UINT cchVer = 0;
-			LPTSTR lszVer = NULL;
-			TCHAR szResult[256];
 			WORD wID;
 			if (i == 0)
 				wID = IDC_COPYRIGHT;
@@ -55,9 +45,12 @@ void InitDlg(HWND hDlg) {
 				wID = 0;
 			
 			if (wID != 0) {
+				TCHAR szResult[256];
 				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
 				lstrcpy(&szGetName[cchRoot], szResult);
-				fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
+				LPTSTR lszVer = NULL;
+				UINT cchVer = 0;
+				BOOL fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
 				
 				if (fRet && cchVer != 0 && lszVer != NULL) {
 					// Replace dialog item text with version info
