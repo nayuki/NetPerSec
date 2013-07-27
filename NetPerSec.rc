@@ -138,8 +138,8 @@ BEGIN
     LTEXT           "Static",IDC_SCALE_MID_RECV,217,40,53,8
     LTEXT           "0",IDC_RECV_ZERO,217,62,53,8
     LTEXT           "Static",IDC_SCALE_MAX_SENT,217,96,53,8
-    LTEXT           "Static",IDC_SCALE_MID_SENT,217,117,53,8
-    LTEXT           "0",IDC_SENT_ZERO,217,139,53,8
+    LTEXT           "Static",IDC_SCALE_MID_SENT,217,118,53,8
+    LTEXT           "0",IDC_SENT_ZERO,217,140,53,8
     LTEXT           "Current",IDC_STATIC,14,14,24,8
     LTEXT           "Average",IDC_STATIC,14,36,28,8
     LTEXT           "Current",IDC_STATIC,14,92,24,8
