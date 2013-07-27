@@ -78,16 +78,35 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 }
 
 
+static int InterpolateColors(int x, int y, double t) {
+	return (int)((x >> 16 & 0xFF) * (1 - t) + (y >> 16 & 0xFF) * t + 0.5) << 16
+	     | (int)((x >>  8 & 0xFF) * (1 - t) + (y >>  8 & 0xFF) * t + 0.5) <<  8
+	     | (int)((x >>  0 & 0xFF) * (1 - t) + (y >>  0 & 0xFF) * t + 0.5) <<  0;
+}
+
+
+static int gradientColor = 0xC0C0C0;
+static int gradientHeight = 5;
+
+static int GradientColor(int y) {
+	double t = min((double)y / gradientHeight, 1);
+	t = 1 - (1 - t) * (1 - t);
+	return InterpolateColors(gradientColor, g_ColorIconBack, t);
+}
+
+
 // Draws the histogram icon
 void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
-	CBrush back(g_ColorIconBack);
-	pDC->FillRect(*prc, &back);
+	// Slight gradient background at the top
+	int height = prc->Height();
+	for (int i = 0; i < height; i++) {
+		CRect rect(prc->left, prc->top + i, prc->right, prc->top + i + 1);
+		CBrush brush(GradientColor(i));
+		pDC->FillRect(&rect, &brush);
+	}
 	
 	int width = prc->Width();
-	int height = prc->Height();
-	CRect temprect(*prc);
 	CBrush brush(color);
-	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, width, 0);
 	for (int i = 0; i < width; i++) {
 		// Compute and clamp
@@ -97,19 +116,13 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 		else if (barheight > height)
 			barheight = height;
 		
-		temprect.left = i;
-		temprect.right = i + 1;
-		temprect.bottom = prc->bottom;
-		temprect.top = temprect.bottom - (int)barheight;
+		CRect temprect(i, prc->bottom - (int)barheight, i + 1, prc->bottom);
 		pDC->FillRect(&temprect, &brush);
 		
 		// One pixel of antialiasing at top of bar
 		double t = barheight - (int)barheight;
 		if (t > 0) {
-			int tempcolor = (int)((color >> 16 & 0xFF) * t + (g_ColorIconBack >> 16 & 0xFF) * (1 - t) + 0.5) << 16
-			              | (int)((color >>  8 & 0xFF) * t + (g_ColorIconBack >>  8 & 0xFF) * (1 - t) + 0.5) <<  8
-			              | (int)((color >>  0 & 0xFF) * t + (g_ColorIconBack >>  0 & 0xFF) * (1 - t) + 0.5) <<  0;
-			CBrush tempbrush(tempcolor);
+			CBrush tempbrush(InterpolateColors(GradientColor(height - 1 - (int)barheight), color, t));
 			temprect.bottom = temprect.top;
 			temprect.top--;
 			pDC->FillRect(&temprect, &tempbrush);
@@ -131,18 +144,13 @@ HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	dcMem.CreateCompatibleDC(NULL);
 	CBitmap *pOld = dcMem.SelectObject(&m_bmpHistogram);
 	
-	// Top half is for received graph
+	// Top half: Received graph
 	CRect rc(0, 0, 16, 8);
 	FillHistogramIcon(&dcMem, pRecv, g_ColorRecv, &rc);
 	
-	// Bottom half (slightly less) is for sent graph
-	rc.SetRect(0, 9, 16, 16);
+	// Bottom half: Sent graph
+	rc.SetRect(0, 8, 16, 16);
 	FillHistogramIcon(&dcMem, pSent, g_ColorSent, &rc);
-	
-	// Line between the two graphs
-	CRect linerect(0, 8, 16, 9);
-	CBrush linebrush(RGB(128,128,128));
-	dcMem.FillRect(&linerect, &linebrush);
 	
 	dcMem.SelectObject(pOld);
 	HICON hIcon = CreateIconIndirect(&m_HistogramIconInfo);
