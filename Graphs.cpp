@@ -13,7 +13,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-// Width of bars and length of lines
+// Width of bars or line segments
 #define WIDTH 4
 
 

@@ -176,7 +176,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 		SentStats[i] = SentStats[i - 1];
 	}
 	
-	// Calc the average bps
+	// Calc the average bps and add new entry to array
 	CalcAverages(recv_bits, dwTime, dwRecv_bps, RecvStats);
 	CalcAverages(sent_bits, dwTime, dwSent_bps, SentStats);
 	

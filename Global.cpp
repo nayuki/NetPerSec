@@ -10,7 +10,7 @@
 
 // Loaded via ini file
 int g_nSampleRate;       // Milliseconds
-int g_nAveragingWindow;  // Seconds
+int g_nAveragingWindow;  // Samples
 int g_Range_Recv;        // For graph window (in Bps)
 int g_Range_Sent;        // For graph window (in Bps)
 int g_GraphOptions;

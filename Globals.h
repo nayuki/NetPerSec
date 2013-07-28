@@ -71,7 +71,7 @@ extern COLORREF IconColors[MAX_ICON_COLORS];
 
 // Loaded via .ini file
 extern int g_nSampleRate;       // Milliseconds
-extern int g_nAveragingWindow;  // Seconds
+extern int g_nAveragingWindow;  // Samples
 extern int g_Range_Recv;  // For graph window (in bps)
 extern int g_Range_Sent;  // For graph window (in bps)
 extern int g_GraphOptions;

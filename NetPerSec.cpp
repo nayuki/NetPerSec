@@ -59,7 +59,7 @@ BOOL CNetPerSecApp::InitInstance() {
 	if (WSAStartup(MAKEWORD(1, 1), &WinsockData) != 0)
 		AfxMessageBox("This program requires Winsock 2.x", MB_ICONHAND);
 	
-	// Read in saved settings from .ini file
+	// Read saved settings from .ini file
 	ReadSettings();
 	
 	// Create a hidden window to receive system tray messages

@@ -14,7 +14,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 
-// Tick marks for the averaging window are a multiple of 5 times the sample rate
+// Tick marks for the averaging window are a multiple of 5 times the sample interval
 #define AVERAGING_MULTIPLIER 5
 
 
@@ -111,7 +111,7 @@ void COptionsDlg::UpdateAveragingWindow() {
 	CSliderCtrl *pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	
 	int max = (MAX_SAMPLES - 1) / AVERAGING_MULTIPLIER;
-	pWindowSlider->SetRange(1, max, TRUE);  // Seconds
+	pWindowSlider->SetRange(1, max, TRUE);  // Blocks of samples
 	int nPos = pWindowSlider->GetPos();
 	
 	g_nAveragingWindow = max(nPos * AVERAGING_MULTIPLIER, 1);

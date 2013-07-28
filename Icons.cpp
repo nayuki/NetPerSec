@@ -37,7 +37,7 @@ HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, ICON_STYLE nStyl
 }
 
 
-// Draws the bar graph icon
+// Draws one graph of the bar graph icon
 void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, 15, 0);
 	int nIcon = MulDiv(pStats[0].Bps, 14, dwHigh);
@@ -47,7 +47,7 @@ void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *
 }
 
 
-// Returns icon for the bar graph
+// Returns a bar graph icon
 HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	if (m_hBarGraphIcon == 0) {
 		m_hBarGraphIcon = (HICON)LoadImage(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDI_BARGRAPH), IMAGE_ICON, 16, 16, LR_DEFAULTCOLOR);
@@ -60,7 +60,7 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	dcMem.CreateCompatibleDC(NULL);
 	CBitmap *pOld = dcMem.SelectObject(&m_bmpBarGraph);
 	
-	// Offsets for the left and right halves of the icon
+	// Regions for the left and right halves of the icon
 	CRect rcSent(1, 1, 7, 15);
 	CRect rcRecv(9, 1, 15, 15);
 	
@@ -95,7 +95,7 @@ static int GradientColor(int y) {
 }
 
 
-// Draws the histogram icon
+// Draws one graph of the histogram icon
 void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
 	// Slight gradient background at the top
 	int height = prc->Height();
