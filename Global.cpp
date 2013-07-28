@@ -196,13 +196,10 @@ int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int n
 }
 
 void WritePrivateProfileInt(LPCSTR pSection, int nValue) {
-	CString sFileName;
-	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
 	char buf[256];
 	wsprintf(buf, "%u", nValue);
-	WritePrivateProfileString(SZ_CONFIG, pSection, buf, sFileName);
+	WritePrivateProfileString(pSection, buf);
 }
-
 
 void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue) {
 	CString sFileName;

@@ -314,12 +314,9 @@ void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 	m_fpSnmpUtilOidCpy(&varBind[2].name, &MIB_ifType);
 	
 	while (true) {
-		int ret = m_fpExtensionQuery(ASN_RFC1157_GETNEXTREQUEST, &varBindList, &errorStatus, &errorIndex);
-		if (ret == 0)
+		if (m_fpExtensionQuery(ASN_RFC1157_GETNEXTREQUEST, &varBindList, &errorStatus, &errorIndex) == 0)
 			break;
-		
-		ret = m_fpSnmpUtilOidNCmp(&varBind[0].name, &MIB_ifDesc, MIB_ifDesc.idLength);
-		if (ret != 0)
+		if (m_fpSnmpUtilOidNCmp(&varBind[0].name, &MIB_ifDesc, MIB_ifDesc.idLength) != 0)
 			break;
 		
 		// Win9x occasionally fails to truncate the ifDesc string (and leaks memory when this happens).

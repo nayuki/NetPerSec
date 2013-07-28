@@ -157,18 +157,13 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	DWORD total_recv = (DWORD)(dbRecv - m_dbTotalBytesRecv);
 	DWORD total_sent = (DWORD)(dbSent - m_dbTotalBytesSent);
 	
+	// Calc bits per second
 	DWORD dwRecv_bps = 0;
 	DWORD dwSent_bps = 0;
-	
-	// Calc bits per second
 	if (elapsed > 0) {
 		dwRecv_bps = MulDiv(total_recv, 1000, elapsed);
 		dwSent_bps = MulDiv(total_sent, 1000, elapsed);
 	}
-	
-	// Convert to double
-	double recv_bits = (double)r;
-	double sent_bits = (double)s;
 	
 	// Shift over previous data
 	for (int i = MAX_SAMPLES - 1; i >= 1; i--) {
@@ -177,8 +172,8 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	}
 	
 	// Calc the average bps and add new entry to array
-	CalcAverages(recv_bits, dwTime, dwRecv_bps, RecvStats);
-	CalcAverages(sent_bits, dwTime, dwSent_bps, SentStats);
+	CalcAverages((double)r, dwTime, dwRecv_bps, RecvStats);
+	CalcAverages((double)s, dwTime, dwSent_bps, SentStats);
 	
 	// Get the icon for the system tray
 	HICON hIcon = theApp.m_Icons.GetIcon(RecvStats, SentStats, g_IconStyle);
@@ -200,9 +195,7 @@ void Cwinproc::ShowPropertiesDlg() {
 		theApp.m_pMainWnd = NULL;
 		
 		m_pPropertiesDlg = new DlgPropSheet(SZ_APPNAME, NULL);
-		
-		m_pPropertiesDlg->m_psh.dwFlags |= PSH_NOAPPLYNOW;
-		m_pPropertiesDlg->m_psh.dwFlags |= PSH_MODELESS;
+		m_pPropertiesDlg->m_psh.dwFlags |= PSH_NOAPPLYNOW | PSH_MODELESS;
 		
 		if (m_pPropertiesDlg->DoModal() == IDOK)
 			SaveSettings();

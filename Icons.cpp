@@ -39,9 +39,11 @@ HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, ICON_STYLE nStyl
 
 // Draws one graph of the bar graph icon
 void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
+	CBrush back(g_ColorIconBack);
+	dcMem.FillRect(prc, &back);
+	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, 15, 0);
-	int nIcon = MulDiv(pStats[0].Bps, 14, dwHigh);
-	prc->top = prc->bottom - nIcon;
+	prc->top = prc->bottom - MulDiv(pStats[0].Bps, 14, dwHigh);
 	CBrush brush(color);
 	pDC->FillRect(prc, &brush);
 }
@@ -63,11 +65,6 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	// Regions for the left and right halves of the icon
 	CRect rcSent(1, 1, 7, 15);
 	CRect rcRecv(9, 1, 15, 15);
-	
-	CBrush back(g_ColorIconBack);
-	dcMem.FillRect(rcSent, &back);
-	dcMem.FillRect(rcRecv, &back);
-	
 	FillBarIcon(&dcMem, pSent, g_ColorSent, &rcSent);
 	FillBarIcon(&dcMem, pRecv, g_ColorRecv, &rcRecv);
 	

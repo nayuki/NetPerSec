@@ -66,15 +66,12 @@ BOOL COptionsDlg::OnInitDialog() {
 	CPropertyPage::OnInitDialog();
 	
 	CSliderCtrl *pSampleSlider = (CSliderCtrl*)GetDlgItem(IDC_SAMPLE_SLIDER);
-	CSliderCtrl *pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
 	ASSERT(pSampleSlider != NULL);
-	ASSERT(pWindowSlider != NULL);
 	
 	pSampleSlider->SetRange(0, ELEMENTS(SampleIntervals) - 1);  // Milliseconds
 	pSampleSlider->SetTicFreq(1);
 	pSampleSlider->SetPageSize(1);
 	pSampleSlider->SetLineSize(1);
-	
 	int nPos = 0;
 	for (int i = 0; i < ELEMENTS(SampleIntervals); i++) {
 		if ((UINT)g_nSampleRate >= SampleIntervals[i])
@@ -82,6 +79,8 @@ BOOL COptionsDlg::OnInitDialog() {
 	}
 	pSampleSlider->SetPos(nPos);
 	
+	CSliderCtrl *pWindowSlider = (CSliderCtrl*)GetDlgItem(IDC_AVERAGE_SLIDER);
+	ASSERT(pWindowSlider != NULL);
 	pWindowSlider->SetRange(1, (MAX_SAMPLES - 1) / AVERAGING_MULTIPLIER);  // Seconds
 	pWindowSlider->SetTicFreq(1);
 	pWindowSlider->SetPageSize(1);
