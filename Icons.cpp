@@ -40,7 +40,7 @@ HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, ICON_STYLE nStyl
 // Draws one graph of the bar graph icon
 void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
 	CBrush back(g_ColorIconBack);
-	dcMem.FillRect(prc, &back);
+	pDC->FillRect(prc, &back);
 	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, 15, 0);
 	prc->top = prc->bottom - MulDiv(pStats[0].Bps, 14, dwHigh);
