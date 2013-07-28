@@ -322,17 +322,15 @@ void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 		if (ret != 0)
 			break;
 		
-		if (errorStatus == 0) {
-			// Win9x occasionally fails to truncate the ifDesc string (and leaks memory when this happens).
-			// Limit the output string to 32 characters max
-			if (varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK) {
-				char s[32];
-				int len = min(varBind[0].value.asnValue.string.length, sizeof(s) - 1);
-				strncpy(s, (char*)varBind[0].value.asnValue.string.stream, len);
-				s[len] = 0;
-				sArray->Add(s);
-				nAdapter->Add(varBind[1].value.asnValue.number);
-			}
+		// Win9x occasionally fails to truncate the ifDesc string (and leaks memory when this happens).
+		// Limit the output string to 32 characters max
+		if (errorStatus == 0 && varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK) {
+			char s[32];
+			int len = min(varBind[0].value.asnValue.string.length, sizeof(s) - 1);
+			strncpy(s, (char*)varBind[0].value.asnValue.string.stream, len);
+			s[len] = 0;
+			sArray->Add(s);
+			nAdapter->Add(varBind[1].value.asnValue.number);
 		}
 		
 		for (int i = 0; i < VAR_BINDS_DESCRIPTIONS; i++) {

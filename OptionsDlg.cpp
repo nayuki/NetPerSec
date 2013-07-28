@@ -153,19 +153,11 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT(pCtrl != NULL);
 	
-	switch (nControl) {
-		case IDC_SAMPLE_SLIDER:
-		{
-			int nPos = pCtrl->GetPos();
-			nPos = min(nPos, ELEMENTS(SampleIntervals));
-			
-			g_nSampleRate = SampleIntervals[nPos];
-			theApp.m_wnd.SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
-			break;
-		}
-		
-		case IDC_AVERAGE_SLIDER:
-			break;
+	if (nControl == IDC_SAMPLE_SLIDER) {
+		int nPos = pCtrl->GetPos();
+		nPos = min(nPos, ELEMENTS(SampleIntervals));
+		g_nSampleRate = SampleIntervals[nPos];
+		theApp.m_wnd.SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
 	}
 	
 	UpdateDlg();
