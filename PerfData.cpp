@@ -188,7 +188,7 @@ BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	return TRUE;
 }
 
-void CPerfData::Init(void) {
+void CPerfData::Init() {
 	DWORD dwVersion = GetVersion();
 	if (dwVersion >> 31 == 0) {
 		// Windows NT

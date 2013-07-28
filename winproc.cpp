@@ -130,7 +130,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	snmp.GetReceivedAndSentOctets(&r, &s);
 	
 	// Init data?
-	if (!m_dbTotalBytesRecv || !m_dbTotalBytesSent) {
+	if (m_dbTotalBytesRecv == 0 || m_dbTotalBytesSent == 0) {
 		m_dbTotalBytesRecv = r + m_dbRecvWrap;
 		m_dbTotalBytesSent = s + m_dbSentWrap;
 		m_dwStartTime = GetTickCount();
@@ -161,7 +161,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	DWORD dwSent_bps = 0;
 	
 	// Calc bits per second
-	if (elapsed) {
+	if (elapsed > 0) {
 		dwRecv_bps = MulDiv(total_recv, 1000, elapsed);
 		dwSent_bps = MulDiv(total_sent, 1000, elapsed);
 	}

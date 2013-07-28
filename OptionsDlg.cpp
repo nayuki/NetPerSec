@@ -19,7 +19,7 @@ static char THIS_FILE[] = __FILE__;
 
 
 // Milliseconds to set the timer for sampling SNMP
-UINT SampleRates[] = {
+static UINT SampleIntervals[] = {
 	250,
 	500,
 	1000,
@@ -70,14 +70,14 @@ BOOL COptionsDlg::OnInitDialog() {
 	ASSERT(pSampleSlider != NULL);
 	ASSERT(pWindowSlider != NULL);
 	
-	pSampleSlider->SetRange(0, ELEMENTS(SampleRates) - 1);  // Milliseconds
+	pSampleSlider->SetRange(0, ELEMENTS(SampleIntervals) - 1);  // Milliseconds
 	pSampleSlider->SetTicFreq(1);
 	pSampleSlider->SetPageSize(1);
 	pSampleSlider->SetLineSize(1);
 	
 	int nPos = 0;
-	for (int i = 0; i < ELEMENTS(SampleRates); i++) {
-		if ((UINT)g_nSampleRate >= SampleRates[i])
+	for (int i = 0; i < ELEMENTS(SampleIntervals); i++) {
+		if ((UINT)g_nSampleRate >= SampleIntervals[i])
 			nPos = i;
 	}
 	pSampleSlider->SetPos(nPos);
@@ -157,9 +157,9 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 		case IDC_SAMPLE_SLIDER:
 		{
 			int nPos = pCtrl->GetPos();
-			nPos = min(nPos, ELEMENTS(SampleRates));
+			nPos = min(nPos, ELEMENTS(SampleIntervals));
 			
-			g_nSampleRate = SampleRates[nPos];
+			g_nSampleRate = SampleIntervals[nPos];
 			theApp.m_wnd.SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
 			break;
 		}

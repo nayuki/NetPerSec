@@ -313,7 +313,7 @@ void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 	m_fpSnmpUtilOidCpy(&varBind[1].name, &MIB_ifIndex);
 	m_fpSnmpUtilOidCpy(&varBind[2].name, &MIB_ifType);
 	
-	while (1) {
+	while (true) {
 		int ret = m_fpExtensionQuery(ASN_RFC1157_GETNEXTREQUEST, &varBindList, &errorStatus, &errorIndex);
 		if (ret == 0)
 			break;
