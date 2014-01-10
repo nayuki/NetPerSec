@@ -91,7 +91,8 @@ BOOL COptionsDlg::OnInitDialog() {
 	switch (g_MonitorMode) {
 		case MONITOR_DUN    :  nID = IDC_USE_DUN;          break;
 		case MONITOR_ADAPTER:  nID = IDC_MONITOR_ADAPTER;  break;
-		default             :  nID = IDC_USE_SNMP;         break;
+		case MONITOR_ALL    :  nID = IDC_USE_SNMP;         break;
+		default             :  ASSERT(false);              break;
 	}
 	
 	CheckRadioButton(IDC_USE_SNMP, IDC_MONITOR_ADAPTER, nID);

@@ -517,12 +517,7 @@ void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	int nControl = pScrollBar->GetDlgCtrlID();
 	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(nControl);
 	ASSERT(pCtrl != NULL);
-	
-	nPos = pCtrl->GetPos();
-	if (nPos < 0)
-		nPos = 0;
-	if (nPos >= ELEMENTS(bpsArray))
-		nPos = ELEMENTS(bpsArray) - 1;
+	nPos = min(pCtrl->GetPos(), ELEMENTS(bpsArray) - 1);
 	
 	if (nControl == IDC_SCALE_SLIDER_RECV) {
 		m_AutoScale_Recv = 0;
