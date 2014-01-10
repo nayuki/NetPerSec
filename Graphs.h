@@ -21,10 +21,6 @@ public:
 	void ClearGraph();
 	int GetTotalElements();
 	
-// Operations
-public:
-	void StepIt();
-	
 // Overrides
 	// ClassWizard generated virtual function overrides
 	//{{AFX_VIRTUAL(CGraphs)

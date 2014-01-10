@@ -20,7 +20,6 @@ public:
 	LRESULT OnTaskbarNotify(WPARAM wParam, LPARAM lParam);
 	void UpdateTrayIcon(HICON hIcon);
 	void ShowPropertiesDlg();
-	UINT GetSNMPValue(LPCSTR pString);
 	
 // Attributes
 public:

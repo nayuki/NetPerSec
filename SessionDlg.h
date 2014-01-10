@@ -38,7 +38,6 @@ public:
 	void UpdateScrollPos(WORD wControl, DWORD dwValue);
 	DWORD CalcMax(STATS_STRUCT *pStats);
 	
-	CToolTipCtrl m_ToolTip;
 	CGraphs m_RecvGraph;
 	CGraphs m_SentGraph;
 	UINT m_AutoScale_Recv;
