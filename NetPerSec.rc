@@ -85,13 +85,13 @@ CAPTION "About"
 FONT 8, "MS Sans Serif"
 BEGIN
     GROUPBOX        "",IDC_STATIC,7,7,271,180
-    LTEXT           "FileVersion",IDC_VERSION,150,74,44,8
+    LTEXT           "FileVersion",IDC_VERSION,139,74,44,8
     CTEXT           "LegalCopyright",IDC_COPYRIGHT,36,96,212,11
-    RTEXT           "Version:",IDC_STATIC,120,74,26,8
-    CTEXT           "First published in PC Magazine, US Edition, 2001-01-16\nWritten by Mark Sweeney\n\nUpdated by Nayuki Minase in 2013\nhttp://nayuki.eigenstate.org/",IDC_STATIC,47,136,190,44
+    RTEXT           "Version:",IDC_STATIC,109,74,26,8
+    CTEXT           "First published in PC Magazine, US Edition, 2001-01-16\nWritten by Mark Sweeney\n\nUpdated by Nayuki Minase\nhttp://nayuki.eigenstate.org/page/netpersec-nayukis-version",IDC_STATIC,27,136,230,44
     LTEXT           "NetPerSec",IDC_STATIC,126,26,36,8
-    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,69,119,146,1
-    ICON            IDI_MAINFRAME,IDC_STATIC,131,43,21,20
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,71,119,146,1
+    ICON            IDI_MAINFRAME,IDC_STATIC,131,43,20,20
 END
 
 IDD_SESSION_DLG DIALOGEX 0, 0, 284, 204
@@ -266,7 +266,7 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,1
+ FILEVERSION 1,1,0,1
  PRODUCTVERSION 1,0,0,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -285,7 +285,7 @@ BEGIN
             VALUE "Comments", "Written by Mark Sweeney\0"
             VALUE "CompanyName", "Ziff-Davis Media, Inc.\0"
             VALUE "FileDescription", "NetPerSec\0"
-            VALUE "FileVersion", "1.2\0"
+            VALUE "FileVersion", "2014-01-09\0"
             VALUE "InternalName", "NetPerSec\0"
             VALUE "LegalCopyright", "Copyright © 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
             VALUE "LegalTrademarks", "\0"
