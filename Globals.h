@@ -82,8 +82,6 @@ extern BOOL g_bShowBarGraph;
 extern BOOL g_bAutoScaleRecv;
 extern BOOL g_bAutoScaleSent;
 extern MONITOR_MODE g_MonitorMode;
-extern double g_dbResetRecv;  // When user clicks reset
-extern double g_dbResetSent;  // These values are subtracted from the total
 extern DWORD g_dwAdapter;     // Specific adapter index to monitor
 
 extern COLORREF g_ColorBack;

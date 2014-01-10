@@ -20,14 +20,10 @@ UINT TaskbarCallbackMsg = RegisterWindowMessage("NPSTaskbarMsg");
 
 // Cwinproc
 Cwinproc::Cwinproc() {
-	m_dwStartTime = 0;
-	m_dbTotalBytesRecv = 0;
-	m_dbTotalBytesSent = 0;
-	m_dbRecvWrap = 0;
-	m_dbSentWrap = 0;
 	m_pPropertiesDlg = NULL;
 	ZeroMemory(&m_SystemTray, sizeof(m_SystemTray));
 	ResetData();
+	m_dwStartTime = GetTickCount();
 }
 
 Cwinproc::~Cwinproc() {}
@@ -129,40 +125,30 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	DWORD s, r;
 	snmp.GetReceivedAndSentOctets(&r, &s);
 	
-	// Init data?
-	if (m_dbTotalBytesRecv == 0 || m_dbTotalBytesSent == 0) {
-		m_dbTotalBytesRecv = r + m_dbRecvWrap;
-		m_dbTotalBytesSent = s + m_dbSentWrap;
-		m_dwStartTime = GetTickCount();
+	DWORD curRecv, curSent;  // Total bytes received and sent during this interval
+	if (m_PrevBytesRecv == 0 && m_PrevBytesSent == 0 || r == 0 && s == 0) {
+		curRecv = 0;
+		curSent = 0;
+	} else {
+		curRecv = r - m_PrevBytesRecv;  // With 32-bit unsigned wraparound
+		curSent = s - m_PrevBytesSent;
 	}
+	m_PrevBytesRecv = r;
+	m_PrevBytesSent = s;
+	m_TotalBytesRecv += curRecv;
+	m_TotalBytesSent += curSent;
 	
 	// Don't depend upon exact WM_TIMER messages, get the true elapsed number of milliseconds
 	DWORD dwTime = GetTickCount();
 	DWORD elapsed = dwTime - m_dwStartTime;
 	m_dwStartTime = dwTime;
 	
-	double dbRecv = r + m_dbRecvWrap;
-	double dbSent = s + m_dbSentWrap;
-	// Check for integer wrap
-	if (dbRecv < m_dbTotalBytesRecv) {
-		m_dbRecvWrap += 0xffffffff;
-		dbRecv = r + m_dbRecvWrap;
-	}
-	if (dbSent < m_dbTotalBytesSent) {
-		m_dbSentWrap += 0xffffffff;
-		dbSent = s + m_dbSentWrap;
-	}
-	
-	// Total bytes sent or received during this interval
-	DWORD total_recv = (DWORD)(dbRecv - m_dbTotalBytesRecv);
-	DWORD total_sent = (DWORD)(dbSent - m_dbTotalBytesSent);
-	
 	// Calc bits per second
 	DWORD dwRecv_bps = 0;
 	DWORD dwSent_bps = 0;
 	if (elapsed > 0) {
-		dwRecv_bps = MulDiv(total_recv, 1000, elapsed);
-		dwSent_bps = MulDiv(total_sent, 1000, elapsed);
+		dwRecv_bps = MulDiv(curRecv, 1000, elapsed);
+		dwSent_bps = MulDiv(curSent, 1000, elapsed);
 	}
 	
 	// Shift over previous data
@@ -172,17 +158,13 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	}
 	
 	// Calc the average bps and add new entry to array
-	CalcAverages((double)r, dwTime, dwRecv_bps, RecvStats);
-	CalcAverages((double)s, dwTime, dwSent_bps, SentStats);
+	CalcAverages(m_TotalBytesRecv, dwTime, dwRecv_bps, RecvStats);
+	CalcAverages(m_TotalBytesSent, dwTime, dwSent_bps, SentStats);
 	
 	// Get the icon for the system tray
 	HICON hIcon = theApp.m_Icons.GetIcon(RecvStats, SentStats, g_IconStyle);
 	UpdateTrayIcon(hIcon);
 	DestroyIcon(hIcon);
-	
-	// Save the totals
-	m_dbTotalBytesRecv = dbRecv;
-	m_dbTotalBytesSent = dbSent;
 }
 
 
@@ -286,6 +268,10 @@ void Cwinproc::UpdateTrayIcon(HICON hIcon) {
 void Cwinproc::ResetData() {
 	ZeroMemory(RecvStats, sizeof(RecvStats));
 	ZeroMemory(SentStats, sizeof(SentStats));
+	m_TotalBytesRecv = 0;
+	m_TotalBytesSent = 0;
+	m_PrevBytesRecv = 0;
+	m_PrevBytesSent = 0;
 }
 
 

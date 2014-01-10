@@ -155,10 +155,10 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */) {
 	UpdateGraph();
 	
 	CString s;
-	FormatBytes(theApp.m_wnd.m_dbTotalBytesRecv - g_dbResetRecv, s, false);
+	FormatBytes(theApp.m_wnd.m_TotalBytesRecv, s, false);
 	SetDlgItemText(IDC_GROUP_RECV, "Received: " + s);
 	
-	FormatBytes(theApp.m_wnd.m_dbTotalBytesSent - g_dbResetSent, s, false);
+	FormatBytes(theApp.m_wnd.m_TotalBytesSent, s, false);
 	SetDlgItemText(IDC_GROUP_SENT, "Sent: " + s);
 }
 
@@ -554,9 +554,6 @@ void CSessionDlg::OnResetData() {
 	
 	m_AutoScale_Recv = 0;
 	m_AutoScale_Sent = 0;
-	
-	g_dbResetRecv = theApp.m_wnd.m_dbTotalBytesRecv;  // When user clicks reset
-	g_dbResetSent = theApp.m_wnd.m_dbTotalBytesSent;  // These values are subtracted from the total
 	
 	SetGraphRangeRecv();
 	SetGraphRangeSent();

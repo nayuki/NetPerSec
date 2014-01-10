@@ -20,8 +20,6 @@ BOOL g_bOnTop;
 BOOL g_bShowBarGraph;
 BOOL g_bAutoScaleRecv;
 BOOL g_bAutoScaleSent;
-double g_dbResetRecv;   // When user clicks reset these
-double g_dbResetSent;   // Values are subtracted from the total
 DWORD g_dwAdapter;
 COLORREF g_ColorBack;
 COLORREF g_ColorRecv;

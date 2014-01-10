@@ -27,10 +27,10 @@ public:
 	DlgPropSheet *m_pPropertiesDlg;
 	
 	DWORD m_dwStartTime;
-	double m_dbTotalBytesRecv;
-	double m_dbTotalBytesSent;
-	double m_dbRecvWrap;
-	double m_dbSentWrap;
+	DWORD m_PrevBytesRecv;
+	DWORD m_PrevBytesSent;
+	double m_TotalBytesRecv;
+	double m_TotalBytesSent;
 	
 	NOTIFYICONDATA m_SystemTray;
 	STATS_STRUCT RecvStats[MAX_SAMPLES];

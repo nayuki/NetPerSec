@@ -180,13 +180,6 @@ void COptionsDlg::OnUseSnmp() {
 	
 	// Reset totals
 	theApp.m_wnd.ResetData();
-	
-	g_dbResetRecv =
-	g_dbResetSent =
-	theApp.m_wnd.m_dbRecvWrap =
-	theApp.m_wnd.m_dbSentWrap =
-	theApp.m_wnd.m_dbTotalBytesRecv =
-	theApp.m_wnd.m_dbTotalBytesSent = 0;
 }
 
 void COptionsDlg::OnUseDun() {
