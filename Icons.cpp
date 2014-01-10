@@ -38,14 +38,14 @@ HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, ICON_STYLE nStyl
 
 
 // Draws one graph of the bar graph icon
-void CIcons::FillBarIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
+void CIcons::FillBarIcon(CDC &pDC, STATS_STRUCT *pStats, COLORREF color, CRect &prc) {
 	CBrush back(g_ColorIconBack);
-	pDC->FillRect(prc, &back);
+	pDC.FillRect(prc, &back);
 	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, 15, 0);
-	prc->top = prc->bottom - MulDiv(pStats[0].Bps, 14, dwHigh);
+	prc.top = prc.bottom - MulDiv(pStats[0].Bps, 14, dwHigh);
 	CBrush brush(color);
-	pDC->FillRect(prc, &brush);
+	pDC.FillRect(prc, &brush);
 }
 
 
@@ -65,8 +65,8 @@ HICON CIcons::GetBargraphIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	// Regions for the left and right halves of the icon
 	CRect rcSent(1, 1, 7, 15);
 	CRect rcRecv(9, 1, 15, 15);
-	FillBarIcon(&dcMem, pSent, g_ColorSent, &rcSent);
-	FillBarIcon(&dcMem, pRecv, g_ColorRecv, &rcRecv);
+	FillBarIcon(dcMem, pSent, g_ColorSent, rcSent);
+	FillBarIcon(dcMem, pRecv, g_ColorRecv, rcRecv);
 	
 	dcMem.SelectObject(pOld);
 	HICON hIcon = CreateIconIndirect(&m_BarGraphIconInfo);
@@ -93,16 +93,16 @@ static int GradientColor(int y) {
 
 
 // Draws one graph of the histogram icon
-void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc) {
+void CIcons::FillHistogramIcon(CDC &pDC, STATS_STRUCT *pStats, COLORREF color, CRect &prc) {
 	// Slight gradient background at the top
-	int height = prc->Height();
+	int height = prc.Height();
 	for (int i = 0; i < height; i++) {
-		CRect rect(prc->left, prc->top + i, prc->right, prc->top + i + 1);
+		CRect rect(prc.left, prc.top + i, prc.right, prc.top + i + 1);
 		CBrush brush(GradientColor(i));
-		pDC->FillRect(&rect, &brush);
+		pDC.FillRect(&rect, &brush);
 	}
 	
-	int width = prc->Width();
+	int width = prc.Width();
 	CBrush brush(color);
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, width, 0);
 	for (int i = 0; i < width; i++) {
@@ -113,8 +113,8 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 		else if (barheight > height)
 			barheight = height;
 		
-		CRect temprect(i, prc->bottom - (int)barheight, i + 1, prc->bottom);
-		pDC->FillRect(&temprect, &brush);
+		CRect temprect(i, prc.bottom - (int)barheight, i + 1, prc.bottom);
+		pDC.FillRect(&temprect, &brush);
 		
 		// One pixel of antialiasing at top of bar
 		double t = barheight - (int)barheight;
@@ -122,7 +122,7 @@ void CIcons::FillHistogramIcon(CDC *pDC, STATS_STRUCT *pStats, COLORREF color, C
 			CBrush tempbrush(InterpolateColors(GradientColor(height - 1 - (int)barheight), color, t));
 			temprect.bottom = temprect.top;
 			temprect.top--;
-			pDC->FillRect(&temprect, &tempbrush);
+			pDC.FillRect(&temprect, &tempbrush);
 		}
 	}
 }
@@ -143,11 +143,11 @@ HICON CIcons::GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent) {
 	
 	// Top half: Received graph
 	CRect rc(0, 0, 16, 8);
-	FillHistogramIcon(&dcMem, pRecv, g_ColorRecv, &rc);
+	FillHistogramIcon(dcMem, pRecv, g_ColorRecv, rc);
 	
 	// Bottom half: Sent graph
 	rc.SetRect(0, 8, 16, 16);
-	FillHistogramIcon(&dcMem, pSent, g_ColorSent, &rc);
+	FillHistogramIcon(dcMem, pSent, g_ColorSent, rc);
 	
 	dcMem.SelectObject(pOld);
 	HICON hIcon = CreateIconIndirect(&m_HistogramIconInfo);

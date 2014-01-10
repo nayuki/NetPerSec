@@ -207,14 +207,14 @@ void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue) {
 	WritePrivateProfileString(SZ_CONFIG, pSection, pValue, sFileName);
 }
 
-void SaveWindowPosition(CRect *pRect) {
-	WritePrivateProfileInt(SZ_WINPOS_TOP , pRect->top );
-	WritePrivateProfileInt(SZ_WINPOS_LEFT, pRect->left);
+void SaveWindowPosition(CRect &pRect) {
+	WritePrivateProfileInt(SZ_WINPOS_TOP , pRect.top );
+	WritePrivateProfileInt(SZ_WINPOS_LEFT, pRect.left);
 }
 
-void LoadWindowPosition(CRect *pRect) {
-	pRect->top  = (int)GetPrivateProfileInt(SZ_WINPOS_TOP , -1);
-	pRect->left = (int)GetPrivateProfileInt(SZ_WINPOS_LEFT, -1);
+void LoadWindowPosition(CRect &pRect) {
+	pRect.top  = (int)GetPrivateProfileInt(SZ_WINPOS_TOP , -1);
+	pRect.left = (int)GetPrivateProfileInt(SZ_WINPOS_LEFT, -1);
 }
 
 

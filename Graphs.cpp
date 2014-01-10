@@ -61,12 +61,12 @@ void CGraphs::SetStyle(BOOL nStyle) {
 		m_GraphArray[i] = 0;
 }
 
-void CGraphs::DrawGrid(CDC *pDC, CRect *pRect) {
+void CGraphs::DrawGrid(CDC &pDC, CRect &pRect) {
 	CPen pen(PS_SOLID, 1, RGB(0,128,0));
-	CPen *pOldPen = pDC->SelectObject(&pen);
-	pDC->MoveTo(0, pRect->Height() / 2);
-	pDC->LineTo(pRect->right, pRect->Height() / 2);
-	pDC->SelectObject(pOldPen);
+	CPen *pOldPen = pDC.SelectObject(&pen);
+	pDC.MoveTo(0, pRect.Height() / 2);
+	pDC.LineTo(pRect.right, pRect.Height() / 2);
+	pDC.SelectObject(pOldPen);
 }
 
 void CGraphs::ClearGraph() {
@@ -74,7 +74,7 @@ void CGraphs::ClearGraph() {
 	GetClientRect(rc);
 	CBrush bkBrush(g_ColorBack);
 	m_MemDC.FillRect(rc, &bkBrush);
-	DrawGrid(&m_MemDC, &rc);
+	DrawGrid(m_MemDC, rc);
 }
 
 
@@ -91,7 +91,7 @@ void CGraphs::RedrawGraph() {
 		m_MemDC.SetBkColor(RGB(0,0,0));
 		CBrush brush(g_ColorBack);
 		m_MemDC.FillRect(rcClient, &brush);
-		DrawGrid(&m_MemDC, &rcClient);
+		DrawGrid(m_MemDC, rcClient);
 	}
 	
 	InvalidateRect(rcClient);
@@ -145,7 +145,7 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 		CRect rcRight = rcClient;
 		rcRight.left = rcRight.right - WIDTH;
 		
-		DrawGrid(&m_MemDC, &rcRight);
+		DrawGrid(m_MemDC, rcRight);
 		
 		// Draw a tick mark
 		CPen pen(PS_SOLID, 1, RGB(0,128,0));

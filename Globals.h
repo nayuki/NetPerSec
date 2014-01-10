@@ -103,8 +103,8 @@ void WritePrivateProfileInt(LPCSTR pSection, int nValue);
 int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int nSize);
 int GetPrivateProfileInt(LPCSTR pKey, int nDefault=0);
 void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue);
-void LoadWindowPosition(CRect *pRect);
-void SaveWindowPosition(CRect *pRect);
+void LoadWindowPosition(CRect &pRect);
+void SaveWindowPosition(CRect &pRect);
 DWORD GetServicePack();
 
 #endif

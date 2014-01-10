@@ -21,8 +21,8 @@ private:
 	
 	HICON GetBargraphIcon (STATS_STRUCT *pSent, STATS_STRUCT *pRecv);
 	HICON GetHistogramIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent);
-	void FillHistogramIcon(CDC *pDC, STATS_STRUCT *pRecv , COLORREF color, CRect *prc);
-	void FillBarIcon      (CDC *pDC, STATS_STRUCT *pStats, COLORREF color, CRect *prc);
+	void FillHistogramIcon(CDC &pDC, STATS_STRUCT *pRecv , COLORREF color, CRect &prc);
+	void FillBarIcon      (CDC &pDC, STATS_STRUCT *pStats, COLORREF color, CRect &prc);
 };
 
 #endif

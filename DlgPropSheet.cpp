@@ -86,7 +86,7 @@ BOOL DlgPropSheet::OnInitDialog() {
 	// Position the dialog
 	CRect rc;
 	GetClientRect(rc);
-	LoadWindowPosition(&rc);
+	LoadWindowPosition(rc);
 	BOOL bCenter = FALSE;
 	if (rc.left < 0 || rc.left + rc.right >= GetSystemMetrics(SM_CXFULLSCREEN))
 		bCenter = TRUE;
@@ -113,7 +113,7 @@ BOOL DlgPropSheet::OnInitDialog() {
 void DlgPropSheet::OnDestroy() {
 	CRect rc;
 	GetWindowRect(rc);
-	SaveWindowPosition(&rc);
+	SaveWindowPosition(rc);
 	theApp.m_pMainWnd = &theApp.m_wnd;
 	CPropertySheet::OnDestroy();
 }

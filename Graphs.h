@@ -14,7 +14,7 @@ public:
 	void SetGraphRange(UINT nRange);
 	void RedrawGraph();
 	void DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex=-1);
-	void DrawGrid(CDC *pDC, CRect *pRect);
+	void DrawGrid(CDC &pDC, CRect &pRect);
 	void SetSize(int nPoints);
 	void ShiftLeft();
 	void SetStyle(BOOL nStyle);
