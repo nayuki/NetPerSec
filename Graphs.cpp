@@ -21,7 +21,6 @@ static char THIS_FILE[] = __FILE__;
 CGraphs::CGraphs() {
 	m_nGraphRange = 100;
 	m_bBarGraph = TRUE;
-	m_nGraphScale = 0;
 }
 
 CGraphs::~CGraphs() {}
@@ -46,16 +45,7 @@ BOOL CGraphs::Create(DWORD dwStyle, const RECT &rc, CWnd *pParentWnd, UINT nID, 
 }
 
 void CGraphs::SetGraphRange(UINT nRange) {
-	nRange = max(nRange, 1);
-	
-	m_nGraphScale = 0;
-	while (nRange > 0xFFFF) {
-		m_nGraphScale++;
-		nRange /= m_nGraphScale * 1000;
-	}
-	
-	ASSERT(nRange < 0xFFFF);
-	m_nGraphRange = nRange;
+	m_nGraphRange = max(nRange, 1);
 	RedrawGraph();
 }
 
@@ -140,21 +130,14 @@ void CGraphs::ShiftLeft() {
 
 
 void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
-	UINT nRange = m_nGraphRange;
 	CRect rcClient;
 	GetClientRect(rcClient);
-	
-	if (m_nGraphScale && nPos != 0)
-		nPos /= m_nGraphScale * 1000;
-	
-	nPos = min(m_nGraphRange, nPos);
 	
 	if (m_MemDC.GetSafeHdc() != NULL) {
 		m_MemDC.BitBlt(0, 0, rcClient.Width(), rcClient.Height(), &m_MemDC, 0, 0, SRCCOPY);
 		
 		CRect rcTop(rcClient.right - WIDTH, 0, rcClient.right - WIDTH/2, rcClient.bottom);
-		rcTop.top = (long)(((float)nPos / nRange) * rcClient.Height());
-		rcTop.top = rcClient.bottom - rcTop.top;
+		rcTop.top = rcClient.bottom - (long)(min((double)nPos / m_nGraphRange, 1.0) * rcClient.Height() + 0.5);
 		
 		m_MemDC.SetBkColor(RGB(0,0,0));
 		

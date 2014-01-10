@@ -44,7 +44,6 @@ protected:
 	DECLARE_MESSAGE_MAP()
 	
 	UINT m_nGraphRange;
-	int m_nGraphScale;
 	CDC m_MemDC;
 	CBitmap m_Bitmap;
 	BOOL m_bBarGraph;
