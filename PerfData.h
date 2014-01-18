@@ -14,7 +14,6 @@ class CPerfData {
 public:
 	CPerfData();
 	
-	void Init();
 	void GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
 	
 // Attributes

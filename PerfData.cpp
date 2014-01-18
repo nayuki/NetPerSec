@@ -177,7 +177,12 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	static BOOL bInitPerfData = FALSE;
 	if (!bInitPerfData) {
-		Init();
+		DWORD ver = GetVersion();
+		m_bIs95 = (ver & 0x80000000u) != 0;
+		if (!m_bIs95)
+			GetNameStrings();  // Windows NT
+		// Otherwise Windows 95/98: Requires Dial-up Networking Update v1.3 for Win95 users.
+		// Since these functions use the registry, you should close NetPerSec before installing or updating the system.
 		bInitPerfData = TRUE;
 	}
 	
@@ -185,18 +190,4 @@ void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 		ReadData9x(pReceived, pSent);
 	else
 		ReadDataNT(pReceived, pSent);
-}
-
-void CPerfData::Init() {
-	DWORD dwVersion = GetVersion();
-	if (dwVersion >> 31 == 0) {
-		// Windows NT
-		m_bIs95 = FALSE;
-		GetNameStrings();
-	} else {
-		// Windows 95/98. Requires Dial-up Networking Update v1.3 for Win95 users.
-		// Since these functions use the registry, you should close
-		// NetPerSec before installing or updating the system
-		m_bIs95 = TRUE;
-	}
 }
