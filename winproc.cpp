@@ -126,7 +126,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	snmp.GetReceivedAndSentOctets(&r, &s);
 	
 	DWORD curRecv, curSent;  // Total bytes received and sent during this interval
-	if (m_PrevBytesRecv == 0 && m_PrevBytesSent == 0 || r == 0 && s == 0) {
+	if (r == 0 && s == 0 || r - m_PrevBytesRecv > 0xC0000000u || s - m_PrevBytesSent > 0xC0000000u) {
 		curRecv = 0;
 		curSent = 0;
 	} else {
