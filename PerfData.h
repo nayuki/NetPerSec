@@ -15,7 +15,7 @@ public:
 	CPerfData();
 	
 	void Init();
-	BOOL GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
+	void GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
 	
 // Attributes
 public:

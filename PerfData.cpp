@@ -174,7 +174,7 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 	free(PerfData);
 }
 
-BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
+void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	static BOOL bInitPerfData = FALSE;
 	if (!bInitPerfData) {
 		Init();
@@ -185,7 +185,6 @@ BOOL CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 		ReadData9x(pReceived, pSent);
 	else
 		ReadDataNT(pReceived, pSent);
-	return TRUE;
 }
 
 void CPerfData::Init() {

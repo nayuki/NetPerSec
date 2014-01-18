@@ -172,7 +172,7 @@ BOOL CSnmp::Init() {
 }
 
 // Use the IPHLPAPI interface to retrieve the transmitted and received bytes
-int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
+void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
 	MIB_IFROW mib;
 	ZeroMemory(&mib, sizeof(mib));
 	
@@ -192,12 +192,11 @@ int CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
 			*pSent += mib.dwOutOctets;
 		}
 	}
-	return TRUE;
 }
 
 
 // Returns the number of bytes received and transmitted through all network interfaces
-BOOL CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
+void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 	#define VAR_BINDS 3
 	RFC1157VarBind varBind[VAR_BINDS];
 	AsnInteger errorStatus;
@@ -240,7 +239,7 @@ BOOL CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 		
 		m_fpSnmpUtilOidFree(&varBind[0].name);
 		m_fpSnmpUtilOidFree(&varBind[1].name);
-		return 1;
+		return;
 	}
 	
 	// Monitor all adapters
@@ -278,8 +277,6 @@ BOOL CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 	
 	for (int i = 0; i < VAR_BINDS; i++)
 		m_fpSnmpUtilOidFree(&varBind[i].name);
-	
-	return 1;
 }
 
 
@@ -363,14 +360,14 @@ void CSnmp::ShowSystemError(int nID) {
 
 
 // Returns the number of bytes received and transmitted
-BOOL CSnmp::GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent) {
+void CSnmp::GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent) {
 	*pRecv = 0;
 	*pSent = 0;
 	
 	if (g_MonitorMode == MONITOR_DUN)  // Use performance data from the registry
-		return perfdata.GetReceivedAndSentOctets(pRecv, pSent);
+		perfdata.GetReceivedAndSentOctets(pRecv, pSent);
 	else if (m_bUse_iphlpapi)  // Use IPHLPAPI.DLL
-		return GetReceivedAndSentOctets_IPHelper(pRecv, pSent);
+		GetReceivedAndSentOctets_IPHelper(pRecv, pSent);
 	else  // Use INETMIB1.DLL
-		return GetReceivedAndSentOctets_9x(pRecv, pSent);
+		GetReceivedAndSentOctets_9x(pRecv, pSent);
 }

@@ -82,12 +82,12 @@ private:
 	
 public:
 	BOOL Init();
-	BOOL GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
+	void GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
 	void GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter);
 	
 private:
-	BOOL GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent);
-	int  GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent);
+	void GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent);
+	void GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent);
 	void GetInterfaces();
 	void ShowSystemError(int nID);
 	BOOL CheckNT();
