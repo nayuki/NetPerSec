@@ -387,7 +387,7 @@ BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_M
 }
 
 
-// Draws the transmitted samples
+// Draws the sent samples
 void CSessionDlg::SetGraphRangeSent() {
 	DWORD dwNumber;
 	if (!g_bAutoScaleSent)

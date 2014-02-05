@@ -82,7 +82,7 @@ extern BOOL g_bShowBarGraph;
 extern BOOL g_bAutoScaleRecv;
 extern BOOL g_bAutoScaleSent;
 extern MONITOR_MODE g_MonitorMode;
-extern DWORD g_dwAdapter;     // Specific adapter index to monitor
+extern DWORD g_dwAdapter;  // Specific adapter index to monitor
 
 extern COLORREF g_ColorBack;
 extern COLORREF g_ColorRecv;
