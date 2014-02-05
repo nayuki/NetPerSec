@@ -41,28 +41,23 @@ void InitDlg(HWND hDlg) {
 				wID = IDC_COPYRIGHT;
 			else if (i == 1)
 				wID = IDC_VERSION;
-			else
-				wID = 0;
 			
-			if (wID != 0) {
-				TCHAR szResult[256];
-				::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
-				lstrcpy(&szGetName[cchRoot], szResult);
-				LPTSTR lszVer = NULL;
-				UINT cchVer = 0;
-				BOOL fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
-				
-				if (fRet && cchVer != 0 && lszVer != NULL) {
-					// Replace dialog item text with version info
-					lstrcpy(szResult, lszVer);
-					::SetDlgItemText(hDlg, wID, szResult);
-				}
+			TCHAR szResult[256];
+			::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
+			lstrcpy(&szGetName[cchRoot], szResult);
+			LPTSTR lszVer = NULL;
+			UINT cchVer = 0;
+			BOOL fRet = VerQueryValue(lpvMem, szGetName, (void**)&lszVer, &cchVer);
+			
+			if (fRet && cchVer != 0 && lszVer != NULL) {
+				// Replace dialog item text with version info
+				lstrcpy(szResult, lszVer);
+				::SetDlgItemText(hDlg, wID, szResult);
 			}
 		}
 		GlobalUnlock(hMem);
 		GlobalFree(hMem);
 	}
-	return;
 }
 
 

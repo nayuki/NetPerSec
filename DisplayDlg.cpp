@@ -62,8 +62,7 @@ BOOL CDisplayDlg::GetColor(COLORREF *pColorRef) {
 	if (dlg.DoModal() == IDOK) {
 		*pColorRef = dlg.m_cc.rgbResult;
 		return TRUE;
-	}
-	else
+	} else
 		return FALSE;
 }
 
@@ -251,7 +250,7 @@ void CDisplayDlg::OnIconHistogram() {
 	else if (IsDlgButtonChecked(IDC_ICON_HISTOGRAM))
 		g_IconStyle = ICON_HISTOGRAM;
 	else
-		ASSERT(0);
+		ASSERT(false);
 	
 	ShowSampleIcon();
 }
