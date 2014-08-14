@@ -59,10 +59,7 @@ CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD) {
 }
 
 CSessionDlg::~CSessionDlg() {
-	if (m_pbrBackground != NULL) {
-		delete m_pbrBackground;
-		m_pbrBackground = NULL;
-	}
+	delete m_pbrBackground;
 }
 
 void CSessionDlg::DoDataExchange(CDataExchange *pDX) {
@@ -110,8 +107,7 @@ BOOL CSessionDlg::PreTranslateMessage(MSG *pMsg) {
 
 
 BOOL CSessionDlg::OnSetActive() {
-	if (m_pbrBackground != NULL)
-		delete m_pbrBackground;
+	delete m_pbrBackground;
 	m_pbrBackground = new CBrush(g_ColorBack);
 	
 	SetTimer(TIMER_ID_SESSION, g_nSampleRate, NULL);
@@ -164,10 +160,8 @@ void CSessionDlg::OnTimer(UINT /* nIDEvent */) {
 
 
 BOOL CSessionDlg::OnKillActive() {
-	if (m_pbrBackground != NULL) {
-		delete m_pbrBackground;
-		m_pbrBackground = NULL;
-	}
+	delete m_pbrBackground;
+	m_pbrBackground = NULL;
 	KillTimer(TIMER_ID_SESSION);
 	return CPropertyPage::OnKillActive();
 }
