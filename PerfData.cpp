@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "netpersec.h"
+#include "StdAfx.h"
+#include "NetPerSec.h"
 #include "PerfData.h"
 #include <atlbase.h>
 

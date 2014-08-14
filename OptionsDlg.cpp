@@ -2,10 +2,10 @@
  * Implements the options property page.
  */
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "NetPerSec.h"
 #include "OptionsDlg.h"
-#include "snmp.h"
+#include "Snmp.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
