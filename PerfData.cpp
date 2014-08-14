@@ -42,8 +42,7 @@ BOOL CPerfData::GetPerfStats9x(LPCSTR pKey, DWORD *dwValue) {
 }
 
 
-// Load the counter and object names from the registry to the
-// global variable m_lpNamesArray.
+// Load the counter and object names from the registry to the global variable m_lpNamesArray.
 void CPerfData::GetNameStrings() {
 	HKEY hKeyPerflib;      // Handle to registry key
 	HKEY hKeyPerflib009;   // Handle to registry key

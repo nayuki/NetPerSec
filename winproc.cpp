@@ -138,12 +138,12 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	m_TotalBytesRecv += curRecv;
 	m_TotalBytesSent += curSent;
 	
-	// Don't depend upon exact WM_TIMER messages, get the true elapsed number of milliseconds
+	// Don't depend upon timing of WM_TIMER messages. Get the true number of milliseconds elapsed
 	DWORD dwTime = GetTickCount();
 	DWORD elapsed = dwTime - m_dwStartTime;
 	m_dwStartTime = dwTime;
 	
-	// Calc bits per second
+	// Calculate bits per second
 	DWORD dwRecv_bps = 0;
 	DWORD dwSent_bps = 0;
 	if (elapsed > 0) {
