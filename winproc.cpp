@@ -169,7 +169,7 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 
 
 void Cwinproc::ShowPropertiesDlg() {
-	if (m_pPropertiesDlg)
+	if (m_pPropertiesDlg != NULL)
 		m_pPropertiesDlg->SetForegroundWindow();
 	else {
 		// Fake out MFC in order to receive the "minimize all windows" syscommand message
@@ -236,7 +236,7 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 			
 			if (cmd == IDCLOSE) {
 				// Save any settings if the user closes the tray icon while the dialog is open
-				if (m_pPropertiesDlg) {
+				if (m_pPropertiesDlg != NULL) {
 					SaveSettings();
 					m_pPropertiesDlg->SendMessage(WM_CLOSE);
 				}
