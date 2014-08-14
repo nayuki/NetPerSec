@@ -52,7 +52,7 @@ END_MESSAGE_MAP()
 // Startup - called when the invisible window is created in netpersec.cpp.
 // Initializes SNMP and the system tray icon
 void Cwinproc::StartUp() {
-	if (snmp.Init() == FALSE)
+	if (!snmp.Init())
 		PostQuitMessage(0);
 	else {
 		SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
