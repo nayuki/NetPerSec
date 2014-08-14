@@ -15,15 +15,10 @@ static char THIS_FILE[] = __FILE__;
 
 // CPerfData
 CPerfData::CPerfData() {
-	m_lpNameStrings = NULL;
-	m_lpNamesArray = NULL;
 	m_bIs95 = FALSE;
 }
 
-CPerfData::~CPerfData() {
-	if (m_lpNameStrings) free(m_lpNameStrings);
-	if (m_lpNamesArray ) free(m_lpNamesArray);
-}
+CPerfData::~CPerfData() {}
 
 
 BOOL CPerfData::GetPerfStats9x(LPCSTR pKey, DWORD *dwValue) {
@@ -71,7 +66,7 @@ void CPerfData::GetNameStrings() {
 	RegCloseKey(hKeyPerflib);
 	
 	// Allocate memory for the names array
-	m_lpNamesArray = (char**)malloc((dwBuffer + 1) * sizeof(LPSTR));
+	m_lpNamesArray.resize(dwBuffer + 1);
 	
 	// Open key containing counter and object names
 	RegOpenKeyEx(HKEY_LOCAL_MACHINE,
@@ -96,19 +91,18 @@ void CPerfData::GetNameStrings() {
 	
 	// Allocate memory for the counter and object names
 	dwBuffer = dwMaxValueLen + 1;
-	
-	m_lpNameStrings = (LPSTR)malloc(dwBuffer * sizeof(CHAR));
+	m_lpNameStrings.resize(dwBuffer);
 	
 	// Read counter value
 	RegQueryValueEx(hKeyPerflib009,
 		"Counter",
 		NULL,
 		NULL,
-		(BYTE*)m_lpNameStrings, &dwBuffer);
+		(BYTE*)m_lpNameStrings.data(), &dwBuffer);
 	
 	// Load names into an array, by index
-	lpCurrentString = m_lpNameStrings;
-	while (*lpCurrentString) {
+	lpCurrentString = m_lpNameStrings.data();
+	while (*lpCurrentString != '\0') {
 		dwCounter = atol(lpCurrentString);
 		lpCurrentString += lstrlen(lpCurrentString) + 1;
 		m_lpNamesArray[dwCounter] = (LPSTR)lpCurrentString;

@@ -5,6 +5,7 @@
 #pragma once
 #endif
 
+#include <vector>
 #include <Winperf.h>
 
 
@@ -20,8 +21,8 @@ public:
 public:
 	
 private:
-	LPSTR m_lpNameStrings;
-	LPSTR *m_lpNamesArray;
+	std::vector<CHAR> m_lpNameStrings;
+	std::vector<LPSTR> m_lpNamesArray;
 	BOOL m_bIs95;
 	
 	void GetNameStrings();
