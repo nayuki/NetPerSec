@@ -122,11 +122,19 @@ DWORD Cwinproc::GetRecentMaximum(STATS_STRUCT *stats, int num, int type) {
 
 // Calculate samples
 void Cwinproc::OnTimer(UINT /* nIDEvent */) {
+	// Retrieve the total number of bytes received and sent by all network adapters, modulo 2^32.
+	// Each network adapter counts from its own epoch, which is the last time the cable or wireless LAN was connected. 
 	DWORD s, r;
 	snmp.GetReceivedAndSentOctets(&r, &s);
 	
-	DWORD curRecv, curSent;  // Total bytes received and sent during this interval
-	if (r == 0 && s == 0 || r - m_PrevBytesRecv > 0xC0000000u || s - m_PrevBytesSent > 0xC0000000u) {
+	// Calculate the bytes transferred in the time interval that started a few seconds ago and ended just now.
+	// Consider this calculation invalid if any of these conditions are true:
+	// - The current total bytes r and s are 0 (network adapter disconnected/reset)
+	// - The previous total bytes are 0 (NetPerSec counter was reset using ResetData())
+	// - The data transferred in this interval exceeds 3 GiB (too fast to be plausible)
+	DWORD curRecv, curSent;
+	if (r == 0 && s == 0 || m_PrevBytesRecv == 0 && m_PrevBytesSent == 0
+			|| r - m_PrevBytesRecv > 0xC0000000u || s - m_PrevBytesSent > 0xC0000000u) {
 		curRecv = 0;
 		curSent = 0;
 	} else {
