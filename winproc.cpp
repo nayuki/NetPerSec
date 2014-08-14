@@ -234,12 +234,12 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 			menu.LoadMenu(IDR_MENU1);
 			menu.SetDefaultItem(0, TRUE);
 			
-			CMenu *pMenu = menu.GetSubMenu(0);
-			pMenu->SetDefaultItem(0, TRUE);
+			CMenu &pMenu = *menu.GetSubMenu(0);
+			pMenu.SetDefaultItem(0, TRUE);
 			
 			// See Q135788 "PRB: Menus for Notification Icons Do Not Work Correctly"
 			SetForegroundWindow();
-			int cmd = pMenu->TrackPopupMenu(TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY, pt.x, pt.y, this);
+			int cmd = pMenu.TrackPopupMenu(TPM_RETURNCMD | TPM_LEFTALIGN | TPM_NONOTIFY, pt.x, pt.y, this);
 			PostMessage(WM_NULL, 0, 0);
 			
 			if (cmd == IDCLOSE) {

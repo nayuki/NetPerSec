@@ -193,15 +193,15 @@ BOOL CSessionDlg::OnInitDialog() {
 	
 	OnAutoscale();
 	
-	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_RECV);
-	pCtrl->SetRange(0, ELEMENTS(bpsArray) - 1);
-	pCtrl->SetTicFreq(1);
-	pCtrl->SetPos(g_Range_Recv);
+	CSliderCtrl &pCtrl = *(CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_RECV);
+	pCtrl.SetRange(0, ELEMENTS(bpsArray) - 1);
+	pCtrl.SetTicFreq(1);
+	pCtrl.SetPos(g_Range_Recv);
 	
-	CSliderCtrl *pCtrl2 = (CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_SENT);
-	pCtrl2->SetRange(0, ELEMENTS(bpsArray) - 1);
-	pCtrl2->SetTicFreq(1);
-	pCtrl2->SetPos(g_Range_Sent);
+	CSliderCtrl &pCtrl2 = *(CSliderCtrl*)GetDlgItem(IDC_SCALE_SLIDER_SENT);
+	pCtrl2.SetRange(0, ELEMENTS(bpsArray) - 1);
+	pCtrl2.SetTicFreq(1);
+	pCtrl2.SetPos(g_Range_Sent);
 	
 	CheckDlgButton(IDC_BARGRAPH, g_bShowBarGraph != 0);
 	CheckDlgButton(IDC_LINEGRAPH, g_bShowBarGraph == 0);

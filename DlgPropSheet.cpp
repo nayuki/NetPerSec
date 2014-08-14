@@ -142,11 +142,11 @@ int DlgPropSheet::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	ModifyStyle(DS_CONTEXTHELP | DS_MODALFRAME, WS_MINIMIZEBOX);
 	// Configure our system menu
 	GetSystemMenu(TRUE);  // Revert the menu
-	CMenu *pSysMenu = GetSystemMenu(FALSE);  // And grab the handle
-	pSysMenu->EnableMenuItem(SC_MINIMIZE, MF_ENABLED);
-	pSysMenu->DeleteMenu(SC_MAXIMIZE, MF_BYCOMMAND);
-	pSysMenu->DeleteMenu(SC_SIZE, MF_BYCOMMAND);
-	pSysMenu->EnableMenuItem(SC_RESTORE, MF_DISABLED | MF_GRAYED);
+	CMenu &pSysMenu = *GetSystemMenu(FALSE);  // And grab the handle
+	pSysMenu.EnableMenuItem(SC_MINIMIZE, MF_ENABLED);
+	pSysMenu.DeleteMenu(SC_MAXIMIZE, MF_BYCOMMAND);
+	pSysMenu.DeleteMenu(SC_SIZE, MF_BYCOMMAND);
+	pSysMenu.EnableMenuItem(SC_RESTORE, MF_DISABLED | MF_GRAYED);
 	
 	return 0;
 }
