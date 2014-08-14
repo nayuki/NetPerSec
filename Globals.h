@@ -63,7 +63,7 @@ typedef enum {
 
 
 #define MAX_SAMPLES 61
-#define ELEMENTS(x) (sizeof(x) / sizeof(int))
+#define ELEMENTS(x) (sizeof(x) / sizeof(*x))
 
 #define MAX_ICON_COLORS 16
 extern COLORREF IconColors[MAX_ICON_COLORS];

@@ -206,13 +206,13 @@ void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 	static AsnObjectIdentifier MIB_NULL = {0, 0};
 	
 	static UINT OID_ifInoctets[] = {1, 3, 6, 1, 2, 1, 2, 2, 1, 10, 0};
-	AsnObjectIdentifier MIB_ifInoctets = {OID_SIZEOF(OID_ifInoctets), OID_ifInoctets};
+	AsnObjectIdentifier MIB_ifInoctets = {ELEMENTS(OID_ifInoctets), OID_ifInoctets};
 	
 	static UINT OID_ifOutoctets[] = {1, 3, 6, 1, 2, 1, 2, 2, 1, 16, 0};
-	AsnObjectIdentifier MIB_ifOutoctets = {OID_SIZEOF(OID_ifOutoctets), OID_ifOutoctets};
+	AsnObjectIdentifier MIB_ifOutoctets = {ELEMENTS(OID_ifOutoctets), OID_ifOutoctets};
 	
 	static UINT OID_ifType[] = {1, 3, 6, 1, 2, 1, 2, 2, 1, 3};
-	AsnObjectIdentifier MIB_ifType = {OID_SIZEOF(OID_ifType), OID_ifType};
+	AsnObjectIdentifier MIB_ifType = {ELEMENTS(OID_ifType), OID_ifType};
 	
 	ASSERT(m_pvarBindList != NULL);
 	
@@ -292,13 +292,13 @@ void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 	static AsnObjectIdentifier MIB_NULL = {0, 0};
 	
 	static UINT OID_ifDesc[] = {1, 3, 6, 1, 2, 1, 2, 2, 1, 2};
-	AsnObjectIdentifier MIB_ifDesc = {OID_SIZEOF(OID_ifDesc), OID_ifDesc};
+	AsnObjectIdentifier MIB_ifDesc = {ELEMENTS(OID_ifDesc), OID_ifDesc};
 	
 	static UINT OID_ifIndex[] = {1, 3, 6, 1, 2, 1, 2, 2, 1, 1};
-	AsnObjectIdentifier MIB_ifIndex = {OID_SIZEOF(OID_ifIndex), OID_ifIndex};
+	AsnObjectIdentifier MIB_ifIndex = {ELEMENTS(OID_ifIndex), OID_ifIndex};
 	
 	static UINT OID_ifType[] = {1, 3, 6, 1, 2, 1, 2, 2, 1, 3};
-	AsnObjectIdentifier MIB_ifType = {OID_SIZEOF(OID_ifType), OID_ifType};
+	AsnObjectIdentifier MIB_ifType = {ELEMENTS(OID_ifType), OID_ifType};
 	
 	varBindList.list = varBind;
 	varBindList.len = VAR_BINDS_DESCRIPTIONS;

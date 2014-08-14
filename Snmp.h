@@ -37,8 +37,6 @@ class CSnmp {
 	typedef DWORD (WINAPI *fpGetIfEntry)(LPVOID);
 	typedef DWORD (WINAPI *fpGetInterfaceInfo)(PIP_INTERFACE_INFO, LPDWORD);
 	
-	#define OID_SIZEOF(Oid)(sizeof Oid / sizeof(UINT))
-	
 	typedef int (WINAPI *pSnmpUtilOidFree)(AsnObjectIdentifier *pOid);
 	typedef int (WINAPI *pSnmpUtilVarBindFree)(SnmpVarBind *pVb);
 	typedef int (WINAPI *pSnmpUtilOidNCmp)(AsnObjectIdentifier *pOid1,
