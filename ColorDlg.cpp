@@ -217,7 +217,7 @@ void CColorCubeDlg::OnColorSelect(UINT id) {
 
 void CColorCubeDlg::OnLButtonUp(UINT nFlags, CPoint pt) {
 	CWnd *pWnd = ChildWindowFromPoint(pt, CWP_ALL);
-	if (pWnd && pWnd != this)
+	if (pWnd != NULL && pWnd != this)
 		pWnd->SendMessage(WM_LBUTTONDOWN, 0, 0);
 	CDialog::OnLButtonUp(nFlags, pt);
 }

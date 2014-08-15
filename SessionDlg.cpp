@@ -230,11 +230,11 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update) {
 			m_RecvGraph.SetPos(theApp.m_wnd.RecvStats[nIndex].Bps, g_ColorRecv, LINEGRAPH_BPS);
 	}
 	
-	if (update & SENT_DATA) {
+	if ((update & SENT_DATA) != 0) {
 		m_SentGraph.ShiftLeft();
-		if (g_GraphOptions & OPTION_AVE)
+		if ((g_GraphOptions & OPTION_AVE) != 0)
 			m_SentGraph.SetPos(theApp.m_wnd.SentStats[nIndex].ave, g_ColorAve, LINEGRAPH_AVE);
-		if (g_GraphOptions & OPTION_BPS)
+		if ((g_GraphOptions & OPTION_BPS) != 0)
 			m_SentGraph.SetPos(theApp.m_wnd.SentStats[nIndex].Bps, g_ColorSent, LINEGRAPH_BPS);
 	}
 }
@@ -269,9 +269,9 @@ void CSessionDlg::UpdateGraph() {
 BOOL CSessionDlg::CalcAutoScale(UINT *pAutoScale, STATS_STRUCT *pStats, UPDATE_MODE update) {
 	int total = m_SentGraph.GetTotalElements();
 	DWORD dwHigh = 1;
-	if (g_GraphOptions & OPTION_BPS)
+	if ((g_GraphOptions & OPTION_BPS) != 0)
 		dwHigh = max(Cwinproc::GetRecentMaximum(pStats, total, 0), dwHigh);
-	if (g_GraphOptions & OPTION_AVE)
+	if ((g_GraphOptions & OPTION_AVE) != 0)
 		dwHigh = max(Cwinproc::GetRecentMaximum(pStats, total, 1), dwHigh);
 	
 	// Preferred top-of-scale numbers for binary-prefix bytes

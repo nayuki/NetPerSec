@@ -11,14 +11,14 @@ HANDLE hPollForTrapEvent = NULL;
 AsnObjectIdentifier SupportedView = {0, 0};
 
 LPVOID CSnmp::SnmpUtilMemAlloc(UINT nSize) {
-	if (m_fpSnmpUtilMemAlloc)
+	if (m_fpSnmpUtilMemAlloc != NULL)
 		return m_fpSnmpUtilMemAlloc(nSize);
 	else
 		return GlobalAlloc(GPTR, nSize);
 }
 
 void CSnmp::SnmpUtilMemFree(LPVOID pMem) {
-	if (m_fpSnmpUtilMemFree)
+	if (m_fpSnmpUtilMemFree != NULL)
 		m_fpSnmpUtilMemFree(pMem);
 	else
 		GlobalFree(pMem);
@@ -39,10 +39,10 @@ CSnmp::CSnmp() {
 }
 
 CSnmp::~CSnmp() {
-	if (m_pvarBindList) SnmpUtilMemFree(m_pvarBindList);
-	if (m_hInst     ) FreeLibrary(m_hInst);
-	if (m_hInstIpHlp) FreeLibrary(m_hInstIpHlp);
-	if (m_hInstSnmp ) FreeLibrary(m_hInstSnmp);
+	if (m_pvarBindList != NULL) SnmpUtilMemFree(m_pvarBindList);
+	if (m_hInst      != NULL) FreeLibrary(m_hInst);
+	if (m_hInstIpHlp != NULL) FreeLibrary(m_hInstIpHlp);
+	if (m_hInstSnmp  != NULL) FreeLibrary(m_hInstSnmp);
 	m_hInstSnmp = 0;
 	m_hInstIpHlp = 0;
 	m_hInst = 0;
@@ -62,7 +62,7 @@ BOOL CSnmp::CheckNT() {
 	if (os.dwPlatformId == VER_PLATFORM_WIN32_NT) {
 		m_hInstIpHlp = LoadLibraryEx("iphlpapi.dll", NULL, 0);
 		
-		if (m_hInstIpHlp) {
+		if (m_hInstIpHlp != NULL) {
 			m_fpGetIfEntry = (fpGetIfEntry)GetProcAddress(m_hInstIpHlp, "GetIfEntry");
 			m_fpGetNumberOfInterfaces = (fpGetNumberOfInterfaces)GetProcAddress(m_hInstIpHlp, "GetNumberOfInterfaces");
 			
@@ -77,7 +77,7 @@ BOOL CSnmp::CheckNT() {
 				// and control flags in the upper word of the adapter[].index .
 				// GetInterfaceInfo is not supported by WinNT.
 				m_fpGetInterfaceInfo = (fpGetInterfaceInfo)GetProcAddress(m_hInstIpHlp, "GetInterfaceInfo");
-				if (m_fpGetInterfaceInfo) {
+				if (m_fpGetInterfaceInfo != NULL) {
 					m_bUseGetInterfaceInfo = TRUE;
 					m_bUse_iphlpapi = TRUE;
 				}
@@ -91,14 +91,14 @@ BOOL CSnmp::CheckNT() {
 // Win2000 does not report adapters until they are used.
 void CSnmp::GetInterfaces() {
 	if (m_bUseGetInterfaceInfo == TRUE) {
-		if (m_fpGetInterfaceInfo) {
+		if (m_fpGetInterfaceInfo != NULL) {
 			// Query size
 			DWORD dwSize = 0;
 			m_fpGetInterfaceInfo(NULL, &dwSize);
 			
 			if (dwSize != 0) {
 				PIP_INTERFACE_INFO pInterface = (PIP_INTERFACE_INFO)GlobalAlloc(GPTR, dwSize);
-				if (pInterface) {
+				if (pInterface != NULL) {
 					m_fpGetInterfaceInfo(pInterface, &dwSize);
 					m_dwInterfaces = min(MAX_INTERFACES, pInterface->NumAdapters);
 					
@@ -134,17 +134,17 @@ BOOL CSnmp::Init() {
 	m_fpExtensionInit = (pSnmpExtensionInit)GetProcAddress(m_hInst, "SnmpExtensionInit");
 	m_fpExtensionQuery = (pSnmpExtensionQuery)GetProcAddress(m_hInst, "SnmpExtensionQuery");
 	
-	if (!m_fpExtensionInit) {
+	if (m_fpExtensionInit == NULL) {
 		ShowSystemError(IDS_SNMPINIT_ERR);
 		return FALSE;
 	}
-	if (!m_fpExtensionQuery) {
+	if (m_fpExtensionQuery == NULL) {
 		ShowSystemError(IDS_SNMPQUERY_ERR);
 		return FALSE;
 	}
 	
 	// Init
-	if (!m_fpExtensionInit(GetTickCount(), &hPollForTrapEvent, &SupportedView)) {
+	if (m_fpExtensionInit(GetTickCount(), &hPollForTrapEvent, &SupportedView) == NULL) {
 		ShowSystemError(IDS_SNMPFAIL_ERR);
 		return FALSE;
 	}
@@ -152,7 +152,7 @@ BOOL CSnmp::Init() {
 	// Check to see if the MemAlloc and MemFree functions are available
 	m_hInstSnmp = LoadLibraryEx("snmpapi.dll", NULL, 0);
 	
-	if (m_hInstSnmp) {
+	if (m_hInstSnmp != NULL) {
 		m_fpSnmpUtilMemAlloc = (SUALLOC)GetProcAddress(m_hInstSnmp, "SnmpUtilMemAlloc");
 		m_fpSnmpUtilMemFree = (SUFREE)GetProcAddress(m_hInstSnmp, "SnmpUtilMemFree");
 		m_fpSnmpUtilOidFree = (pSnmpUtilOidFree)GetProcAddress(m_hInstSnmp, "SnmpUtilOidFree");
@@ -232,7 +232,7 @@ void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 		m_fpSnmpUtilOidCpy(&varBind[1].name, &MIB_ifOutoctets);
 		
 		int ret = m_fpExtensionQuery(ASN_RFC1157_GETREQUEST, m_pvarBindList, &errorStatus, &errorIndex);
-		if (ret != 0 && !errorStatus) {
+		if (ret != 0 && errorStatus == 0) {
 			*pRecv = varBind[0].value.asnValue.number;
 			*pSent = varBind[1].value.asnValue.number;
 		}

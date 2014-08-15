@@ -127,7 +127,7 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 	
 	// Allocate the buffer
 	PPERF_DATA_BLOCK PerfData = (PPERF_DATA_BLOCK)malloc(BufferSize);
-	if (!PerfData)
+	if (PerfData == NULL)
 		return;
 	
 	while (RegQueryValueEx(HKEY_PERFORMANCE_DATA, "906", NULL, NULL, (LPBYTE)PerfData, &BufferSize) == ERROR_MORE_DATA) {

@@ -32,7 +32,7 @@ Cwinproc::~Cwinproc() {}
 // Cwinproc
 void Cwinproc::OnClose() {
 	KillTimer(TIMER_ID_WINPROC);
-	if (m_SystemTray.hWnd)
+	if (m_SystemTray.hWnd != NULL)
 		Shell_NotifyIcon(NIM_DELETE, &m_SystemTray);
 	CWnd::OnClose();
 }
@@ -93,7 +93,7 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 	double dbSampleTotal = 0;
 	
 	// Total bytes received/sent in our sampling window
-	if (pStats[start].total)
+	if (pStats[start].total != 0)
 		dbSampleTotal = dbTotal - pStats[start].total;
 	
 	// Elapsed time (ms)
@@ -260,7 +260,7 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 
 void Cwinproc::UpdateTrayIcon(HICON hIcon) {
 	ASSERT(hIcon != 0);
-	if (m_SystemTray.hWnd && hIcon) {
+	if (m_SystemTray.hWnd != NULL && hIcon != NULL) {
 		m_SystemTray.cbSize = sizeof(NOTIFYICONDATA);
 		m_SystemTray.hWnd = GetSafeHwnd();
 		m_SystemTray.uID = 1;

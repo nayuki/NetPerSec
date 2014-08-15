@@ -18,10 +18,10 @@ CIcons::CIcons() {
 }
 
 CIcons::~CIcons() {
-	if (m_hHistogramIcon) DestroyIcon(m_hHistogramIcon);
-	if (m_hBarGraphIcon ) DestroyIcon(m_hBarGraphIcon);
-	if (m_BarGraphIconInfo.hbmColor) DeleteObject(m_BarGraphIconInfo.hbmColor);
-	if (m_BarGraphIconInfo.hbmMask ) DeleteObject(m_BarGraphIconInfo.hbmMask);
+	if (m_hHistogramIcon != NULL) DestroyIcon(m_hHistogramIcon);
+	if (m_hBarGraphIcon  != NULL) DestroyIcon(m_hBarGraphIcon);
+	if (m_BarGraphIconInfo.hbmColor != NULL) DeleteObject(m_BarGraphIconInfo.hbmColor);
+	if (m_BarGraphIconInfo.hbmMask  != NULL) DeleteObject(m_BarGraphIconInfo.hbmMask);
 }
 
 

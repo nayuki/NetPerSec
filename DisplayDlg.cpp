@@ -72,7 +72,7 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct) {
 	COLORREF cr;
 	
 	int iStyle;
-	if ((lpDrawItemStruct->itemAction & ODA_SELECT) && (lpDrawItemStruct->itemState & ODS_SELECTED))
+	if ((lpDrawItemStruct->itemAction & ODA_SELECT) != 0 && (lpDrawItemStruct->itemState & ODS_SELECTED) != 0)
 		iStyle = EDGE_SUNKEN;
 	else
 		iStyle = EDGE_RAISED;
