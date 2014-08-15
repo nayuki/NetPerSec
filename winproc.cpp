@@ -215,7 +215,7 @@ LRESULT Cwinproc::OnTaskbarNotify(WPARAM wParam, LPARAM lParam) {
 			m_SystemTray.hWnd   = GetSafeHwnd();
 			m_SystemTray.uID    = 1;
 			m_SystemTray.uFlags = NIF_TIP;
-			strncpy_s(m_SystemTray.szTip, s, s.GetLength());
+			strcpy_s(m_SystemTray.szTip, s);
 			Shell_NotifyIcon(NIM_MODIFY, &m_SystemTray);
 		}
 		break;

@@ -170,14 +170,9 @@ void QualifyPathName(CString *pFile, LPCSTR pIni) {
 	char szName[MAX_PATH];
 	GetModuleFileName(AfxGetInstanceHandle(), szName, sizeof(szName));
 	LPSTR p = strrchr(szName, '\\');
-	
-	if (p != NULL) {
-		p++;
-		*p = '\0';
-	} else
-		p = szName;
-	
-	strcat(p, pIni);
+	if (p != NULL)
+		p[1] = '\0';
+	strcat_s(szName, pIni);
 	*pFile = szName;
 }
 

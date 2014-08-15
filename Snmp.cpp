@@ -320,9 +320,7 @@ void CSnmp::GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter)
 		// Limit the output string to 32 characters max
 		if (errorStatus == 0 && varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK) {
 			char s[32];
-			int len = min(varBind[0].value.asnValue.string.length, sizeof(s) - 1);
-			strncpy(s, (char*)varBind[0].value.asnValue.string.stream, len);
-			s[len] = 0;
+			strncpy_s(s, (char*)varBind[0].value.asnValue.string.stream, _TRUNCATE);
 			sArray->Add(s);
 			nAdapter->Add(varBind[1].value.asnValue.number);
 		}
