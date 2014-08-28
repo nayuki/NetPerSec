@@ -30,6 +30,7 @@ enum {
 	LINE_GRAPH_SIZE,
 } LINE_GRAPH;
 
+
 static UINT bpsArray[] = {  // In bytes
 	1000 / 8,  // Kilobit
 	3000 / 8,
@@ -58,9 +59,11 @@ CSessionDlg::CSessionDlg() : CPropertyPage(CSessionDlg::IDD) {
 	m_pbrBackground = NULL;
 }
 
+
 CSessionDlg::~CSessionDlg() {
 	delete m_pbrBackground;
 }
+
 
 void CSessionDlg::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
@@ -90,6 +93,7 @@ BEGIN_MESSAGE_MAP(CSessionDlg, CPropertyPage)
 	ON_BN_CLICKED(IDC_AUTOSCALE_RECV, OnAutoscale)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
+
 
 // CSessionDlg message handlers
 
@@ -239,6 +243,7 @@ void CSessionDlg::DrawGraph(int nIndex, UPDATE_MODE update) {
 	}
 }
 
+
 // Adjust the auto scale position
 void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue) {
 	CSliderCtrl *pCtrl = (CSliderCtrl*)GetDlgItem(wControl);
@@ -254,6 +259,7 @@ void CSessionDlg::UpdateScrollPos(WORD wControl, DWORD dwValue) {
 		pCtrl->SetPos(nPos);
 	}
 }
+
 
 void CSessionDlg::UpdateGraph() {
 	// Check autosize
@@ -398,6 +404,7 @@ void CSessionDlg::SetGraphRangeSent() {
 		DrawGraph(total - i, SENT_DATA);
 }
 
+
 // Draws the received samples
 void CSessionDlg::SetGraphRangeRecv() {
 	DWORD dwNumber;
@@ -439,6 +446,7 @@ HBRUSH CSessionDlg::OnCtlColor(CDC *pDC, CWnd *pWnd, UINT nCtlColor) {
 	return hbr;
 }
 
+
 void CSessionDlg::SetOptions() {
 	g_GraphOptions = 0;
 	if (IsDlgButtonChecked(IDC_CURRENT_RECV_OPTION))
@@ -450,29 +458,36 @@ void CSessionDlg::SetOptions() {
 	SetGraphRangeSent();  // Redraw the graphs
 }
 
+
 void CSessionDlg::OnAveRecvOption() {
 	SetOptions();
 }
+
 
 void CSessionDlg::OnAveSentOption() {
 	SetOptions();
 }
 
+
 void CSessionDlg::OnCurrentRecvOption() {
 	SetOptions();
 }
+
 
 void CSessionDlg::OnCurrentSentOption() {
 	SetOptions();
 }
 
+
 void CSessionDlg::OnMaxRecvOption() {
 	SetOptions();
 }
 
+
 void CSessionDlg::OnMaxSentOption() {
 	SetOptions();
 }
+
 
 // Draw the labels on the right side of the graph
 void CSessionDlg::UpdateGraphTextRecv(DWORD dwNumber) {
@@ -527,13 +542,16 @@ void CSessionDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	CPropertyPage::OnHScroll(nSBCode, nPos, pScrollBar);
 }
 
+
 void CSessionDlg::OnBargraph() {
 	SetGraphStyle();
 }
 
+
 void CSessionDlg::OnLinegraph() {
 	SetGraphStyle();
 }
+
 
 void CSessionDlg::SetGraphStyle() {
 	g_bShowBarGraph = IsDlgButtonChecked(IDC_BARGRAPH);
@@ -542,6 +560,7 @@ void CSessionDlg::SetGraphStyle() {
 	SetGraphRangeRecv();
 	SetGraphRangeSent();
 }
+
 
 void CSessionDlg::OnResetData() {
 	theApp.m_wnd.ResetData();
@@ -555,6 +574,7 @@ void CSessionDlg::OnResetData() {
 	OnTimer(0);  // Update the display
 }
 
+
 void CSessionDlg::OnAutoscale() {
 	g_bAutoScaleRecv = IsDlgButtonChecked(IDC_AUTOSCALE_RECV);
 	g_bAutoScaleSent = IsDlgButtonChecked(IDC_AUTOSCALE_SENT);
@@ -566,6 +586,7 @@ void CSessionDlg::OnAutoscale() {
 void CSessionDlg::OnBps() {
 	OnBytes();
 }
+
 
 // Sets the display type to either Bps or bps
 void CSessionDlg::OnBytes() {

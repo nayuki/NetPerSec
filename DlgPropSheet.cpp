@@ -25,10 +25,12 @@ DlgPropSheet::DlgPropSheet(UINT nIDCaption, CWnd *pParentWnd, UINT iSelectPage)
 	AddPropPages();
 }
 
+
 DlgPropSheet::DlgPropSheet(LPCTSTR pszCaption, CWnd *pParentWnd, UINT iSelectPage)
 	:CPropertySheet(pszCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
+
 
 DlgPropSheet::~DlgPropSheet() {
 	delete m_pSessionDlg;
@@ -68,6 +70,7 @@ void DlgPropSheet::OnPaint() {
 	CPaintDC dc(this);  // Device context for painting
 	// Do not call CPropertySheet::OnPaint() for painting messages
 }
+
 
 BOOL DlgPropSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRESULT *pLResult) {
 	// Save last tab

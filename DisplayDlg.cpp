@@ -23,7 +23,9 @@ CDisplayDlg::CDisplayDlg() : CPropertyPage(CDisplayDlg::IDD) {
 	//}}AFX_DATA_INIT
 }
 
+
 CDisplayDlg::~CDisplayDlg() {}
+
 
 void CDisplayDlg::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
@@ -109,12 +111,14 @@ void CDisplayDlg::OnDrawItem(int nIDCtl, LPDRAWITEMSTRUCT lpDrawItemStruct) {
 	DeleteObject(hbr);
 }
 
+
 void CDisplayDlg::OnColorAve() {
 	if (GetColor(&g_ColorAve)) {
 		GetDlgItem(IDC_COLOR_AVE)->InvalidateRect(NULL);
 		GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 	}
 }
+
 
 void CDisplayDlg::OnColorBack() {
 	if (GetColor(&g_ColorBack)) {
@@ -140,6 +144,7 @@ BOOL CDisplayDlg::OnInitDialog() {
 	return TRUE;  // Return TRUE unless you set the focus to a control
 }
 
+
 BOOL CDisplayDlg::OnSetActive() {
 	m_RecvBtn.m_crCurrentColor = g_ColorRecv;
 	m_SentBtn.m_crCurrentColor = g_ColorSent;
@@ -148,11 +153,13 @@ BOOL CDisplayDlg::OnSetActive() {
 	return CPropertyPage::OnSetActive();
 }
 
+
 void CDisplayDlg::OnColorRecv() {
 	g_ColorRecv = m_RecvBtn.m_crCurrentColor;
 	ShowSampleIcon();
 	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
+
 
 void CDisplayDlg::OnColorIconBack() {
 	g_ColorIconBack = m_IconBtn.m_crCurrentColor;
@@ -166,6 +173,7 @@ void CDisplayDlg::OnColorSent() {
 	ShowSampleIcon();
 	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
+
 
 void CDisplayDlg::ShowSampleIcon() {
 	STATS_STRUCT r[MAX_SAMPLES];
@@ -198,10 +206,12 @@ void CDisplayDlg::OnStartwithwindows() {
 	g_bStartWithWindows = IsDlgButtonChecked(IDC_STARTWITHWINDOWS);
 }
 
+
 void CDisplayDlg::OnOntop() {
 	g_bOnTop = IsDlgButtonChecked(IDC_ONTOP);
 	GetParent()->SetWindowPos(g_bOnTop ? &wndTopMost : &wndNoTopMost, 0, 0, 0, 0, SWP_SHOWWINDOW | SWP_NOMOVE | SWP_NOSIZE);
 }
+
 
 void CDisplayDlg::OnDefaultColors() {
 	g_ColorSent = COLOR_ICON_SENT;
@@ -217,6 +227,7 @@ void CDisplayDlg::OnDefaultColors() {
 	InvalidateRect(NULL);
 	GetDlgItem(IDC_UNDO)->EnableWindow(TRUE);
 }
+
 
 void CDisplayDlg::OnUndo() {
 	g_ColorSent = m_Restore_ColorSent;
@@ -234,6 +245,7 @@ void CDisplayDlg::OnUndo() {
 	GetDlgItem(IDC_UNDO)->EnableWindow(FALSE);
 }
 
+
 void CDisplayDlg::OnCancel() {
 	OnUndo();
 	CPropertyPage::OnCancel();
@@ -243,6 +255,7 @@ void CDisplayDlg::OnCancel() {
 void CDisplayDlg::OnIconBargraph() {
 	OnIconHistogram();
 }
+
 
 void CDisplayDlg::OnIconHistogram() {
 	if (IsDlgButtonChecked(IDC_ICON_BARGRAPH))

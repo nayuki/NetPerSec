@@ -40,7 +40,9 @@ COptionsDlg::COptionsDlg() : CPropertyPage(COptionsDlg::IDD) {
 	//}}AFX_DATA_INIT
 }
 
+
 COptionsDlg::~COptionsDlg() {}
+
 
 void COptionsDlg::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);
@@ -59,6 +61,7 @@ BEGIN_MESSAGE_MAP(COptionsDlg, CPropertyPage)
 	ON_CBN_SELCHANGE(IDC_INTERFACES, OnSelchangeInterfaces)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
+
 
 /* COptionsDlg message handlers */
 
@@ -182,9 +185,11 @@ void COptionsDlg::OnUseSnmp() {
 	theApp.m_wnd.ResetData();
 }
 
+
 void COptionsDlg::OnUseDun() {
 	OnUseSnmp();
 }
+
 
 BOOL COptionsDlg::OnSetActive() {
 	CSnmp *pSnmp = &theApp.m_wnd.snmp;
@@ -208,9 +213,11 @@ BOOL COptionsDlg::OnSetActive() {
 	return CPropertyPage::OnSetActive();
 }
 
+
 void COptionsDlg::OnMonitorAdapter() {
 	OnUseSnmp();
 }
+
 
 void COptionsDlg::OnSelchangeInterfaces() {
 	OnUseSnmp();

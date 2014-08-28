@@ -10,12 +10,14 @@
 HANDLE hPollForTrapEvent = NULL;
 AsnObjectIdentifier SupportedView = {0, 0};
 
+
 LPVOID CSnmp::SnmpUtilMemAlloc(UINT nSize) {
 	if (m_fpSnmpUtilMemAlloc != NULL)
 		return m_fpSnmpUtilMemAlloc(nSize);
 	else
 		return GlobalAlloc(GPTR, nSize);
 }
+
 
 void CSnmp::SnmpUtilMemFree(LPVOID pMem) {
 	if (m_fpSnmpUtilMemFree != NULL)
@@ -37,6 +39,7 @@ CSnmp::CSnmp() {
 	m_fpGetIfEntry = 0;
 	m_bUseGetInterfaceInfo = FALSE;  // Win2000
 }
+
 
 CSnmp::~CSnmp() {
 	if (m_pvarBindList != NULL) SnmpUtilMemFree(m_pvarBindList);
@@ -86,6 +89,7 @@ BOOL CSnmp::CheckNT() {
 	}
 	return m_bUse_iphlpapi;
 }
+
 
 // Check if an interface, such as DUN, has been added or removed.
 // Win2000 does not report adapters until they are used.
@@ -170,6 +174,7 @@ BOOL CSnmp::Init() {
 	
 	return TRUE;
 }
+
 
 // Uses the IPHLPAPI interface to retrieve the sent and received bytes
 void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {

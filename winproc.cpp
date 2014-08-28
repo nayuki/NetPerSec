@@ -26,6 +26,7 @@ Cwinproc::Cwinproc() {
 	m_dwStartTime = GetTickCount();
 }
 
+
 Cwinproc::~Cwinproc() {}
 
 
@@ -36,6 +37,7 @@ void Cwinproc::OnClose() {
 		Shell_NotifyIcon(NIM_DELETE, &m_SystemTray);
 	CWnd::OnClose();
 }
+
 
 // Cwinproc
 BEGIN_MESSAGE_MAP(Cwinproc, CWnd)
@@ -74,6 +76,7 @@ void Cwinproc::StartUp() {
 			AfxMessageBox("System tray error.");
 	}
 }
+
 
 void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT *pStats) {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);

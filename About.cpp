@@ -71,7 +71,9 @@ CAboutPage::CAboutPage() : CPropertyPage(CAboutPage::IDD) {
 	//}}AFX_DATA_INIT
 }
 
+
 CAboutPage::~CAboutPage() {}
+
 
 void CAboutPage::DoDataExchange(CDataExchange *pDX) {
 	CPropertyPage::DoDataExchange(pDX);

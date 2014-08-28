@@ -17,6 +17,7 @@ CIcons::CIcons() {
 	ZeroMemory(&m_HistogramIconInfo, sizeof(m_HistogramIconInfo));
 }
 
+
 CIcons::~CIcons() {
 	if (m_hHistogramIcon != NULL) DestroyIcon(m_hHistogramIcon);
 	if (m_hBarGraphIcon  != NULL) DestroyIcon(m_hBarGraphIcon);

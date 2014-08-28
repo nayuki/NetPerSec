@@ -176,11 +176,13 @@ void QualifyPathName(CString *pFile, LPCSTR pIni) {
 	*pFile = szName;
 }
 
+
 int GetPrivateProfileInt(LPCSTR pKey, int nDefault) {
 	CString sFileName;
 	QualifyPathName(&sFileName, SZ_NETPERSEC_INI);
 	return GetPrivateProfileInt(SZ_CONFIG, pKey, nDefault, sFileName);
 }
+
 
 int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int nSize) {
 	CString sFileName;
@@ -188,11 +190,13 @@ int GetPrivateProfileString(LPCSTR pKey, LPCSTR lpDefault, LPSTR lpReturn, int n
 	return GetPrivateProfileString(SZ_CONFIG, pKey, lpDefault, lpReturn, nSize, sFileName);
 }
 
+
 void WritePrivateProfileInt(LPCSTR pSection, int nValue) {
 	char buf[256];
 	wsprintf(buf, "%u", nValue);
 	WritePrivateProfileString(pSection, buf);
 }
+
 
 void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue) {
 	CString sFileName;
@@ -200,10 +204,12 @@ void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue) {
 	WritePrivateProfileString(SZ_CONFIG, pSection, pValue, sFileName);
 }
 
+
 void SaveWindowPosition(CRect &pRect) {
 	WritePrivateProfileInt(SZ_WINPOS_TOP , pRect.top );
 	WritePrivateProfileInt(SZ_WINPOS_LEFT, pRect.left);
 }
+
 
 void LoadWindowPosition(CRect &pRect) {
 	pRect.top  = (int)GetPrivateProfileInt(SZ_WINPOS_TOP , -1);
@@ -232,6 +238,7 @@ void ReadSettings() {
 	g_MonitorMode       = (MONITOR_MODE)GetPrivateProfileInt(SZ_MONITOR_MODE, 0);
 	g_dwAdapter         = GetPrivateProfileInt(SZ_ADAPTER_INDEX, 0);
 }
+
 
 void SaveSettings() {
 	WritePrivateProfileInt(SZ_SAMPLERATE    , g_nSampleRate);

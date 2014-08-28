@@ -21,6 +21,7 @@ CNetPerSecApp theApp;
 // Private message for the taskbar
 extern UINT TaskbarCallbackMsg;
 
+
 // CNetPerSecApp
 BEGIN_MESSAGE_MAP(CNetPerSecApp, CWinApp)
 	//{{AFX_MSG_MAP(CNetPerSecApp)
@@ -29,6 +30,7 @@ BEGIN_MESSAGE_MAP(CNetPerSecApp, CWinApp)
 	//}}AFX_MSG
 	ON_COMMAND(ID_HELP, CWinApp::OnHelp)
 END_MESSAGE_MAP()
+
 
 // CNetPerSecApp construction
 CNetPerSecApp::CNetPerSecApp() {

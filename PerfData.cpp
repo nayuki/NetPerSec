@@ -18,6 +18,7 @@ CPerfData::CPerfData() {
 	m_bIs95 = FALSE;
 }
 
+
 CPerfData::~CPerfData() {}
 
 
@@ -122,6 +123,7 @@ void CPerfData::ReadData9x(DWORD *pRecv, DWORD *pSent) {
 	}
 }
 
+
 void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 	DWORD BufferSize = TOTALBYTES;
 	
@@ -166,6 +168,7 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 	}
 	free(PerfData);
 }
+
 
 void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 	static BOOL bInitPerfData = FALSE;

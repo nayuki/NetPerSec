@@ -44,15 +44,18 @@ BOOL CGraphs::Create(DWORD dwStyle, const RECT &rc, CWnd *pParentWnd, UINT nID, 
 			(HMENU)nID);
 }
 
+
 void CGraphs::SetGraphRange(UINT nRange) {
 	m_nGraphRange = max(nRange, 1);
 	RedrawGraph();
 }
 
+
 // For line graph
 void CGraphs::SetSize(int nPoints) {
 	m_GraphArray.SetSize(nPoints);
 }
+
 
 void CGraphs::SetStyle(BOOL nStyle) {
 	m_bBarGraph = nStyle;
@@ -61,6 +64,7 @@ void CGraphs::SetStyle(BOOL nStyle) {
 		m_GraphArray[i] = 0;
 }
 
+
 void CGraphs::DrawGrid(CDC &pDC, CRect &pRect) {
 	CPen pen(PS_SOLID, 1, RGB(0,128,0));
 	CPen *pOldPen = pDC.SelectObject(&pen);
@@ -68,6 +72,7 @@ void CGraphs::DrawGrid(CDC &pDC, CRect &pRect) {
 	pDC.LineTo(pRect.right, pRect.Height() / 2);
 	pDC.SelectObject(pOldPen);
 }
+
 
 void CGraphs::ClearGraph() {
 	CRect rc;
@@ -97,10 +102,12 @@ void CGraphs::RedrawGraph() {
 	InvalidateRect(rcClient);
 }
 
+
 void CGraphs::SetPos(UINT nPos, COLORREF cr, int nIndex) {
 	DrawGraph(nPos, cr, nIndex);
 	Invalidate();
 }
+
 
 void CGraphs::OnPaint() {
 	CPaintDC dc(this);  // Device context for painting
@@ -113,6 +120,7 @@ void CGraphs::OnPaint() {
 	if (m_MemDC.GetSafeHdc() != NULL)
 		dc.BitBlt(0, 0, rcClient.Width(), rcClient.Height(), &m_MemDC, 0, 0, SRCCOPY);
 }
+
 
 void CGraphs::ShiftLeft() {
 	CRect rcClient;
@@ -168,6 +176,7 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 		}
 	}
 }
+
 
 int CGraphs::GetTotalElements() {
 	CRect rc;

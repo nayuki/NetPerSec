@@ -30,6 +30,7 @@ BEGIN_MESSAGE_MAP(CColorCube, CButton)
 	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
+
 // CColorCube message handlers
 void CColorCube::DrawItem(LPDRAWITEMSTRUCT lpd) {
 	CDC dc;
