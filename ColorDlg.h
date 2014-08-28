@@ -1,5 +1,4 @@
-#ifndef _COLORCUBE_H
-#define _COLORCUBE_H
+#pragma once
 
 
 class CColorCubeDlg : public CDialog {
@@ -66,5 +65,3 @@ public:
 private:
 	CColorCubeDlg dlg;
 };
-
-#endif

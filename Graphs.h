@@ -1,5 +1,4 @@
-#ifndef __GRAPHS_H__
-#define __GRAPHS_H__
+#pragma once
 
 
 // CGraphs window
@@ -45,5 +44,3 @@ protected:
 	BOOL m_bBarGraph;
 	CUIntArray m_GraphArray;
 };
-
-#endif

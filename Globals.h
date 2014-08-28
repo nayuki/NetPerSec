@@ -1,5 +1,5 @@
-#ifndef _GLOBALS_H
-#define _GLOBALS_H
+#pragma once
+
 
 // netpsersec.ini strings
 #define SZ_APPNAME "NetPerSec"
@@ -104,5 +104,3 @@ void WritePrivateProfileString(LPCSTR pSection, LPCSTR pValue);
 void LoadWindowPosition(CRect &pRect);
 void SaveWindowPosition(CRect &pRect);
 DWORD GetServicePack();
-
-#endif

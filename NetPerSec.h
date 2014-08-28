@@ -1,9 +1,4 @@
-#ifndef AFX_NETPERSEC_H
-#define AFX_NETPERSEC_H
-
-#if _MSC_VER > 1000
 #pragma once
-#endif
 
 #ifndef __AFXWIN_H__
 #error "include 'StdAfx.h' before including this file for PCH"
@@ -49,5 +44,3 @@ extern CNetPerSecApp theApp;
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif

@@ -1,9 +1,4 @@
-#if !defined(AFX_DLGPROPSHEET_H__7FE7EC25_9C41_11D4_A181_004033572A05__INCLUDED_)
-#define AFX_DLGPROPSHEET_H__7FE7EC25_9C41_11D4_A181_004033572A05__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif
 
 #include "SessionDlg.h"
 #include "OptionsDlg.h"
@@ -59,5 +54,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif

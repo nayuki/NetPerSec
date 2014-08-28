@@ -1,9 +1,4 @@
-#ifndef AFX_PERFDATA_H
-#define AFX_PERFDATA_H
-
-#if _MSC_VER > 1000
 #pragma once
-#endif
 
 #include <vector>
 #include <Winperf.h>
@@ -65,5 +60,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif

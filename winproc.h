@@ -1,9 +1,4 @@
-#if !defined(AFX_WINPROC_H__6564E3DE_EB5F_4094_9AEC_CF329AE35837__INCLUDED_)
-#define AFX_WINPROC_H__6564E3DE_EB5F_4094_9AEC_CF329AE35837__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif
 
 #include "Globals.h"
 #include "DlgPropSheet.h"
@@ -66,5 +61,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif

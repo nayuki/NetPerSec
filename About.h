@@ -1,9 +1,4 @@
-#if !defined(AFX_ABOUT_H__EE7BB821_9D35_11D4_A181_004033572A05__INCLUDED_)
-#define AFX_ABOUT_H__EE7BB821_9D35_11D4_A181_004033572A05__INCLUDED_
-
-#if _MSC_VER > 1000
 #pragma once
-#endif
 
 
 // CAboutPage dialog
@@ -40,5 +35,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif

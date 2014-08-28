@@ -1,5 +1,4 @@
-#ifndef _ICONS_H_
-#define _ICONS_H_
+#pragma once
 
 #include "Globals.h"
 
@@ -24,5 +23,3 @@ private:
 	void FillHistogramIcon(CDC &pDC, STATS_STRUCT *pRecv , COLORREF color, CRect &prc);
 	void FillBarIcon      (CDC &pDC, STATS_STRUCT *pStats, COLORREF color, CRect &prc);
 };
-
-#endif

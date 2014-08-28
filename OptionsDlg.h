@@ -1,9 +1,4 @@
-#ifndef AFX_OPTIONSDLG_H
-#define AFX_OPTIONSDLG_H
-
-#if _MSC_VER > 1000
 #pragma once
-#endif
 
 
 // COptionsDlg dialog
@@ -48,5 +43,3 @@ protected:
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
-
-#endif

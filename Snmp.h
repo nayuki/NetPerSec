@@ -1,5 +1,4 @@
-#ifndef SNMP_UTIL_H
-#define SNMP_UTIL_H
+#pragma once
 
 #include <snmp.h>
 #include "iphlpapi.h"  // Requires the platform SDK
@@ -90,5 +89,3 @@ private:
 	void ShowSystemError(int nID);
 	BOOL CheckNT();
 };
-
-#endif
