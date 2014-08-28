@@ -124,7 +124,7 @@ DWORD Cwinproc::GetRecentMaximum(STATS_STRUCT *stats, int num, int type) {
 void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	// Retrieve the total number of bytes received and sent by all network adapters, modulo 2^32.
 	// Each network adapter counts from its own epoch, which is the last time the cable or wireless LAN was connected. 
-	DWORD s, r;
+	DWORD r, s;
 	snmp.GetReceivedAndSentOctets(&r, &s);
 	
 	// Calculate the bytes transferred in the time interval that started a few seconds ago and ended just now.
