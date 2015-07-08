@@ -21,13 +21,13 @@ IMPLEMENT_DYNAMIC(DlgPropSheet, CPropertySheet)
 
 
 DlgPropSheet::DlgPropSheet(UINT nIDCaption, CWnd *pParentWnd, UINT iSelectPage)
-	:CPropertySheet(nIDCaption, pParentWnd, iSelectPage) {
+		: CPropertySheet(nIDCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
 
 
 DlgPropSheet::DlgPropSheet(LPCTSTR pszCaption, CWnd *pParentWnd, UINT iSelectPage)
-	:CPropertySheet(pszCaption, pParentWnd, iSelectPage) {
+		: CPropertySheet(pszCaption, pParentWnd, iSelectPage) {
 	AddPropPages();
 }
 
