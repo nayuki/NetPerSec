@@ -35,15 +35,10 @@ void InitDlg(HWND hDlg) {
 		int cchRoot = lstrlen(szGetName);
 		
 		// Walk through the dialog items that we want to replace
-		for (int i = 0; i < 3; i++) {
-			WORD wID;
-			if (i == 0)
-				wID = IDC_COPYRIGHT;
-			else if (i == 1)
-				wID = IDC_VERSION;
-			
+		static WORD idcs[] = {IDC_COPYRIGHT, IDC_VERSION};
+		for (int i = 0; i < 2; i++) {
 			TCHAR szResult[256];
-			::GetDlgItemText(hDlg, wID, szResult, sizeof(szResult));
+			::GetDlgItemText(hDlg, idcs[i], szResult, sizeof(szResult));
 			lstrcpy(&szGetName[cchRoot], szResult);
 			LPTSTR lszVer = NULL;
 			UINT cchVer = 0;
@@ -52,7 +47,7 @@ void InitDlg(HWND hDlg) {
 			if (fRet && cchVer != 0 && lszVer != NULL) {
 				// Replace dialog item text with version info
 				lstrcpy(szResult, lszVer);
-				::SetDlgItemText(hDlg, wID, szResult);
+				::SetDlgItemText(hDlg, idcs[i], szResult);
 			}
 		}
 		GlobalUnlock(hMem);
