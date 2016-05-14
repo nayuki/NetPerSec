@@ -81,30 +81,24 @@ void Cwinproc::StartUp() {
 void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STRUCT *pStats) {
 	ASSERT(g_nAveragingWindow <= MAX_SAMPLES);
 	
+	// Write first few fields into array head element
 	pStats[0].Bps = dwBps;
 	pStats[0].total = dbTotal;
 	pStats[0].time = dwTime;  // Current time interval (ms)
 	
 	// The index in the array for calculating averages
 	int start = g_nAveragingWindow;
-	
-	// The array entry may not have been filled in yet
-	while (start > 0 && pStats[start].total == 0)
+	while (start > 0 && (start >= MAX_SAMPLES || pStats[start].total == 0))
 		start--;
 	
-	// Set average based upon sampling window size
-	double dbSampleTotal = 0;
-	
 	// Total bytes received/sent in our sampling window
-	if (pStats[start].total != 0)
-		dbSampleTotal = dbTotal - pStats[start].total;
+	double dbSampleTotal = dbTotal - pStats[start].total;
 	
 	// Elapsed time (ms)
 	DWORD dwElapsed = pStats[0].time - pStats[start].time;
 	
 	// Calculate average
-	if (dwElapsed > 0)
-		pStats[0].ave = (DWORD)(dbSampleTotal * 1000.0 / dwElapsed + 0.5);
+	pStats[0].ave = dwElapsed > 0 ? (DWORD)(dbSampleTotal * 1000.0 / dwElapsed + 0.5) : 0;
 }
 
 
