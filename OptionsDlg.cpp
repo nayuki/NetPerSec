@@ -157,9 +157,8 @@ void COptionsDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar *pScrollBar) {
 	ASSERT(pCtrl != NULL);
 	
 	if (nControl == IDC_SAMPLE_SLIDER) {
-		int nPos = pCtrl->GetPos();
-		nPos = min(nPos, ELEMENTS(SampleIntervals));
-		g_nSampleRate = SampleIntervals[nPos];
+		int nPos2 = min(pCtrl->GetPos(), ELEMENTS(SampleIntervals));
+		g_nSampleRate = SampleIntervals[nPos2];
 		theApp.m_wnd.SetTimer(TIMER_ID_WINPROC, g_nSampleRate, NULL);
 	}
 	

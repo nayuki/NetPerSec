@@ -33,8 +33,10 @@ HICON CIcons::GetIcon(STATS_STRUCT *pRecv, STATS_STRUCT *pSent, ICON_STYLE nStyl
 		return GetHistogramIcon(pRecv, pSent);
 	else if (nStyle == ICON_BARGRAPH)
 		return GetBargraphIcon(pRecv, pSent);
-	else
+	else {
 		ASSERT(false);
+		return NULL;
+	}
 }
 
 

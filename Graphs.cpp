@@ -156,11 +156,13 @@ void CGraphs::DrawGraph(UINT nPos, COLORREF crColor, int nLineIndex) {
 		DrawGrid(m_MemDC, rcRight);
 		
 		// Draw a tick mark
-		CPen pen(PS_SOLID, 1, RGB(0,128,0));
-		CPen *pOldPen = m_MemDC.SelectObject(&pen);
-		m_MemDC.MoveTo(rcRight.left, rcRight.Height() / 2 - 2);
-		m_MemDC.LineTo(rcRight.left, rcRight.Height() / 2 + 3);
-		m_MemDC.SelectObject(pOldPen);
+		{
+			CPen pen(PS_SOLID, 1, RGB(0,128,0));
+			CPen *pOldPen = m_MemDC.SelectObject(&pen);
+			m_MemDC.MoveTo(rcRight.left, rcRight.Height() / 2 - 2);
+			m_MemDC.LineTo(rcRight.left, rcRight.Height() / 2 + 3);
+			m_MemDC.SelectObject(pOldPen);
+		}
 		
 		// Draw graph
 		if (m_bBarGraph) {
