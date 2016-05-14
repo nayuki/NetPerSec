@@ -104,7 +104,7 @@ void Cwinproc::CalcAverages(double dbTotal, DWORD dwTime, DWORD dwBps, STATS_STR
 	
 	// Calculate average
 	if (dwElapsed > 0)
-		pStats[0].ave = MulDiv((DWORD)dbSampleTotal, 1000, dwElapsed);
+		pStats[0].ave = (DWORD)(dbSampleTotal * 1000.0 / dwElapsed + 0.5);
 }
 
 
