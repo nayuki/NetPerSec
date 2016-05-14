@@ -158,8 +158,8 @@ void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	DWORD dwRecv_bps = 0;
 	DWORD dwSent_bps = 0;
 	if (elapsed > 0) {
-		dwRecv_bps = MulDiv(curRecv, 1000, elapsed);
-		dwSent_bps = MulDiv(curSent, 1000, elapsed);
+		dwRecv_bps = (DWORD)(curRecv * 1000.0 / elapsed + 0.5);
+		dwSent_bps = (DWORD)(curSent * 1000.0 / elapsed + 0.5);
 	}
 	
 	// Shift over previous data

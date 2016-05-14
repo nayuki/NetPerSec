@@ -44,7 +44,7 @@ void CIcons::FillBarIcon(CDC &pDC, STATS_STRUCT *pStats, COLORREF color, CRect &
 	pDC.FillRect(prc, &back);
 	
 	DWORD dwHigh = Cwinproc::GetRecentMaximum(pStats, 15, 0);
-	prc.top = prc.bottom - MulDiv(pStats[0].Bps, 14, dwHigh);
+	prc.top = prc.bottom - (LONG)(pStats[0].Bps * 14.0 / dwHigh + 0.5);
 	CBrush brush(color);
 	pDC.FillRect(prc, &brush);
 }
