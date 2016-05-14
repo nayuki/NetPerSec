@@ -88,7 +88,7 @@ BEGIN
     LTEXT           "FileVersion",IDC_VERSION,139,74,44,8
     CTEXT           "LegalCopyright",IDC_COPYRIGHT,36,96,212,11
     RTEXT           "Version:",IDC_STATIC,109,74,26,8
-    CTEXT           "First published in PC Magazine, US Edition, 2001-01-16\nWritten by Mark Sweeney\n\nUpdated by Nayuki Minase\nhttp://nayuki.eigenstate.org/page/netpersec-nayukis-version",IDC_STATIC,27,136,230,44
+    CTEXT           "First published in PC Magazine, US Edition, 2001-01-16\nWritten by Mark Sweeney\n\nUpdated by Project Nayuki\nhttps://www.nayuki.io/page/netpersec-nayukis-version",IDC_STATIC,27,136,230,44
     LTEXT           "NetPerSec",IDC_STATIC,126,26,36,8
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,71,119,146,1
     ICON            IDI_MAINFRAME,IDC_STATIC,131,43,20,20
@@ -285,7 +285,7 @@ BEGIN
             VALUE "Comments", "Written by Mark Sweeney\0"
             VALUE "CompanyName", "Ziff-Davis Media, Inc.\0"
             VALUE "FileDescription", "NetPerSec\0"
-            VALUE "FileVersion", "2014-01-09\0"
+            VALUE "FileVersion", "2016-05-14\0"
             VALUE "InternalName", "NetPerSec\0"
             VALUE "LegalCopyright", "Copyright © 2000 Ziff-Davis Media, Inc.  All Rights Reserved.\0"
             VALUE "LegalTrademarks", "\0"
