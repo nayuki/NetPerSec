@@ -121,27 +121,24 @@ DWORD Cwinproc::GetRecentMaximum(STATS_STRUCT *stats, int num, int type) {
 void Cwinproc::OnTimer(UINT /* nIDEvent */) {
 	// Retrieve the total number of bytes received and sent by all network adapters, modulo 2^32.
 	// Each network adapter counts from its own epoch, which is the last time the cable or wireless LAN was connected. 
-	DWORD r, s;
-	snmp.GetReceivedAndSentOctets(r, s);
+	DWORD r = 0;
+	DWORD s = 0;
+	bool ok = snmp.GetReceivedAndSentOctets(r, s);
 	
-	// Calculate the bytes transferred in the time interval that started a few seconds ago and ended just now.
-	// Consider this calculation invalid if any of these conditions are true:
-	// - The current total bytes r and s are 0 (network adapter disconnected/reset)
-	// - The previous total bytes are 0 (NetPerSec counter was reset using ResetData())
-	// - The data transferred in this interval exceeds 3 GiB (too fast to be plausible)
-	DWORD curRecv, curSent;
-	if (r == 0 && s == 0 || m_PrevBytesRecv == 0 && m_PrevBytesSent == 0
-			|| r - m_PrevBytesRecv > 0xC0000000u || s - m_PrevBytesSent > 0xC0000000u) {
-		curRecv = 0;
-		curSent = 0;
-	} else {
-		curRecv = r - m_PrevBytesRecv;  // With 32-bit unsigned wraparound
-		curSent = s - m_PrevBytesSent;
+	DWORD curRecv = 0;
+	DWORD curSent = 0;
+	if (ok) {
+		if (m_PrevBytesOk) {
+			curRecv = r - m_PrevBytesRecv;  // With 32-bit unsigned wraparound
+			curSent = s - m_PrevBytesSent;
+		}
+		m_PrevBytesRecv = r;
+		m_PrevBytesSent = s;
 	}
-	m_PrevBytesRecv = r;
-	m_PrevBytesSent = s;
+	
 	m_TotalBytesRecv += curRecv;
 	m_TotalBytesSent += curSent;
+	m_PrevBytesOk = ok;
 	
 	// Don't depend upon timing of WM_TIMER messages. Get the true number of milliseconds elapsed
 	DWORD dwTime = GetTickCount();
@@ -273,6 +270,7 @@ void Cwinproc::UpdateTrayIcon(HICON hIcon) {
 void Cwinproc::ResetData() {
 	ZeroMemory(RecvStats, sizeof(RecvStats));
 	ZeroMemory(SentStats, sizeof(SentStats));
+	m_PrevBytesOk = false;
 	m_TotalBytesRecv = 0;
 	m_TotalBytesSent = 0;
 	m_PrevBytesRecv = 0;

@@ -22,6 +22,7 @@ public:
 	DlgPropSheet *m_pPropertiesDlg;
 	
 	DWORD m_dwStartTime;
+	bool m_PrevBytesOk;
 	DWORD m_PrevBytesRecv;
 	DWORD m_PrevBytesSent;
 	double m_TotalBytesRecv;
