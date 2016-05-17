@@ -32,11 +32,12 @@ CSnmp::CSnmp() {
 	m_fpSnmpUtilMemFree = NULL;
 	m_pvarBindList = NULL;
 	m_bUse_iphlpapi = FALSE;
-	m_hInstIpHlp = 0;
-	m_hInstSnmp = 0;
+	m_hInst = NULL;
+	m_hInstIpHlp = NULL;
+	m_hInstSnmp = NULL;
 	m_dwInterfaces = 0;
-	m_fpGetNumberOfInterfaces = 0;
-	m_fpGetIfEntry = 0;
+	m_fpGetNumberOfInterfaces = NULL;
+	m_fpGetIfEntry = NULL;
 	m_bUseGetInterfaceInfo = FALSE;  // Win2000
 }
 
@@ -46,9 +47,6 @@ CSnmp::~CSnmp() {
 	if (m_hInst      != NULL) FreeLibrary(m_hInst);
 	if (m_hInstIpHlp != NULL) FreeLibrary(m_hInstIpHlp);
 	if (m_hInstSnmp  != NULL) FreeLibrary(m_hInstSnmp);
-	m_hInstSnmp = 0;
-	m_hInstIpHlp = 0;
-	m_hInst = 0;
 }
 
 
