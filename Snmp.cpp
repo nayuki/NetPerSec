@@ -202,6 +202,9 @@ void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
 
 // Returns the number of bytes received and sent through all network interfaces
 void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
+	*pRecv = 0;
+	*pSent = 0;
+	
 	#define VAR_BINDS 3
 	RFC1157VarBind varBind[VAR_BINDS];
 	AsnInteger errorStatus;
@@ -364,9 +367,6 @@ void CSnmp::ShowSystemError(int nID) {
 
 // Returns the number of bytes received and sent
 void CSnmp::GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent) {
-	*pRecv = 0;
-	*pSent = 0;
-	
 	if (g_MonitorMode == MONITOR_DUN)  // Use performance data from the registry
 		perfdata.GetReceivedAndSentOctets(pRecv, pSent);
 	else if (m_bUse_iphlpapi)  // Use IPHLPAPI.DLL

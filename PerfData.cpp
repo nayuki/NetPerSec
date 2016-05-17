@@ -182,6 +182,8 @@ void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 		bInitPerfData = TRUE;
 	}
 	
+	*pReceived = 0;
+	*pSent = 0;
 	if (m_bIs95)
 		ReadData9x(pReceived, pSent);
 	else
