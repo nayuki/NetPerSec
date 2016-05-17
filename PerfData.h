@@ -10,7 +10,7 @@ class CPerfData {
 public:
 	CPerfData();
 	
-	void GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent);
+	void GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent);
 	
 // Attributes
 public:
@@ -21,8 +21,8 @@ private:
 	BOOL m_bIs95;
 	
 	void GetNameStrings();
-	void ReadData9x(DWORD *pRecv, DWORD *pSent);
-	void ReadDataNT(DWORD *pRecv, DWORD *pSent);
+	void ReadData9x(DWORD &pRecv, DWORD &pSent);
+	void ReadDataNT(DWORD &pRecv, DWORD &pSent);
 	BOOL GetPerfStats9x(LPCSTR pKey, DWORD *dwValue);
 	
 // Implementation

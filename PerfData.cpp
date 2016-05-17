@@ -112,10 +112,10 @@ void CPerfData::GetNameStrings() {
 }
 
 
-void CPerfData::ReadData9x(DWORD *pRecv, DWORD *pSent) {
+void CPerfData::ReadData9x(DWORD &pRecv, DWORD &pSent) {
 	static BOOL bErrorShown = FALSE;
-	if (GetPerfStats9x("Dial-Up Adapter\\TotalBytesXmit" , pSent))
-		GetPerfStats9x("Dial-Up Adapter\\TotalBytesRecvd", pRecv);
+	if (GetPerfStats9x("Dial-Up Adapter\\TotalBytesXmit" , &pSent))
+		GetPerfStats9x("Dial-Up Adapter\\TotalBytesRecvd", &pRecv);
 	else if (!bErrorShown) {
 		// Requires the dial-up networking update
 		bErrorShown = TRUE;
@@ -124,7 +124,7 @@ void CPerfData::ReadData9x(DWORD *pRecv, DWORD *pSent) {
 }
 
 
-void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
+void CPerfData::ReadDataNT(DWORD &pRecv, DWORD &pSent) {
 	DWORD BufferSize = TOTALBYTES;
 	
 	// Allocate the buffer
@@ -154,10 +154,10 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 			// Retrieve all counters
 			for (DWORD j = 0; j < PerfObj->NumCounters; j++) {
 				if (strcmp("Bytes Transmitted", m_lpNamesArray[PerfCntr->CounterNameTitleIndex]) == 0)
-					*pSent = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
+					pSent = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
 				
 				if (strcmp("Bytes Received", m_lpNamesArray[PerfCntr->CounterNameTitleIndex]) == 0)
-					*pRecv = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
+					pRecv = *(DWORD*)((BYTE*)PtrToCntr + PerfCntr->CounterOffset);
 				
 				// Get the next counter
 				PerfCntr = NextCounter(PerfCntr);
@@ -170,7 +170,7 @@ void CPerfData::ReadDataNT(DWORD *pRecv, DWORD *pSent) {
 }
 
 
-void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
+void CPerfData::GetReceivedAndSentOctets(DWORD &pReceived, DWORD &pSent) {
 	static BOOL bInitPerfData = FALSE;
 	if (!bInitPerfData) {
 		DWORD ver = GetVersion();
@@ -182,8 +182,8 @@ void CPerfData::GetReceivedAndSentOctets(DWORD *pReceived, DWORD *pSent) {
 		bInitPerfData = TRUE;
 	}
 	
-	*pReceived = 0;
-	*pSent = 0;
+	pReceived = 0;
+	pSent = 0;
 	if (m_bIs95)
 		ReadData9x(pReceived, pSent);
 	else

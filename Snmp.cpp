@@ -177,12 +177,12 @@ BOOL CSnmp::Init() {
 
 
 // Uses the IPHLPAPI interface to retrieve the sent and received bytes
-void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
+void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent) {
 	MIB_IFROW mib;
 	ZeroMemory(&mib, sizeof(mib));
 	
-	*pReceived = 0;
-	*pSent = 0;
+	pReceived = 0;
+	pSent = 0;
 	
 	GetInterfaces();
 	for (DWORD i = 0; i < m_dwInterfaces; i++) {
@@ -193,17 +193,17 @@ void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD *pReceived, DWORD *pSent) {
 			continue;
 		
 		if (m_fpGetIfEntry(&mib) == NO_ERROR && mib.dwType != MIB_IF_TYPE_LOOPBACK) {
-			*pReceived += mib.dwInOctets;
-			*pSent += mib.dwOutOctets;
+			pReceived += mib.dwInOctets;
+			pSent += mib.dwOutOctets;
 		}
 	}
 }
 
 
 // Returns the number of bytes received and sent through all network interfaces
-void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
-	*pRecv = 0;
-	*pSent = 0;
+void CSnmp::GetReceivedAndSentOctets_9x(DWORD &pRecv, DWORD &pSent) {
+	pRecv = 0;
+	pSent = 0;
 	
 	#define VAR_BINDS 3
 	RFC1157VarBind varBind[VAR_BINDS];
@@ -241,8 +241,8 @@ void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 		
 		int ret = m_fpExtensionQuery(ASN_RFC1157_GETREQUEST, m_pvarBindList, &errorStatus, &errorIndex);
 		if (ret != 0 && errorStatus == 0) {
-			*pRecv = varBind[0].value.asnValue.number;
-			*pSent = varBind[1].value.asnValue.number;
+			pRecv = varBind[0].value.asnValue.number;
+			pSent = varBind[1].value.asnValue.number;
 		}
 		
 		m_fpSnmpUtilOidFree(&varBind[0].name);
@@ -268,8 +268,8 @@ void CSnmp::GetReceivedAndSentOctets_9x(DWORD *pRecv, DWORD *pSent) {
 			break;
 		
 		if (varBind[2].value.asnValue.number != MIB_IF_TYPE_LOOPBACK) {
-			*pRecv += varBind[0].value.asnValue.number;
-			*pSent += varBind[1].value.asnValue.number;
+			pRecv += varBind[0].value.asnValue.number;
+			pSent += varBind[1].value.asnValue.number;
 		}
 		
 		// Prepare for the next iteration. Make sure returned oid is
@@ -366,7 +366,7 @@ void CSnmp::ShowSystemError(int nID) {
 
 
 // Returns the number of bytes received and sent
-void CSnmp::GetReceivedAndSentOctets(DWORD *pRecv, DWORD *pSent) {
+void CSnmp::GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent) {
 	if (g_MonitorMode == MONITOR_DUN)  // Use performance data from the registry
 		perfdata.GetReceivedAndSentOctets(pRecv, pSent);
 	else if (m_bUse_iphlpapi)  // Use IPHLPAPI.DLL
