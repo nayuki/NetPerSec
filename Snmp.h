@@ -63,12 +63,12 @@ private:
 	HINSTANCE m_hInstSnmp;
 	
 	DWORD m_dwInterfaces;
-	BOOL m_bUseGetInterfaceInfo;
+	bool m_bUseGetInterfaceInfo;
 	
 	SUALLOC m_fpSnmpUtilMemAlloc;
 	SUFREE m_fpSnmpUtilMemFree;
 	RFC1157VarBindList *m_pvarBindList;
-	BOOL m_bUse_iphlpapi;
+	bool m_bUse_iphlpapi;
 	DWORD m_dwInterfaceArray[MAX_INTERFACES];
 	
 	CPerfData perfdata;
@@ -78,7 +78,7 @@ private:
 	void SnmpUtilMemFree(LPVOID pMem);
 	
 public:
-	BOOL Init();
+	bool Init();
 	bool GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent);
 	void GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter);
 	
@@ -87,5 +87,5 @@ private:
 	bool GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent);
 	void GetInterfaces();
 	void ShowSystemError(int nID);
-	BOOL CheckNT();
+	bool CheckNT();
 };

@@ -31,14 +31,14 @@ CSnmp::CSnmp() {
 	m_fpSnmpUtilMemAlloc = NULL;
 	m_fpSnmpUtilMemFree = NULL;
 	m_pvarBindList = NULL;
-	m_bUse_iphlpapi = FALSE;
+	m_bUse_iphlpapi = false;
 	m_hInst = NULL;
 	m_hInstIpHlp = NULL;
 	m_hInstSnmp = NULL;
 	m_dwInterfaces = 0;
 	m_fpGetNumberOfInterfaces = NULL;
 	m_fpGetIfEntry = NULL;
-	m_bUseGetInterfaceInfo = FALSE;  // Win2000
+	m_bUseGetInterfaceInfo = false;  // Win2000
 }
 
 
@@ -52,7 +52,7 @@ CSnmp::~CSnmp() {
 
 // If running under NT use iphlpapi - requires SP4 for NT4 otherwise there is a memory leak in SNMP.
 // We could use this on Win98, however certain releases of IE5 cause iphlpapi to fail.
-BOOL CSnmp::CheckNT() {
+bool CSnmp::CheckNT() {
 	m_dwInterfaces = 0;
 	
 	// Check for NT
@@ -71,7 +71,7 @@ BOOL CSnmp::CheckNT() {
 			if (os.dwMajorVersion < 5) {
 				// Requires SP4 or higher
 				if (GetServicePack() > 0x300 && m_fpGetNumberOfInterfaces != 0)
-					m_bUse_iphlpapi = TRUE;
+					m_bUse_iphlpapi = true;
 				
 			} else {
 				// Windows 2000 and Win98 use what appear to be scalar values in the lower word
@@ -79,8 +79,8 @@ BOOL CSnmp::CheckNT() {
 				// GetInterfaceInfo is not supported by WinNT.
 				m_fpGetInterfaceInfo = (fpGetInterfaceInfo)GetProcAddress(m_hInstIpHlp, "GetInterfaceInfo");
 				if (m_fpGetInterfaceInfo != NULL) {
-					m_bUseGetInterfaceInfo = TRUE;
-					m_bUse_iphlpapi = TRUE;
+					m_bUseGetInterfaceInfo = true;
+					m_bUse_iphlpapi = true;
 				}
 			}
 		}
@@ -92,7 +92,7 @@ BOOL CSnmp::CheckNT() {
 // Check if an interface, such as DUN, has been added or removed.
 // Win2000 does not report adapters until they are used.
 void CSnmp::GetInterfaces() {
-	if (m_bUseGetInterfaceInfo == TRUE) {
+	if (m_bUseGetInterfaceInfo) {
 		if (m_fpGetInterfaceInfo != NULL) {
 			// Query size
 			DWORD dwSize = 0;
@@ -124,13 +124,13 @@ void CSnmp::GetInterfaces() {
 
 
 // Loads the SNMP DLLs.
-BOOL CSnmp::Init() {
+bool CSnmp::Init() {
 	CheckNT();
 	
 	m_hInst = LoadLibraryEx("inetmib1.dll", NULL, 0);
 	if (m_hInst == NULL) {
 		ShowSystemError(IDS_INETMIB1_ERR);
-		return FALSE;
+		return false;
 	}
 	
 	m_fpExtensionInit = (pSnmpExtensionInit)GetProcAddress(m_hInst, "SnmpExtensionInit");
@@ -138,17 +138,17 @@ BOOL CSnmp::Init() {
 	
 	if (m_fpExtensionInit == NULL) {
 		ShowSystemError(IDS_SNMPINIT_ERR);
-		return FALSE;
+		return false;
 	}
 	if (m_fpExtensionQuery == NULL) {
 		ShowSystemError(IDS_SNMPQUERY_ERR);
-		return FALSE;
+		return false;
 	}
 	
 	// Init
 	if (m_fpExtensionInit(GetTickCount(), &hPollForTrapEvent, &SupportedView) == NULL) {
 		ShowSystemError(IDS_SNMPFAIL_ERR);
-		return FALSE;
+		return false;
 	}
 	
 	// Check to see if the MemAlloc and MemFree functions are available
@@ -163,14 +163,14 @@ BOOL CSnmp::Init() {
 		m_fpSnmpUtilOidCpy = (pSnmpUtilOidCpy)GetProcAddress(m_hInstSnmp, "SnmpUtilOidCpy");
 	} else {
 		ShowSystemError(IDS_SNMPAPI_ERR);
-		return FALSE;
+		return false;
 	}
 	
 	// Allocate our bindlist
 	m_pvarBindList = (SnmpVarBindList*)SnmpUtilMemAlloc(sizeof(SnmpVarBindList));
 	ASSERT(m_pvarBindList != NULL);
 	
-	return TRUE;
+	return true;
 }
 
 
