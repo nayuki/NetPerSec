@@ -177,12 +177,13 @@ BOOL CSnmp::Init() {
 
 
 // Uses the IPHLPAPI interface to retrieve the sent and received bytes
-void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent) {
+bool CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent) {
 	MIB_IFROW mib;
 	ZeroMemory(&mib, sizeof(mib));
 	
 	pReceived = 0;
 	pSent = 0;
+	bool ok = false;
 	
 	GetInterfaces();
 	for (DWORD i = 0; i < m_dwInterfaces; i++) {
@@ -192,11 +193,14 @@ void CSnmp::GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent) {
 		if (g_MonitorMode == MONITOR_ADAPTER && g_dwAdapter != mib.dwIndex)
 			continue;
 		
-		if (m_fpGetIfEntry(&mib) == NO_ERROR && mib.dwType != MIB_IF_TYPE_LOOPBACK) {
+		if (m_fpGetIfEntry(&mib) == NO_ERROR && mib.dwType != MIB_IF_TYPE_LOOPBACK &&
+				(mib.dwOperStatus == IF_OPER_STATUS_CONNECTED || mib.dwOperStatus == IF_OPER_STATUS_OPERATIONAL)) {
 			pReceived += mib.dwInOctets;
 			pSent += mib.dwOutOctets;
+			ok = true;
 		}
 	}
+	return ok;
 }
 
 
@@ -366,11 +370,13 @@ void CSnmp::ShowSystemError(int nID) {
 
 
 // Returns the number of bytes received and sent
-void CSnmp::GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent) {
+bool CSnmp::GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent) {
+	bool ok = true;  // Default value
 	if (g_MonitorMode == MONITOR_DUN)  // Use performance data from the registry
 		perfdata.GetReceivedAndSentOctets(pRecv, pSent);
 	else if (m_bUse_iphlpapi)  // Use IPHLPAPI.DLL
-		GetReceivedAndSentOctets_IPHelper(pRecv, pSent);
+		ok = GetReceivedAndSentOctets_IPHelper(pRecv, pSent);
 	else  // Use INETMIB1.DLL
 		GetReceivedAndSentOctets_9x(pRecv, pSent);
+	return ok;
 }

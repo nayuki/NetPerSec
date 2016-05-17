@@ -79,12 +79,12 @@ private:
 	
 public:
 	BOOL Init();
-	void GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent);
+	bool GetReceivedAndSentOctets(DWORD &pRecv, DWORD &pSent);
 	void GetInterfaceDescriptions(CStringArray *sArray, CUIntArray *nAdapter);
 	
 private:
 	void GetReceivedAndSentOctets_9x(DWORD &pRecv, DWORD &pSent);
-	void GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent);
+	bool GetReceivedAndSentOctets_IPHelper(DWORD &pReceived, DWORD &pSent);
 	void GetInterfaces();
 	void ShowSystemError(int nID);
 	BOOL CheckNT();
