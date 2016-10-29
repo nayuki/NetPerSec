@@ -105,4 +105,3 @@ effect.  You agree that the Software will not be shipped, transferred
 or exported into any country or used in any manner prohibited by the 
 United States Export Administration Act or any other export laws, 
 restrictions or regulations. 
-
